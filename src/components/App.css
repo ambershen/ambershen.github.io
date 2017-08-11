@@ -1,0 +1,58 @@
+
+/* fonts and typography styles */
+.section-title {
+	text-align: center;
+}
+
+/* Section layouts */
+
+.greeting-container {
+	background-color: rgba(0,0,0,0.9);
+	height: 100vh;
+	text-align: center;
+}
+
+.greeting-container h1 {
+	color: white;
+	position: absolute;
+	top: 50%;
+	display: inline-block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.aboutMe-container {
+	height: 100vh;
+}
+
+.aboutMe-container {
+	height: 100vh;
+}
+
+.contact-contianer {
+	background-color: rgba(0,0,0,0.9);
+}
+
+/* Elements */
+.self-introduction{
+	width: 50%;
+	margin: 0 auto;
+}
+.self-intro-pic {
+	height:30%;
+	width: 30%;
+	margin: 0 auto;
+}
+.self-intro-title {
+	padding-top: 25px;
+	text-align: center;
+}
+.self-intro-text {
+	padding-top: 15px;
+	text-align: center;
+	font-weight: normal;
+}
+
+.self-intro-text li {
+	list-style-type: none;
+}

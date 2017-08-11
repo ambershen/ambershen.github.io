@@ -14,11 +14,14 @@
   "author": "Rafael Pedicini <code@rafrex.com>",
   "license": "MIT",
   "dependencies": {
+    "css-loader": "^0.28.4",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.2",
+    "react-dom": "^15.6.1",
     "react-interactive": "^0.6.5",
-    "react-router-dom": "^4.1.1"
+    "react-router-dom": "^4.1.1",
+    "style-loader": "^0.18.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -32,7 +35,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
-    "webpack": "^2.4.1",
+    "webpack": "^2.7.0",
     "webpack-dev-server": "^2.4.5"
   }
 }
