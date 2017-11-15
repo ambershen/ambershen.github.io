@@ -7,13 +7,12 @@
 /* Section layouts */
 
 .greeting-container {
-	background-color: rgba(0,0,0,0.9);
 	height: 100vh;
 	text-align: center;
 }
 
 .greeting-container h1 {
-	color: white;
+	color: black;
 	position: absolute;
 	top: 50%;
 	display: inline-block;
@@ -30,7 +29,6 @@
 }
 
 .contact-contianer {
-	background-color: rgba(0,0,0,0.9);
 }
 
 /* Elements */
