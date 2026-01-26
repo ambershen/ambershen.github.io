@@ -106,7 +106,7 @@ a {
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 2px;
-  color: var(--accent);
+  color: var(--gray);
 }
 
 .hero-headline {
@@ -148,16 +148,16 @@ a {
   top: 100px;
   width: 400px;
   height: 400px;
-  background-color: var(--accent);
-  opacity: 0.08;
+  background-color: var(--dark);
+  opacity: 0.04;
 }
 
 .hero-lines {
   position: absolute;
-  right: 100px;
+  right: 160px;
   top: 80px;
   display: flex;
-  gap: 40px;
+  gap: 38px;
 }
 
 .hero-line {
@@ -186,7 +186,7 @@ a {
 
 .scroll-hint {
   position: absolute;
-  right: 52px;
+  right: 100px;
   top: 480px;
   display: flex;
   flex-direction: column;
@@ -228,7 +228,7 @@ a {
   font-family: var(--font-grotesk);
   font-size: 48px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--dark);
 }
 
 .section-label {
@@ -335,7 +335,7 @@ a {
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 2px;
-  color: var(--accent);
+  color: var(--gray);
 }
 
 .footer-cta {
@@ -371,7 +371,7 @@ a {
 
 .footer-copy {
   position: absolute;
-  right: 52px;
+  right: 100px;
   top: 320px;
   font-family: var(--font-mono);
   font-size: 10px;
@@ -381,7 +381,7 @@ a {
 
 .footer-decor {
   position: absolute;
-  right: 100px;
+  left: 900px;
   top: 100px;
   font-family: var(--font-grotesk);
   font-size: 200px;
