@@ -1,0 +1,488 @@
+{
+  "version": "2.6",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "Frame",
+      "clip": true,
+      "width": 800,
+      "height": 600,
+      "fill": "#FFFFFF",
+      "layout": "none"
+    },
+    {
+      "type": "frame",
+      "id": "tzeir",
+      "x": 0,
+      "y": 0,
+      "name": "Creative Technologist Portfolio",
+      "width": 1440,
+      "fill": "#FFFFFF",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "0wJwb",
+          "name": "Header",
+          "width": "fill_container",
+          "height": 72,
+          "stroke": {
+            "thickness": {
+              "bottom": 2
+            },
+            "fill": "#0A0A0C"
+          },
+          "padding": [
+            0,
+            48
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "PFXIV",
+              "name": "logoGroup",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "dT7VT",
+                  "name": "logoShape",
+                  "fill": "#D14A61",
+                  "width": 12,
+                  "height": 12
+                },
+                {
+                  "type": "text",
+                  "id": "NctRm",
+                  "name": "logoText",
+                  "fill": "#0A0A0C",
+                  "content": "AMBER SHEN",
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 14,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "D0TGC",
+          "name": "Hero",
+          "width": "fill_container",
+          "height": 580,
+          "layout": "none",
+          "children": [
+            {
+              "type": "frame",
+              "id": "PQ3mz",
+              "x": 48,
+              "y": 80,
+              "name": "heroContent",
+              "width": 800,
+              "layout": "vertical",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "m4Wet",
+                  "name": "heroLabel",
+                  "fill": "#666666",
+                  "content": "CREATIVE X PRODUCT X AI",
+                  "fontFamily": "Space Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "Cy6Gm",
+                  "name": "heroHeadline",
+                  "fill": "#0A0A0C",
+                  "textGrowth": "fixed-width",
+                  "width": 800,
+                  "content": "Building at the\nintersection of\ncode, narrative\nand aesthetics",
+                  "lineHeight": 0.95,
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 72,
+                  "fontWeight": "700",
+                  "letterSpacing": -2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "RzVGE",
+              "x": 48,
+              "y": 500,
+              "name": "heroLocation",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "1Rrtn",
+                  "name": "locDot",
+                  "fill": "#0A0A0C",
+                  "width": 6,
+                  "height": 6
+                },
+                {
+                  "type": "text",
+                  "id": "cILQN",
+                  "name": "locText",
+                  "fill": "#0A0A0C",
+                  "content": "SAN FRANCISCO, CA",
+                  "fontFamily": "Space Mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "RdKcS",
+              "x": 900,
+              "y": 100,
+              "name": "heroAccent",
+              "opacity": 0.04,
+              "width": 400,
+              "height": 400,
+              "fill": "#0A0A0C"
+            },
+            {
+              "type": "rectangle",
+              "id": "rxkFL",
+              "x": 1200,
+              "y": 80,
+              "name": "heroLine1",
+              "fill": "#0A0A0C",
+              "width": 2,
+              "height": 180
+            },
+            {
+              "type": "rectangle",
+              "id": "kp1Ik",
+              "x": 1240,
+              "y": 80,
+              "name": "heroLine2",
+              "fill": "#D14A61",
+              "width": 2,
+              "height": 120
+            },
+            {
+              "type": "rectangle",
+              "id": "xJ96F",
+              "x": 1280,
+              "y": 80,
+              "name": "heroLine3",
+              "fill": "#0A0A0C",
+              "width": 2,
+              "height": 220
+            },
+            {
+              "type": "frame",
+              "id": "RMAkd",
+              "x": 1340,
+              "y": 480,
+              "name": "scrollHint",
+              "layout": "vertical",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "llWsC",
+                  "name": "scrollText",
+                  "fill": "#666666",
+                  "content": "SCROLL",
+                  "fontFamily": "Space Mono",
+                  "fontSize": 9,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "rectangle",
+                  "id": "BNUTm",
+                  "name": "scrollLine",
+                  "fill": "#666666",
+                  "width": 1,
+                  "height": 40
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "dpNED",
+          "name": "Intro",
+          "width": "fill_container",
+          "stroke": {
+            "thickness": {
+              "top": 2
+            },
+            "fill": "#0A0A0C"
+          },
+          "gap": 120,
+          "padding": [
+            80,
+            48
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "1ouPq",
+              "name": "introLeft",
+              "width": 200,
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "qYT6w",
+                  "name": "introLabel",
+                  "fill": "#0A0A0C",
+                  "content": "01",
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 48,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "text",
+                  "id": "J2Tq0",
+                  "name": "introSection",
+                  "fill": "#0A0A0C",
+                  "content": "ABOUT",
+                  "fontFamily": "Space Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "M9wli",
+              "name": "introRight",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "JOlor",
+                  "name": "introBio",
+                  "fill": "#0A0A0C",
+                  "textGrowth": "fixed-width",
+                  "width": 700,
+                  "content": "* I vibe code and make creative experiments \n* Girl in tech who likes techno \n* Right-brain technologist \n* Seasonal snowboarder\n\nCurrently working on product and marketing for trae.ai",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 24,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "jtQzC",
+          "name": "Projects Teaser",
+          "width": "fill_container",
+          "stroke": {
+            "thickness": {
+              "top": 2
+            },
+            "fill": "#0A0A0C"
+          },
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            80,
+            48
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "1U5T7",
+              "name": "projHeader",
+              "width": "fill_container",
+              "gap": 120,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "oommv",
+                  "name": "projLeft",
+                  "width": 200,
+                  "layout": "vertical",
+                  "gap": 24,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JH1xO",
+                      "name": "projNum",
+                      "fill": "#0A0A0C",
+                      "content": "02",
+                      "fontFamily": "Space Grotesk",
+                      "fontSize": 48,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "3wH1r",
+                      "name": "projLabel",
+                      "fill": "#0A0A0C",
+                      "content": "WORK",
+                      "fontFamily": "Space Mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 2
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "nK1FD",
+                  "name": "projDesc",
+                  "fill": "#0A0A0C",
+                  "textGrowth": "fixed-width",
+                  "width": 700,
+                  "content": "Under construction",
+                  "lineHeight": 1.5,
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 24,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "ZRoGB",
+          "name": "Footer",
+          "width": "fill_container",
+          "height": 400,
+          "fill": "#0A0A0C",
+          "layout": "none",
+          "children": [
+            {
+              "type": "frame",
+              "id": "CpHjZ",
+              "x": 48,
+              "y": 80,
+              "name": "footerContent",
+              "layout": "vertical",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "0btt8",
+                  "name": "footerLabel",
+                  "fill": "#666666",
+                  "content": "03 — CONTACT",
+                  "fontFamily": "Space Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "HhRgw",
+                  "name": "footerCTA",
+                  "fill": "#FFFFFF",
+                  "textGrowth": "fixed-width",
+                  "width": 600,
+                  "content": "Let's create\nsomething together.",
+                  "lineHeight": 1.1,
+                  "fontFamily": "Space Grotesk",
+                  "fontSize": 56,
+                  "fontWeight": "700",
+                  "letterSpacing": -1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Vy6Zk",
+              "x": 48,
+              "y": 320,
+              "name": "footerSocial",
+              "gap": 48,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "DfkeM",
+                  "name": "social1",
+                  "fill": "#FFFFFF",
+                  "content": "X / TWITTER",
+                  "fontFamily": "Space Mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "kG9qa",
+                  "name": "social2",
+                  "fill": "#FFFFFF",
+                  "content": "GITHUB",
+                  "fontFamily": "Space Mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "04By7",
+                  "name": "social3",
+                  "fill": "#FFFFFF",
+                  "content": "LINKEDIN",
+                  "fontFamily": "Space Mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "R6CK3",
+              "x": 1340,
+              "y": 320,
+              "name": "footerCopy",
+              "fill": "#FFFFFF",
+              "content": "© 2026",
+              "fontFamily": "Space Mono",
+              "fontSize": 10,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "0OpLm",
+              "x": 900,
+              "y": 100,
+              "name": "footerDecor",
+              "opacity": 0.03,
+              "fill": "#FFFFFF",
+              "content": "03",
+              "fontFamily": "Space Grotesk",
+              "fontSize": 200,
+              "fontWeight": "700"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
