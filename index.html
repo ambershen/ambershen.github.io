@@ -6,77 +6,94 @@
   <title>Amber Shen - Creative Technologist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="logo-group">
-      <div class="logo-shape"></div>
-      <span class="logo-text">AMBER SHEN</span>
-    </div>
+  <!-- SVG Filter for Cloud Effect -->
+  <svg width="0" height="0" style="position: absolute;">
+    <filter id="cloud-filter">
+      <feTurbulence type="fractalNoise" baseFrequency="0.009" numOctaves="4" result="noise" seed="5"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="120" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
 
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <span class="hero-label">CREATIVE X PRODUCT X AI</span>
-      <h1 class="hero-headline">Building at the<br>intersection of<br>code, narrative<br>and aesthetics</h1>
-    </div>
-    <div class="hero-location">
-      <div class="location-dot"></div>
-      <span class="location-text">SAN FRANCISCO, CA</span>
-    </div>
-    <div class="hero-accent"></div>
-    <div class="hero-lines">
-      <div class="hero-line hero-line--dark hero-line--1"></div>
-      <div class="hero-line hero-line--accent hero-line--2"></div>
-      <div class="hero-line hero-line--dark hero-line--3"></div>
-    </div>
-    <div class="scroll-hint">
-      <span class="scroll-text">SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="intro">
-    <div class="intro-left">
-      <span class="section-number">01</span>
-      <span class="section-label">ABOUT</span>
-    </div>
-    <div class="intro-right">
-      <p class="intro-bio">* I vibe code and make creative experiments<br>* Girl in tech who likes techno<br>* Right-brain technologist<br>* Seasonal snowboarder<br><br>Currently working on product and marketing for trae.ai</p>
-
-    </div>
-  </section>
-
-  <!-- Work Section -->
-  <section id="work" class="projects">
-    <div class="projects-header">
-      <div class="projects-left">
-        <span class="section-number">02</span>
-        <span class="section-label">WORK</span>
+  <!-- Envelope Landing -->
+  <div id="envelope-landing">
+    <div class="envelope">
+      <div class="envelope-flap">
+        <div class="cloud-container">
+          <div class="cloud">
+            <div class="cloud-puff cloud-puff-1"></div>
+            <div class="cloud-puff cloud-puff-2"></div>
+            <div class="cloud-puff cloud-puff-3"></div>
+            <div class="cloud-puff cloud-puff-4"></div>
+            <div class="cloud-puff cloud-puff-5"></div>
+            <div class="cloud-puff cloud-puff-6"></div>
+          </div>
+          <div class="cloud-hint">CLICK TO OPEN</div>
+        </div>
       </div>
-      <p class="projects-desc">Under construction</p>
+      <div class="envelope-back"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- Footer / Contact -->
-  <footer id="contact" class="footer">
-    <div class="footer-content">
-      <span class="footer-label">03 — CONTACT</span>
-      <h2 class="footer-cta">Let's create<br>something together.</h2>
-    </div>
-    <div class="footer-social">
-      <a href="https://x.com/whosamberella" class="social-link" target="_blank" rel="noopener noreferrer">X / TWITTER</a>
-      <a href="https://github.com/ambershen" class="social-link" target="_blank" rel="noopener noreferrer">GITHUB</a>
-      <a href="https://www.linkedin.com/in/amber-hanzi-shen/" class="social-link" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
-    </div>
-    <span class="footer-copy">© 2026</span>
-    <span class="footer-decor">03</span>
-  </footer>
+  <!-- Letter Content -->
+  <div class="letter-wrapper">
+    <article class="letter">
+      <!-- Letter Header -->
+      <header class="letter-header">
+        <div class="letter-date">San Francisco, CA</div>
+        <h1 class="letter-greeting">Dear visitor,</h1>
+      </header>
+
+      <!-- Letter Body -->
+      <section class="letter-body">
+        <p class="letter-intro">
+          I'm <strong>Amber Shen</strong>, a creative technologist building at the intersection of code, narrative, and aesthetics.
+        </p>
+
+        <div class="letter-section">
+          <h2>A little about me</h2>
+          <p>
+            I vibe code and make creative experiments. A girl in tech who likes techno,
+            a right-brain technologist, and a seasonal snowboarder.
+          </p>
+          <p>
+            Currently, I'm working on product and marketing for <em>trae.ai</em>.
+          </p>
+        </div>
+
+        <div class="letter-section">
+          <h2>My work</h2>
+          <p>
+            <em>Under construction...</em>
+          </p>
+          <p>
+            Come back soon to see what I've been creating.
+          </p>
+        </div>
+
+        <div class="letter-section">
+          <h2>Let's connect</h2>
+          <p>
+            I'd love to hear from you. Find me on
+            <a href="https://x.com/whosamberella" target="_blank" rel="noopener noreferrer">X/Twitter</a>,
+            <a href="https://github.com/ambershen" target="_blank" rel="noopener noreferrer">GitHub</a>, or
+            <a href="https://www.linkedin.com/in/amber-hanzi-shen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Letter Signature -->
+      <footer class="letter-footer">
+        <p class="letter-closing">With warmth,</p>
+        <p class="letter-signature">Amber</p>
+        <p class="letter-year">2026</p>
+      </footer>
+    </article>
+  </div>
+
+  <script src="cloud.js"></script>
 </body>
 </html>
