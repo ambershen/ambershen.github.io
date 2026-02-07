@@ -6,15 +6,10 @@
 }
 
 :root {
-  --cream: #FDF8F3;
-  --cream-dark: #F5EDE4;
-  --brown: #3D3225;
-  --brown-light: #6B5D4D;
-  --accent: #C4967A;
-  --accent-light: #D4A574;
-  --font-serif: 'Playfair Display', Georgia, serif;
-  --font-body: 'Source Serif 4', Georgia, serif;
-  --font-mono: 'Space Mono', monospace;
+  --bg: #FAF9F6;
+  --text: #0A0A0C;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+  --border-width: 2px;
 }
 
 html {
@@ -22,14 +17,36 @@ html {
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--cream-dark);
-  color: var(--brown);
-  line-height: 1.7;
+  font-family: var(--font-mono);
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
   min-height: 100vh;
+  overflow-x: hidden;
+  /* Old paper texture effect using noise */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* ========== ENVELOPE LANDING ========== */
+/* Typography */
+h1, h2, h3, p, a, div {
+  font-family: var(--font-mono);
+  color: var(--text);
+}
+
+a {
+  color: var(--text);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: all 0.2s;
+}
+
+a:hover {
+  background-color: var(--text);
+  color: var(--bg);
+  text-decoration: none;
+}
+
+/* ========== ENVELOPE / FOLDER LANDING ========== */
 #envelope-landing {
   position: fixed;
   top: 0;
@@ -40,224 +57,141 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--cream-dark);
-  perspective: 1500px;
+  background: var(--bg);
 }
 
 .envelope {
   position: relative;
-  width: 100vw;
-  height: 100vh;
-  transform-style: preserve-3d;
-}
-
-/* Envelope flap - the part that opens */
-.envelope-flap {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 50%, #E0F6FF 100%);
-  transform-origin: top center;
-  transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.envelope-flap.open {
-  transform: rotateX(-180deg);
-  pointer-events: none;
-}
-
-/* Envelope back (revealed when flap opens) */
-.envelope-back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: var(--cream);
-  z-index: 1;
-}
-
-/* Cloud on envelope flap */
-.cloud-container {
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 60px;
 }
 
-.cloud {
-  position: relative;
-  width: 400px;
-  height: 200px;
-  filter: url(#cloud-filter);
-  animation: float 6s ease-in-out infinite;
+/* The "Folder" Flap - REMOVED */
+
+
+.cloud-container {
+  text-align: center;
+  cursor: url('data:image/svg+xml;utf8,<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 19C19.9853 19 22 16.9853 22 14.5C22 12.132 20.177 10.212 17.858 10.02C17.476 6.643 14.622 4 11 4C7.034 4 3.733 6.945 3.123 10.77C1.353 11.455 0 13.08 0 15C0 17.761 2.239 20 5 20H17.5Z" fill="%230A0A0C"/></svg>') 16 16, pointer;
+  padding: 20px;
+  display: inline-block; /* Ensure padding creates clickable area */
+  transition: transform 0.2s ease;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+.cloud-container:hover {
+  transform: scale(1.05);
 }
 
-.cloud-puff {
-  position: absolute;
-  background: #ffffff;
-  border-radius: 50%;
-  box-shadow:
-    0 0 60px 30px rgba(255, 255, 255, 0.8),
-    0 0 100px 60px rgba(255, 255, 255, 0.4);
-}
-
-.cloud-puff-1 {
-  width: 380px;
-  height: 80px;
-  left: 10px;
-  bottom: 0;
-  border-radius: 40px;
-}
-
-.cloud-puff-2 {
-  width: 140px;
-  height: 140px;
-  left: 130px;
-  top: 20px;
-}
-
-.cloud-puff-3 {
-  width: 110px;
-  height: 110px;
-  left: 40px;
-  top: 50px;
-}
-
-.cloud-puff-4 {
-  width: 120px;
-  height: 120px;
-  right: 50px;
-  top: 45px;
-}
-
-.cloud-puff-5 {
-  width: 80px;
-  height: 80px;
-  left: 100px;
-  top: 10px;
-}
-
-.cloud-puff-6 {
-  width: 70px;
-  height: 70px;
-  right: 100px;
-  top: 25px;
+.ascii-cloud {
+  font-size: 12px;
+  white-space: pre;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 
 .cloud-hint {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--brown-light);
-  opacity: 0.7;
-  animation: pulse 2s ease-in-out infinite;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 10px;
+  animation: blink 1.5s step-end infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-/* Hide envelope when opened */
+/* Hide landing when opened */
 #envelope-landing.opened {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease 0.8s;
+  display: none;
 }
 
 /* ========== LETTER WRAPPER ========== */
 .letter-wrapper {
   min-height: 100vh;
-  padding: 60px 24px;
+  padding: 80px 20px;
   display: flex;
   justify-content: center;
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 1s ease;
 }
 
 .letter-wrapper.visible {
   opacity: 1;
-  transform: translateY(0);
 }
 
 /* ========== LETTER STYLES ========== */
 .letter {
-  max-width: 680px;
+  max-width: 700px;
   width: 100%;
-  background: var(--cream);
-  padding: 60px 70px;
-  box-shadow:
-    0 4px 6px rgba(61, 50, 37, 0.05),
-    0 10px 40px rgba(61, 50, 37, 0.1);
-  border-radius: 4px;
+  background: var(--bg);
+  border: 1px solid var(--text);
+  padding: 60px 50px;
   position: relative;
+  box-shadow: 8px 8px 0 rgba(10, 10, 12, 0.08);
 }
 
-/* Subtle paper texture effect */
+/* ASCII Border Decoration - Simplified for elegance */
 .letter::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-  border-radius: 4px;
+  content: "";
+  display: block;
+  border-top: 1px dashed var(--text);
+  margin-bottom: 40px;
+  opacity: 0.3;
 }
 
-/* Letter Header */
+.letter::after {
+  content: "";
+  display: block;
+  border-bottom: 1px dashed var(--text);
+  margin-top: 50px;
+  opacity: 0.3;
+}
+
+/* Header */
 .letter-header {
   margin-bottom: 40px;
-  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .letter-date {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--brown-light);
-  letter-spacing: 1px;
-  margin-bottom: 30px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 5px;
 }
 
 .letter-greeting {
-  font-family: var(--font-serif);
+  font-family: 'Courier Prime', 'Courier New', monospace;
   font-size: 32px;
-  font-weight: 400;
-  font-style: italic;
-  color: var(--brown);
-  text-align: left;
+  font-weight: 700;
+  color: var(--text);
+  align-self: flex-start;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
 }
 
-/* Letter Body */
+/* Body */
 .letter-body {
-  margin-bottom: 50px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.8;
+  text-align: justify;
 }
 
 .letter-intro {
-  font-size: 20px;
-  margin-bottom: 35px;
-  line-height: 1.8;
-}
-
-.letter-intro strong {
-  font-weight: 600;
-  color: var(--accent);
+  margin-bottom: 30px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .letter-section {
@@ -265,120 +199,84 @@ body {
 }
 
 .letter-section h2 {
-  font-family: var(--font-serif);
   font-size: 18px;
-  font-weight: 600;
-  color: var(--brown);
-  margin-bottom: 12px;
-  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .letter-section p {
-  font-size: 16px;
-  margin-bottom: 12px;
-  color: var(--brown);
+  margin-bottom: 15px;
 }
 
-.letter-section p:last-child {
-  margin-bottom: 0;
-}
-
-.letter-section em {
-  font-style: italic;
-  color: var(--brown-light);
-}
-
-.letter-section a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-decoration-color: var(--accent-light);
-  text-underline-offset: 3px;
-  transition: color 0.2s ease;
-}
-
-.letter-section a:hover {
-  color: var(--brown);
-}
-
-/* Letter Footer / Signature */
+/* Signature */
 .letter-footer {
+  margin-top: 40px;
   text-align: right;
-  padding-top: 20px;
-  border-top: 1px solid rgba(61, 50, 37, 0.1);
 }
 
 .letter-closing {
-  font-style: italic;
-  color: var(--brown-light);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .letter-signature {
-  font-family: var(--font-serif);
-  font-size: 28px;
-  font-style: italic;
-  color: var(--accent);
-  margin-bottom: 20px;
-}
-
-.letter-year {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--brown-light);
+  font-size: 20px;
+  font-weight: bold;
+  font-style: italic; /* Keep italic for signature */
   letter-spacing: 2px;
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 768px) {
-  .letter {
-    padding: 40px 30px;
-  }
-
-  .letter-greeting {
-    font-size: 26px;
-  }
-
-  .letter-intro {
-    font-size: 18px;
-  }
-
-  .cloud {
-    width: 300px;
-    height: 150px;
-    transform: scale(0.8);
-  }
+.letter-year {
+  margin-top: 5px;
+  font-size: 12px;
 }
 
-@media (max-width: 480px) {
-  .letter-wrapper {
-    padding: 30px 16px;
-  }
+/* Typing Cursor Effect */
+.cursor {
+  display: inline-block;
+  width: 10px;
+  height: 18px;
+  background: var(--text);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 5px;
+}
 
+/* Expandable Image */
+.expandable-image {
+  display: none; /* Initially hidden */
+  max-width: 100%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid var(--text);
+  box-shadow: 4px 4px 0 rgba(10, 10, 12, 0.1);
+  transition: opacity 0.3s ease;
+}
+
+.expandable-image.visible {
+  display: block;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
   .letter {
-    padding: 30px 24px;
+    padding: 20px;
+    box-shadow: 8px 8px 0 rgba(10, 10, 12, 0.2);
   }
-
-  .letter-greeting {
-    font-size: 22px;
+  
+  .letter::before, .letter::after {
+    content: "+------------------------+";
   }
-
-  .letter-intro {
-    font-size: 16px;
-  }
-
-  .letter-section h2 {
-    font-size: 16px;
-  }
-
-  .letter-section p {
-    font-size: 15px;
-  }
-
-  .letter-signature {
-    font-size: 24px;
-  }
-
-  .cloud {
-    transform: scale(0.6);
+  
+  .ascii-cloud {
+    font-size: 10px;
   }
 }
