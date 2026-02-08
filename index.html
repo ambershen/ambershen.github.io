@@ -30,55 +30,153 @@
     </div>
   </div>
 
-  <!-- Letter Content -->
-  <div class="letter-wrapper">
-    <article class="letter">
-      <!-- Letter Header -->
-      <header class="letter-header">
-        <div class="letter-date">San Francisco, CA</div>
-        <h1 class="letter-greeting">Hi, I'm Amber.</h1>
-      </header>
+  <!-- Brain Slider -->
+  <div class="brain-slider-wrapper">
+    <!-- Navigation Indicators -->
+    <nav class="slider-nav">
+      <button class="nav-dot" data-panel="0" aria-label="Left Brain">
+        <span class="nav-label">← LEFT BRAIN</span>
+      </button>
+      <button class="nav-dot active" data-panel="1" aria-label="Intro">
+        <span class="nav-label">INTRO</span>
+      </button>
+      <button class="nav-dot" data-panel="2" aria-label="Right Brain">
+        <span class="nav-label">RIGHT BRAIN →</span>
+      </button>
+    </nav>
 
-      <!-- Letter Body -->
-      <section class="letter-body">
-        <p class="letter-intro">
-          I'm a right-brain technologist building at the intersection of code, narrative, and aesthetics. Currently doing developer marketing at <a href="https://www.trae.ai" target="_blank" rel="noopener noreferrer">trae.ai</a>, where we're democratizing software creation for everyone.<span class="cursor"></span>
-        </p>
+    <!-- Swipe hint -->
+    <div class="swipe-hint">
+      <span>← swipe →</span>
+    </div>
 
-        <div class="letter-section">
-          <h2>// A little about me</h2>
-          <p>
-            I studied math and computer science at UIUC, with a minor in French literature and art history. Started in AI research doing data labeling for fashion before "AI is cool". Later I've been working in engineering and product at Amazon, Meta, and ByteDance. All these connected dots led me to where I am right now.
-          </p>
-          <p>
-            I grew up in China and spent my adult years between the US and France. Most of my energy goes into tech and art.
-          </p>
-          <p>
-            > I vibe code and make creative experiments.<br>
-            > I take <a href="https://ambershen.github.io/gallery/" target="_blank" rel="noopener noreferrer">photos</a> and paint, turning moments into memories.<br>
-            > I left my most reckless side on my <a href="javascript:void(0)" id="snowboard-trigger">snowboard</a>.<br>
-            <img id="snowboard-img" src="snowboard.jpeg" class="expandable-image" alt="Snowboarding">
-            > And I'm not only a girl in tech but also a girl into techno.
-          </p>
-          <p>
-            What I deeply care about is the intersection of technology, humanity, and creativity. And how these three can come together to build things that don't just work, but resonate.
-          </p>
+    <!-- Slider Container -->
+    <div class="brain-slider">
+      <!-- Panel 0: Left Brain (Work/Code) -->
+      <article class="brain-panel left-brain" data-panel="0">
+        <div class="panel-content">
+          <header class="panel-header">
+            <pre class="brain-ascii">
+ _____
+/     \
+| L B |
+\_____/
+            </pre>
+            <h2 class="panel-title">LEFT BRAIN</h2>
+            <p class="panel-subtitle">// logic, code, systems</p>
+          </header>
+
+          <section class="panel-body">
+            <div class="work-item">
+              <h3>> trae.ai</h3>
+              <p class="work-role">Developer Marketing</p>
+              <p>Building the future of AI-assisted software creation. Making coding accessible to everyone.</p>
+            </div>
+
+            <div class="work-item">
+              <h3>> ByteDance</h3>
+              <p class="work-role">Product</p>
+              <p>Shipped products to millions of users across the globe.</p>
+            </div>
+
+            <div class="work-item">
+              <h3>> Meta</h3>
+              <p class="work-role">Engineering</p>
+              <p>Built infrastructure that scales.</p>
+            </div>
+
+            <div class="work-item">
+              <h3>> Amazon</h3>
+              <p class="work-role">Engineering</p>
+              <p>Where I learned to think big and deliver.</p>
+            </div>
+
+            <div class="work-item">
+              <h3>> Skills</h3>
+              <p class="code-tags">
+                <code>Python</code> <code>JavaScript</code> <code>React</code>
+                <code>AI/ML</code> <code>Product</code> <code>Growth</code>
+              </p>
+            </div>
+          </section>
         </div>
+      </article>
 
-        <div class="letter-section">
-          <h2>// Let's connect</h2>
-          <p>
-            Find me on
-            <a href="https://x.com/whosamberella" target="_blank" rel="noopener noreferrer">X/Twitter</a>,
-            <a href="https://github.com/ambershen" target="_blank" rel="noopener noreferrer">GitHub</a>, or
-            <a href="https://www.linkedin.com/in/amber-hanzi-shen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
-          </p>
+      <!-- Panel 1: Center (Intro Letter) -->
+      <article class="brain-panel center-panel active" data-panel="1">
+        <div class="letter">
+          <header class="letter-header">
+            <div class="letter-date">San Francisco, CA</div>
+            <h1 class="letter-greeting">Hi, I'm Amber.</h1>
+          </header>
+
+          <section class="letter-body">
+            <p class="letter-intro">
+              I'm a right-brain technologist building at the intersection of code, narrative, and aesthetics. Currently doing developer marketing at <a href="https://www.trae.ai" target="_blank" rel="noopener noreferrer">trae.ai</a>, where we're democratizing software creation for everyone.<span class="cursor"></span>
+            </p>
+
+            <div class="letter-section">
+              <h2>// A little about me</h2>
+              <p>
+                I studied math and computer science at UIUC, with a minor in French literature and art history. Started in AI research doing data labeling for fashion before "AI is cool". Later I've been working in engineering and product at Amazon, Meta, and ByteDance. All these connected dots led me to where I am right now.
+              </p>
+              <p>
+                I grew up in China and spent my adult years between the US and France. Most of my energy goes into tech and art.
+              </p>
+              <p>
+                > I vibe code and make creative experiments.<br>
+                > I take <a href="https://ambershen.github.io/gallery/" target="_blank" rel="noopener noreferrer">photos</a> and paint, turning moments into memories.<br>
+                > I left my most reckless side on my <a href="javascript:void(0)" id="snowboard-trigger">snowboard</a>.<br>
+                <img id="snowboard-img" src="snowboard.jpeg" class="expandable-image" alt="Snowboarding">
+                > And I'm not only a girl in tech but also a girl into techno.
+              </p>
+              <p>
+                What I deeply care about is the intersection of technology, humanity, and creativity. And how these three can come together to build things that don't just work, but resonate.
+              </p>
+            </div>
+
+            <div class="letter-section">
+              <h2>// Let's connect</h2>
+              <p>
+                Find me on
+                <a href="https://x.com/whosamberella" target="_blank" rel="noopener noreferrer">X/Twitter</a>,
+                <a href="https://github.com/ambershen" target="_blank" rel="noopener noreferrer">GitHub</a>, or
+                <a href="https://www.linkedin.com/in/amber-hanzi-shen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
+              </p>
+            </div>
+          </section>
         </div>
-      </section>
+      </article>
 
-      <!-- Letter Signature -->
-      <!-- Footer removed -->
-    </article>
+      <!-- Panel 2: Right Brain (Gallery Preview) -->
+      <article class="brain-panel right-brain" data-panel="2">
+        <div class="panel-content right-brain-content">
+          <header class="panel-header">
+            <pre class="brain-ascii">
+    *  .  *
+  .   __   .
+    /  \
+   | RB |
+    \__/
+  *      *
+            </pre>
+            <h2 class="panel-title">RIGHT BRAIN</h2>
+            <p class="panel-subtitle">// art, vibes, expression</p>
+          </header>
+
+          <section class="panel-body gallery-preview">
+            <p class="gallery-teaser">
+              Photography. Painting. Snowboarding.<br>
+              Moments captured, feelings expressed.
+            </p>
+            <a href="https://ambershen.github.io/gallery/" class="gallery-cta">
+              Enter Gallery →
+            </a>
+            <p class="swipe-back-hint">← swipe to go back</p>
+          </section>
+        </div>
+      </article>
+    </div>
   </div>
 
   <script src="cloud.js"></script>
