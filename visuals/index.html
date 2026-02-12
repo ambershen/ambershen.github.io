@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visuals - Amber Shen</title>
   <link rel="stylesheet" href="../styles.css?v=3">
-  <link rel="stylesheet" href="visuals.css?v=4">
+  <link rel="stylesheet" href="visuals.css?v=5">
 </head>
 <body>
   <nav class="visuals-nav">
@@ -13,22 +13,34 @@
   </nav>
 
   <div class="visuals-wrapper">
-    <!-- Curved Carousel -->
-    <div class="carousel-scene">
-      <div class="carousel">
-        <!-- Items -->
-        <!-- 1. Limited-time FREE final -->
-        <div class="carousel-item" data-video="/films/Limited-time-FREE-final.mp4">
-          <span style="background-color: #2C3E5C;">Limited-time FREE</span>
+    <!-- Vinyl Shelf -->
+    <div class="vinyl-shelf">
+      <div class="vinyl-record" data-video="../films/Limited-time-FREE-final.mp4" data-color="#2C3E5C">
+        <div class="vinyl-disc">
+          <div class="vinyl-label" style="background-color: #2C3E5C;">
+            <span class="vinyl-title">Limited-time FREE</span>
+            <span class="vinyl-dot"></span>
+          </div>
         </div>
-        <!-- 2. Cinematic Visual -->
-        <div class="carousel-item" data-video="/films/cinematic-visual.mp4">
-          <span style="background-color: #82667F;">Cinematic Visual</span>
+        <div class="vinyl-name">Limited-time FREE</div>
+      </div>
+      <div class="vinyl-record" data-video="../films/cinematic-visual.mp4" data-color="#82667F">
+        <div class="vinyl-disc">
+          <div class="vinyl-label" style="background-color: #82667F;">
+            <span class="vinyl-title">Cinematic Visual</span>
+            <span class="vinyl-dot"></span>
+          </div>
         </div>
-        <!-- 3. Touch Me Motion -->
-        <div class="carousel-item" data-video="/films/touch-me-motion.mp4">
-          <span style="background-color: #D14A61;">Touch Me Motion</span>
+        <div class="vinyl-name">Cinematic Visual</div>
+      </div>
+      <div class="vinyl-record" data-video="../films/touch-me-motion.mp4" data-color="#D14A61">
+        <div class="vinyl-disc">
+          <div class="vinyl-label" style="background-color: #D14A61;">
+            <span class="vinyl-title">Touch Me Motion</span>
+            <span class="vinyl-dot"></span>
+          </div>
         </div>
+        <div class="vinyl-name">Touch Me Motion</div>
       </div>
     </div>
 
@@ -36,10 +48,9 @@
     <div class="player-container">
       <div class="player-wrapper">
         <div class="player-placeholder">
-          <p>SELECT A VISUAL TO PLAY</p>
+          <p>SELECT A VINYL TO PLAY</p>
         </div>
         <video id="main-player" controls playsinline loop>
-          <source src="" type="video/mp4">
           Your browser does not support the video tag.
         </video>
       </div>
