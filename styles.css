@@ -122,13 +122,13 @@ button:hover {
   min-height: 100vh;
   overflow: hidden;
   position: relative;
-  opacity: 0;
-  transition: opacity 1s ease;
+  /* opacity: 0;  <-- REMOVED initial opacity to ensure content is visible */
+  /* transition: opacity 1s ease; <-- REMOVED transition */
 }
 
-.brain-slider-wrapper.visible {
+/* .brain-slider-wrapper.visible {
   opacity: 1;
-}
+} */
 
 /* Navigation - Floating transparent */
 .slider-nav {
@@ -232,6 +232,11 @@ button:hover {
   flex-shrink: 0;
 }
 
+/* Specific adjustment for Intro panel to ensure perfect centering */
+.brain-panel.center-panel {
+  padding: 0 20px;
+}
+
 .panel-content {
   max-width: 600px;
   width: 100%;
@@ -269,41 +274,6 @@ button:hover {
   font-family: 'JetBrains Mono', monospace;
   font-size: 14px;
   line-height: 1.7;
-}
-
-/* Work Items (Left Brain) */
-.work-item {
-  margin-bottom: 30px;
-  padding-left: 20px;
-  border-left: 2px solid var(--text);
-}
-
-.work-item h3 {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 5px;
-}
-
-.work-role {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.6;
-  margin-bottom: 8px;
-}
-
-.code-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.code-tags code {
-  font-size: 12px;
-  padding: 4px 10px;
-  border: 1px solid var(--text);
-  background: transparent;
 }
 
 /* Creative Items (Right Brain) */
@@ -377,7 +347,7 @@ button:hover {
   width: 100%;
   background: var(--bg);
   border: 1px solid var(--text);
-  padding: 60px 50px;
+  padding: 40px;
   position: relative;
   box-shadow: 8px 8px 0 rgba(10, 10, 12, 0.08);
 }
@@ -523,6 +493,11 @@ button:hover {
     padding: 5px 0;
   }
 
+  /* Reset padding/height for mobile to avoid cutoff */
+  .brain-panel.center-panel {
+    padding: 80px 20px 70px;
+  }
+
   .brain-panel {
     padding: 80px 20px 70px;
   }
@@ -579,5 +554,118 @@ button:hover {
 
   .brain-panel {
     padding: 70px 15px 60px;
+  }
+}
+
+/* ========== PROJECT ITEMS (TERMINAL STYLE) ========== */
+
+/* Widen the Left Brain panel content */
+.left-brain .panel-content {
+  max-width: 800px;
+  width: 100%;
+}
+
+.terminal-project-list {
+  list-style: none;
+  padding: 0;
+}
+
+.terminal-project-item {
+  margin-bottom: 40px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Command Line */
+.cmd-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.prompt {
+  color: var(--text);
+  font-weight: bold;
+}
+
+.cmd {
+  color: var(--text);
+}
+
+/* Output Block */
+.cmd-output {
+  padding-left: 20px;
+  border-left: 1px solid rgba(10, 10, 12, 0.2);
+  margin-left: 5px;
+}
+
+.project-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.project-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  max-width: 90%;
+  opacity: 0.9;
+}
+
+/* Metadata */
+.project-meta {
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  opacity: 0.7;
+}
+
+.meta-row {
+  display: flex;
+  gap: 10px;
+}
+
+.key {
+  min-width: 80px;
+  color: var(--text);
+  font-weight: bold;
+}
+
+.value {
+  color: var(--text);
+}
+
+/* Skills Output */
+.skills-output {
+  font-size: 14px;
+  word-spacing: 15px;
+  color: var(--text);
+}
+
+/* Hover Effect */
+.terminal-project-item:hover .cmd-output {
+  border-left-color: var(--text);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .cmd-output {
+    padding-left: 15px;
+  }
+  
+  .project-desc {
+    max-width: 100%;
+  }
+  
+  .meta-row {
+    flex-direction: column;
+    gap: 0;
   }
 }
