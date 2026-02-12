@@ -185,6 +185,28 @@
     });
   }
 
+  // ========== ME IMAGE TOGGLE ==========
+  const meTrigger = document.getElementById('me-trigger');
+  const meImg = document.getElementById('me-img');
+
+  if (meTrigger && meImg) {
+    meTrigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      meImg.classList.toggle('visible');
+    });
+  }
+
+  // ========== PAINT IMAGE TOGGLE ==========
+  const paintTrigger = document.getElementById('paint-trigger');
+  const paintImg = document.getElementById('paint-img');
+
+  if (paintTrigger && paintImg) {
+    paintTrigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      paintImg.classList.toggle('visible');
+    });
+  }
+
   // ========== VIDEO AUTOPLAY ON INTERSECTION ==========
   const videos = document.querySelectorAll('video');
   if ('IntersectionObserver' in window && videos.length > 0) {
