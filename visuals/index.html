@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visuals - Amber Shen</title>
+  <link rel="stylesheet" href="../styles.css?v=3">
+  <link rel="stylesheet" href="visuals.css?v=4">
+</head>
+<body>
+  <nav class="visuals-nav">
+    <a href="../" class="back-link">← Back</a>
+  </nav>
+
+  <div class="visuals-wrapper">
+    <!-- Curved Carousel -->
+    <div class="carousel-scene">
+      <div class="carousel">
+        <!-- Items -->
+        <!-- 1. Limited-time FREE final -->
+        <div class="carousel-item" data-video="/films/Limited-time-FREE-final.mp4">
+          <span style="background-color: #2C3E5C;">Limited-time FREE</span>
+        </div>
+        <!-- 2. Cinematic Visual -->
+        <div class="carousel-item" data-video="/films/cinematic-visual.mp4">
+          <span style="background-color: #82667F;">Cinematic Visual</span>
+        </div>
+        <!-- 3. Touch Me Motion -->
+        <div class="carousel-item" data-video="/films/touch-me-motion.mp4">
+          <span style="background-color: #D14A61;">Touch Me Motion</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Player Container -->
+    <div class="player-container">
+      <div class="player-wrapper">
+        <div class="player-placeholder">
+          <p>SELECT A VISUAL TO PLAY</p>
+        </div>
+        <video id="main-player" controls playsinline loop>
+          <source src="" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -4,5 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "npx serve -l 3000"
+  },
+  "dependencies": {
+    "geist": "^1.7.0"
   }
 }

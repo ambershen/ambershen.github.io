@@ -184,4 +184,96 @@
       snowboardImg.classList.toggle('visible');
     });
   }
+
+  // ========== VIDEO AUTOPLAY ON INTERSECTION ==========
+  const videos = document.querySelectorAll('video');
+  if ('IntersectionObserver' in window && videos.length > 0) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.play().catch(e => console.log('Autoplay prevented:', e));
+        } else {
+          entry.target.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    videos.forEach(video => {
+      videoObserver.observe(video);
+    });
+  }
+
+  // ========== MEDIA MODAL / LIGHTBOX ==========
+  const modal = document.getElementById('project-modal');
+  const modalContent = document.getElementById('modal-media-container');
+  const closeModal = document.querySelector('.close-modal');
+  const projectMedia = document.querySelectorAll('.project-carousel img, .project-carousel video');
+
+  if (modal && modalContent && projectMedia.length > 0) {
+    // Open Modal
+    projectMedia.forEach(media => {
+      media.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation(); // Prevent slider drag
+        
+        // Clear previous content
+        modalContent.innerHTML = '';
+        
+        // Clone the media element
+        const clone = media.cloneNode(true);
+        
+        // If it's a video, ensure controls are enabled and it plays
+        if (clone.tagName === 'VIDEO') {
+          clone.controls = true;
+          clone.autoplay = true;
+          clone.muted = false; // Unmute for full experience
+          clone.loop = true;
+          clone.removeAttribute('style'); // Remove any inline styles if any
+        }
+        
+        modalContent.appendChild(clone);
+        
+        // Show modal
+        modal.classList.add('visible');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      });
+    });
+
+    // Close Modal Function
+    function hideModal() {
+      modal.classList.remove('visible');
+      document.body.style.overflow = ''; // Restore scrolling
+      
+      // Pause any video inside modal when closing
+      const video = modalContent.querySelector('video');
+      if (video) {
+        video.pause();
+      }
+      
+      setTimeout(() => {
+        modalContent.innerHTML = '';
+      }, 300);
+    }
+
+    // Close on X click
+    if (closeModal) {
+      closeModal.addEventListener('click', hideModal);
+    }
+
+    // Close on outside click
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        hideModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('visible')) {
+        hideModal();
+      }
+    });
+  }
 })();
+
+
