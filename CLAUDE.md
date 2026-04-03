@@ -1,58 +1,38 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Personal portfolio website for Amber Shen, hosted on GitHub Pages at ambershen.github.io.
 
-## Project Overview
+## Stack
 
-Personal portfolio website for Amber Shen, hosted on GitHub Pages at ambershen.github.io. Static site with zero build process — pure HTML, CSS, and vanilla JavaScript.
+Astro + TypeScript, static output, deployed via GitHub Actions.
 
 ## Development
 
 ```bash
-npx serve -l 3000          # preferred local dev server
-python3 -m http.server 8000 # alternative
+npm run dev        # local dev server with hot reload
+npm run build      # production build to dist/
+npm run preview    # preview production build
 ```
 
-**Deployment:** Push to `main` branch — GitHub Pages automatically deploys.
+## Structure
 
-**Validation:** `node check_html.js` runs basic HTML validation.
-
-## Architecture
-
-The site is a single-page app with a three-panel horizontal slider navigation system:
-
-- `index.html` — Main page with envelope landing, three-panel slider, and media modal
-- `styles.css` — All styles using CSS custom properties, keyframe animations, responsive breakpoints
-- `cloud.js` — All interactivity: slider navigation (swipe/keyboard/trackpad/drag), envelope opening, modal lightbox, IntersectionObserver for video autoplay
-- `visuals/` — Separate subpage with 3D CSS carousel for video content (`index.html`, `script.js`, `visuals.css`)
-- `personal-website.pen` — Pencil design file (source design, read only via Pencil MCP tools)
-
-### Page Structure
-
-1. **Envelope landing** — ASCII cloud art, click to reveal main content
-2. **Three-panel slider** controlled by `cloud.js`:
-   - Panel 0 (Left Brain): Terminal-style project portfolio with image/video carousels
-   - Panel 1 (Center): Personal intro letter
-   - Panel 2 (Right Brain): Gallery preview linking to `/visuals/`
-3. **Media modal** — Lightbox for expanding project screenshots and videos
-
-### Navigation Methods
-
-The slider supports: touch swipe, keyboard arrows, mouse drag, trackpad/wheel scroll, and nav dot buttons.
+```
+src/
+  layouts/Base.astro         # HTML shell, nav, footer, meta/OG tags
+  components/                # Nav, Footer, ProjectCard
+  pages/                     # index, about, work/, gallery, visuals
+  styles/global.css          # design system, variables, responsive
+  assets/                    # images, fonts (processed by astro)
+public/                      # static assets (favicon, robots.txt, images)
+_old/                        # previous vanilla HTML/CSS/JS site (reference)
+```
 
 ## Design System
 
-CSS variables defined in `:root` of `styles.css`:
-- `--bg: #FAF9F6` (cream background)
-- `--text: #0A0A0C` (near-black text)
-- `--font-mono: 'Geist Pixel', 'Space Mono', 'Courier New'` (monospace stack)
-- `--border-width: 2px`
-- Custom SVG cloud cursor via `--cursor-cloud`
+- Colors: cream bg (#F5F1EB), soft black text (#1C1C1E), indigo accent (#3D3A8C), terracotta (#C4533A)
+- Typography: Inter (body), GeistPixel (accents/nav), Instrument Serif (hero)
+- Layout: 720px prose, 1080px grid, 8px cinematic letterbox bars
 
-Max-width container: 1440px. Responsive breakpoints at 768px and 600px.
+## Deployment
 
-## Assets
-
-- `fonts/GeistPixel-Square.woff2` — Custom pixel font
-- `images/` — Project screenshots organized by project subdirectory
-- `films/` — Video content for the visuals section
+Push to `main` triggers `.github/workflows/deploy.yml` → astro build → GitHub Pages.

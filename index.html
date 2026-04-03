@@ -1,356 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amber Shen - Creative Technologist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=2">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amber Shen — Creative Technologist</title>
+  <meta name="description" content="Creative technologist building at the intersection of product, narrative, and code." />
+  <meta property="og:title" content="Amber Shen — Creative Technologist" />
+  <meta property="og:description" content="Creative technologist building at the intersection of product, narrative, and code." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@whosamberella" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <!-- Envelope Landing (Styled as Folder) -->
-  <div id="envelope-landing">
-    <div class="envelope">
-      <div class="cloud-container">
-        <pre class="ascii-cloud">
-        .  *  .
-     *  (    )  *
-   .  (        )  .
-  (                )
- (                  )
- (                  )
-  (                )
-   '-.________.-'
-        </pre>
-        <div class="cloud-hint">CLICK TO OPEN</div>
+  <div class="site-layout">
+    <button class="sidebar-toggle" id="sidebar-toggle">MENU</button>
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <main class="main-content">
+      <div class="home-welcome fade-in">
+        <p class="section-label">// welcome</p>
+        <p class="home-intro">
+          I build things at the intersection of technology, narrative, and aesthetics.
+          Currently doing developer marketing at <a href="https://www.trae.ai" target="_blank" rel="noopener noreferrer">trae.ai</a>.
+        </p>
       </div>
-    </div>
-  </div>
 
-  <!-- Brain Slider -->
-  <div class="brain-slider-wrapper">
-    <!-- Navigation Indicators -->
-    <nav class="slider-nav">
-      <button class="nav-dot" data-panel="0" aria-label="Left">
-        <span class="nav-label">← LEFT</span>
-      </button>
-      <button class="nav-dot active" data-panel="1" aria-label="Intro">
-        <span class="nav-label">INTRO</span>
-      </button>
-      <button class="nav-dot" data-panel="2" aria-label="Right">
-        <span class="nav-label">RIGHT →</span>
-      </button>
-    </nav>
+      <div class="project-list">
 
-    <!-- Swipe hint -->
-    <div class="swipe-hint">
-      <span>← swipe →</span>
-    </div>
-
-    <!-- Slider Container -->
-    <div class="brain-slider">
-      <!-- Panel 0: Left Brain (Work/Code) -->
-      <article class="brain-panel left-brain" data-panel="0">
-        <div class="panel-content">
-          <header class="panel-header">
-
-            <p class="panel-subtitle">// code + product</p>
-          </header>
-
-          <section class="panel-body">
-            <ul class="terminal-project-list">
-              <!-- Project 1: Dirty Window -->
-              <li class="terminal-project-item">
-                <div class="cmd-line">
-                  <span class="prompt">➜</span>
-                  <span class="cmd">cat ./projects/dirty_window.txt</span>
-                </div>
-                <div class="cmd-output">
-                  <h3 class="project-title">Dirty Window</h3>
-                  <p class="project-desc">
-                    The most satisfying window you'll ever clean. Turns a mundane chore into interactive art. Wipe away grimes, experience realistic weather simulation, doodle messages on the fog, and capture it all in a built-in photobooth. Part game, part meditation.
-                  </p>
-                  <div class="project-meta">
-                    <div class="meta-row">
-                      <span class="key">philosophy:</span>
-                      <span class="value">"Finding magic in the mundane."</span>
-                    </div>
-                    <div class="meta-row">
-                      <span class="key">stack:</span>
-                      <span class="value">[TouchDesigner, three.js, GLSL] <a href="https://traeglass-effecta68u.vercel.app/" target="_blank" class="project-link">[Live Demo]</a></span>
-                    </div>
-                  </div>
-                  <!-- Project Carousel -->
-                  <div class="project-carousel">
-                    <img src="images/dirty-window/frontpage.png" alt="Dirty Window - Frontpage" loading="lazy">
-                    <img src="images/dirty-window/1st.png" alt="Dirty Window - 1" loading="lazy">
-                    <img src="images/dirty-window/2nd.png" alt="Dirty Window - 2" loading="lazy">
-                    <img src="images/dirty-window/3rd.png" alt="Dirty Window - 3" loading="lazy">
-                  </div>
-                </div>
-              </li>
-
-              <!-- Project 2: PaletteMe -->
-              <li class="terminal-project-item">
-                <div class="cmd-line">
-                  <span class="prompt">➜</span>
-                  <span class="cmd">cat ./projects/palette_me.txt</span>
-                </div>
-                <div class="cmd-output">
-                  <h3 class="project-title">PaletteMe</h3>
-                  <p class="project-desc">
-                    LLM-powered personal color analysis. Goes beyond seasonal color theory by connecting chromatic harmony with identity, personality, and profession.
-                  </p>
-                  <div class="project-meta">
-                    <div class="meta-row">
-                      <span class="key">philosophy:</span>
-                      <span class="value">"Aesthetics comes from your identity."</span>
-                    </div>
-                    <div class="meta-row">
-                      <span class="key">stack:</span>
-                      <span class="value">[Python, LLM, Computer Vision]</span>
-                    </div>
-                  </div>
-                  <!-- Project Carousel -->
-                  <div class="project-carousel">
-                    <img src="images/palette-me/frontpage.png" alt="PaletteMe - Frontpage" loading="lazy">
-                    <img src="images/palette-me/1st.png" alt="PaletteMe - 1" loading="lazy">
-                    <img src="images/palette-me/2nd.png" alt="PaletteMe - 2" loading="lazy">
-                    <img src="images/palette-me/3rd.png" alt="PaletteMe - 3" loading="lazy">
-                  </div>
-                </div>
-              </li>
-
-              <!-- Project 3: Birth Crystal -->
-              <li class="terminal-project-item">
-                <div class="cmd-line">
-                  <span class="prompt">➜</span>
-                  <span class="cmd">cat ./projects/birth_crystal.txt</span>
-                </div>
-                <div class="cmd-output">
-                  <h3 class="project-title">Birth Crystal</h3>
-                  <p class="project-desc">
-                    Procedural 3D crystal spheres generated from birthdates. Unique patterns, colors, and geometries for every date in an interactive cosmos.
-                  </p>
-                  <div class="project-meta">
-                    <div class="meta-row">
-                      <span class="key">philosophy:</span>
-                      <span class="value">"Bridging the gap between fortune-telling aesthetics and computational art."</span>
-                    </div>
-                    <div class="meta-row">
-                      <span class="key">stack:</span>
-                      <span class="value">[three.js, WebGL, spatial data algorithms]</span>
-                    </div>
-                  </div>
-                  <!-- Project Carousel -->
-                  <div class="project-carousel">
-                    <img src="images/birth-crystal/frontpage.png" alt="Birth Crystal - Frontpage" loading="lazy">
-                    <img src="images/birth-crystal/1st.png" alt="Birth Crystal - 1" loading="lazy">
-                    <img src="images/birth-crystal/2nd.png" alt="Birth Crystal - 2" loading="lazy">
-                    <img src="images/birth-crystal/3rd.png" alt="Birth Crystal - 3" loading="lazy">
-                  </div>
-                </div>
-              </li>
-
-              <!-- Project 4: Small Tool Bento Box -->
-              <li class="terminal-project-item">
-                <div class="cmd-line">
-                  <span class="prompt">➜</span>
-                  <span class="cmd">ls ./bento_box/</span>
-                </div>
-                <div class="cmd-output">
-                  <h3 class="project-title">Small Tool Bento Box</h3>
-                  <p class="project-desc">
-                    A curated collection of everyday utilities—image processing, QR code generation, PDF conversion—presented with the care of a Japanese bento. Each tool is multi-purpose, instantly usable, and visually cohesive. The modular architecture makes it trivially easy to add new tools while maintaining the clean, organized aesthetic.
-                  </p>
-                  <div class="project-meta">
-                    <div class="meta-row">
-                      <span class="key">philosophy:</span>
-                      <span class="value">"Utility is beauty."</span>
-                    </div>
-                    <div class="meta-row">
-                      <span class="key">stack:</span>
-                      <span class="value">[React, Modular Architecture] <a href="https://traesmall-tool-bento-box242w.vercel.app/" target="_blank" class="project-link">[Live Demo]</a></span>
-                    </div>
-                  </div>
-                  <!-- Project Carousel -->
-                  <div class="project-carousel">
-                    <img src="images/small-tool-bento-box/frontpage.png" alt="Small Tool Bento Box - Frontpage" loading="lazy">
-                    <img src="images/small-tool-bento-box/1st.png" alt="Small Tool Bento Box - 1" loading="lazy">
-                    <img src="images/small-tool-bento-box/2nd.png" alt="Small Tool Bento Box - 2" loading="lazy">
-                    <img src="images/small-tool-bento-box/3rd.png" alt="Small Tool Bento Box - 3" loading="lazy">
-                    <img src="images/small-tool-bento-box/4th.png" alt="Small Tool Bento Box - 4" loading="lazy">
-                    <img src="images/small-tool-bento-box/5th.png" alt="Small Tool Bento Box - 5" loading="lazy">
-                    <img src="images/small-tool-bento-box/6th.png" alt="Small Tool Bento Box - 6" loading="lazy">
-                  </div>
-                </div>
-              </li>
-
-              <!-- Project 5: TRAE Anniversary Raffle -->
-              <li class="terminal-project-item">
-                <div class="cmd-line">
-                  <span class="prompt">➜</span>
-                  <span class="cmd">ls ./trae_raffle/</span>
-                </div>
-                <div class="cmd-output">
-                  <h3 class="project-title">TRAE Anniversary Raffle</h3>
-                  <p class="project-desc">
-                    Built raffle experiences for TRAE 1-year anniversary event. Gamify the experiences with particle movement, pixel style designs.
-                  </p>
-                  <div class="project-meta">
-                    <div class="meta-row">
-                      <span class="key">philosophy:</span>
-                      <span class="value">"Gamify the experience."</span>
-                    </div>
-                    <div class="meta-row">
-                      <span class="key">stack:</span>
-                      <span class="value">[React, Particle System, Pixel Design] <a href="https://traetrae-anniversary-raffle9t8u.vercel.app/" target="_blank" class="project-link">[Live Demo]</a></span>
-                    </div>
-                  </div>
-                  <!-- Project Carousel -->
-                  <div class="project-carousel">
-                    <video src="images/trae-raffle/raffle-reveal.mp4" autoplay loop muted playsinline preload="metadata"></video>
-                    <video src="images/trae-raffle/trae-anniversary-raffle.mp4" autoplay loop muted playsinline preload="metadata"></video>
-                  </div>
-                </div>
-              </li>
-
-              <!-- Agent Skills -->
-              <li class="terminal-project-item">
-                <div class="cmd-line">
-                  <span class="prompt">➜</span>
-                  <span class="cmd">ls ./agent_skills/</span>
-                </div>
-                <div class="cmd-output">
-                  <h3 class="project-title">Agent Skills</h3>
-                  <p class="project-desc">
-                    A collection of agent skills I built to extend the capabilities of AI agents.
-                  </p>
-                  <div class="project-meta">
-                    <div class="meta-row">
-                      <span class="key">philosophy:</span>
-                      <span class="value">"Extending agent capabilities."</span>
-                    </div>
-                    <div class="meta-row">
-                      <span class="key">stack:</span>
-                      <span class="value">[TypeScript, Python, Three.js]</span>
-                    </div>
-                  </div>
-                  <div class="project-links" style="margin-top: 15px; display: flex; flex-direction: column; gap: 10px;">
-                    <div>
-                      <a href="https://github.com/ambershen/youtube-to-slides" target="_blank" class="project-link">> Youtube to Slides</a>
-                      <span style="font-size: 13px; opacity: 0.8; margin-left: 5px;">// Convert videos into infographic slides.</span>
-                    </div>
-                    <div>
-                      <a href="https://github.com/ambershen/infinite-tunnel/tree/main" target="_blank" class="project-link">> Infinite Tunnel Effect</a>
-                      <span style="font-size: 13px; opacity: 0.8; margin-left: 5px;">// 3D tunnel skill for agents.</span>
-                    </div>
-                  </div>
-                </div>
-              </li>
-
-              <!-- Skills -->
-              <li class="terminal-project-item">
-                <div class="cmd-line">
-                  <span class="prompt">➜</span>
-                  <span class="cmd">echo $SKILLS</span>
-                </div>
-                <div class="cmd-output">
-                  <p class="skills-output">
-                    Vibe Coding, Manual Coding, AI/ML, Product, Growth, UI/UX Design
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </section>
-        </div>
-      </article>
-
-      <!-- Panel 1: Center (Intro Letter) -->
-      <article class="brain-panel center-panel active" data-panel="1">
-        <div class="letter">
-          <header class="letter-header">
-            <div class="letter-date">San Francisco, CA</div>
-            <h1 class="letter-greeting">Hi, I'm Amber.</h1>
-          </header>
-
-          <section class="letter-body">
-            <p class="letter-intro">
-              I'm a right-brain technologist building at the intersection of code, narrative, and aesthetics. Currently doing developer marketing at <a href="https://www.trae.ai" target="_blank" rel="noopener noreferrer">trae.ai</a>, where we're democratizing software creation for everyone.<span class="cursor"></span>
-            </p>
-
-            <div class="letter-section">
-              <h2>// A little about <a href="javascript:void(0)" id="me-trigger">me</a></h2>
-              <img id="me-img" src="me.jpg" class="expandable-image" alt="Amber Shen">
-              <p>
-                I studied math and computer science at UIUC, with a minor in French literature and art history. Started in AI research doing data labeling for fashion before "AI is cool". Later I've been working in engineering and product at Amazon, Meta, and ByteDance. All these connected dots led me to where I am right now.
-              </p>
-              <p>
-                I grew up in China and spent my adult years between the US and France. Most of my energy goes into tech and art.
-              </p>
-              <p>
-                > I vibe code and make creative experiments.<br>
-                > I take <a href="https://ambershen.github.io/gallery/" target="_blank" rel="noopener noreferrer">photos</a> and <a href="javascript:void(0)" id="paint-trigger">paint</a>, turning moments into memories.<br>
-                <img id="paint-img" src="paint.jpg" class="expandable-image" alt="Painting">
-                > I left my most reckless side on my <a href="javascript:void(0)" id="snowboard-trigger">snowboard</a>.<br>
-                <img id="snowboard-img" src="snowboard.jpeg" class="expandable-image" alt="Snowboarding">
-                > And I'm not only a girl in tech but also a girl into <a href="https://open.spotify.com/playlist/5PAJ8YLKtH8wD3fbY6n5Nu?si=M621wS6ORKSyQ_lMlGWTWg&pi=qA-BGP24Sn2vl" target="_blank" rel="noopener noreferrer">techno</a>.
-              </p>
-              <p>
-                What I deeply care about is the intersection of technology, humanity, and creativity. And how these three can come together to build things that don't just work, but resonate.
-              </p>
+        <!-- Dirty Window -->
+        <div class="project-item fade-in" id="dirty-window" data-project>
+          <div class="project-header" data-project-toggle>
+            <img src="/images/dirty-window/frontpage.png" alt="Dirty Window" class="project-thumb" loading="lazy" />
+            <div class="project-info">
+              <h3 class="project-title">Dirty Window</h3>
+              <p class="project-tagline">Interactive window cleaning — part game, part meditation</p>
             </div>
-
-            <div class="letter-section">
-              <h2>// Let's connect</h2>
-              <p>
-                Find me on
-                <a href="https://x.com/whosamberella" target="_blank" rel="noopener noreferrer">X/Twitter</a>,
-                <a href="https://github.com/ambershen" target="_blank" rel="noopener noreferrer">GitHub</a>, or
-                <a href="https://www.linkedin.com/in/amber-hanzi-shen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.
-              </p>
+            <span class="project-toggle">&#9662;</span>
+          </div>
+          <div class="project-detail">
+            <div class="project-carousel">
+              <img src="/images/dirty-window/frontpage.png" alt="Dirty Window" loading="lazy" />
+              <img src="/images/dirty-window/1st.png" alt="Dirty Window" loading="lazy" />
+              <img src="/images/dirty-window/2nd.png" alt="Dirty Window" loading="lazy" />
+              <img src="/images/dirty-window/3rd.png" alt="Dirty Window" loading="lazy" />
             </div>
-          </section>
+            <p class="project-detail__desc">The most satisfying window you'll ever clean. Turns a mundane chore into interactive art. Wipe away grime, experience realistic weather simulation, doodle messages on the fog, and capture it all in a built-in photobooth.</p>
+            <div class="project-detail__meta">
+              <span class="project-detail__tag">TouchDesigner</span>
+              <span class="project-detail__tag">three.js</span>
+              <span class="project-detail__tag">GLSL</span>
+            </div>
+            <a href="https://traeglass-effecta68u.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-detail__link">Live Demo &rarr;</a>
+          </div>
         </div>
-      </article>
 
-      <!-- Panel 2: Right Brain (Gallery Preview) -->
-      <article class="brain-panel right-brain" data-panel="2">
-        <div class="panel-content right-brain-content">
-          <header class="panel-header">
-
-            <p class="panel-subtitle">// art, vibes, expression</p>
-          </header>
-
-          <section class="panel-body gallery-preview">
-
-            <a href="https://ambershen.github.io/gallery/" class="gallery-cta">
-              Enter Gallery →
-            </a>
-            
-            <a href="visuals/" class="gallery-cta" style="margin-top: 20px;">
-              Enter Visuals →
-            </a>
-
-            <p class="swipe-back-hint">← swipe to go back</p>
-          </section>
+        <!-- PaletteMe -->
+        <div class="project-item fade-in" id="paletteme" data-project>
+          <div class="project-header" data-project-toggle>
+            <img src="/images/palette-me/frontpage.png" alt="PaletteMe" class="project-thumb" loading="lazy" />
+            <div class="project-info">
+              <h3 class="project-title">PaletteMe</h3>
+              <p class="project-tagline">LLM-powered personal color analysis</p>
+            </div>
+            <span class="project-toggle">&#9662;</span>
+          </div>
+          <div class="project-detail">
+            <div class="project-carousel">
+              <img src="/images/palette-me/frontpage.png" alt="PaletteMe" loading="lazy" />
+              <img src="/images/palette-me/1st.png" alt="PaletteMe" loading="lazy" />
+              <img src="/images/palette-me/2nd.png" alt="PaletteMe" loading="lazy" />
+              <img src="/images/palette-me/3rd.png" alt="PaletteMe" loading="lazy" />
+            </div>
+            <p class="project-detail__desc">Goes beyond seasonal color theory by connecting chromatic harmony with identity, personality, and profession. Aesthetics comes from your identity.</p>
+            <div class="project-detail__meta">
+              <span class="project-detail__tag">Python</span>
+              <span class="project-detail__tag">LLM</span>
+              <span class="project-detail__tag">Computer Vision</span>
+            </div>
+          </div>
         </div>
-      </article>
-    </div>
+
+        <!-- Birth Crystal -->
+        <div class="project-item fade-in" id="birth-crystal" data-project>
+          <div class="project-header" data-project-toggle>
+            <img src="/images/birth-crystal/frontpage.png" alt="Birth Crystal" class="project-thumb" loading="lazy" />
+            <div class="project-info">
+              <h3 class="project-title">Birth Crystal</h3>
+              <p class="project-tagline">Procedural 3D crystals generated from birthdates</p>
+            </div>
+            <span class="project-toggle">&#9662;</span>
+          </div>
+          <div class="project-detail">
+            <div class="project-carousel">
+              <img src="/images/birth-crystal/frontpage.png" alt="Birth Crystal" loading="lazy" />
+              <img src="/images/birth-crystal/1st.png" alt="Birth Crystal" loading="lazy" />
+              <img src="/images/birth-crystal/2nd.png" alt="Birth Crystal" loading="lazy" />
+              <img src="/images/birth-crystal/3rd.png" alt="Birth Crystal" loading="lazy" />
+            </div>
+            <p class="project-detail__desc">Unique patterns, colors, and geometries for every date in an interactive cosmos. Bridging the gap between fortune-telling aesthetics and computational art.</p>
+            <div class="project-detail__meta">
+              <span class="project-detail__tag">three.js</span>
+              <span class="project-detail__tag">WebGL</span>
+              <span class="project-detail__tag">Spatial Data</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Box -->
+        <div class="project-item fade-in" id="bento-box" data-project>
+          <div class="project-header" data-project-toggle>
+            <img src="/images/small-tool-bento-box/frontpage.png" alt="Bento Box" class="project-thumb" loading="lazy" />
+            <div class="project-info">
+              <h3 class="project-title">Small Tool Bento Box</h3>
+              <p class="project-tagline">A curated collection of everyday utilities</p>
+            </div>
+            <span class="project-toggle">&#9662;</span>
+          </div>
+          <div class="project-detail">
+            <div class="project-carousel">
+              <img src="/images/small-tool-bento-box/frontpage.png" alt="Bento Box" loading="lazy" />
+              <img src="/images/small-tool-bento-box/1st.png" alt="Bento Box" loading="lazy" />
+              <img src="/images/small-tool-bento-box/2nd.png" alt="Bento Box" loading="lazy" />
+              <img src="/images/small-tool-bento-box/3rd.png" alt="Bento Box" loading="lazy" />
+              <img src="/images/small-tool-bento-box/4th.png" alt="Bento Box" loading="lazy" />
+            </div>
+            <p class="project-detail__desc">Image processing, QR code generation, PDF conversion — presented with the care of a Japanese bento. Each tool is multi-purpose, instantly usable, and visually cohesive.</p>
+            <div class="project-detail__meta">
+              <span class="project-detail__tag">React</span>
+              <span class="project-detail__tag">Modular Architecture</span>
+            </div>
+            <a href="https://traesmall-tool-bento-box242w.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-detail__link">Live Demo &rarr;</a>
+          </div>
+        </div>
+
+        <!-- TRAE Raffle -->
+        <div class="project-item fade-in" id="trae-raffle" data-project>
+          <div class="project-header" data-project-toggle>
+            <img src="/images/small-tool-bento-box/frontpage.png" alt="TRAE Raffle" class="project-thumb" loading="lazy" />
+            <div class="project-info">
+              <h3 class="project-title">TRAE Anniversary Raffle</h3>
+              <p class="project-tagline">Gamified raffle with particle systems and pixel design</p>
+            </div>
+            <span class="project-toggle">&#9662;</span>
+          </div>
+          <div class="project-detail">
+            <div class="project-carousel">
+              <video src="/images/trae-raffle/raffle-reveal.mp4" autoplay loop muted playsinline preload="metadata"></video>
+              <video src="/images/trae-raffle/trae-anniversary-raffle.mp4" autoplay loop muted playsinline preload="metadata"></video>
+            </div>
+            <p class="project-detail__desc">Built raffle experiences for TRAE's 1-year anniversary event. Gamified the experience with particle movement and pixel-style design.</p>
+            <div class="project-detail__meta">
+              <span class="project-detail__tag">React</span>
+              <span class="project-detail__tag">Particle System</span>
+              <span class="project-detail__tag">Pixel Design</span>
+            </div>
+            <a href="https://traetrae-anniversary-raffle9t8u.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-detail__link">Live Demo &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Agent Skills -->
+        <div class="project-item fade-in" id="agent-skills" data-project>
+          <div class="project-header" data-project-toggle>
+            <img src="/images/birth-crystal/frontpage.png" alt="Agent Skills" class="project-thumb" loading="lazy" />
+            <div class="project-info">
+              <h3 class="project-title">Agent Skills</h3>
+              <p class="project-tagline">Custom AI agent extensions</p>
+            </div>
+            <span class="project-toggle">&#9662;</span>
+          </div>
+          <div class="project-detail">
+            <p class="project-detail__desc">A collection of agent skills built to extend the capabilities of AI agents — from converting YouTube videos into infographic slides to creating 3D tunnel effects.</p>
+            <div class="project-detail__meta">
+              <span class="project-detail__tag">TypeScript</span>
+              <span class="project-detail__tag">Python</span>
+              <span class="project-detail__tag">Three.js</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
+              <a href="https://github.com/ambershen/youtube-to-slides" target="_blank" rel="noopener noreferrer" class="project-detail__link">Youtube to Slides &rarr;</a>
+              <a href="https://github.com/ambershen/infinite-tunnel/tree/main" target="_blank" rel="noopener noreferrer" class="project-detail__link">Infinite Tunnel &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Community -->
+      <div style="margin-top: 48px;" id="community">
+        <p class="section-label">// I bring people together</p>
+        <div class="project-item fade-in" data-project>
+          <div class="project-header" data-project-toggle>
+            <div class="project-info">
+              <h3 class="project-title">Non-AI AI Event</h3>
+              <p class="project-tagline">SF community events at the intersection of tech and everything else</p>
+            </div>
+            <span class="project-toggle">&#9662;</span>
+          </div>
+          <div class="project-detail">
+            <p class="project-detail__desc">A community gathering in San Francisco for people who care about more than just AI — but use it anyway. Conversations about creativity, identity, and building things that resonate.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
   </div>
 
-  <script src="cloud.js"></script>
-
-  <!-- Project Media Modal -->
-  <div id="project-modal" class="modal">
-    <span class="close-modal">&times;</span>
-    <button class="modal-prev" aria-label="Previous">&#8249;</button>
-    <button class="modal-next" aria-label="Next">&#8250;</button>
-    <div class="modal-content">
-      <div id="modal-media-container"></div>
-    </div>
-    <div class="modal-counter"></div>
-  </div>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

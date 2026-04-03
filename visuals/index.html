@@ -1,62 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Visuals - Amber Shen</title>
-  <link rel="stylesheet" href="../styles.css?v=3">
-  <link rel="stylesheet" href="visuals.css?v=5">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visuals — Amber Shen</title>
+  <meta name="description" content="Films and motion work." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <nav class="visuals-nav">
-    <a href="../" class="back-link">← Back</a>
-  </nav>
+  <div class="site-layout">
+    <button class="sidebar-toggle" id="sidebar-toggle">MENU</button>
+    <aside class="sidebar" id="sidebar"></aside>
 
-  <div class="visuals-wrapper">
-    <!-- Vinyl Shelf -->
-    <div class="vinyl-shelf">
-      <div class="vinyl-record" data-video="../films/Limited-time-FREE-final.mp4" data-color="#2C3E5C">
-        <div class="vinyl-disc">
-          <div class="vinyl-label" style="background-color: #2C3E5C;">
-            <span class="vinyl-title">Limited-time FREE</span>
-            <span class="vinyl-dot"></span>
-          </div>
-        </div>
-        <div class="vinyl-name">Limited-time FREE</div>
+    <main class="main-content">
+      <div class="page-section">
+        <p class="section-label">// visuals</p>
+        <h1 class="page-title">Visuals</h1>
+        <p style="color: var(--text-muted); margin-top: 12px; max-width: 480px;">
+          Films and motion work. More coming soon.
+        </p>
       </div>
-      <div class="vinyl-record" data-video="../films/cinematic-visual.mp4" data-color="#82667F">
-        <div class="vinyl-disc">
-          <div class="vinyl-label" style="background-color: #82667F;">
-            <span class="vinyl-title">Cinematic Visual</span>
-            <span class="vinyl-dot"></span>
-          </div>
-        </div>
-        <div class="vinyl-name">Cinematic Visual</div>
-      </div>
-      <div class="vinyl-record" data-video="../films/touch-me-motion.mp4" data-color="#D14A61">
-        <div class="vinyl-disc">
-          <div class="vinyl-label" style="background-color: #D14A61;">
-            <span class="vinyl-title">Touch Me Motion</span>
-            <span class="vinyl-dot"></span>
-          </div>
-        </div>
-        <div class="vinyl-name">Touch Me Motion</div>
-      </div>
-    </div>
-
-    <!-- Player Container -->
-    <div class="player-container">
-      <div class="player-wrapper">
-        <div class="player-placeholder">
-          <p>SELECT A VINYL TO PLAY</p>
-        </div>
-        <video id="main-player" controls playsinline loop>
-          Your browser does not support the video tag.
-        </video>
-      </div>
-    </div>
+    </main>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
