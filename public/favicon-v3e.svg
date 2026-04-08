@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- V3e: Calligraphic AS — brush-like, one fluid gesture -->
+  <rect width="32" height="32" fill="#1A1A1A"/>
+  <path d="M8 26 Q10 14, 16 6 Q22 14, 24 26" stroke="#FAFAFA" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M11 18 Q16 16, 21 18" stroke="#FAFAFA" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M20 10 Q24 10, 24 14 Q24 17, 16 17 Q8 17, 8 21 Q8 26, 16 26 Q20 26, 22 24" stroke="#FAFAFA" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+</svg>

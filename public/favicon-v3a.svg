@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- V3a: Stacked AS — A on top, S below, minimal strokes -->
+  <rect width="32" height="32" fill="#1A1A1A"/>
+  <polyline points="10,16 16,5 22,16" stroke="#FAFAFA" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="12.5" y1="12" x2="19.5" y2="12" stroke="#FAFAFA" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M10 20 C10 18, 16 17, 16 20 C16 23, 10 22, 10 25 C10 27, 16 28, 22 26" stroke="#FAFAFA" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+</svg>

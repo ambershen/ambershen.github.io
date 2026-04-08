@@ -1,0 +1,132 @@
+/* ========================================
+   PRODUCT PAGE
+   ======================================== */
+
+.product-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 48px 120px;
+}
+
+.product-back {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: var(--text-label);
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+  transition: color 0.2s;
+}
+.product-back:hover { color: var(--text); }
+
+.product-header {
+  margin-bottom: 48px;
+}
+
+.product-title {
+  font-family: var(--font-serif);
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.product-tagline {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-label);
+  letter-spacing: 0.5px;
+}
+
+.product-demo {
+  width: 100%;
+  margin-bottom: 48px;
+}
+
+.product-demo video {
+  width: 100%;
+  display: block;
+}
+
+.product-demo-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-label);
+  letter-spacing: 0.5px;
+}
+
+.product-body {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #444444;
+  margin-bottom: 48px;
+}
+
+.product-body p {
+  margin-bottom: 16px;
+}
+
+.product-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 16px;
+}
+
+.product-body ul li {
+  padding-left: 20px;
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.product-body ul li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--text-label);
+}
+
+.product-link {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: var(--text);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 10px 24px;
+  transition: background 0.2s, color 0.2s;
+}
+.product-link:hover {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.product-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .product-page { padding: 48px 24px 80px; }
+  .product-title { font-size: 32px; }
+  .product-body { font-size: 16px; }
+}

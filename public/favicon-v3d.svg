@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- V3d: Geometric minimal — A as triangle, S as sine wave cutting through -->
+  <rect width="32" height="32" fill="#1A1A1A"/>
+  <polygon points="16,6 6,26 26,26" stroke="#FAFAFA" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+  <path d="M8 19 C12 13, 16 25, 20 13, 24 19" stroke="#FAFAFA" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+</svg>

@@ -13,200 +13,448 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/geist@1/dist/fonts/geist-sans/style.css" rel="stylesheet" />
 </head>
 <body>
-  <div class="site-layout">
-    <button class="sidebar-toggle" id="sidebar-toggle">MENU</button>
-    <aside class="sidebar" id="sidebar"></aside>
+  <!-- Mobile header -->
+  <button class="mobile-menu-toggle" id="mobile-menu-toggle">MENU</button>
 
-    <main class="main-content">
-      <div class="home-welcome fade-in">
-        <p class="section-label">// welcome</p>
-        <p class="home-intro">
-          I build things at the intersection of technology, narrative, and aesthetics.
-          Currently doing developer marketing at <a href="https://www.trae.ai" target="_blank" rel="noopener noreferrer">trae.ai</a>.
-        </p>
+  <div class="portfolio-layout">
+    <!-- Left Column -->
+    <aside class="left-column" id="left-column">
+      <h1 class="name">Amber Shen</h1>
+      <div class="spacer-16"></div>
+      <p class="tagline">Creative technologist in San Francisco.<br />Let's connect if you are interested in my work.</p>
+      <div class="spacer-80"></div>
+
+      <hr class="divider" />
+
+      <div class="nav-section" data-scroll-to="projects">
+        <h2 class="section-title">I Build Things</h2>
+        <ul class="nav-sub-list">
+          <li><a href="#" data-show-product="product-deskmate">Deskmate</a></li>
+          <li><a href="#" data-show-product="product-dirty-window">Dirty Window</a></li>
+          <li><a href="#" data-show-product="product-bento-box">Small Tool Bento Box</a></li>
+          <li><a href="#" data-show-product="product-agent-skills">Agent Skills</a></li>
+        </ul>
       </div>
 
-      <div class="project-list">
+      <hr class="divider" />
 
-        <!-- Dirty Window -->
-        <div class="project-item fade-in" id="dirty-window" data-project>
-          <div class="project-header" data-project-toggle>
-            <img src="/images/dirty-window/frontpage.png" alt="Dirty Window" class="project-thumb" loading="lazy" />
-            <div class="project-info">
-              <h3 class="project-title">Dirty Window</h3>
-              <p class="project-tagline">Interactive window cleaning — part game, part meditation</p>
-            </div>
-            <span class="project-toggle">&#9662;</span>
-          </div>
-          <div class="project-detail">
-            <div class="project-carousel">
-              <img src="/images/dirty-window/frontpage.png" alt="Dirty Window" loading="lazy" />
-              <img src="/images/dirty-window/1st.png" alt="Dirty Window" loading="lazy" />
-              <img src="/images/dirty-window/2nd.png" alt="Dirty Window" loading="lazy" />
-              <img src="/images/dirty-window/3rd.png" alt="Dirty Window" loading="lazy" />
-            </div>
-            <p class="project-detail__desc">The most satisfying window you'll ever clean. Turns a mundane chore into interactive art. Wipe away grime, experience realistic weather simulation, doodle messages on the fog, and capture it all in a built-in photobooth.</p>
-            <div class="project-detail__meta">
-              <span class="project-detail__tag">TouchDesigner</span>
-              <span class="project-detail__tag">three.js</span>
-              <span class="project-detail__tag">GLSL</span>
-            </div>
-            <a href="https://traeglass-effecta68u.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-detail__link">Live Demo &rarr;</a>
-          </div>
+      <div class="nav-section" data-scroll-to="art">
+        <h2 class="section-title">I Make Arts</h2>
+        <ul class="nav-sub-list">
+          <li><a href="#" data-scroll-room="room-interactive">Interactive</a></li>
+          <li><a href="#" data-scroll-room="room-paintings">Paintings & Generative</a></li>
+          <li><a href="#" data-scroll-room="room-video">Video</a></li>
+        </ul>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="nav-section" id="nav-connect">
+        <h2 class="section-title">I Connect Worlds</h2>
+      </div>
+
+      <hr class="divider" />
+
+      <div class="left-footer">
+        <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">&#9790;</button>
+        <div class="social-links">
+          <a href="https://x.com/whosamberella" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://instagram.com/whosamberella" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://github.com/ambershen" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/amber-hanzi-shen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
+      </div>
+    </aside>
 
-        <!-- PaletteMe -->
-        <div class="project-item fade-in" id="paletteme" data-project>
-          <div class="project-header" data-project-toggle>
-            <img src="/images/palette-me/frontpage.png" alt="PaletteMe" class="project-thumb" loading="lazy" />
-            <div class="project-info">
-              <h3 class="project-title">PaletteMe</h3>
-              <p class="project-tagline">LLM-powered personal color analysis</p>
-            </div>
-            <span class="project-toggle">&#9662;</span>
+    <!-- Right Column -->
+    <main class="right-column">
+      <!-- Default view -->
+      <div id="default-view">
+        <!-- Intro -->
+        <section class="blurb-section" id="about">
+          <div class="blurb-text">
+            <p>Hi, I'm Amber. I'm building at the intersection of code, narrative, and aesthetics. I ship products from design-to-code, and bring products to the market from 0-1.</p>
+            <p>I'm currently doing technical product marketing at <a href="https://www.trae.ai" target="_blank" rel="noopener noreferrer">trae.ai</a>, where we're democratizing software creation for everyone.</p>
+            <p>I grew up in China and spent my adult years between the US and France. Most of my energy goes into tech and art.</p>
+            <p class="blurb-subhead">Some random stuffs about me:</p>
+            <ul class="blurb-list">
+              <li>I love making creative experiments with AI models, with techno music as the bgm</li>
+              <li>I consider myself as a modern renaissance person</li>
+              <li>I'm quite spiritual. I believe the frontier tech should be magnify human creativity and spirituality.</li>
+              <li>I take photos and paint, turning moments into memories.</li>
+              <li>I left my most reckless side on my snowboard.</li>
+            </ul>
           </div>
-          <div class="project-detail">
-            <div class="project-carousel">
-              <img src="/images/palette-me/frontpage.png" alt="PaletteMe" loading="lazy" />
-              <img src="/images/palette-me/1st.png" alt="PaletteMe" loading="lazy" />
-              <img src="/images/palette-me/2nd.png" alt="PaletteMe" loading="lazy" />
-              <img src="/images/palette-me/3rd.png" alt="PaletteMe" loading="lazy" />
-            </div>
-            <p class="project-detail__desc">Goes beyond seasonal color theory by connecting chromatic harmony with identity, personality, and profession. Aesthetics comes from your identity.</p>
-            <div class="project-detail__meta">
-              <span class="project-detail__tag">Python</span>
-              <span class="project-detail__tag">LLM</span>
-              <span class="project-detail__tag">Computer Vision</span>
-            </div>
-          </div>
-        </div>
+        </section>
 
-        <!-- Birth Crystal -->
-        <div class="project-item fade-in" id="birth-crystal" data-project>
-          <div class="project-header" data-project-toggle>
-            <img src="/images/birth-crystal/frontpage.png" alt="Birth Crystal" class="project-thumb" loading="lazy" />
-            <div class="project-info">
-              <h3 class="project-title">Birth Crystal</h3>
-              <p class="project-tagline">Procedural 3D crystals generated from birthdates</p>
+        <!-- Selected Works -->
+        <section class="works-section" id="works">
+          <span class="content-label">Selected Works</span>
+          <hr class="divider" />
+
+          <div class="work-card" id="apollinaire">
+            <div class="work-media">
+              <video src="/images/apollinaire/frontpage.mp4" autoplay loop muted playsinline preload="metadata"></video>
             </div>
-            <span class="project-toggle">&#9662;</span>
+            <div class="work-info">
+              <h3 class="work-title">Interactive Calligramme</h3>
+              <p class="work-desc">An programming art simulating the moods and emotions of calligramme, inspired by Guillaume Apollinaire.</p>
+            </div>
           </div>
-          <div class="project-detail">
-            <div class="project-carousel">
+
+          <div class="work-card" id="deskmate-card">
+            <div class="work-info">
+              <h3 class="work-title">Deskmate</h3>
+              <p class="work-desc">AI-native app for finding places and people to co-work with - by vibes.</p>
+            </div>
+            <div class="work-media">
+              <video src="/images/deskmate/frontpage.mp4" autoplay loop muted playsinline preload="metadata"></video>
+            </div>
+          </div>
+
+          <div class="work-card" id="infinite-gallery">
+            <div class="work-media">
+              <video src="/images/infinite-gallery/frontpage.mp4" autoplay loop muted playsinline preload="metadata"></video>
+            </div>
+            <div class="work-info">
+              <h3 class="work-title">Infinite Gallery</h3>
+              <p class="work-desc">A 3D funnel for showcasing artwork or consumer products.</p>
+            </div>
+          </div>
+
+          <div class="work-card" id="birth-crystal">
+            <div class="work-info">
+              <h3 class="work-title">Birth Crystal</h3>
+              <p class="work-desc">Procedural 3D crystals generated from birthdates spatial data — unique patterns, colors, and geometries for every date in an interactive cosmos.</p>
+            </div>
+            <div class="work-media">
               <img src="/images/birth-crystal/frontpage.png" alt="Birth Crystal" loading="lazy" />
-              <img src="/images/birth-crystal/1st.png" alt="Birth Crystal" loading="lazy" />
-              <img src="/images/birth-crystal/2nd.png" alt="Birth Crystal" loading="lazy" />
-              <img src="/images/birth-crystal/3rd.png" alt="Birth Crystal" loading="lazy" />
-            </div>
-            <p class="project-detail__desc">Unique patterns, colors, and geometries for every date in an interactive cosmos. Bridging the gap between fortune-telling aesthetics and computational art.</p>
-            <div class="project-detail__meta">
-              <span class="project-detail__tag">three.js</span>
-              <span class="project-detail__tag">WebGL</span>
-              <span class="project-detail__tag">Spatial Data</span>
             </div>
           </div>
-        </div>
-
-        <!-- Bento Box -->
-        <div class="project-item fade-in" id="bento-box" data-project>
-          <div class="project-header" data-project-toggle>
-            <img src="/images/small-tool-bento-box/frontpage.png" alt="Bento Box" class="project-thumb" loading="lazy" />
-            <div class="project-info">
-              <h3 class="project-title">Small Tool Bento Box</h3>
-              <p class="project-tagline">A curated collection of everyday utilities</p>
-            </div>
-            <span class="project-toggle">&#9662;</span>
-          </div>
-          <div class="project-detail">
-            <div class="project-carousel">
-              <img src="/images/small-tool-bento-box/frontpage.png" alt="Bento Box" loading="lazy" />
-              <img src="/images/small-tool-bento-box/1st.png" alt="Bento Box" loading="lazy" />
-              <img src="/images/small-tool-bento-box/2nd.png" alt="Bento Box" loading="lazy" />
-              <img src="/images/small-tool-bento-box/3rd.png" alt="Bento Box" loading="lazy" />
-              <img src="/images/small-tool-bento-box/4th.png" alt="Bento Box" loading="lazy" />
-            </div>
-            <p class="project-detail__desc">Image processing, QR code generation, PDF conversion — presented with the care of a Japanese bento. Each tool is multi-purpose, instantly usable, and visually cohesive.</p>
-            <div class="project-detail__meta">
-              <span class="project-detail__tag">React</span>
-              <span class="project-detail__tag">Modular Architecture</span>
-            </div>
-            <a href="https://traesmall-tool-bento-box242w.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-detail__link">Live Demo &rarr;</a>
-          </div>
-        </div>
-
-        <!-- TRAE Raffle -->
-        <div class="project-item fade-in" id="trae-raffle" data-project>
-          <div class="project-header" data-project-toggle>
-            <img src="/images/small-tool-bento-box/frontpage.png" alt="TRAE Raffle" class="project-thumb" loading="lazy" />
-            <div class="project-info">
-              <h3 class="project-title">TRAE Anniversary Raffle</h3>
-              <p class="project-tagline">Gamified raffle with particle systems and pixel design</p>
-            </div>
-            <span class="project-toggle">&#9662;</span>
-          </div>
-          <div class="project-detail">
-            <div class="project-carousel">
-              <video src="/images/trae-raffle/raffle-reveal.mp4" autoplay loop muted playsinline preload="metadata"></video>
-              <video src="/images/trae-raffle/trae-anniversary-raffle.mp4" autoplay loop muted playsinline preload="metadata"></video>
-            </div>
-            <p class="project-detail__desc">Built raffle experiences for TRAE's 1-year anniversary event. Gamified the experience with particle movement and pixel-style design.</p>
-            <div class="project-detail__meta">
-              <span class="project-detail__tag">React</span>
-              <span class="project-detail__tag">Particle System</span>
-              <span class="project-detail__tag">Pixel Design</span>
-            </div>
-            <a href="https://traetrae-anniversary-raffle9t8u.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-detail__link">Live Demo &rarr;</a>
-          </div>
-        </div>
-
-        <!-- Agent Skills -->
-        <div class="project-item fade-in" id="agent-skills" data-project>
-          <div class="project-header" data-project-toggle>
-            <img src="/images/birth-crystal/frontpage.png" alt="Agent Skills" class="project-thumb" loading="lazy" />
-            <div class="project-info">
-              <h3 class="project-title">Agent Skills</h3>
-              <p class="project-tagline">Custom AI agent extensions</p>
-            </div>
-            <span class="project-toggle">&#9662;</span>
-          </div>
-          <div class="project-detail">
-            <p class="project-detail__desc">A collection of agent skills built to extend the capabilities of AI agents — from converting YouTube videos into infographic slides to creating 3D tunnel effects.</p>
-            <div class="project-detail__meta">
-              <span class="project-detail__tag">TypeScript</span>
-              <span class="project-detail__tag">Python</span>
-              <span class="project-detail__tag">Three.js</span>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 4px; margin-top: 8px;">
-              <a href="https://github.com/ambershen/youtube-to-slides" target="_blank" rel="noopener noreferrer" class="project-detail__link">Youtube to Slides &rarr;</a>
-              <a href="https://github.com/ambershen/infinite-tunnel/tree/main" target="_blank" rel="noopener noreferrer" class="project-detail__link">Infinite Tunnel &rarr;</a>
-            </div>
-          </div>
-        </div>
+        </section>
 
       </div>
 
-      <!-- Community -->
-      <div style="margin-top: 48px;" id="community">
-        <p class="section-label">// I bring people together</p>
-        <div class="project-item fade-in" data-project>
-          <div class="project-header" data-project-toggle>
-            <div class="project-info">
-              <h3 class="project-title">Non-AI AI Event</h3>
-              <p class="project-tagline">SF community events at the intersection of tech and everything else</p>
-            </div>
-            <span class="project-toggle">&#9662;</span>
+      <!-- Product detail views (hidden by default) -->
+      <div id="product-deskmate" class="product-detail" style="display:none;">
+        <a href="#" class="product-back" data-show-default>&larr; Back</a>
+        <h1 class="product-title">Deskmate</h1>
+
+        <div class="product-body">
+          <p>I initially built this product because I have a saved list of good places to cowork, but it's hard to search and share this kind of curation. Now with Deskmate, you can:</p>
+          <ul>
+            <li>Search for a curated list of coworking spots with great vibes in cities like SF, NYC and Seattle</li>
+            <li>Share hidden gems or private spots for coworking</li>
+            <li>Get agentic recommendation based on your personal preferences</li>
+          </ul>
+        </div>
+        <div class="product-links">
+          <a href="#" class="product-link" target="_blank" rel="noopener noreferrer">Try Deskmate &rarr;</a>
+        </div>
+        <div class="product-demo">
+          <video src="/images/deskmate/frontpage.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        </div>
+      </div>
+
+      <div id="product-dirty-window" class="product-detail" style="display:none;">
+        <a href="#" class="product-back" data-show-default>&larr; Back</a>
+        <h1 class="product-title">Dirty Window</h1>
+
+        <div class="product-body">
+          <p>The most satisfying window you'll ever clean. Turns a mundane chore into interactive art. Wipe away grimes, experience realistic weather simulation, doodle messages on the fog, and capture it all in a built-in photobooth. Part game, part meditation.</p>
+          <p>The philosophy is to find meditative experiences from mundane life.</p>
+        </div>
+        <div class="product-links">
+          <a href="https://traeglass-effecta68u.vercel.app/" class="product-link" target="_blank" rel="noopener noreferrer">Try Dirty Window &rarr;</a>
+        </div>
+        <div class="product-demo">
+          <video src="/images/dirty-window/frontpage.mp4" autoplay loop muted playsinline preload="metadata"></video>
+        </div>
+      </div>
+
+      <div id="product-bento-box" class="product-detail" style="display:none;">
+        <a href="#" class="product-back" data-show-default>&larr; Back</a>
+        <h1 class="product-title">Small Tool Bento Box</h1>
+
+        <div class="product-body">
+          <p>A curated collection of everyday utilities — image processing, QR code generation, PDF conversion — presented with the care of a Japanese bento. Each tool is multi-purpose, instantly usable, and visually cohesive.</p>
+          <p>The modular architecture makes it trivially easy to add new tools while maintaining the clean, organized aesthetic.</p>
+        </div>
+        <div class="product-links">
+          <a href="https://traesmall-tool-bento-box242w.vercel.app/" class="product-link" target="_blank" rel="noopener noreferrer">Try Bento Box &rarr;</a>
+        </div>
+        <div class="product-carousel">
+          <div class="carousel-track">
+            <img src="/images/small-tool-bento-box/frontpage.png" alt="Bento Box" />
+            <img src="/images/small-tool-bento-box/1st.png" alt="Bento Box" />
+            <img src="/images/small-tool-bento-box/2nd.png" alt="Bento Box" />
+            <img src="/images/small-tool-bento-box/3rd.png" alt="Bento Box" />
+            <img src="/images/small-tool-bento-box/4th.png" alt="Bento Box" />
+            <img src="/images/small-tool-bento-box/5th.png" alt="Bento Box" />
+            <img src="/images/small-tool-bento-box/6th.png" alt="Bento Box" />
           </div>
-          <div class="project-detail">
-            <p class="project-detail__desc">A community gathering in San Francisco for people who care about more than just AI — but use it anyway. Conversations about creativity, identity, and building things that resonate.</p>
+          <div class="carousel-controls">
+            <button class="carousel-btn carousel-prev">&larr;</button>
+            <span class="carousel-counter">1 / 7</span>
+            <button class="carousel-btn carousel-next">&rarr;</button>
           </div>
         </div>
+      </div>
+
+      <div id="product-agent-skills" class="product-detail" style="display:none;">
+        <a href="#" class="product-back" data-show-default>&larr; Back</a>
+        <h1 class="product-title">Agent Skills</h1>
+
+        <div class="product-body">
+          <p>I'm an active contributor to Agent Skills.</p>
+          <p><strong>Youtube to Slides</strong> — Convert hour-long videos into slides made with infographics.</p>
+          <p><strong>Infinite Tunnel Effect</strong> — 3D tunnel skills made with three.js and GSAP.</p>
+        </div>
+        <div class="product-links">
+          <a href="https://github.com/ambershen/youtube-to-slides" class="product-link" target="_blank" rel="noopener noreferrer">Youtube to Slides &rarr;</a>
+          <a href="https://github.com/ambershen/infinite-tunnel/tree/main" class="product-link" target="_blank" rel="noopener noreferrer">Infinite Tunnel &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Art Gallery view (hidden by default) -->
+      <div id="art-gallery" class="art-gallery" style="display:none;">
+        <a href="#" class="product-back" data-show-default>&larr; Back</a>
+
+        <!-- Room 1: Interactive Arts — Exhibition layout -->
+        <div class="gallery-room" id="room-interactive">
+          <div class="room-label">
+            <hr class="divider" />
+            <span>Interactive</span>
+            <hr class="divider" />
+          </div>
+
+          <div class="exhibit-grid">
+            <!-- Hero: Places to Be -->
+            <div class="exhibit-piece exhibit-hero">
+              <a href="#" class="exhibit-media">
+                <video src="/images/art-interactive/places-to-be-last-version.mp4" autoplay loop muted playsinline preload="metadata"></video>
+              </a>
+              <div class="exhibit-wall-label">
+                <span class="exhibit-title">Places to Be</span>
+                <span class="exhibit-meta">Interactive installation, 2025</span>
+              </div>
+            </div>
+
+            <!-- Pair: Calligramme (wide) + Touch Me (narrow/portrait) -->
+            <div class="exhibit-pair">
+              <div class="exhibit-piece exhibit-wide">
+                <a href="#" class="exhibit-media">
+                  <video src="/images/art-interactive/calligramme.mp4" autoplay loop muted playsinline preload="metadata"></video>
+                </a>
+                <div class="exhibit-wall-label">
+                  <span class="exhibit-title">Calligramme — Le Pont Mirabeau</span>
+                  <span class="exhibit-meta">Interactive poem, 2025</span>
+                </div>
+              </div>
+              <div class="exhibit-piece exhibit-narrow">
+                <a href="#" class="exhibit-media">
+                  <video src="/images/art-interactive/touch-me-motion.mp4" autoplay loop muted playsinline preload="metadata"></video>
+                </a>
+                <div class="exhibit-wall-label">
+                  <span class="exhibit-title">Touch Me</span>
+                  <span class="exhibit-meta">Motion reactive, 2024</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Offset: ASCII Art Flow -->
+            <div class="exhibit-piece exhibit-offset">
+              <a href="#" class="exhibit-media">
+                <video src="/images/art-interactive/ascii-art-flow.mp4" autoplay loop muted playsinline preload="metadata"></video>
+              </a>
+              <div class="exhibit-wall-label">
+                <span class="exhibit-title">ASCII Art Flow</span>
+                <span class="exhibit-meta">Generative typography, 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 2: Paintings & Generative Arts — Salon wall -->
+        <div class="gallery-room" id="room-paintings">
+          <div class="room-label">
+            <hr class="divider" />
+            <span>Paintings & Generative</span>
+            <hr class="divider" />
+          </div>
+
+          <div class="salon-wall">
+            <!-- Row 1: Dramatic opener — Hopper windows + Cloud house -->
+            <div class="salon-row">
+              <div class="salon-piece" style="flex:1.4;">
+                <img src="/images/art-paintings/amberber_edward_hopper_painting_depicting_a_building_with_two_n_ad1fa9c4-5847-4918-822f-bbbab1a80937.png" alt="Night Times" />
+                <span class="salon-caption">Night Times</span>
+              </div>
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/amberber_a_surrealist_house_constructed_entirely_of_billowing_7b7428e2-6860-4ad0-80fa-fc25d93e6e35_0 (1).png" alt="Cloud House" />
+                <span class="salon-caption">Cloud House</span>
+              </div>
+            </div>
+
+            <!-- Row 2: The Seasons — four portrait paintings as a series -->
+            <div class="salon-row">
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/spring.jpeg" alt="Spring" />
+                <span class="salon-caption">Spring</span>
+              </div>
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/summer.jpeg" alt="Summer" />
+                <span class="salon-caption">Summer</span>
+              </div>
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/autumn.jpeg" alt="Autumn" />
+                <span class="salon-caption">Autumn</span>
+              </div>
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/winter.jpeg" alt="Winter" />
+                <span class="salon-caption">Winter</span>
+              </div>
+            </div>
+
+            <!-- Row 3: Dreamcore trio — feather bicycle, feather armchair, smoke portrait -->
+            <div class="salon-row">
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/amberber_dreamcore_surrealist_vintage_bicycle_constructed_ent_866176a6-b66e-4faa-b0d8-7f7c0fd2f855_3.png" alt="Feather Bicycle" />
+                <span class="salon-caption">Feather Bicycle</span>
+              </div>
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/amberber_httpss.mj.runkFqjjPAJUpw_dreamcore_surrealist_armcha_f7b9c177-225a-44ac-a5da-59f36f1b8123_1 (1).png" alt="Feather Throne" />
+                <span class="salon-caption">Feather Throne</span>
+              </div>
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/amberber_generate_--v_6.1_e52a4fb6-c6a1-478f-a855-fe2250fb5002_3.png" alt="Dissolve" />
+                <span class="salon-caption">Dissolve</span>
+              </div>
+            </div>
+
+            <!-- Row 4: Moody pair — driving + dark screens -->
+            <div class="salon-row">
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/amberber_edward_hopper_painting_depicting_a_guy_driving_in_his__48175de5-bd7b-4eac-9f6a-a5fb59c7dcd0.png" alt="Highway" />
+                <span class="salon-caption">Highway</span>
+              </div>
+              <div class="salon-piece" style="flex:1;">
+                <img src="/images/art-paintings/amberber_httpss.mj.run7whEF-4sqiM_same_scene_and_setting_but__83e6ffd3-c957-44cf-972b-0345a8932674_1.png" alt="Late Night Terminal" />
+                <span class="salon-caption">Late Night Terminal</span>
+              </div>
+            </div>
+
+            <!-- Row 5: Centered closer — floating island + ripple portrait -->
+            <div class="salon-row" style="justify-content: center; gap: 24px;">
+              <div class="salon-piece" style="flex: 0 1 55%;">
+                <img src="/images/art-paintings/amberber_Generate_--v_7_dac14766-df20-4d4c-8f44-a00456f696fe_1.png" alt="Floating Island" />
+                <span class="salon-caption">Floating Island</span>
+              </div>
+              <div class="salon-piece" style="flex: 0 1 35%;">
+                <img src="/images/art-paintings/amberber_generate_a_--v_6.1_a5217ea3-c8e6-4864-9627-d9e73eb3f2eb_2.png" alt="Signal" />
+                <span class="salon-caption">Signal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Room 3: Generated Videos — Screening room -->
+        <div class="gallery-room screening-room" id="room-video">
+          <div class="room-label">
+            <hr class="divider" />
+            <span>Video</span>
+            <hr class="divider" />
+          </div>
+
+          <div class="screening-grid">
+            <div class="screening-piece screening-full">
+              <video src="/films/Limited-time-FREE-final.mp4" loop muted playsinline preload="metadata"></video>
+              <p class="screening-caption">Limited-time FREE</p>
+            </div>
+
+            <div class="screening-piece screening-full">
+              <video src="/films/cinematic-visual.mp4" loop muted playsinline preload="metadata"></video>
+              <p class="screening-caption">Cinematic Visual</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connect view (hidden by default) -->
+      <div id="connect-view" class="connect-view" style="display:none;">
+        <a href="#" class="product-back" data-show-default>&larr; Back</a>
+
+        <!-- Writings -->
+        <section class="connect-section">
+          <div class="room-label">
+            <hr class="divider" />
+            <span>Writings</span>
+            <hr class="divider" />
+          </div>
+          <div class="connect-list">
+            <a href="https://whosamberella.substack.com/p/the-four-types-of-people-every-team" target="_blank" rel="noopener noreferrer" class="connect-item">
+              <span class="connect-item-title">The Four Types of People Every Team Will Need</span>
+              <span class="connect-item-meta">Jun 2025</span>
+            </a>
+            <hr class="divider" />
+            <a href="https://whosamberella.substack.com/p/why-everyone-should-become-a-builder" target="_blank" rel="noopener noreferrer" class="connect-item">
+              <span class="connect-item-title">Why Everyone Should Become a Builder (And How AI Makes It Possible)</span>
+              <span class="connect-item-meta">Jun 2025</span>
+            </a>
+            <hr class="divider" />
+          </div>
+        </section>
+
+        <!-- Podcast -->
+        <section class="connect-section">
+          <div class="room-label">
+            <hr class="divider" />
+            <span>Podcast</span>
+            <hr class="divider" />
+          </div>
+          <div class="connect-body">
+            <h3 class="connect-event-title">DancingElephant</h3>
+            <p class="connect-event-desc">2020 — now</p>
+            <div class="product-links" style="margin-top: 24px;">
+              <a href="https://podcasts.apple.com/us/podcast/dancingelephant%E8%B7%B3%E8%88%9E%E7%9A%84%E5%A4%A7%E8%B1%A1/id1521771658" class="product-link" target="_blank" rel="noopener noreferrer">Apple Podcast &rarr;</a>
+              <a href="https://open.spotify.com/show/50bHIkjqGqzUmBz8T7DDcf?si=mUe7ii6LQmax3agwLhooCA" class="product-link" target="_blank" rel="noopener noreferrer">Spotify &rarr;</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Community -->
+        <section class="connect-section">
+          <div class="room-label">
+            <hr class="divider" />
+            <span>Community</span>
+            <hr class="divider" />
+          </div>
+          <div class="connect-body">
+            <h3 class="connect-event-title">Non-AI AI Event</h3>
+            <p class="connect-event-desc">SF community events at the intersection of tech and everything else. A gathering for people who care about more than just AI — but use it anyway. Conversations about creativity, identity, and building things that resonate.</p>
+          </div>
+        </section>
       </div>
 
     </main>
   </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <span class="footer-copy">Amber Shen &mdash; &copy; made with personality</span>
+      <div class="footer-links">
+        <a href="https://x.com/whosamberella" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://instagram.com/whosamberella" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://github.com/ambershen" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/amber-hanzi-shen/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

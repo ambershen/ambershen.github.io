@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- V2: Dot grid — 3x3 grid representing the three worlds (build, art, connect) -->
+  <rect width="32" height="32" fill="#1A1A1A"/>
+  <circle cx="9" cy="9" r="2.5" fill="#FAFAFA"/>
+  <circle cx="16" cy="9" r="2.5" fill="#FAFAFA"/>
+  <circle cx="23" cy="9" r="2.5" fill="#FAFAFA"/>
+  <circle cx="9" cy="16" r="2.5" fill="#FAFAFA"/>
+  <circle cx="16" cy="16" r="2.5" fill="#FAFAFA" opacity="0.4"/>
+  <circle cx="23" cy="16" r="2.5" fill="#FAFAFA"/>
+  <circle cx="9" cy="23" r="2.5" fill="#FAFAFA"/>
+  <circle cx="16" cy="23" r="2.5" fill="#FAFAFA"/>
+  <circle cx="23" cy="23" r="2.5" fill="#FAFAFA"/>
+</svg>
