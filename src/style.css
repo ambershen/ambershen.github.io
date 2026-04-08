@@ -39,6 +39,27 @@ body {
   color: var(--text);
   background-color: var(--bg);
   -webkit-font-smoothing: antialiased;
+  cursor: none;
+}
+
+/* Ink trail canvas */
+#ink-trail {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Hide cursor on all interactive elements too */
+a, button, input, textarea, select, [role="button"] {
+  cursor: none;
+}
+
+/* Restore default cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  body, a, button, input, textarea, select, [role="button"] {
+    cursor: auto;
+  }
 }
 
 a {
@@ -541,6 +562,7 @@ a:hover { color: var(--text-muted); }
 }
 
 .exhibit-portrait .exhibit-media {
+  position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 3 / 4;
@@ -549,6 +571,7 @@ a:hover { color: var(--text-muted); }
 }
 
 .exhibit-companion .exhibit-media {
+  position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 16 / 10;
@@ -558,6 +581,7 @@ a:hover { color: var(--text-muted); }
 
 /* Full width landscape */
 .exhibit-full .exhibit-media {
+  position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -590,6 +614,7 @@ a:hover { color: var(--text-muted); }
 }
 
 .exhibit-offset .exhibit-media {
+  position: relative;
   display: block;
   width: 100%;
   aspect-ratio: 4 / 3;

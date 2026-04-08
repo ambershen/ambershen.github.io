@@ -257,3 +257,103 @@ if (window.location.hash) {
     }, 100);
   }
 }
+
+// Ink trail cursor effect
+(function initInkTrail() {
+  // Skip on touch devices
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.id = 'ink-trail';
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d')!;
+  let w = 0, h = 0;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  interface InkPoint {
+    x: number; y: number;
+    size: number; alpha: number;
+    age: number; maxAge: number;
+    vx: number; vy: number;
+  }
+
+  const points: InkPoint[] = [];
+  let mx = -100, my = -100, pmx = -100, pmy = -100;
+
+  function isDark(): boolean {
+    return document.documentElement.getAttribute('data-theme') === 'dark';
+  }
+
+  document.addEventListener('mousemove', (e) => {
+    pmx = mx; pmy = my;
+    mx = e.clientX; my = e.clientY;
+    const dx = mx - pmx;
+    const dy = my - pmy;
+    const speed = Math.sqrt(dx * dx + dy * dy);
+    const size = Math.max(1.5, Math.min(10, 35 / (speed + 1)));
+
+    const steps = Math.max(1, Math.floor(speed / 5));
+    for (let i = 0; i < steps; i++) {
+      const t = i / steps;
+      points.push({
+        x: pmx + dx * t,
+        y: pmy + dy * t,
+        size,
+        alpha: 0.3,
+        age: 0,
+        maxAge: 60 + Math.random() * 30,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+      });
+    }
+  });
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const dark = isDark();
+
+    // Trail color: warm charcoal in light mode, soft cream in dark mode
+    const trailR = dark ? 220 : 40;
+    const trailG = dark ? 215 : 38;
+    const trailB = dark ? 205 : 45;
+
+    for (let i = points.length - 1; i >= 0; i--) {
+      const p = points[i];
+      p.age++;
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.age >= p.maxAge) {
+        points.splice(i, 1);
+        continue;
+      }
+
+      const life = 1 - p.age / p.maxAge;
+      const a = p.alpha * life;
+      const s = p.size * (1 - p.age / p.maxAge * 0.3);
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, s, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${trailR}, ${trailG}, ${trailB}, ${a})`;
+      ctx.fill();
+    }
+
+    // Cursor dot
+    const dotR = dark ? 232 : 28;
+    const dotG = dark ? 228 : 28;
+    const dotB = dark ? 222 : 30;
+    ctx.beginPath();
+    ctx.arc(mx, my, 4, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${dotR}, ${dotG}, ${dotB}, 0.8)`;
+    ctx.fill();
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
