@@ -532,52 +532,45 @@ a:hover { color: var(--text-muted); }
 
 .exhibit-piece { position: relative; }
 
-/* Hero: full-bleed, cinematic ratio */
-.exhibit-hero .exhibit-media {
-  display: block;
-  width: 100%;
-  aspect-ratio: 2.35 / 1;
-  overflow: hidden;
-  background: var(--surface);
-}
-
-.exhibit-hero .exhibit-media video,
-.exhibit-hero .exhibit-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s ease;
-}
-
-.exhibit-hero:hover .exhibit-media video,
-.exhibit-hero:hover .exhibit-media img {
-  transform: scale(1.02);
-}
-
-/* Two-up asymmetric pair */
-.exhibit-pair {
+/* Featured row: portrait + landscape companion */
+.exhibit-featured {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: 1fr 1.4fr;
   gap: 24px;
   align-items: start;
 }
 
-.exhibit-wide .exhibit-media,
-.exhibit-narrow .exhibit-media {
+.exhibit-portrait .exhibit-media {
   display: block;
   width: 100%;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   background: var(--surface);
 }
 
-.exhibit-wide .exhibit-media { aspect-ratio: 16 / 10; }
-.exhibit-narrow .exhibit-media { aspect-ratio: 3 / 4; }
+.exhibit-companion .exhibit-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--surface);
+}
 
-.exhibit-wide .exhibit-media video,
-.exhibit-wide .exhibit-media img,
-.exhibit-narrow .exhibit-media video,
-.exhibit-narrow .exhibit-media img {
+/* Full width landscape */
+.exhibit-full .exhibit-media {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.exhibit-portrait .exhibit-media video,
+.exhibit-companion .exhibit-media video,
+.exhibit-full .exhibit-media video,
+.exhibit-portrait .exhibit-media img,
+.exhibit-companion .exhibit-media img,
+.exhibit-full .exhibit-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -1075,9 +1068,8 @@ a:hover { color: var(--text-muted); }
   }
 
   /* Gallery */
-  .exhibit-pair { grid-template-columns: 1fr; }
+  .exhibit-featured { grid-template-columns: 1fr; }
   .exhibit-offset { width: 100%; margin-left: 0; }
-  .exhibit-hero .exhibit-media { aspect-ratio: 16 / 9; }
   .exhibit-wall-label { flex-wrap: wrap; gap: 4px; }
   .exhibit-link { margin-left: 0; }
   .gallery-room { margin-bottom: 64px; }
