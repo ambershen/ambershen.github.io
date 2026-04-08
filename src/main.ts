@@ -226,6 +226,19 @@ document.querySelectorAll<HTMLElement>('.salon-piece').forEach((piece) => {
   });
 });
 
+// Places to Be — click to unmute and play with sound
+const placesVideo = document.getElementById('places-to-be-video') as HTMLVideoElement | null;
+if (placesVideo) {
+  placesVideo.addEventListener('click', () => {
+    if (placesVideo.muted) {
+      placesVideo.muted = false;
+      placesVideo.play();
+    } else {
+      placesVideo.muted = true;
+    }
+  });
+}
+
 // Screening room — play video on hover
 document.querySelectorAll<HTMLVideoElement>('.screening-piece video').forEach((video) => {
   video.addEventListener('mouseenter', () => video.play());
