@@ -9,32 +9,54 @@ if (savedTheme) {
   document.documentElement.setAttribute('data-theme', 'dark');
 }
 
+const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+
 function updateToggleIcon() {
-  if (themeToggle) {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    themeToggle.innerHTML = isDark ? '&#9788;' : '&#9790;';
-  }
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const icon = isDark ? '&#9788;' : '&#9790;';
+  if (themeToggle) themeToggle.innerHTML = icon;
+  if (mobileThemeToggle) mobileThemeToggle.innerHTML = icon;
 }
 updateToggleIcon();
 
-themeToggle?.addEventListener('click', () => {
+function toggleTheme() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   const newTheme = isDark ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', newTheme);
   localStorage.setItem('theme', newTheme);
   updateToggleIcon();
+}
+
+themeToggle?.addEventListener('click', toggleTheme);
+mobileThemeToggle?.addEventListener('click', toggleTheme);
+
+// Mobile menu
+const hamburger = document.getElementById('mobile-hamburger');
+const leftColumn = document.getElementById('left-column');
+const overlay = document.getElementById('mobile-overlay');
+const breadcrumb = document.getElementById('mobile-breadcrumb');
+
+function openMobileMenu() {
+  leftColumn?.classList.add('open');
+  hamburger?.classList.add('open');
+  overlay?.classList.add('visible');
+}
+
+function closeMobileMenu() {
+  leftColumn?.classList.remove('open');
+  hamburger?.classList.remove('open');
+  overlay?.classList.remove('visible');
+}
+
+function setBreadcrumb(text: string) {
+  if (breadcrumb) breadcrumb.textContent = text;
+}
+
+hamburger?.addEventListener('click', () => {
+  leftColumn?.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
 });
 
-// Mobile menu toggle
-const menuToggle = document.getElementById('mobile-menu-toggle');
-const leftColumn = document.getElementById('left-column');
-
-if (menuToggle && leftColumn) {
-  menuToggle.addEventListener('click', () => {
-    const isOpen = leftColumn.classList.toggle('open');
-    menuToggle.textContent = isOpen ? 'CLOSE' : 'MENU';
-  });
-}
+overlay?.addEventListener('click', closeMobileMenu);
 
 // Nav section scroll-to
 document.querySelectorAll<HTMLElement>('[data-scroll-to]').forEach((el) => {
@@ -45,11 +67,7 @@ document.querySelectorAll<HTMLElement>('[data-scroll-to]').forEach((el) => {
     const target = document.getElementById(targetId);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      // Close mobile menu
-      if (leftColumn && window.innerWidth <= 1024) {
-        leftColumn.classList.remove('open');
-        if (menuToggle) menuToggle.textContent = 'MENU';
-      }
+      if (window.innerWidth <= 1024) closeMobileMenu();
     }
   });
 });
@@ -90,7 +108,10 @@ function showProduct(productId: string) {
   if (target) {
     target.style.display = 'flex';
     rightColumn.scrollTop = 0;
+    const title = target.querySelector('.product-title');
+    if (title) setBreadcrumb(title.textContent || 'Project');
   }
+  closeMobileMenu();
 }
 
 function showGallery(scrollToRoom?: string) {
@@ -98,6 +119,8 @@ function showGallery(scrollToRoom?: string) {
   hideAllViews();
   artGallery.style.display = 'flex';
   rightColumn.scrollTop = 0;
+  setBreadcrumb('I Make Arts');
+  closeMobileMenu();
   if (scrollToRoom) {
     setTimeout(() => {
       const room = document.getElementById(scrollToRoom);
@@ -111,6 +134,8 @@ function showDefault() {
   hideAllViews();
   if (defaultView) defaultView.style.display = '';
   rightColumn.scrollTop = 0;
+  setBreadcrumb('Amber Shen');
+  closeMobileMenu();
 }
 
 document.querySelectorAll<HTMLElement>('[data-show-product]').forEach((el) => {
@@ -174,6 +199,8 @@ document.getElementById('nav-connect')?.addEventListener('click', (e) => {
     connectView.style.display = 'flex';
     if (rightColumn) rightColumn.scrollTop = 0;
   }
+  setBreadcrumb('I Connect Worlds');
+  closeMobileMenu();
 });
 
 // Lightbox (Salon wall)

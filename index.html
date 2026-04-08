@@ -17,8 +17,16 @@
   <link href="https://cdn.jsdelivr.net/npm/geist@1/dist/fonts/geist-sans/style.css" rel="stylesheet" />
 </head>
 <body>
-  <!-- Mobile header -->
-  <button class="mobile-menu-toggle" id="mobile-menu-toggle">MENU</button>
+  <!-- Mobile top bar -->
+  <div class="mobile-topbar" id="mobile-topbar">
+    <button class="mobile-hamburger" id="mobile-hamburger">
+      <span></span><span></span><span></span>
+    </button>
+    <span class="mobile-breadcrumb" id="mobile-breadcrumb">Amber Shen</span>
+    <button class="theme-toggle mobile-theme" id="mobile-theme-toggle">&#9790;</button>
+  </div>
+
+  <div class="mobile-overlay" id="mobile-overlay"></div>
 
   <div class="portfolio-layout">
     <!-- Left Column -->
