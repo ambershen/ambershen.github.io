@@ -239,6 +239,25 @@ if (placesVideo) {
   });
 }
 
+// Lazy autoplay videos when they become visible
+const videoObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      const video = entry.target as HTMLVideoElement;
+      if (entry.isIntersecting) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
+  },
+  { threshold: 0.25 }
+);
+
+document.querySelectorAll<HTMLVideoElement>('video[data-autoplay]').forEach((video) => {
+  videoObserver.observe(video);
+});
+
 // Screening room — play video on hover
 document.querySelectorAll<HTMLVideoElement>('.screening-piece video').forEach((video) => {
   video.addEventListener('mouseenter', () => video.play());

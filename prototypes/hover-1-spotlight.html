@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hover Prototype 1 — Museum Spotlight</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ---------- Light mode (default) ---------- */
+    body {
+      background: #F5F1EB;
+      color: #1C1C1E;
+      font-family: 'Geist Sans', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .piece img { filter: brightness(0.6) saturate(0.7); }
+    .piece:hover img { filter: brightness(1) saturate(1); }
+    .piece .spotlight {
+      background: radial-gradient(circle 180px at 50% 50%, transparent 0%, rgba(245,241,235,0.9) 100%);
+    }
+    .cursor-dot { background: rgba(28,28,30,0.5); }
+    .cursor-ring { border-color: rgba(28,28,30,0.2); }
+    .cursor-ring.active { border-color: rgba(28,28,30,0.4); }
+    .piece .caption { color: #1C1C1E; }
+
+    /* ---------- Dark mode ---------- */
+    [data-theme="dark"] body,
+    body.dark {
+      background: #0a0a0a;
+      color: #e8e4de;
+    }
+    [data-theme="dark"] .piece img,
+    body.dark .piece img { filter: brightness(0.25); }
+    [data-theme="dark"] .piece:hover img,
+    body.dark .piece:hover img { filter: brightness(1); }
+    [data-theme="dark"] .piece .spotlight,
+    body.dark .piece .spotlight {
+      background: radial-gradient(circle 180px at 50% 50%, transparent 0%, rgba(0,0,0,0.88) 100%);
+    }
+    [data-theme="dark"] .cursor-dot,
+    body.dark .cursor-dot { background: rgba(255,255,255,0.6); }
+    [data-theme="dark"] .cursor-ring,
+    body.dark .cursor-ring { border-color: rgba(255,255,255,0.3); }
+    [data-theme="dark"] .cursor-ring.active,
+    body.dark .cursor-ring.active { border-color: rgba(255,255,255,0.5); }
+    [data-theme="dark"] .piece .caption,
+    body.dark .piece .caption { color: #e8e4de; }
+
+    /* ---------- Shared ---------- */
+    h1 {
+      text-align: center;
+      padding: 48px 24px 12px;
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 12px;
+      opacity: 0.3;
+      margin-bottom: 12px;
+    }
+    .toggle-row {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .toggle-row button {
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border: 1px solid currentColor;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      opacity: 0.5;
+      transition: opacity 0.3s;
+    }
+    .toggle-row button:hover { opacity: 1; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 40px 80px;
+    }
+    .piece {
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+    }
+    .piece img {
+      width: 100%;
+      display: block;
+      transition: filter 0.4s ease;
+    }
+    .piece .caption {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .piece .spotlight {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .piece:hover .spotlight { opacity: 1; }
+    .piece:hover .caption { opacity: 0.8; }
+    .cursor-dot {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, opacity 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1px solid;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease, border-color 0.3s;
+    }
+    .cursor-ring.active {
+      width: 60px;
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <h1>Prototype 1 — Museum Spotlight</h1>
+  <p class="subtitle">Hover over the paintings. A spotlight follows your cursor.</p>
+  <div class="toggle-row">
+    <button id="theme-btn">Toggle Dark / Light</button>
+  </div>
+
+  <div class="gallery">
+    <div class="piece">
+      <img src="/images/art-paintings/amberber_edward_hopper_painting_depicting_a_building_with_two_n_ad1fa9c4-5847-4918-822f-bbbab1a80937.png" alt="Night Times" />
+      <div class="spotlight"></div>
+      <span class="caption">Night Times</span>
+    </div>
+    <div class="piece">
+      <img src="/images/art-paintings/amberber_a_surrealist_house_constructed_entirely_of_billowing_7b7428e2-6860-4ad0-80fa-fc25d93e6e35_0 (1).png" alt="Cloud House" />
+      <div class="spotlight"></div>
+      <span class="caption">Cloud House</span>
+    </div>
+    <div class="piece">
+      <img src="/images/art-paintings/amberber_dreamcore_surrealist_vintage_bicycle_constructed_ent_866176a6-b66e-4faa-b0d8-7f7c0fd2f855_3.png" alt="Feather Bicycle" />
+      <div class="spotlight"></div>
+      <span class="caption">Feather Bicycle</span>
+    </div>
+    <div class="piece">
+      <img src="/images/art-paintings/spring.jpeg" alt="Spring" />
+      <div class="spotlight"></div>
+      <span class="caption">Spring</span>
+    </div>
+    <div class="piece">
+      <img src="/images/art-paintings/summer.jpeg" alt="Summer" />
+      <div class="spotlight"></div>
+      <span class="caption">Summer</span>
+    </div>
+    <div class="piece">
+      <img src="/images/art-paintings/autumn.jpeg" alt="Autumn" />
+      <div class="spotlight"></div>
+      <span class="caption">Autumn</span>
+    </div>
+  </div>
+
+  <script>
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    let isDark = false;
+
+    // Theme toggle
+    document.getElementById('theme-btn').addEventListener('click', () => {
+      isDark = !isDark;
+      document.body.classList.toggle('dark', isDark);
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document.querySelectorAll('.piece').forEach((piece) => {
+      const spotlight = piece.querySelector('.spotlight');
+
+      piece.addEventListener('mouseenter', () => {
+        ring.classList.add('active');
+      });
+      piece.addEventListener('mouseleave', () => {
+        ring.classList.remove('active');
+      });
+
+      piece.addEventListener('mousemove', (e) => {
+        const rect = piece.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const overlay = isDark
+          ? `radial-gradient(circle 160px at ${x}px ${y}px, transparent 0%, rgba(0,0,0,0.88) 100%)`
+          : `radial-gradient(circle 160px at ${x}px ${y}px, transparent 0%, rgba(245,241,235,0.9) 100%)`;
+        spotlight.style.background = overlay;
+      });
+    });
+  </script>
+</body>
+</html>

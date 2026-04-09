@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cursor 1 — Ink Trail</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #F5F1EB;
+      color: #1C1C1E;
+      font-family: 'Geist Sans', system-ui, sans-serif;
+      min-height: 200vh;
+      cursor: none;
+    }
+    canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    .content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 24px;
+    }
+    h1 { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.4; margin-bottom: 8px; }
+    .subtitle { font-size: 12px; opacity: 0.3; margin-bottom: 64px; }
+    h2 { font-size: 28px; font-weight: 300; margin-bottom: 16px; }
+    p { font-size: 16px; line-height: 1.7; opacity: 0.7; margin-bottom: 24px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .card {
+      background: rgba(0,0,0,0.03);
+      padding: 32px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .card h3 { font-size: 14px; margin-bottom: 8px; }
+    .card p { font-size: 13px; }
+  </style>
+</head>
+<body>
+  <canvas id="trail"></canvas>
+  <div class="content">
+    <h1>Cursor Prototype 1 — Ink Trail</h1>
+    <p class="subtitle">Move your cursor. It leaves a calligraphic ink trail that fades like wet ink drying on paper.</p>
+    <h2>The cursor draws as you move</h2>
+    <p>Inspired by East Asian brush calligraphy. The trail responds to speed — fast movements create thin, sweeping strokes; slow movements pool into thicker marks. The ink fades naturally, like breath on cold glass.</p>
+    <p>Scroll down and move around to see the full effect.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Speed-sensitive</h3>
+        <p>Fast motion = thin trail. Slow motion = thick pooling. Like a real brush on rice paper.</p>
+      </div>
+      <div class="card">
+        <h3>Organic fade</h3>
+        <p>Each stroke fades with its own timing, creating layered traces of where you've been.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('trail');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const points = [];
+    let mx = -100, my = -100, pmx = -100, pmy = -100;
+
+    document.addEventListener('mousemove', (e) => {
+      pmx = mx; pmy = my;
+      mx = e.clientX; my = e.clientY;
+      const dx = mx - pmx;
+      const dy = my - pmy;
+      const speed = Math.sqrt(dx * dx + dy * dy);
+      const size = Math.max(1.5, Math.min(12, 40 / (speed + 1)));
+
+      // Add multiple points between prev and current for smoothness
+      const steps = Math.max(1, Math.floor(speed / 4));
+      for (let i = 0; i < steps; i++) {
+        const t = i / steps;
+        points.push({
+          x: pmx + dx * t,
+          y: pmy + dy * t,
+          size: size,
+          alpha: 0.35,
+          age: 0,
+          maxAge: 80 + Math.random() * 40,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+        });
+      }
+    });
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+
+      for (let i = points.length - 1; i >= 0; i--) {
+        const p = points[i];
+        p.age++;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha = 0.35 * (1 - p.age / p.maxAge);
+
+        if (p.age >= p.maxAge) {
+          points.splice(i, 1);
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * (1 - p.age / p.maxAge * 0.3), 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(28, 28, 30, ${p.alpha})`;
+        ctx.fill();
+      }
+
+      // Draw cursor dot
+      ctx.beginPath();
+      ctx.arc(mx, my, 4, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(28, 28, 30, 0.8)';
+      ctx.fill();
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+</html>
