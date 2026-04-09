@@ -85,12 +85,23 @@ a:hover { color: var(--text-muted); }
   width: var(--left-width);
   height: 100vh;
   flex-shrink: 0;
-  padding: 80px 48px;
+  padding: 48px 48px;
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background: var(--bg);
   overflow-y: auto;
+}
+
+.profile-pic {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 2px solid var(--border);
+  margin-bottom: 16px;
 }
 
 .name {
