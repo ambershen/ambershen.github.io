@@ -101,6 +101,7 @@ a:hover { color: var(--text-muted); }
   object-fit: cover;
   object-position: center top;
   border: 2px solid var(--border);
+  margin-top: 40px;
   margin-bottom: 16px;
 }
 
