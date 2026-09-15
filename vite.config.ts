@@ -6,6 +6,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        'petal-study': resolve(__dirname, 'experiments/petal-study/index.html'),
         gallery: resolve(__dirname, 'gallery/index.html'),
         visuals: resolve(__dirname, 'visuals/index.html'),
         'product-deskmate': resolve(__dirname, 'product/deskmate/index.html'),
