@@ -1,6 +1,6 @@
-import flowerURL from './flower.png';
-import pencilURL from './flower-pencil.png';
-import portraitURL from './portrait.jpg';
+import flowerURL from './flower.webp';
+import pencilURL from './flower-pencil.webp';
+import portraitURL from './portrait.webp';
 import { createBreeze } from './breeze.js';
 import { createCollage } from './collage.js';
 import { createPencilReveal } from './pencil-reveal.js';
@@ -386,17 +386,28 @@ function frame(timestamp){
   requestAnimationFrame(frame);
 }
 resize();requestAnimationFrame(frame);
-function loadImage(url){
-  return new Promise((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=reject;image.src=url;});
+function loadImage(url,priority='low'){
+  return new Promise((resolve,reject)=>{const image=new Image();image.decoding='async';image.fetchPriority=priority;image.onload=()=>resolve(image);image.onerror=reject;image.src=url;});
 }
-Promise.all([loadImage(flowerURL),loadImage(pencilURL),loadImage(portraitURL)]).then(([image,pencil,photo])=>{
-  portrait=photo;
-  pencilReveal=createPencilReveal(pencil,N);
+loadImage(flowerURL,'high').then(image=>{
   prepare(image);
   renderBreeze=createBreeze(flowerSource,N);
   collage=createCollage(flowerSource,N);
   ready=true;loading.hidden=true;
   resetControl.disabled=false;
-  words.forEach(button=>{button.disabled=false;});
+  words.forEach(button=>{button.disabled=button.dataset.mode==='narrative' || button.dataset.mode==='chaos';});
+  playControl.disabled=true;
   state.textContent='Waiting for a breeze';
+  // Let the first flower frame paint before preparing the secondary modes.
+  requestAnimationFrame(()=>setTimeout(()=>{
+    loadImage(pencilURL).then(pencil=>{
+      pencilReveal=createPencilReveal(pencil,N);
+      words.filter(button=>button.dataset.mode==='narrative').forEach(button=>{button.disabled=false;});
+    }).catch(()=>{state.textContent='Pencil artwork unavailable. The other flower effects are ready.';});
+    loadImage(portraitURL).then(photo=>{
+      portrait=photo;
+      words.filter(button=>button.dataset.mode==='chaos').forEach(button=>{button.disabled=false;});
+      playControl.disabled=false;
+    }).catch(()=>{state.textContent='Portrait unavailable. The other flower effects are ready.';});
+  },0));
 }).catch(()=>{loading.textContent='The flower could not load. Please reload to try again.';state.textContent='Image unavailable';});
