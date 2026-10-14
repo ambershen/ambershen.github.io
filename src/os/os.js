@@ -49,7 +49,8 @@ const apps = [
 
   // NFC charm experiences: standalone pages also open inside Amber OS.
   {id: 'charms', title: 'Charms', icon: 'folder', type: 'folder', at: [31, 17], w: 540, h: 340,
-    children: ['charm-hello', 'charm-creative']},
+    children: ['charm-hello', 'charm-creative', 'charm-bar-night']},
+  {id: 'charm-bar-night', title: 'After Dark', icon: 'note', type: 'iframe', src: '/charms/bar-night/', w: 420, h: 760, external: '/charms/bar-night/', blurb: 'Amber, an espresso martini, and a little hello after dark.'},
   {id: 'charm-hello', title: 'A Little Hello', icon: 'note', type: 'iframe', src: '/charms/hello/', w: 420, h: 720,
     external: '/charms/hello/', blurb: 'A little introduction, carried on a charm.'},
   {id: 'charm-creative', title: 'Creative', icon: 'folder', type: 'iframe', src: '/charms/creative/', w: 420, h: 720,
