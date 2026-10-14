@@ -342,7 +342,8 @@ function dragIcon(li, app) {
     const box = desktop.getBoundingClientRect();
     const sx = e.clientX - li.offsetLeft, sy = e.clientY - li.offsetTop;
     let moved = false;
-    li.setPointerCapture(e.pointerId);
+    // Keep the click targeted at the button; capturing on its parent swallows activation.
+    li.querySelector('button').setPointerCapture(e.pointerId);
     const move = ev => {
       if (!moved && Math.hypot(ev.clientX - e.clientX, ev.clientY - e.clientY) < 4) return;
       moved = true; li.classList.add('is-dragging');
