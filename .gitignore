@@ -6,4 +6,5 @@ dist/
 _old/
 infinte-gallery/
 *.pen
+preview.command
 .vercel

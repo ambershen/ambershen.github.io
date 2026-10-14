@@ -1,14 +1,6 @@
-import marketingBody from './most-tech-startups-are-bad-at-marketing.txt?raw';
-import articleBody from './code-has-always-been-art.txt?raw';
-import hotNerdsBody from './tech-storytelling-hot-nerds.txt?raw';
-const articles=[
-  {title:'Code Has Always Been Art (We Just Forgot)',route:'#writing/code-has-always-been-art',body:articleBody},
-  {title:'Tech storytelling in 2026 belongs to hot nerds',route:'#writing/tech-storytelling-in-2026-belongs-to-hot-nerds',body:hotNerdsBody,
-    headings:['The old deal','AI Killed the Stereotype','Tech storytelling in East×West','How to be a Hot Nerd in 2026'],
-    subheadings:['书呆子 vs hot nerd','Kung Fu Masters vs Stage-Ready Founders','How both cultures are shifting'],
-    bullets:['Socially awkward','Aesthetically challenged','More comfortable with terminals than humans','The opposite of having an aura.']},
-  {title:'most tech startups are bad at marketing.',route:'#writing/most-tech-startups-are-bad-at-marketing',body:marketingBody}
-];
+import {articles} from '../../src/data/essays.js';
+import {caseStudies} from '../../src/data/case-studies.js';
+import {films,newsletter,buttondownUrls,socials} from '../../src/data/site.js';
 import dirty from '../../images/dirty-window/frontpage.png';
 import deskmate from '../../images/deskmate/frontpage.mp4';
 import dirtyDemo from '../../images/dirty-window/frontpage.mp4';
@@ -168,17 +160,113 @@ function detail(item,index){
   if(item.description)caption.append(node('p','',item.description));
   figure.append(caption);artDetail.append(figure);viewer.showModal();document.body.classList.add('art-is-open');
 }
+function caseStudyIndex(){
+  const wrap=node('section','case-index');wrap.setAttribute('aria-label','Case studies');
+  wrap.append(node('h3','work-section-label','Case studies'));
+  const grid=node('div','case-grid');
+  caseStudies.forEach((study,i)=>{
+    const card=node('a','case-card');card.href=`/work/${study.slug}/`;
+    const frame=node('div','case-frame');
+    if(study.cover?.image){const img=node('img');img.src=study.cover.image;img.alt='';img.loading='lazy';frame.append(img);}
+    else if(study.cover?.video){const v=node('video');v.src=study.cover.video+'#t=1';v.muted=true;v.playsInline=true;v.preload='metadata';v.setAttribute('aria-hidden','true');frame.append(v);}
+    else frame.classList.add('is-empty');
+    if(study.status!=='published')frame.append(node('span','case-status',study.status==='in-progress'?'In development':'Draft'));
+    const meta=node('div','case-meta');
+    meta.append(node('span','case-num',String(i+1).padStart(2,'0')+' · '+study.year),node('strong','',study.title),node('span','case-tagline',study.tagline));
+    card.append(frame,meta);grid.append(card);
+  });
+  wrap.append(grid);return wrap;
+}
+function filmRoom(){
+  const room=node('div','film-room');
+  const stage=node('div','film-stage');
+  const frame=node('div','film-frame');
+  const caption=node('div','film-caption');
+  stage.append(frame,caption);
+  const thumbs=new Map();
+  const play=film=>{
+    frame.replaceChildren();
+    if(film.youtube){const f=node('iframe');f.src=`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`;f.title=film.title;f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;frame.append(f);}
+    else{const v=node('video');v.src=film.src;v.controls=true;v.playsInline=true;v.autoplay=true;v.setAttribute('aria-label',film.title);frame.append(v);}
+  };
+  const still=(film,el)=>{
+    if(film.youtube){const img=node('img');img.src=`https://i.ytimg.com/vi/${film.youtube}/hqdefault.jpg`;img.alt='';img.loading='lazy';el.append(img);}
+    else if(film.src){const v=node('video');v.src=film.src+'#t=0.5';v.muted=true;v.playsInline=true;v.preload='metadata';v.setAttribute('aria-hidden','true');el.append(v);}
+  };
+  const show=(film,autoplay)=>{
+    caption.replaceChildren(node('span','film-kind',[film.kind,film.year].filter(Boolean).join(' · ')),node('h3','',film.title));
+    if(film.note)caption.append(node('p','',film.note));
+    thumbs.forEach((btn,id)=>{const on=id===film.id;btn.classList.toggle('is-active',on);btn.setAttribute('aria-current',on?'true':'false');});
+    if(autoplay){play(film);return;}
+    frame.replaceChildren();
+    const btn=node('button','film-play');btn.type='button';btn.setAttribute('aria-label',`Play ${film.title}`);
+    still(film,btn);btn.append(node('span','film-play-icon','▶'));
+    btn.onclick=()=>play(film);frame.append(btn);
+  };
+  const reel=node('div','film-reel');
+  const track=node('div','film-reel-track');
+  films.forEach(f=>{
+    const btn=node('button','film-thumb');btn.type='button';
+    const shot=node('span','film-thumb-shot');still(f,shot);
+    btn.append(shot,node('span','film-thumb-title',f.title),node('span','film-thumb-kind',[f.kind,f.year].filter(Boolean).join(' · ')));
+    btn.onclick=()=>show(f,true);
+    thumbs.set(f.id,btn);track.append(btn);
+  });
+  const nudge=dir=>{track.scrollBy({left:dir*Math.max(240,track.clientWidth*.7),behavior:'smooth'});};
+  const prev=node('button','film-reel-nav film-reel-prev','‹');prev.type='button';prev.setAttribute('aria-label','Scroll films left');prev.onclick=()=>nudge(-1);
+  const next=node('button','film-reel-nav film-reel-next','›');next.type='button';next.setAttribute('aria-label','Scroll films right');next.onclick=()=>nudge(1);
+  const edges=()=>{
+    const over=track.scrollWidth-track.clientWidth>4;
+    reel.classList.toggle('has-overflow',over);
+    reel.classList.toggle('at-start',track.scrollLeft<=4);
+    reel.classList.toggle('at-end',!over||track.scrollLeft>=track.scrollWidth-track.clientWidth-4);
+  };
+  track.addEventListener('scroll',edges,{passive:true});
+  reel.append(prev,track,next);
+  room.append(stage,reel);
+  const elsewhere=node('div','film-elsewhere');elsewhere.append(node('h3','work-section-label','Watch elsewhere'));
+  const links=node('div','film-socials');
+  socials.filter(s=>s.label!=='GitHub').forEach(s=>{const a=node('a');a.href=s.url;a.target='_blank';a.rel='noopener noreferrer';a.append(node('strong','',s.label),node('span','',s.handle+' ↗'));links.append(a);});
+  elsewhere.append(links);room.append(elsewhere);content.append(room);
+  const featured=films.find(f=>f.featured)||films[0];
+  if(featured)show(featured,false);
+  requestAnimationFrame(edges);
+  if(window.ResizeObserver)new ResizeObserver(edges).observe(track);
+}
+function newsletterSignup(compact=false){
+  const urls=buttondownUrls(newsletter.buttondown);
+  const box=node('section',compact?'newsletter newsletter-compact':'newsletter');box.setAttribute('aria-label','Subscribe to '+newsletter.name);
+  if(compact)box.append(node('p','newsletter-lede','Enjoyed this? Get the next one by email.'));
+  const form=node('form','newsletter-form');form.method='post';form.target='_blank';
+  if(urls)form.action=urls.subscribe;
+  const email=node('input');email.type='email';email.name='email';email.required=true;email.placeholder='you@email.com';email.autocomplete='email';email.setAttribute('aria-label','Email address');
+  const first=node('input');first.type='text';first.name='metadata__first_name';first.placeholder='First name';first.autocomplete='given-name';first.setAttribute('aria-label','First name');
+  const hidden=node('input');hidden.type='hidden';hidden.name='embed';hidden.value='1';
+  const submit=node('button','newsletter-submit','Subscribe');submit.type='submit';
+  const status=node('p','newsletter-status',newsletter.cadence);status.setAttribute('aria-live','polite');
+  if(!compact)form.append(first);
+  form.append(email,hidden,submit);
+  form.addEventListener('submit',event=>{
+    if(!urls){event.preventDefault();status.textContent='The newsletter is launching soon. Follow along on X in the meantime.';return;}
+    setTimeout(()=>{status.textContent='Almost there: check your inbox to confirm.';form.reset();},50);
+  });
+  box.append(form,status);
+  if(urls&&!compact){const more=node('p','newsletter-more');const a=node('a','','View full archive ↗');a.href=urls.archive;a.target='_blank';a.rel='noopener noreferrer';const r=node('a','','RSS');r.href=urls.rss;more.append(a,r);box.append(more);}
+  return box;
+}
 function render(next){
   category=next;stopMedia();content.replaceChildren();
   modal.classList.remove('archive-mode');
   modal.classList.toggle('gallery-mode',next==='art');
+  modal.classList.toggle('film-mode',next==='film');
   const selectedArticle=articles.find(article=>article.route===location.hash);
   const reading=next==='writing' && Boolean(selectedArticle);
   modal.classList.toggle('reading-mode',reading);
   document.title=reading?selectedArticle.title+' — Amber Shen':'Amber Shen — Creative Technologist';
-  title.textContent={selected:'Selected work',products:'Work',art:'Gallery',writing:'Writing'}[category];
-  description.textContent={selected:'A few things from my world.',products:'Useful, playful, and made to be used.',art:'Images, experiments, and ways of seeing.',writing:'Essays, notes, and things I’m thinking about.'}[category];
-  if(category==='products'){projectArchive();modal.scrollTop=0;return;}
+  title.textContent={selected:'Selected work',products:'Work',art:'Gallery',film:'Film',writing:'Writing'}[category];
+  description.textContent={selected:'A few things from my world.',products:'Research, installations, and things made to be used.',art:'Images, experiments, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb}[category];
+  if(category==='products'){content.append(caseStudyIndex(),node('h3','work-section-label','Products'));projectArchive();modal.scrollTop=0;return;}
+  if(category==='film'){filmRoom();modal.scrollTop=0;return;}
   if(category==='writing'){
     if(reading){
       title.textContent=selectedArticle.title;description.textContent='';
@@ -193,12 +281,13 @@ function render(next){
         }else{list=null;const tag=selectedArticle.headings?.includes(line)?'h3':selectedArticle.subheadings?.includes(line)?'h4':'p';article.append(node(tag,'',line));}
       }
       const links=node('div','essay-links');const back=node('a','','← All writing');back.href='#writing';
-      links.append(back);content.append(article,links);return;
+      links.append(back);content.append(article,links,newsletterSignup(true));return;
     }
+    content.append(newsletterSignup(),node('h3','work-section-label','Essays'));
     const list=node('div','writing-list');
     [...articles].reverse().forEach(article=>{
       const link=node('a','writing-entry');link.href=article.route;
-      link.append(node('span','writing-title',article.title),node('span','writing-source','Read essay →'));
+      link.append(node('span','writing-title',article.title),node('span','writing-source','Read →'));
       list.append(link);
     });content.append(list);return;
   }
@@ -260,7 +349,7 @@ function showPage(next,focus=false){
 function route(focus=false){
   const hash=location.hash;
   if(hash.startsWith('#work/')){const id=hash.slice(6);if(projects.some(p=>p.id===id))activeProject=id;showPage('products',focus);}
-  else showPage(hash==='#gallery'?'art':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
+  else showPage(hash==='#gallery'?'art':hash==='#film'?'film':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
 }
 document.querySelectorAll('[data-open-work]').forEach(button=>button.addEventListener('click',()=>{location.hash=button.dataset.openWork==='art'?'gallery':'work';}));
 document.querySelector('#close-art').addEventListener('click',()=>viewer.close());

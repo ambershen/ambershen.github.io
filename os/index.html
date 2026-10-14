@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amber OS — Play with my work</title>
+  <meta name="description" content="A small operating system for Amber Shen's interactive work. Open the windows and play." />
+  <meta property="og:title" content="Amber OS" />
+  <meta property="og:description" content="A small operating system for Amber Shen's interactive work." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=flower-transparent" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;450;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="boot" aria-hidden="true"><span>Growing Amber OS…</span></div>
+  <header class="menubar">
+    <a class="menubar-home" href="/" title="Back to the site"><span id="mark"></span><strong>Amber OS</strong></a>
+    <nav class="menubar-links" aria-label="Site">
+      <a href="/#work">Work</a><a href="/#film">Film</a><a href="/#writing">Writing</a>
+    </nav>
+    <time id="clock"></time>
+  </header>
+  <main id="desktop" aria-label="Desktop">
+    <h1 class="sr-only">Amber OS. Open an icon to play with a piece.</h1>
+    <ul id="icons" role="list"></ul>
+    <div id="windows"></div>
+    <nav id="dock" aria-label="Dock">
+      <ul id="dock-apps" role="list"></ul>
+      <ul id="dock-min" role="list" hidden></ul>
+      <div id="dock-trash"></div>
+    </nav>
+  </main>
+  <script type="module" src="/src/os/os.js"></script>
+</body>
+</html>

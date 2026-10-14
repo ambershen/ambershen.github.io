@@ -1,0 +1,53 @@
+:root{--bg:#000;--ink:#eee8e4;--muted:#a99b8f;--soft:#d4c9bf;--accent:#d9b5a3;--line:#332c27;--panel:#12100e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible{outline:2px solid #ead0b7;outline-offset:4px}
+/* Header mirrors the home page. */
+.site-header{height:88px;padding:0 clamp(24px,5vw,76px);display:flex;align-items:center}
+.header-nav{display:flex;align-items:center;gap:24px}
+.header-nav .collection{display:inline-flex;align-items:center;min-height:44px;color:#b9b0a9;text-decoration:none;font-size:16px;font-weight:450;letter-spacing:-.2px}
+.header-nav .collection:hover,.header-nav .collection[aria-current=page]{color:var(--ink)}
+.header-nav .collection[aria-current=page]{font-weight:600}
+.home-mark{display:block;width:24px;height:24px;color:#cbb1a2;transition:transform .25s}
+.home-flower:hover .home-mark{transform:rotate(12deg)}
+main{max-width:1280px;margin:0 auto;padding:24px clamp(24px,5vw,76px) 80px}
+.cs-hero{max-width:880px;padding:24px 0 40px}
+.cs-eyebrow{display:flex;gap:14px;align-items:center;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#b59174;margin:0 0 20px}
+.cs-status{border:1px solid #6a5446;color:var(--accent);padding:3px 9px;border-radius:99px;letter-spacing:1px;font-size:10px}
+.cs-title{font-size:clamp(38px,5.4vw,72px);font-weight:450;letter-spacing:-2px;line-height:1.05;margin:0 0 20px;text-wrap:balance}
+.cs-tagline{font-size:clamp(20px,2vw,26px);line-height:1.45;color:var(--soft);margin:0 0 12px;letter-spacing:-.4px;max-width:680px}
+.cs-medium{font-size:14px;color:var(--muted);margin:0}
+.cs-cover{margin:0 0 72px}
+.cs-media{display:block;width:100%;max-height:78svh;object-fit:contain;background:#0c0b0a;border:1px solid #2a2420;border-radius:4px}
+.cs-media-placeholder{aspect-ratio:16/8;display:grid;place-items:center;color:#7d6f66;font-size:13px;letter-spacing:.5px;background:repeating-linear-gradient(135deg,#0e0c0b 0 14px,#13110f 14px 28px)}
+.cs-body{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.cs-toc{position:sticky;top:32px;display:flex;flex-direction:column;gap:2px;border-left:1px solid var(--line)}
+.cs-toc a{padding:8px 0 8px 16px;font-size:13px;color:var(--muted);text-decoration:none;margin-left:-1px;border-left:1px solid transparent}
+.cs-toc a:hover{color:var(--ink);border-left-color:var(--accent)}
+.cs-sections{max-width:680px}
+.cs-section{padding:0 0 56px;scroll-margin-top:32px}
+.cs-num{font-size:11px;letter-spacing:1.5px;color:#a58f7e;margin:0 0 8px}
+.cs-section h2{font-size:28px;font-weight:500;letter-spacing:-.8px;margin:0 0 18px}
+.cs-section p{font-size:17px;line-height:1.75;color:var(--soft);margin:0 0 16px}
+.cs-section p.cs-placeholder{font-size:15px;line-height:1.65;color:#8f8178;border:1px dashed #4a3e36;border-radius:6px;padding:16px 18px;background:#0d0b0a}
+.cs-placeholder:before{content:'Placeholder — ';color:#b59174}
+.cs-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:20px}
+.cs-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid #2a2420;border-radius:3px;background:#0c0b0a}
+.cs-footer{border-top:1px solid var(--line);margin-top:24px;padding-top:28px}
+.cs-links{display:flex;gap:24px;margin-bottom:28px}.cs-links a{color:var(--accent);text-decoration:none}
+.cs-pager{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.cs-back,.cs-next{text-decoration:none;min-height:44px;display:inline-flex;flex-direction:column;justify-content:center}
+.cs-back{color:#cdb3a0;font-size:14px}.cs-back:hover{color:var(--ink)}
+.cs-next{text-align:right}.cs-next span{font-size:12px;color:var(--muted);letter-spacing:.5px}.cs-next strong{font-weight:450;font-size:20px;letter-spacing:-.4px;margin-top:4px}.cs-next:hover strong{color:var(--accent)}
+@media(max-width:760px){
+  .site-header{height:72px;padding:0 6%}.header-nav{gap:18px}.header-nav .collection{font-size:15px}
+  main{padding:12px 6% 56px}
+  .cs-body{grid-template-columns:1fr}
+  .cs-toc{display:none}
+  .cs-cover{margin-bottom:48px}
+  .cs-section p{font-size:16px}
+  .cs-pager{flex-direction:column;align-items:flex-start}.cs-next{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){.home-mark{transition:none}html{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
