@@ -38,3 +38,7 @@ product/*                        # Older standalone product pages
 ## Design
 
 Dark: bg #000, text #eee8e4, muted #a99b8f, accent #d9b5a3, lines #332c27. Manrope only. Peony line mark in `src/flower-mark.js`.
+
+## Charm page content rule
+
+For all new or redesigned charm pages, show only the personal information and links explicitly requested. Keep copy minimal in a carefully designed layout. Do not invent slogans, icebreakers, greetings, captions, jokes, taglines, or calls to action. Use typography, spacing, color, and illustration for personality instead.
