@@ -1,11 +1,22 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import { readdirSync, existsSync } from 'fs';
+
+// Every folder in /work/ with an index.html becomes a case-study page at /work/<slug>/.
+const caseStudies = Object.fromEntries(
+  readdirSync(resolve(__dirname, 'work'), { withFileTypes: true })
+    .filter(d => d.isDirectory() && existsSync(resolve(__dirname, 'work', d.name, 'index.html')))
+    .map(d => [`work-${d.name}`, resolve(__dirname, 'work', d.name, 'index.html')]),
+);
 
 export default defineConfig({
   build: {
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        os: resolve(__dirname, 'os/index.html'),
+        ...caseStudies,
+        'petal-study': resolve(__dirname, 'experiments/petal-study/index.html'),
         gallery: resolve(__dirname, 'gallery/index.html'),
         visuals: resolve(__dirname, 'visuals/index.html'),
         'product-deskmate': resolve(__dirname, 'product/deskmate/index.html'),

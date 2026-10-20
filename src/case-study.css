@@ -1,0 +1,166 @@
+:root{--bg:#000;--ink:#eee8e4;--muted:#a99b8f;--soft:#d4c9bf;--accent:#d9b5a3;--line:#332c27;--panel:#12100e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Manrope',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+a:focus-visible{outline:2px solid #ead0b7;outline-offset:4px}
+/* Header mirrors the home page. */
+.site-header{height:88px;padding:0 clamp(24px,5vw,76px);display:flex;align-items:center}
+.header-nav{display:flex;align-items:center;gap:24px}
+.header-nav .collection{display:inline-flex;align-items:center;min-height:44px;color:#b9b0a9;text-decoration:none;font-size:16px;font-weight:450;letter-spacing:-.2px}
+.header-nav .collection:hover,.header-nav .collection[aria-current=page]{color:var(--ink)}
+.header-nav .collection[aria-current=page]{font-weight:600}
+.home-mark{display:block;width:24px;height:24px;color:#cbb1a2;transition:transform .25s}
+.home-flower:hover .home-mark{transform:rotate(12deg)}
+main{max-width:1280px;margin:0 auto;padding:24px clamp(24px,5vw,76px) 80px}
+.cs-hero{max-width:880px;padding:24px 0 40px}
+.cs-eyebrow{display:flex;gap:14px;align-items:center;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#b59174;margin:0 0 20px}
+.cs-status{border:1px solid #6a5446;color:var(--accent);padding:3px 9px;border-radius:99px;letter-spacing:1px;font-size:10px}
+.cs-title{font-size:clamp(38px,5.4vw,72px);font-weight:450;letter-spacing:-2px;line-height:1.05;margin:0 0 20px;text-wrap:balance}
+.cs-tagline{font-size:clamp(20px,2vw,26px);line-height:1.45;color:var(--soft);margin:0 0 12px;letter-spacing:-.4px;max-width:680px}
+.cs-medium{font-size:14px;color:var(--muted);margin:0}
+.cs-cover{margin:0 0 72px}
+.cs-media{display:block;width:100%;max-height:78svh;object-fit:contain;background:#0c0b0a;border:1px solid #2a2420;border-radius:4px}
+.cs-media-placeholder{aspect-ratio:16/8;display:grid;place-items:center;color:#7d6f66;font-size:13px;letter-spacing:.5px;background:repeating-linear-gradient(135deg,#0e0c0b 0 14px,#13110f 14px 28px)}
+.cs-body{display:grid;grid-template-columns:200px minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:start}
+.cs-toc{position:sticky;top:32px;display:flex;flex-direction:column;gap:2px;border-left:1px solid var(--line)}
+.cs-toc a{padding:8px 0 8px 16px;font-size:13px;color:var(--muted);text-decoration:none;margin-left:-1px;border-left:1px solid transparent}
+.cs-toc a:hover{color:var(--ink);border-left-color:var(--accent)}
+.cs-sections{max-width:680px}
+.cs-section{padding:0 0 56px;scroll-margin-top:32px}
+.cs-num{font-size:11px;letter-spacing:1.5px;color:#a58f7e;margin:0 0 8px}
+.cs-section h2{font-size:28px;font-weight:500;letter-spacing:-.8px;margin:0 0 18px}
+.cs-section p{font-size:17px;line-height:1.75;color:var(--soft);margin:0 0 16px}
+.cs-section p.cs-placeholder{font-size:15px;line-height:1.65;color:#8f8178;border:1px dashed #4a3e36;border-radius:6px;padding:16px 18px;background:#0d0b0a}
+.cs-placeholder:before{content:'Placeholder — ';color:#b59174}
+.cs-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:20px}
+.cs-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid #2a2420;border-radius:3px;background:#0c0b0a}
+.cs-footer{border-top:1px solid var(--line);margin-top:24px;padding-top:28px}
+.cs-links{display:flex;gap:24px;margin-bottom:28px}.cs-links a{color:var(--accent);text-decoration:none}
+.cs-pager{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.cs-back,.cs-next{text-decoration:none;min-height:44px;display:inline-flex;flex-direction:column;justify-content:center}
+.cs-back{color:#cdb3a0;font-size:14px}.cs-back:hover{color:var(--ink)}
+.cs-next{text-align:right}.cs-next span{font-size:12px;color:var(--muted);letter-spacing:.5px}.cs-next strong{font-weight:450;font-size:20px;letter-spacing:-.4px;margin-top:4px}.cs-next:hover strong{color:var(--accent)}
+@media(max-width:760px){
+  .site-header{height:72px;padding:0 6%}.header-nav{gap:18px}.header-nav .collection{font-size:15px}
+  main{padding:12px 6% 56px}
+  .cs-body{grid-template-columns:1fr}
+  .cs-toc{display:none}
+  .cs-cover{margin-bottom:48px}
+  .cs-section p{font-size:16px}
+  .cs-pager{flex-direction:column;align-items:flex-start}.cs-next{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){.home-mark{transition:none}html{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+/* Chapter blocks (series with custom chapters). */
+.cs-section p.cs-lead{font-size:clamp(22px,2.4vw,28px);line-height:1.4;letter-spacing:-.5px;color:var(--ink);margin:0 0 20px;text-wrap:balance}
+.cs-study{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px;margin:48px 0 14px;padding-top:24px;border-top:1px solid var(--line)}
+.cs-section h2+.cs-study{margin-top:8px;padding-top:0;border-top:0}
+.cs-study h3{font-size:21px;font-weight:500;letter-spacing:-.4px;margin:0}
+.cs-study span{font-size:13px;color:var(--muted)}
+.cs-figure{margin:24px 0 32px}
+.cs-figure .cs-media-placeholder{aspect-ratio:16/9;padding:24px;text-align:center;line-height:1.6}
+.cs-figure figcaption{font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:.2px}
+.cs-note{border-left:1px solid var(--accent);padding:4px 0 4px 22px;margin:44px 0 0}
+.cs-note h3,.cs-step h3{font-size:12px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:#b59174;margin:0 0 10px}
+.cs-step h3{font-size:16px;font-weight:500;letter-spacing:-.2px;text-transform:none;color:var(--ink)}
+.cs-section .cs-note p{margin:0}
+.cs-step{margin:0 0 28px}
+.cs-section p.cs-meta{font-size:15px;line-height:1.8;color:var(--muted)}
+.cs-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cs-strip img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border:1px solid #2a2420;border-radius:3px;background:#0c0b0a}
+@media(max-width:760px){.cs-strip{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Process diagram (src/diagrams/process-flow.js). */
+.pf-stage{position:relative}
+.pf-stage canvas{display:block;width:100%;aspect-ratio:16/10;background:#0c0b0a;border:1px solid #2a2420;border-radius:4px;touch-action:pan-y;cursor:crosshair}
+.pf-hint{position:absolute;top:14px;right:16px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:#6f625a;pointer-events:none}
+.pf-steps{list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:18px 0 0;padding:0}
+.pf-steps button{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:4px;width:100%;min-height:44px;padding:4px 0;cursor:pointer;color:#7d6f66}
+.pf-steps button:focus-visible{outline:2px solid #ead0b7;outline-offset:4px;border-radius:2px}
+.pf-num{font-size:11px;letter-spacing:1.4px}
+.pf-label{font-size:14px;font-weight:500;letter-spacing:-.2px;transition:color .3s}
+.pf-steps button:hover,.pf-steps button[aria-pressed=true],.pf-steps button.is-done{color:var(--soft)}
+.pf-steps button[aria-pressed=true] .pf-label{color:var(--ink)}
+.pf-steps button[aria-pressed=true] .pf-num{color:var(--accent)}
+.pf-bar{display:block;height:1px;background:var(--line);margin-top:6px;overflow:hidden}
+.pf-bar i{display:block;height:100%;width:0;background:var(--accent)}
+.pf-detail{min-height:96px;margin-top:20px}
+.pf-detail h4{display:flex;align-items:center;gap:12px;font-size:17px;font-weight:500;letter-spacing:-.3px;color:var(--ink);margin:0 0 6px;animation:pf-in .5s ease both}
+.cs-section .pf-detail p{font-size:15px;line-height:1.65;color:var(--muted);margin:0;animation:pf-in .5s .08s ease both}
+.pf-status{border:1px solid #6a5446;color:var(--accent);padding:2px 8px;border-radius:99px;letter-spacing:1px;font-size:10px;font-weight:500;text-transform:uppercase}
+@keyframes pf-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.pf-steps{gap:6px}.pf-label{font-size:12px}.pf-stage canvas{aspect-ratio:4/3}.pf-hint{display:none}}
+@media(prefers-reduced-motion:reduce){.pf-detail h4,.cs-section .pf-detail p{animation:none}}
+.cs-loops{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cs-loops .cs-media{aspect-ratio:16/9;object-fit:cover}@media(max-width:760px){.cs-loops{grid-template-columns:1fr}}
+.cs-section h2.cs-h2-question{font-size:clamp(24px,2.6vw,30px);line-height:1.3;letter-spacing:-.6px;text-wrap:balance}
+/* Editorial layout — case studies with their own chapters. Text sits in a ~62ch measure; media runs wider. */
+.cs-editorial .cs-hero{max-width:none;padding:56px 0 0}
+.cs-editorial .cs-title{font-size:clamp(48px,7.4vw,108px);font-weight:400;letter-spacing:-.045em;line-height:.98;margin:0 0 28px}
+.cs-editorial .cs-tagline{font-size:clamp(20px,2.2vw,28px);line-height:1.4;max-width:720px;color:var(--soft);margin:0}
+.cs-credits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:56px 0 104px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cs-credits dt{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#a58f7e;margin:0 0 8px}
+.cs-credits dd{margin:0;font-size:15px;line-height:1.5;color:var(--soft)}
+.cs-credits a{color:var(--accent);text-decoration:none}.cs-credits a:hover{color:var(--ink)}
+.cs-editorial .cs-body{grid-template-columns:168px minmax(0,1fr);gap:clamp(32px,6vw,104px)}
+.cs-editorial .cs-toc{top:40px}
+.cs-editorial .cs-sections{max-width:880px}
+.cs-editorial .cs-section{padding:0 0 128px}
+.cs-editorial .cs-section>*:not(figure){max-width:640px}
+.cs-editorial .cs-num{font-size:12px;letter-spacing:2px;color:var(--accent);margin:0 0 20px;display:flex;align-items:center;gap:14px}
+.cs-editorial .cs-num:after{content:'';flex:0 0 40px;height:1px;background:#6a5446}
+.cs-editorial .cs-section h2{font-size:clamp(32px,3.6vw,44px);font-weight:450;letter-spacing:-.03em;line-height:1.12;margin:0 0 36px;text-wrap:balance}
+.cs-editorial .cs-section h2.cs-h2-question{font-size:clamp(30px,3.4vw,42px);line-height:1.18;max-width:760px}
+.cs-editorial .cs-section p{font-size:18px;line-height:1.8;color:#d8cec5;margin:0 0 22px}
+.cs-editorial .cs-section p.cs-lead{font-size:clamp(21px,2vw,24px);line-height:1.5;letter-spacing:-.3px;color:var(--ink);margin:0 0 32px}
+.cs-editorial .cs-study{flex-direction:column;align-items:flex-start;gap:10px;margin:96px 0 24px;padding:0;border:0}
+.cs-editorial .cs-section h2+.cs-study{margin-top:0}
+.cs-editorial .cs-study h3{font-size:clamp(26px,2.6vw,32px);font-weight:450;letter-spacing:-.025em;line-height:1.15}
+.cs-editorial .cs-study span{order:-1;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#a58f7e}
+.cs-editorial .cs-figure{margin:44px 0 56px}
+.cs-editorial .cs-figure figcaption{font-size:13px;line-height:1.5;color:var(--muted);margin-top:14px;padding-left:16px;border-left:1px solid #6a5446}
+.cs-editorial .cs-note{margin:96px 0 0;padding:6px 0 6px 28px;max-width:680px}
+.cs-editorial .cs-note h3{font-size:11px;letter-spacing:1.6px;margin-bottom:16px}
+.cs-editorial .cs-section .cs-note p{font-size:clamp(20px,1.9vw,23px);line-height:1.55;letter-spacing:-.2px;color:var(--ink)}
+.cs-editorial .cs-sections{counter-reset:step}
+.cs-editorial .cs-step{counter-increment:step;display:grid;grid-template-columns:52px minmax(0,1fr);padding:28px 0 6px;margin:0;border-top:1px solid var(--line)}
+.cs-editorial .cs-step:before{content:counter(step,decimal-leading-zero);grid-row:1/3;font-size:12px;letter-spacing:1.4px;color:var(--accent);padding-top:4px}
+.cs-editorial .cs-step h3{font-size:19px;font-weight:500;letter-spacing:-.3px;margin:0 0 10px}
+.cs-editorial .cs-section .cs-step p{font-size:17px;line-height:1.75}
+.cs-editorial .cs-section p.cs-meta{font-size:16px;line-height:1.9;color:var(--muted)}
+.cs-editorial .pf-detail{max-width:640px}
+@media(max-width:760px){
+  .cs-editorial .cs-hero{padding-top:24px}
+  .cs-credits{grid-template-columns:repeat(2,minmax(0,1fr));margin:40px 0 64px;row-gap:20px}
+  .cs-editorial .cs-section{padding-bottom:88px}
+  .cs-editorial .cs-section p{font-size:17px;line-height:1.75}
+  .cs-editorial .cs-study{margin-top:72px}
+  .cs-editorial .cs-step{grid-template-columns:40px minmax(0,1fr)}
+}
+.cs-editorial .cs-section p.cs-lead{text-wrap:pretty}
+
+/* ---- Garden type (see experiments/petal-study/style.css) ---- */
+:root{--display:'Cormorant Garamond',Georgia,serif;--read:'Newsreader',Georgia,serif;--mono:'DM Mono',ui-monospace,monospace}
+.cs-title{font-family:var(--display);font-weight:400;letter-spacing:-.01em}
+.cs-editorial .cs-title{font-weight:300;letter-spacing:-.02em;font-size:clamp(56px,8vw,120px)}
+.cs-tagline,.cs-editorial .cs-tagline{font-family:var(--read);font-style:italic;letter-spacing:0}
+.cs-section h2,.cs-editorial .cs-section h2,.cs-editorial .cs-section h2.cs-h2-question{font-family:var(--display);font-weight:400;letter-spacing:-.01em}
+.cs-editorial .cs-section h2{font-size:clamp(38px,4.2vw,52px);line-height:1.05}
+.cs-editorial .cs-section h2.cs-h2-question{font-size:clamp(34px,3.8vw,48px);line-height:1.1}
+.cs-section p,.cs-editorial .cs-section p{font-family:var(--read);font-size:19px;line-height:1.7}
+.cs-section p.cs-placeholder{font-family:'Manrope',sans-serif;font-size:15px}
+.cs-editorial .cs-section p.cs-lead{font-family:var(--display);font-weight:400;font-size:clamp(26px,2.4vw,30px);line-height:1.3;letter-spacing:0}
+.cs-editorial .cs-study h3{font-family:var(--display);font-weight:400;font-size:clamp(32px,3.2vw,40px);letter-spacing:-.005em;line-height:1.05}
+.cs-editorial .cs-section .cs-note p{font-family:var(--display);font-style:italic;font-weight:400;font-size:clamp(25px,2.3vw,29px);line-height:1.35;letter-spacing:0}
+.cs-editorial .cs-step h3{font-family:var(--display);font-weight:500;font-size:26px;letter-spacing:0;line-height:1.15}
+.cs-editorial .cs-section .cs-step p{font-size:18px}
+.cs-editorial .cs-section p.cs-meta{font-family:var(--mono);font-size:14px;line-height:1.9}
+.cs-num,.cs-eyebrow,.cs-credits dt,.cs-editorial .cs-study span,.cs-editorial .cs-note h3,.cs-next span{font-family:var(--mono);font-weight:400}
+.cs-editorial .cs-figure figcaption,.cs-figure figcaption{font-family:var(--read);font-style:italic;font-size:14px}
+.cs-next strong{font-family:var(--display);font-weight:400;font-size:26px}
+.pf-detail h4{font-family:var(--display);font-weight:500;font-size:24px;letter-spacing:0}
+.cs-section .pf-detail p,.cs-editorial .cs-section .pf-detail p{font-size:16px}
+.pf-num{font-family:var(--mono)}
+@media(max-width:760px){.cs-section p,.cs-editorial .cs-section p{font-size:18px}}
+.cs-callout{margin:36px 0 8px;padding:22px 24px;border:1px solid var(--line);border-radius:4px;background:#0b0a09;max-width:640px}
+.cs-section .cs-callout p{margin:0 0 12px;font-size:17px;line-height:1.6}
+.cs-callout a{color:var(--accent);text-decoration:none;font-size:15px}.cs-callout a:hover{color:var(--ink)}
+.cs-credits dd a{display:block}.cs-credits dd a+a{margin-top:4px}

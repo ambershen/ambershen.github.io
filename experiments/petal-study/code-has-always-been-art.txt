@@ -1,0 +1,43 @@
+Think about how artists work.
+A painter doesn't start with a perfect vision, fully rendered. They sketch. They experiment with color. They make something ugly, step back, try again.
+A writer doesn't begin with a polished essay. They scribble fragments in notebooks. They follow tangents. They discover what they're trying to say by saying it badly first.
+Code is no different. Or at least, it shouldn't be.
+There's a word for this view: technoromanticism. The belief that technology isn't cold machinery, but a medium for human expression, wonder, and creativity. That our relationship with technology can be poetic, not just practical. That the code we write can carry meaning beyond its function.
+While somewhere along the way, we professionalized it. We turned it into something that required gatekeeping, credentials, "best practices" handed down like scripture. We built a culture that says there's a right way and a wrong way, and if you don't know the difference, sorry you don't belong here.
+But code, at its core, is just thought made visible in bits and bytes. It's a way of expressing how you see a problem, how you imagine a solution, what you think matters. Every conditional is a decision. Every loop is a rhythm. Every function is a little poem about how something should work.
+We've spent so long treating code as pure engineering that we forgot it could also be art.
+For years, I worked the "right" way as everyone else did. The streamlined workflow went like this:
+1. Identify the problem
+2. Build a product plan
+3. Craft a design
+4. Build an implementation plan
+5. Code and test it out
+It was linear. It was logical. It felt professional.
+But here's what that workflow doesn't account for: the ideas that don't start with a problem. The half-formed hunches. The "what if I can..." thoughts that pop up at 2am. The things you want to make not because they solve something, but because they feel right or just feel impulsive.
+When I started heavily experimenting with AI, the workflow changed. Now it looks more like this:
+1. Start with some vague idea (just vibes, actually)
+2. Experiment and make variations
+3. Discover what I'm actually trying to build
+4. Come up with more solid product and designs
+5. Make it happen with AI coding
+This is thinking through making. It's building to understand. It's letting the code teach you what you want.
+And it unlocked something I didn't know I had been missing.
+The most beautiful thing about this shift is watching other people discover it too.
+I spend a lot of time looking at what our users build. What my friends build. And there's a pattern I can't unsee: the things people make are somehow always portraits of who they are.
+People who love learning build tools to make learning easier. Dancers want to experiment with movement tracking. People who care deeply about their routines build careful trackers for health and diet. Artists make generative tools. Organizers make kanbans and analytic platforms.
+It's not just that people build what they need. It's that what they build reflects how they see the world. Their values. Their aesthetics. Their particular way of caring about things.
+Code becomes a mirror. Not of function, but of identity.
+This is what happens when we remove the gatekeeping. When we make code accessible enough that people can build without asking permission, they don't just solve problems. They express themselves.
+How the new workflow actually looks like:
+It starts vague. Sometimes it's just a feeling. "I want something that helps me remember..." or "What if there was a way to..."
+With AI, I don't need to have it figured out first. I can start building before I know what I'm building. I can say "make something like this" and see what happens. I can iterate in minutes instead of days. I can try ten variations of an idea in an afternoon.
+The AI acts as a collaborator, not just a tool. It's like having a conversation partner who can instantly translate your half-thoughts into working prototypes. You say something imprecise, it makes something concrete, you react to what it made, and together you discover what you actually wanted.
+This is a newly uncovered creation process. It's not the old way of planning everything upfront. It's not pure improvisation either. It's a kind of structured play. A conversation between intention and surprise.
+Starting vague turns out to be powerful. Because the code you write while figuring out what you want to make often teaches you something you wouldn't have discovered through planning alone.
+We're entering an era where software is not only easy to build, but also a natural way of expressing your personality.
+Think about what that means.
+For decades, making software required so much specialized knowledge that most people could only be users, not creators. You could consume software that reflected someone else's vision, someone else's values, someone else's idea of what you needed.
+Now, the barriers are dissolving. Not because everyone needs to become a professional developer, but because the tools are becoming expressive enough that you can think in your own language and get working software out the other end.
+This is profound.
+When more people can make software that reflects who they are, we don't just get more software. We get more diverse software. Software that cares about different things. Software that solves problems the mainstream never noticed. Software that embodies different aesthetics, different values, different ways of being in the world.
+This is technoromanticism in practice. Not technology just for productivity’s sake, but technology as a canvas for the human spirit. Not a world where everyone codes the "right" way, but a world where everyone who wants to can use code as a medium for their ideas. Where the dancer can make the movement tracker they imagine. Where the learner can build the tool that matches how their brain works. You can take the thing you care about and give it form with code.

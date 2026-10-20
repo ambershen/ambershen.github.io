@@ -1,0 +1,45 @@
+Most tech startups think they have a marketing problem.
+They don't. They have a thinking problem.
+The smartest people in the room who can architect an entire agentic system during lunch will sit in a discussion and say: "we just need to communicate our product more clearly."
+And then spend two weeks debating the headline in a landing page.
+Marketing is an art of persuasion. And persuasion doesn't work the way engineers work.
+The sentiment layer of marketing — the copy, the visual, the exact word you chose instead of the other word that "means the same thing" — operates almost entirely on human feelings. The verb that moves versus the verb that sits there. The color that feels expensive versus the color that feels like a demo day slide. None of this is rational.
+But then there's also the strategy layer. Cold. Numerical. Budget, conversion rate, CTR, CPA, CAC. Real numbers, real decisions, no room for instinct.
+The problem is that most tech people don't even see these as two separate things. Either they go full logic and optimize their way into messaging that's technically accurate and emotionally inert. Or they go full gut and spend the budget on something that feels right (or "feels like having a taste" as you call it now) but can't be measured. However the game requires both in the right places.
+There's another trap specific to tech startups that's harder to see.
+A lot of startups in silicon valley started by selling to other techies. Chips, semiconductors, data infrastructure, developer tools etc. Their early customers speak the same language. There's very little translation required. "Context window," "token visibility," "agent orchestration" — everyone in the room knows what this means, and it works.
+So the company concludes: we're good at marketing ourselves.
+They're not. They just found a pocket where technical fluency substituted for communication.
+But the moment you try to scale beyond that pocket — when the buyer becomes a team lead who manages budgets and resources, or a CFO at a mid-market company evaluating five tools in a single afternoon — the language stops working. Not because the product changed. Because the audience did. And the company has no muscle for translation because they never had to build it.
+I think about this constantly working in AI developer tools. The easy version of the pitch is: our agent has better context management, visible tool panels, persistent multi-tasking across different sub agents. Every developer who has hit the wall with other AI coding tools immediately knows what that means and why it matters.
+But the harder, more interesting question is: how do you say the same thing to someone who just wants to know if their team can ship faster? "Confidence to let AI agents do more serious, meaningful work" gets you further than "context persistence." It’s still the same product but with a completely different sentence.
+This is a language-market fit. 
+Technical companies often skip this entirely because their early growth worked without it. But as your market expands, the ability to say THE thing in the language of whoever is now in the room becomes the actual growth lever. Most companies don't realize it's missing until the numbers plateau and they can't explain why. The product didn't stop working. The words stopped traveling.
+The third thing that kills you: your story starts with "I."
+"We spent two years building this."
+"Our team is deeply passionate about solving this problem."
+"I started this company because I personally experienced this pain."
+I have read some version of this sentence ten thousand times. And every time, I feel the same thing: I don't care. Not there yet.
+Your audience is asking exactly one question when they encounter your product: what does this do for me? That is the only question. Everything else — your founder story, your team credentials, how hard the last two years were — is autobiography. Save it for the podcast interview you'll do after the product actually works.
+Start with "you." Not "I."  This is not a small stylistic note. It is the entire difference between a story that spreads and a press release nobody reads.
+And even when you get the story right — you have to tell it a thousand times before anyone hears it.
+Different angles. Different rooms. Different formats. The same core truth, over and over, until it sounds inevitable to the people you're trying to reach.
+This is the part that breaks most founders. They tell the story twice, get limited response, conclude that the story doesn't work, and go back to rewriting the message.
+The story didn't fail. The volume failed.
+The founders who appear to "break through overnight" were usually saying the same thing in near-total obscurity for several months before anything happened. The overnight part is just what it looks like from outside.
+There is no launch that saves you.
+I know this is the thing everyone is waiting for.  Product Hunt #1. TechCrunch article. TBPN. The tweet from someone with a large following. The moment where everything clicks and the numbers go vertical.
+It is not coming. Or rather — even if it does come, it will not do what you think it will do. The spike is real. The retention after the spike is the actual question, and a launch doesn't answer it.
+We are in a moment of profound attention fragmentation. Software is abundant. Everyone has seventeen tabs open and a full inbox. The idea that one event can "do it all" for a startup's growth is the marketing equivalent of waiting to win the lottery. 
+You have to let go of this dream to be grounded.
+What actually works is less interesting to write about.
+The unglamorous stuff. Cold calls. Warm introductions. Getting in front of real people who might actually pay.
+The thing most founders skip is studying how their users actually found them and why they said yes. Where did they come from? What made them trust you enough to try? What was the moment they decided this was worth their time? What messaging actually resonates with them? These are where the actual leverage is.
+And not every channel works for every product. The product that grows consistently aren't the ones who do everything. They're the ones who find their channels, go deep, and build compounding presence there before expanding.
+Marketing is a compound effect. It does not look like anything for a long time. And then it looks like everything at once, and people from the outside call it overnight success.
+So if your marketing isn't working —
+Before you hire an agency, before you rebrand, before you rewrite the tagline for the fourth time: ask yourself whether you are actually doing marketing, or whether you are announcing things and hoping someone notices.
+Announcing is not marketing.
+Shipping is not distribution.
+A launch is not a growth strategy.
+These are genuinely different activities. The confusion between them is expensive.
