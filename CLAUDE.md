@@ -20,7 +20,7 @@ src/data/site.js                 # Socials, newsletter (Buttondown) config, film
 src/data/case-studies.js         # Case-study entries + the section template
 src/data/essays.js               # Essays / newsletter issues (bodies are .txt in experiments/petal-study/)
 work/<slug>/index.html           # One shell per case study; rendered by src/case-study.js (auto-added to the build)
-os/index.html + src/os/          # Amber OS: desktop of draggable windows for interactive pieces
+os/index.html + src/os/          # Amber OS: desktop of live work in windows. Hidden: not in the nav, still built at /os/
 product/*                        # Older standalone product pages
 ```
 
@@ -37,7 +37,7 @@ product/*                        # Older standalone product pages
 
 ## Design
 
-Dark: bg #000, text #eee8e4, muted #a99b8f, accent #d9b5a3, lines #332c27. Manrope only. Peony line mark in `src/flower-mark.js`.
+Dark: bg #000, text #eee8e4, muted #a99b8f, accent #d9b5a3, lines #332c27. Type ("Garden"): Cormorant Garamond for headlines (28px and up only), Newsreader for essays and long text, Manrope for UI and short copy, DM Mono for small labels. Tokens and overrides sit in a "Garden type" block at the end of `experiments/petal-study/style.css` and `src/case-study.css`. Peony line mark in `src/flower-mark.js`.
 
 ## Charm page content rule
 

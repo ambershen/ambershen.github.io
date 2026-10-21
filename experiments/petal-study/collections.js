@@ -1,9 +1,8 @@
 import {articles} from '../../src/data/essays.js';
-import {caseStudies} from '../../src/data/case-studies.js';
 import {films,newsletter,buttondownUrls,socials} from '../../src/data/site.js';
-import dirty from '../../images/dirty-window/frontpage.png';
 import deskmate from '../../images/deskmate/frontpage.mp4';
-import dirtyDemo from '../../images/dirty-window/frontpage.mp4';
+import soundDictionariesDemo from '../../images/sound-dictionaries/frontpage.mp4';
+import soundDictionariesPoster from '../../images/sound-dictionaries/frontpage.jpg';
 
 const artworkAssets=import.meta.glob('../../images/art-paintings/*',{eager:true,query:'?url',import:'default'});
 const paintings=[
@@ -99,22 +98,18 @@ const photography=[
 const items=[...interactive,...selectedPaintings.map(title=>({...paintings.find(item=>item.title===title),group:['Spring','Summer','Autumn','Winter'].includes(title)?'seasons':'paintings'})),...photography];
 const modal=document.querySelector('#work-window'),content=document.querySelector('#work-content');
 const title=document.querySelector('#work-title'),description=document.querySelector('#work-description');
-let category='products',activeProject='deskmate';
+let category='products',activeProject='sound-dictionaries';
 const home=document.querySelector('#home-page'),viewer=document.querySelector('#art-viewer'),artDetail=document.querySelector('#art-detail');
 let homeScroll=0,artOpener=null;
 const projects=[
+  {id:'natural-effects',title:'Natural Effects',tagline:'Water, ice, fog, sand and snow you can touch.',page:'/work/natural-expressions/'},   // opens the full case study
+  {id:'sound-dictionaries',title:'Sound Dictionaries',tagline:'Books that talk back.',video:soundDictionariesDemo,poster:soundDictionariesPoster,
+    summary:'An interactive dictionary voiced by an AI voice model: a shelf of ten talking books for learning five languages by ear. Five dictionaries pronounce each word syllable by syllable, and five notebooks let you talk your way through Paris, Tokyo, Seoul, Madrid and Beijing. Every voice is designed and acted with Fish Audio Drama 3.',
+    live:'https://sound-dictionaries.vercel.app',links:[{label:'View on GitHub',url:'https://github.com/ambershen/sound-dictionaries'}]},
   {id:'deskmate',title:'Deskmate',tagline:'Find your coworking people.',video:deskmate,
-    summary:'An AI-native app for finding places and people to co-work with, by vibes.',
-    why:'I kept a list of good places to cowork, but it was difficult to search and share that kind of personal curation.',
-    made:'A way to explore curated coworking spots, share hidden gems, and get recommendations based on personal preferences.',
-    result:'A product that brings places, people, and the feeling of a space into the same search.',url:'https://desk-mate.ai'},
-  {id:'dirty-window',title:'Dirty Window',tagline:'Find play in the ordinary.',video:dirtyDemo,poster:dirty,
-    summary:'An interactive window. Part game, part meditation.',
-    why:'I wanted to find a meditative experience in a mundane chore: cleaning a window.',
-    made:'A window you can wipe clean, with changing weather, fog to draw on, and a photobooth for capturing the moment.',
-    result:'A small, tactile experiment that turns cleaning, doodling, and watching the weather into play.',url:'/product/dirty-window/',live:'https://traeglass-effecta68u.vercel.app/'},
-
+    summary:'An AI-native app for finding places and people to co-work with, by vibes. More than 10,000 active users.',live:'https://desk-mate.ai'},
 ];
+const projectAliases={'dirty-window':'natural-effects'};   // old links to Dirty Window land on Natural Effects
 function node(tag,className,text){const el=document.createElement(tag);if(className)el.className=className;if(text)el.textContent=text;return el;}
 function media(item,detail=false){
   const el=node(item.video?'video':'img','work-media');
@@ -136,18 +131,21 @@ function projectArchive(){
     const demo=media(project,true);if(project.poster)demo.poster=project.poster;demo.classList.add('archive-demo');article.append(demo);
     const notes=node('div','project-notes');
     for(const [label,text] of [['Why I made it',project.why],['What I built',project.made],['What came out of it',project.result]]){
+      if(!text)continue;
       const section=node('section','project-note');section.append(node('h4','',label),node('p','',text));notes.append(section);
     }
-    article.append(notes);
+    if(notes.children.length)article.append(notes);
     const links=node('div','project-actions');
     if(project.live){const link=node('a','','Try it ↗');link.href=project.live;link.target='_blank';link.rel='noopener noreferrer';links.append(link);}
-    if(project.id==='deskmate'){const full=node('a','','Visit Deskmate ↗');full.href=project.url;full.target='_blank';full.rel='noopener noreferrer';links.append(full);}
+    for(const l of project.links||[]){const a=node('a','',l.internal?`${l.label} →`:`${l.label} ↗`);a.href=l.url;if(!l.internal){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);}
     article.append(links);
     if(updateURL && location.hash!==`#work/${id}`)history.replaceState(null,'',`#work/${id}`);
   }
   for(const project of projects){
-    const button=node('button','project-choice');button.dataset.project=project.id;button.append(node('strong','',project.title),node('span','',project.tagline));
-    button.onclick=()=>select(project.id);directory.append(button);
+    const button=node(project.page?'a':'button','project-choice');button.dataset.project=project.id;button.append(node('strong','',project.page?`${project.title} →`:project.title),node('span','',project.tagline));
+    if(project.page){button.href=project.page;button.onclick=e=>{if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();caseOpener=button;caseOpenedHere=true;location.hash=`work/${project.id}`;};}
+    else button.onclick=()=>select(project.id);
+    directory.append(button);
   }
   layout.append(directory,article);content.append(layout);select(activeProject);
 }
@@ -159,23 +157,6 @@ function detail(item,index){
   if(item.series)caption.append(node('p','gallery-series',item.series));
   if(item.description)caption.append(node('p','',item.description));
   figure.append(caption);artDetail.append(figure);viewer.showModal();document.body.classList.add('art-is-open');
-}
-function caseStudyIndex(){
-  const wrap=node('section','case-index');wrap.setAttribute('aria-label','Case studies');
-  wrap.append(node('h3','work-section-label','Case studies'));
-  const grid=node('div','case-grid');
-  caseStudies.forEach((study,i)=>{
-    const card=node('a','case-card');card.href=`/work/${study.slug}/`;
-    const frame=node('div','case-frame');
-    if(study.cover?.image){const img=node('img');img.src=study.cover.image;img.alt='';img.loading='lazy';frame.append(img);}
-    else if(study.cover?.video){const v=node('video');v.src=study.cover.video+'#t=1';v.muted=true;v.playsInline=true;v.preload='metadata';v.setAttribute('aria-hidden','true');frame.append(v);}
-    else frame.classList.add('is-empty');
-    if(study.status!=='published')frame.append(node('span','case-status',study.status==='in-progress'?'In development':'Draft'));
-    const meta=node('div','case-meta');
-    meta.append(node('span','case-num',String(i+1).padStart(2,'0')+' · '+study.year),node('strong','',study.title),node('span','case-tagline',study.tagline));
-    card.append(frame,meta);grid.append(card);
-  });
-  wrap.append(grid);return wrap;
 }
 function filmRoom(){
   const room=node('div','film-room');
@@ -264,8 +245,8 @@ function render(next){
   modal.classList.toggle('reading-mode',reading);
   document.title=reading?selectedArticle.title+' — Amber Shen':'Amber Shen — Creative Technologist';
   title.textContent={selected:'Selected work',products:'Work',art:'Gallery',film:'Film',writing:'Writing'}[category];
-  description.textContent={selected:'A few things from my world.',products:'Research, installations, and things made to be used.',art:'Images, experiments, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb}[category];
-  if(category==='products'){content.append(caseStudyIndex(),node('h3','work-section-label','Products'));projectArchive();modal.scrollTop=0;return;}
+  description.textContent={selected:'A few things from my world.',products:'What I’m making now.',art:'Images, experiments, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb}[category];
+  if(category==='products'){projectArchive();modal.scrollTop=0;return;}
   if(category==='film'){filmRoom();modal.scrollTop=0;return;}
   if(category==='writing'){
     if(reading){
@@ -346,10 +327,41 @@ function showPage(next,focus=false){
   if(next!=='home'){render(next);window.scrollTo(0,0);if(focus)title.focus({preventScroll:true});animateReading();}
   else{articleOrigin=null;window.scrollTo(0,homeScroll);if(focus)document.querySelector('.home-flower').focus({preventScroll:true});}
 }
+// A project with its own case study page slides in over Work: the page in a frame (?embed hides its nav).
+// Back, Esc and "← Work" slide it away again.
+let slide=null,slideFrame=null,slideClose=null,slideFull=null,caseOpener=null,caseOpenedHere=false;
+function leaveCase(){if(caseOpenedHere){caseOpenedHere=false;history.back();}else{history.replaceState(null,'','#work');route();}}
+function openCase(project){
+  if(!slide){
+    slide=node('div','case-slide');slide.hidden=true;slide.setAttribute('role','dialog');slide.setAttribute('aria-modal','true');
+    const bar=node('div','case-slide-bar');
+    slideClose=node('button','case-slide-close','← Work');slideClose.type='button';slideClose.onclick=leaveCase;
+    slideFull=node('a','case-slide-full','Open as a page ↗');
+    slideFrame=node('iframe','case-slide-frame');
+    slideFrame.addEventListener('load',()=>{try{slideFrame.contentWindow.addEventListener('keydown',e=>{if(e.key==='Escape')leaveCase();});}catch{}});
+    bar.append(slideClose,slideFull);slide.append(bar,slideFrame);document.body.append(slide);
+    addEventListener('keydown',e=>{if(e.key==='Escape'&&slide.classList.contains('open'))leaveCase();});
+    addEventListener('message',e=>{if(e.origin===location.origin&&e.data?.type==='case-close')leaveCase();});
+  }
+  slide.setAttribute('aria-label',project.title);slideFrame.title=project.title;slideFull.href=project.page;
+  if(slideFrame.dataset.page!==project.page){slideFrame.dataset.page=project.page;slideFrame.src=project.page+'?embed';}
+  slide.hidden=false;slide.offsetWidth;slide.classList.add('open');document.body.classList.add('case-open');
+  slideClose.focus({preventScroll:true});
+}
+function closeCase(){
+  if(!slide?.classList.contains('open'))return;
+  slide.classList.remove('open');document.body.classList.remove('case-open');
+  const done=()=>{if(!slide.classList.contains('open'))slide.hidden=true;};
+  matchMedia('(prefers-reduced-motion: reduce)').matches?done():slide.addEventListener('transitionend',done,{once:true});
+  caseOpener?.focus({preventScroll:true});
+}
 function route(focus=false){
   const hash=location.hash;
-  if(hash.startsWith('#work/')){const id=hash.slice(6);if(projects.some(p=>p.id===id))activeProject=id;showPage('products',focus);}
-  else showPage(hash==='#gallery'?'art':hash==='#film'?'film':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
+  if(hash.startsWith('#work/')){const id=projectAliases[hash.slice(6)]||hash.slice(6),project=projects.find(p=>p.id===id);
+    if(project?.page){if(modal.hidden||category!=='products')showPage('products');openCase(project);return;}
+    closeCase();if(project)activeProject=id;showPage('products',focus);return;}
+  closeCase();
+  showPage(hash==='#gallery'?'art':hash==='#film'?'film':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
 }
 document.querySelectorAll('[data-open-work]').forEach(button=>button.addEventListener('click',()=>{location.hash=button.dataset.openWork==='art'?'gallery':'work';}));
 document.querySelector('#close-art').addEventListener('click',()=>viewer.close());

@@ -6,7 +6,6 @@ export const navItems = [
   {page: 'art', label: 'Gallery', href: '/#gallery'},
   {page: 'film', label: 'Film', href: '/#film'},
   {page: 'writing', label: 'Writing', href: '/#writing'},
-  {page: 'os', label: 'OS', href: '/os/'},
 ];
 
 export function renderNav(current) {

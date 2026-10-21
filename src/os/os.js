@@ -2,8 +2,7 @@ import './os.css';
 import {icons} from './icons.js';
 import {art, hasArt} from './app-icons.js';
 import {flowerMark} from '../flower-mark.js';
-import {caseStudies} from '../data/case-studies.js';
-import {films, music, newsletter, buttondownUrls} from '../data/site.js';
+import {music, newsletter, buttondownUrls} from '../data/site.js';
 
 // URLs are written out statically so Vite only bundles these files.
 const u = url => url.href;
@@ -23,32 +22,28 @@ const paletteMe = [
   u(new URL('../../images/palette-me/2nd.png', import.meta.url)),
   u(new URL('../../images/palette-me/3rd.png', import.meta.url)),
 ];
-const bentoBox = [
-  u(new URL('../../images/small-tool-bento-box/frontpage.png', import.meta.url)),
-  u(new URL('../../images/small-tool-bento-box/1st.png', import.meta.url)),
-  u(new URL('../../images/small-tool-bento-box/2nd.png', import.meta.url)),
-  u(new URL('../../images/small-tool-bento-box/3rd.png', import.meta.url)),
-  u(new URL('../../images/small-tool-bento-box/4th.png', import.meta.url)),
-  u(new URL('../../images/small-tool-bento-box/5th.png', import.meta.url)),
-  u(new URL('../../images/small-tool-bento-box/6th.png', import.meta.url)),
-];
 
 // ── Apps ───────────────────────────────────────────────────────
 // type: text | iframe | video | images | folder | links | newsletter | music
 // at: [x%, y%] puts the icon on the desktop. No `at` and no `dock` = hidden,
-// reachable only from a folder. caseStudy: slug of a /work/<slug>/ page.
+// reachable only from a folder. external: an "Open ↗" link in the title bar; more: a footer link.
 const apps = [
-  {id: 'readme', title: 'ReadMe.txt', icon: 'note', art: 'doc', type: 'text', at: [2.5, 4], w: 420, h: 380,
+  {id: 'readme', title: 'ReadMe.txt', icon: 'note', art: 'doc', type: 'text', at: [2.5, 4], w: 420, h: 360,
     html: `<p><strong>Welcome to Amber OS.</strong></p>
-      <p>Two kinds of thing live here. A few pieces of past work you can open and actually play with — and the small projects that never fit the portfolio proper: scraps, tools, odds and ends from client jobs.</p>
-      <p>Nothing here needs a case study. Open a folder and poke around.</p>
+      <p>Everything in the left column runs for real. Wipe the fogged window in Natural Effects, pull a talking book off the shelf in Sound Dictionaries, brush the petals in Bloom.</p>
+      <p>The folders hold the small things: tools you can use, client pieces, sketches and scraps.</p>
       <p class="os-dim">Drag windows by the title bar, and icons anywhere you like. Double-click a title bar to fill the screen. Esc closes the front window. The dock is at the bottom.</p>
       <p class="os-dim">— Amber</p>`},
-  {id: 'bloom', title: 'Bloom', icon: 'flower', type: 'iframe', src: '/?embed#home', at: [2.5, 32], w: 940, h: 620,
+  // Live work: the real sites, running in their windows.
+  {id: 'natural-effects', title: 'Natural Effects', icon: 'window', type: 'iframe', src: 'https://naturaleffects.vercel.app/', at: [2.5, 23], w: 1100, h: 700,
+    external: 'https://naturaleffects.vercel.app/', more: '/#work/natural-effects', blurb: 'Water, ice, fog, sand and snow you can touch.'},
+  {id: 'sound-dictionaries', title: 'Sound Dictionaries', icon: 'book', type: 'iframe', src: 'https://sound-dictionaries.vercel.app/', at: [2.5, 42], w: 1100, h: 700,
+    external: 'https://sound-dictionaries.vercel.app/', more: '/#work/sound-dictionaries', blurb: 'Hover a book to hear it. Click one to open it.'},
+  {id: 'bloom', title: 'Bloom', icon: 'flower', type: 'iframe', src: '/?embed#home', at: [2.5, 61], w: 940, h: 620,
     blurb: 'Brush the petals. Try the words: bloom, art, narrative, code, chaos.'},
 
   // NFC charm experiences: standalone pages also open inside Amber OS.
-  {id: 'charms', title: 'Charms', icon: 'folder', type: 'folder', at: [31, 17], w: 540, h: 340,
+  {id: 'charms', title: 'Charms', icon: 'folder', type: 'folder', at: [21, 4], w: 540, h: 340,
     children: ['charm-hello', 'charm-creative', 'charm-bar-night']},
   {id: 'charm-bar-night', title: 'After Dark', icon: 'note', type: 'iframe', src: '/charms/bar-night/', w: 420, h: 760, external: '/charms/bar-night/', blurb: 'Amber, an espresso martini, and a little hello after dark.'},
   {id: 'charm-hello', title: 'A Little Hello', icon: 'note', type: 'iframe', src: '/charms/hello/', w: 420, h: 720,
@@ -57,15 +52,13 @@ const apps = [
     external: '/charms/creative/', blurb: 'My portfolio and X, one tap away.'},
 
   // Folders on the desktop.
-  {id: 'scraps', title: 'Scraps', icon: 'folder', type: 'folder', at: [11, 17], w: 560, h: 360,
+  {id: 'scraps', title: 'Scraps', icon: 'folder', type: 'folder', at: [12, 61], w: 560, h: 360,
     children: ['scrap-01', 'scrap-02', 'scrap-03', 'scrap-04']},
-  {id: 'small-tools', title: 'Small Tools', icon: 'folder', type: 'folder', at: [12, 45], w: 520, h: 330,
+  {id: 'small-tools', title: 'Small Tools', icon: 'folder', type: 'folder', at: [12, 4], w: 520, h: 330,
     children: ['palette-me', 'bento-box']},
-  {id: 'client-work', title: 'Client Work', icon: 'folder', type: 'folder', at: [20, 5], w: 520, h: 330,
+  {id: 'client-work', title: 'Client Work', icon: 'folder', type: 'folder', at: [12, 23], w: 520, h: 330,
     children: ['trae-raffle', 'raffle-reveal']},
-  {id: 'films', title: 'Films', icon: 'folder', type: 'folder', at: [21, 31], w: 520, h: 330,
-    children: films.map(f => `film-${f.id}`)},
-  {id: 'sketches', title: 'Sketches', icon: 'folder', type: 'folder', at: [20, 58], w: 600, h: 400,
+  {id: 'sketches', title: 'Sketches', icon: 'folder', type: 'folder', at: [12, 42], w: 600, h: 400,
     children: ['calligramme', 'places-to-be', 'infinite-gallery', 'cloud-croissant', 'mirror', 'ascii-flow', 'touch-me']},
 
   // ── Dock ─────────────────────────────────────────────────────
@@ -80,9 +73,9 @@ const apps = [
     html: `<p>Empty.</p><p class="os-dim">The experiments that didn't work are still on a drive somewhere.</p>`},
 
   // ── In folders only ──────────────────────────────────────────
-  {id: 'calligramme', title: 'Calligramme', icon: 'poem', type: 'video', w: 820, h: 560, caseStudy: 'calligramme',
+  {id: 'calligramme', title: 'Calligramme', icon: 'poem', type: 'video', w: 820, h: 560, 
     src: u(new URL('../../images/art-interactive/calligramme.mp4', import.meta.url))},
-  {id: 'places-to-be', title: 'Places to Be', icon: 'place', type: 'video', w: 820, h: 560, caseStudy: 'places-to-be',
+  {id: 'places-to-be', title: 'Places to Be', icon: 'place', type: 'video', w: 820, h: 560, 
     src: u(new URL('../../images/art-interactive/places_to_be.mp4', import.meta.url))},
   {id: 'infinite-gallery', title: 'Infinite Gallery', icon: 'tunnel', type: 'video', w: 820, h: 560,
     src: u(new URL('../../images/infinite-gallery/frontpage.mp4', import.meta.url)), blurb: 'A 3D funnel for showcasing artwork or consumer products.'},
@@ -95,13 +88,13 @@ const apps = [
   {id: 'scrap-03', title: 'Retro Computer 03', icon: 'film', type: 'video', w: 760, h: 520, src: scrap[2]},
   {id: 'scrap-04', title: 'Retro Computer 04', icon: 'film', type: 'video', w: 760, h: 520, src: scrap[3]},
   {id: 'palette-me', title: 'Palette Me', icon: 'tool', type: 'images', w: 860, h: 600, images: paletteMe},
-  {id: 'bento-box', title: 'Bento Box', icon: 'tool', type: 'images', w: 860, h: 600, images: bentoBox},
+  {id: 'bento-box', title: 'Bento Box', icon: 'tool', type: 'iframe', src: 'https://traesmall-tool-bento-box242w.vercel.app/', w: 960, h: 640,
+    external: 'https://traesmall-tool-bento-box242w.vercel.app/'},
+  // A recording, not the live site: the live one is a real sign-up form.
   {id: 'trae-raffle', title: 'Trae Anniversary Raffle', icon: 'film', type: 'video', w: 820, h: 540,
     src: u(new URL('../../images/trae-raffle/trae-anniversary-raffle.mp4', import.meta.url))},
   {id: 'raffle-reveal', title: 'Raffle Reveal', icon: 'film', type: 'video', w: 820, h: 540,
     src: u(new URL('../../images/trae-raffle/raffle-reveal.mp4', import.meta.url))},
-  ...films.map(f => ({id: `film-${f.id}`, title: f.title, icon: 'film', type: f.youtube ? 'iframe' : 'video', w: 860, h: 540,
-    src: f.youtube ? `https://www.youtube-nocookie.com/embed/${f.youtube}?rel=0` : f.src, blurb: f.note})),
 ];
 const byId = Object.fromEntries(apps.map(a => [a.id, a]));
 
@@ -182,7 +175,7 @@ function body(app) {
     case 'text': b.innerHTML = app.html; break;
     case 'iframe': {
       const f = el('iframe'); f.src = app.src; f.title = app.title; f.loading = 'lazy';
-      f.allow = 'autoplay; fullscreen; clipboard-write; camera; encrypted-media; picture-in-picture'; f.allowFullscreen = true;
+      f.allow = 'autoplay; fullscreen; clipboard-write; camera; microphone; encrypted-media; picture-in-picture'; f.allowFullscreen = true;
       b.append(f); break;
     }
     case 'video': {
@@ -271,12 +264,10 @@ function open(id, opener, place) {
   if (app.external) { const a = el('a', 'os-external', 'Open ↗'); a.href = app.external; a.target = '_blank'; a.rel = 'noopener noreferrer'; bar.append(a); }
   win.append(bar, body(app));
   const count = app.type === 'folder' ? `${app.children.filter(c => byId[c]).length} items` : '';
-  if (app.blurb || count || app.caseStudy || app.more) {
+  if (app.blurb || count || app.more) {
     const foot = el('footer', 'os-footer');
     foot.append(el('span', '', app.blurb || count));
-    const study = caseStudies.find(s => s.slug === app.caseStudy);
-    if (study) { const a = el('a', '', 'Read the case study →'); a.href = `/work/${study.slug}/`; foot.append(a); }
-    else if (app.more) { const a = el('a', '', 'More about it →'); a.href = app.more; foot.append(a); }
+    if (app.more) { const a = el('a', '', 'More about it →'); a.href = app.more; foot.append(a); }
     win.append(foot);
   }
   // Size, then either the authored spot or the next cascade step.
@@ -431,10 +422,9 @@ function wake() {
   const later = (fn, ms) => setTimeout(fn, reduced ? 0 : ms);
   if (byId[start]) { later(() => open(start), 160); return; }
   if (mobile()) return;
-  // Two folders and the readme, the way a desk gets left mid-thought.
-  later(() => open('readme', null, [47, 6]), 280);
-  later(() => open('small-tools', null, [40, 56]), 400);
-  later(() => open('scraps', null, [56, 32]), 520);
+  // The newest work, already running, with the readme beside it.
+  later(() => open('natural-effects', null, [22, 5]), 280);
+  later(() => open('readme', null, [70, 52]), 420);
 }
 
 setTimeout(() => {
