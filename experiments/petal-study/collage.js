@@ -1,4 +1,5 @@
 import { cutoutOutline } from './cutout-outline.js';
+import { isLight } from '../../src/theme.js';
 // Cut the existing photograph into contiguous paper fragments.
 export function createCollage(source, size) {
   const pixels=source.getContext('2d').getImageData(0,0,size,size);
@@ -10,7 +11,7 @@ export function createCollage(source, size) {
   const buckets=seeds.map(()=>[]);
   for(let y=0;y<size;y++)for(let x=0;x<size;x++){
     const offset=(y*size+x)*4;
-    if(Math.max(pixels.data[offset],pixels.data[offset+1],pixels.data[offset+2])<18)continue;
+    if(pixels.data[offset+3]<30)continue;
     let best=Infinity,index=0;
     seeds.forEach((seed,i)=>{
       const dx=x/size-seed.x,dy=y/size-seed.y;
@@ -99,7 +100,7 @@ export function createCollage(source, size) {
         ctx.save();ctx.translate(p.cx+p.x,p.cy+p.y-p.lift*4);ctx.rotate(p.rotation-p.lift*.012);ctx.scale(1+p.lift*.005,1+p.lift*.005);
         ctx.translate(p.x0-p.cx,p.y0-p.cy);
         ctx.drawImage(p.sprite,0,0);
-        ctx.strokeStyle=`rgba(255,250,245,${.08+p.lift*.12})`;ctx.lineWidth=.35;ctx.lineJoin='round';ctx.setLineDash([]);
+        ctx.strokeStyle=`rgba(${isLight()?'70,45,30':'255,250,245'},${.08+p.lift*.12})`;ctx.lineWidth=.35;ctx.lineJoin='round';ctx.setLineDash([]);
         ctx.stroke(p.outline);ctx.restore();
       }
     }

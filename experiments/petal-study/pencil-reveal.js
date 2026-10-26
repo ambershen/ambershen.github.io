@@ -1,9 +1,12 @@
 // Persistent, local brush reveal of the existing colored-pencil artwork.
+import { cutOutBlack } from './cutout.js';
+import { isLight, onThemeChange } from '../../src/theme.js';
 export function createPencilReveal(image, size) {
   const layer = () => { const c=document.createElement('canvas');c.width=c.height=size;return c; };
   const source=layer(), outline=layer(), mask=layer(), painted=layer();
   const sourceContext=source.getContext('2d',{willReadFrequently:true});
   sourceContext.drawImage(image,0,0,size,size);
+  cutOutBlack(source);
   const small=document.createElement('canvas');small.width=small.height=size/2;
   const sc=small.getContext('2d',{willReadFrequently:true});
   sc.drawImage(image,0,0,small.width,small.height);
@@ -14,11 +17,16 @@ export function createPencilReveal(image, size) {
     const dx=gray(x+1,y)-gray(x-1,y),dy=gray(x,y+1)-gray(x,y-1);
     const edge=Math.max(0,Math.hypot(dx,dy)-12);
     const i=(y*small.width+x)*4;
-    edges.data[i]=204;edges.data[i+1]=184;edges.data[i+2]=174;
     edges.data[i+3]=Math.min(65,edge*.65);
   }
-  sc.putImageData(edges,0,0);
-  outline.getContext('2d').drawImage(small,0,0,size,size);
+  // The faint outline is redrawn in a darker ink on light pages.
+  function drawOutline(){
+    const [r,g,b]=isLight()?[120,88,72]:[204,184,174];
+    for(let i=0;i<edges.data.length;i+=4){edges.data[i]=r;edges.data[i+1]=g;edges.data[i+2]=b;}
+    sc.putImageData(edges,0,0);
+    const oc=outline.getContext('2d');oc.clearRect(0,0,size,size);oc.drawImage(small,0,0,size,size);
+  }
+  drawOutline();onThemeChange(drawOutline);
   const mc=mask.getContext('2d'),pc=painted.getContext('2d');
   let stamps=0;
   function stamp(x,y,radius){

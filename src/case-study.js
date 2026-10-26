@@ -1,4 +1,5 @@
 import './case-study.css';
+import './case-study-light.css';
 import {renderNav} from './site-nav.js';
 import {caseStudies, caseStudySections} from './data/case-studies.js';
 import {processFlow} from './diagrams/process-flow.js';
@@ -8,6 +9,10 @@ const study = caseStudies.find(s => s.slug === slug);
 const main = document.querySelector('#case-study');
 // ?embed: shown inside the Work page's slide-in panel, which has its own way back.
 const embedded = new URLSearchParams(location.search).has('embed');
+// Work in progress shows only in `npm run dev`: the live site skips drafts,
+// empty sections and "coming soon" placeholders.
+const editing = import.meta.env.DEV;
+if (study?.status === 'draft' && !editing) location.replace('/#work');
 if (embedded) document.documentElement.classList.add('cs-embedded'); else document.body.prepend(renderNav('products'));
 
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
@@ -55,7 +60,8 @@ function block(b) {
     fig.append(grid);
   }
   else if (b.video) { const v = media({video: b.video, poster: b.poster}, b.caption); v.preload = 'none'; fig.append(v); }
-  else fig.append(media({placeholder: b.placeholder}, ''));
+  else if (editing) fig.append(media({placeholder: b.placeholder}, ''));
+  else return null;
   if (b.caption) fig.append(el('figcaption', '', b.caption));
   return fig;
 }
@@ -85,7 +91,7 @@ if (!study) {
     hero.append(eyebrow, el('h1', 'cs-title', study.title), el('p', 'cs-tagline', study.tagline), el('p', 'cs-medium', study.medium));
   }
   const cover = el('figure', 'cs-cover');
-  if (study.cover === false) cover.hidden = true; else cover.append(media(study.cover, study.title));
+  if (study.cover === false || (!editing && !(study.cover?.video || study.cover?.image || study.cover?.images))) cover.hidden = true; else cover.append(media(study.cover, study.title));
 
   const body = el('div', 'cs-body');
   const toc = el('nav', 'cs-toc'); toc.setAttribute('aria-label', 'Sections');
@@ -95,10 +101,11 @@ if (!study) {
     const a = el('a', '', ch.toc || ch.label); a.href = `#${id}`; toc.append(a);
     const sec = el('section', 'cs-section'); sec.id = id;
     sec.append(el('p', 'cs-num', String(i + 1).padStart(2, '0')), el('h2', ch.label.length > 60 ? 'cs-h2-question' : '', ch.label));
-    for (const b of ch.blocks) sec.append(block(b));
+    for (const b of ch.blocks) { const n = block(b); if (n) sec.append(n); }
     sections.append(sec);
   }
-  else for (const [i, s] of caseStudySections.entries()) {
+  else for (const s of caseStudySections.filter(s => editing || study.sections[s.key] || (s.key === 'process' && study.gallery.length))) {
+    const i = toc.children.length;
     const id = `s-${s.key}`;
     const a = el('a', '', s.label); a.href = `#${id}`; toc.append(a);
     const sec = el('section', 'cs-section'); sec.id = id;

@@ -4,9 +4,9 @@ import hotNerdsBody from '../../experiments/petal-study/tech-storytelling-hot-ne
 // Essays / newsletter issues, oldest first. Bodies are plain text files.
 export const articles=[
   {title:'Code Has Always Been Art (We Just Forgot)',route:'#writing/code-has-always-been-art',body:articleBody},
-  {title:'Tech storytelling in 2026 belongs to hot nerds',route:'#writing/tech-storytelling-in-2026-belongs-to-hot-nerds',body:hotNerdsBody,
+  {title:'Tech Storytelling in 2026 Belongs to Hot Nerds',route:'#writing/tech-storytelling-in-2026-belongs-to-hot-nerds',body:hotNerdsBody,
     headings:['The old deal','AI Killed the Stereotype','Tech storytelling in East×West','How to be a Hot Nerd in 2026'],
     subheadings:['书呆子 vs hot nerd','Kung Fu Masters vs Stage-Ready Founders','How both cultures are shifting'],
     bullets:['Socially awkward','Aesthetically challenged','More comfortable with terminals than humans','The opposite of having an aura.']},
-  {title:'most tech startups are bad at marketing.',route:'#writing/most-tech-startups-are-bad-at-marketing',body:marketingBody}
+  {title:'Most Tech Startups Are Bad at Marketing',route:'#writing/most-tech-startups-are-bad-at-marketing',body:marketingBody}
 ];

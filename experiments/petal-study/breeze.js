@@ -2,7 +2,7 @@
 export function createBreeze(source, size) {
   const surface = document.createElement('canvas');
   surface.width = surface.height = size;
-  const gl = surface.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: true });
+  const gl = surface.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, preserveDrawingBuffer: true });
   if (!gl) return null;
   const shader = (type, text) => {
     const item = gl.createShader(type);
@@ -37,7 +37,7 @@ export function createBreeze(source, size) {
         vec2 sampleUV=clamp(uv+offset*strength*anchor*border,0.,1.);
         vec4 petal=texture2D(flower,sampleUV);
         // Broad, feathered light follows the same warped surface as the petals.
-        // Modulate existing color so the black background never becomes a panel.
+        // Modulate existing color so the transparent background never becomes a panel.
         float sweep=mix(-.3,1.55,smoothstep(0.,1.,progress));
         float distance=sampleUV.x+sampleUV.y*.22-sweep;
         float beam=exp(-distance*distance/ .055);
@@ -57,6 +57,8 @@ export function createBreeze(source, size) {
     gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
     const texture = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, texture);
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+    // The flower has a transparent background; blend it as premultiplied color.
+    gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, true);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);

@@ -4,6 +4,10 @@ import portraitURL from './portrait.webp';
 import { createBreeze } from './breeze.js';
 import { createCollage } from './collage.js';
 import { createPencilReveal } from './pencil-reveal.js';
+import { cutOutBlack } from './cutout.js';
+import { themeToggle, isLight } from '../../src/theme.js';
+
+document.querySelector('.site-header')?.append(themeToggle());
 
 const canvas = document.querySelector('#flower');
 const ctx = canvas.getContext('2d');
@@ -51,7 +55,7 @@ playControl.addEventListener('click',()=>{
   if(!ready)return;
   if(mode!=='chaos')chooseMode('chaos');
   playfulPortrait=true;polaroidStart=null;
-  playControl.classList.add('selected');playControl.setAttribute('aria-pressed','true');
+  playControl.classList.add('selected','tried');playControl.setAttribute('aria-pressed','true');
   resetFog();
   touchHint.textContent='Wipe the mist to find me';
   canvas.tabIndex=0;canvas.style.cursor='crosshair';
@@ -134,7 +138,7 @@ function drawPortrait(dt){
   ctx.scale(shrink,shrink);ctx.translate(-N/2,-N/2);
   if(entry>0){
     ctx.save();ctx.globalAlpha=entry;
-    ctx.fillStyle='#f6f0e7';ctx.shadowColor='#0005';ctx.shadowBlur=18;ctx.shadowOffsetY=10;
+    ctx.fillStyle=isLight()?'#fffdfa':'#f6f0e7';ctx.shadowColor=isLight()?'#2b1d1433':'#0005';ctx.shadowBlur=18;ctx.shadowOffsetY=10;
     ctx.fillRect((N-w)/2-18,(N-h)/2-18,w+36,h+76);
     ctx.shadowColor='transparent';ctx.fillStyle='#76665d';ctx.font='400 18px Manrope,sans-serif';ctx.textAlign='center';
     ctx.fillText('wipe to say hello',N/2,(N+h)/2+36);ctx.restore();
@@ -164,6 +168,8 @@ new ResizeObserver(resize).observe(canvas);
 function prepare(image){
   const source = document.createElement('canvas'); source.width=source.height=N;
   const sc = source.getContext('2d',{willReadFrequently:true}); sc.drawImage(image,0,0,N,N);
+  // Transparent background, so the flower and its petals work on light pages too.
+  cutOutBlack(source);
   flowerSource = source;
   const rgba = sc.getImageData(0,0,N,N).data;
   const seeds = [];
@@ -178,8 +184,11 @@ function prepare(image){
   const buckets=seeds.map(()=>[]);
   // A small sample grid preserves photographic texture while bounding particle count.
   for(let y=0;y<N;y+=4)for(let x=0;x<N;x+=4){
-    const i=(y*N+x)*4;
-    if(rgba[i+3]<30 || Math.max(rgba[i],rgba[i+1],rgba[i+2])<19)continue;
+    // Sample the most opaque corner or center, so cells along the cut-out edge
+    // are kept and the petal outline stays smooth.
+    let i=-1;
+    for(const [sx,sy] of [[2,2],[0,0],[3,0],[0,3],[3,3]]){const j=((y+sy)*N+x+sx)*4;if(i<0 || rgba[j+3]>rgba[i+3])i=j;}
+    if(rgba[i+3]<30)continue;
     let index=0,best=Infinity;
     seeds.forEach((s,k)=>{const d=(x-s.x)**2+(y-s.y)**2*1.3;if(d<best){best=d;index=k;}});
     const luminance=(rgba[i]*.2126+rgba[i+1]*.7152+rgba[i+2]*.0722)/255;
@@ -192,10 +201,11 @@ function prepare(image){
   buckets.forEach((particles,id)=>{
     if(!particles.length)return;
     const minX=Math.min(...particles.map(p=>p.x)), minY=Math.min(...particles.map(p=>p.y));
-    const maxX=Math.max(...particles.map(p=>p.x))+4, maxY=Math.max(...particles.map(p=>p.y))+4;
+    const maxX=Math.min(N,Math.max(...particles.map(p=>p.x))+5), maxY=Math.min(N,Math.max(...particles.map(p=>p.y))+5);
     const sprite=document.createElement('canvas');sprite.width=maxX-minX;sprite.height=maxY-minY;
     const c=sprite.getContext('2d');
-    for(const p of particles)c.drawImage(source,p.x,p.y,4,4,p.x-minX,p.y-minY,4,4);
+    // Cells overlap by a pixel so no seams show between them on a light page.
+    for(const p of particles)c.drawImage(source,p.x,p.y,5,5,p.x-minX,p.y-minY,5,5);
     const codeSprite=document.createElement('canvas');codeSprite.width=sprite.width+12;codeSprite.height=sprite.height+12;
     const cc=codeSprite.getContext('2d');
     // Keep the petal photograph readable, with a light layer of ASCII texture.
@@ -254,7 +264,8 @@ function chooseMode(next){
     }
   }
 }
-words.forEach(button=>button.addEventListener('click',()=>chooseMode(button.dataset.mode)));
+// .tried stops the underline shimmer once a word has been used.
+words.forEach(button=>button.addEventListener('click',()=>{button.classList.add('tried');chooseMode(button.dataset.mode);}));
 
 function bloomProgress(){
   if(bloomStart===null)return 0;
@@ -386,6 +397,17 @@ function frame(timestamp){
   requestAnimationFrame(frame);
 }
 resize();requestAnimationFrame(frame);
+// Letters tumble onto the underline one at a time, each from its own tilt.
+function dropWord(button){
+  const text=button.querySelector('span');
+  if(!text)return button.classList.add('landed');
+  const tilts=[-28,20,-14,32,-22];
+  button.setAttribute('aria-label',text.textContent);
+  text.setAttribute('aria-hidden','true');
+  text.innerHTML=[...text.textContent].map((c,i)=>`<span class="letter" style="--i:${i};--r:${tilts[i%tilts.length]}deg">${c}</span>`).join('');
+  button.classList.add('landed','dropping');
+  setTimeout(()=>button.classList.remove('dropping'),2000);
+}
 function loadImage(url,priority='low'){
   return new Promise((resolve,reject)=>{const image=new Image();image.decoding='async';image.fetchPriority=priority;image.onload=()=>resolve(image);image.onerror=reject;image.src=url;});
 }
@@ -397,6 +419,7 @@ loadImage(flowerURL,'high').then(image=>{
   resetControl.disabled=false;
   words.forEach(button=>{button.disabled=button.dataset.mode==='narrative' || button.dataset.mode==='chaos';});
   playControl.disabled=true;
+  words.filter(button=>button.dataset.mode==='bloom').forEach(dropWord);
   state.textContent='Waiting for a breeze';
   // Let the first flower frame paint before preparing the secondary modes.
   requestAnimationFrame(()=>setTimeout(()=>{
@@ -410,4 +433,4 @@ loadImage(flowerURL,'high').then(image=>{
       playControl.disabled=false;
     }).catch(()=>{state.textContent='Portrait unavailable. The other flower effects are ready.';});
   },0));
-}).catch(()=>{loading.textContent='The flower could not load. Please reload to try again.';state.textContent='Image unavailable';});
+}).catch(()=>{words.forEach(button=>button.classList.add('landed'));loading.textContent='The flower could not load. Please reload to try again.';state.textContent='Image unavailable';});

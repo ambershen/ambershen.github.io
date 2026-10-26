@@ -262,9 +262,10 @@ function render(next){
         }else{list=null;const tag=selectedArticle.headings?.includes(line)?'h3':selectedArticle.subheadings?.includes(line)?'h4':'p';article.append(node(tag,'',line));}
       }
       const links=node('div','essay-links');const back=node('a','','← All writing');back.href='#writing';
-      links.append(back);content.append(article,links,newsletterSignup(true));return;
+      links.append(back);content.append(article,links);if(newsletter.show)content.append(newsletterSignup(true));return;
     }
-    content.append(newsletterSignup(),node('h3','work-section-label','Essays'));
+    if(newsletter.show)content.append(newsletterSignup());
+    content.append(node('h3','work-section-label','Essays'));
     const list=node('div','writing-list');
     [...articles].reverse().forEach(article=>{
       const link=node('a','writing-entry');link.href=article.route;

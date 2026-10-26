@@ -16,7 +16,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;450;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./experiments/petal-study/style.css" />
-  <script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('embed');</script>
+  <link rel="stylesheet" href="./experiments/petal-study/light.css" />
+  <script>(function(){var q=new URLSearchParams(location.search),r=document.documentElement;if(q.has("embed")){r.classList.add("embed");return}try{var t=q.get("theme");if(t)localStorage.setItem("theme",t);else t=localStorage.getItem("theme");if(t==="light")r.dataset.theme="light"}catch(e){}})();</script>
 </head>
 <body>
   <header class="site-header">
@@ -32,7 +33,7 @@
     <span id="state" class="sr-only" aria-live="polite">Preparing specimen</span>
     <div class="intro">
       <button id="intro-toggle" class="mobile-only" type="button" aria-expanded="false">Read introduction</button>
-      <h1>Hi, I’m Amber.<br>I like making things <button class="word" data-mode="bloom" title="A breeze through the petals" disabled>bloom</button>.</h1>
+      <h1>Hi, I’m Amber.<br>I like making things <button class="word" data-mode="bloom" title="A breeze through the petals" disabled><span>bloom</span></button>.</h1>
       <div id="chapter-two" class="chapter" hidden>
         <p class="story">Somewhere between <button class="word" data-mode="art" title="Brush the flower into fragments" aria-pressed="false" disabled>art</button>, <button class="word" data-mode="narrative" title="Draw the flower in pencil" aria-pressed="false" disabled>narrative</button>, <button class="word" data-mode="code" title="Float the petals and let them return" aria-pressed="false" disabled>code</button>, and a little <button class="word" data-mode="chaos" title="Let the petals fall to find me" aria-pressed="false" disabled>chaos</button>.</p>
       </div>

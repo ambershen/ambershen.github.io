@@ -11,7 +11,9 @@ export const socials = [
 // ── Newsletter ────────────────────────────────────────────────
 // 1. Sign up at buttondown.com  2. Put your username below.
 // While `buttondown` is empty the form shows a "launching soon" note.
+// Set `show: false` to hide the signup form everywhere.
 export const newsletter = {
+  show: false,
   name: 'Petal Notes', // PLACEHOLDER — rename
   blurb: 'Occasional letters on code as art, tech storytelling, and making things you can play with.', // PLACEHOLDER
   cadence: 'About once a month. No spam, unsubscribe anytime.',

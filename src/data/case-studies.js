@@ -1,7 +1,8 @@
 // Deep-dive case studies. Each entry gets a real page at /work/<slug>/.
 // To add one: add an entry here AND copy any folder in /work/ to /work/<slug>/
 // (only the <title>, description and data-slug change).
-// Any section left empty renders as a visible placeholder prompt.
+// Any section left empty renders as a placeholder prompt in dev; the live site
+// skips it. Drafts (status: 'draft') are only viewable in dev.
 
 export const caseStudySections = [
   {key: 'question', label: 'Question', prompt: 'The one-line inquiry behind the piece. What did you want to find out?'},
