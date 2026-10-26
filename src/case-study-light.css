@@ -246,3 +246,117 @@
 :root[data-theme=light] [tabindex="-1"]:focus {
     outline: none
 }
+:root[data-theme=light] .cs-material {
+    text-decoration: none;
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-material img {
+    background: var(--panel)
+}
+:root[data-theme=light] .cs-material-kind {
+    color: var(--muted)
+}
+:root[data-theme=light] .cs-material p {
+    color: var(--soft)
+}
+:root[data-theme=light] .cs-material:hover h2 {
+    color: var(--accent)
+}
+:root[data-theme=light] .cs-interaction {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line)
+}
+:root[data-theme=light] .cs-interaction dt {
+    color: var(--muted)
+}
+:root[data-theme=light] .cs-interaction dd {
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-editorial .cs-material-chapter {
+    border-top: 1px solid var(--line)
+}
+:root[data-theme=light] .cs-block-label, :root[data-theme=light] .cs-editorial .cs-section p.cs-block-label {
+    color: var(--muted)
+}
+:root[data-theme=light] .cs-actions li {
+    border-top: 1px solid var(--line)
+}
+:root[data-theme=light] .cs-action-index {
+    color: var(--accent)
+}
+:root[data-theme=light] .cs-actions h4 {
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-editorial .cs-actions p {
+    color: var(--soft)
+}
+:root[data-theme=light] .cs-action-phase {
+    color: var(--muted)
+}
+:root[data-theme=light] .cs-try {
+    color: var(--accent)
+}
+:root[data-theme=light] .cs-try:hover {
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-development-title {
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-editorial .cs-development-intro {
+    color: var(--soft)
+}
+:root[data-theme=light] .cs-development-stages li {
+    border-top: 1px solid var(--line)
+}
+:root[data-theme=light] .cs-development-stages li:before {
+    color: var(--accent)
+}
+:root[data-theme=light] .cs-development-stages h4 {
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-decision {
+    background: var(--panel);
+    border-left: 2px solid var(--accent)
+}
+:root[data-theme=light] .cs-decision h4 {
+    color: var(--ink)
+}
+@media (max-width:760px) {
+    :root[data-theme=light] .cs-editorial .cs-toc {
+        border: 0;
+        border-bottom: 1px solid var(--line)
+    }
+}
+@media (max-width:760px) {
+    :root[data-theme=light] .cs-editorial .cs-toc a {
+        border: 0
+    }
+}
+:root[data-theme=light] .cs-opening {
+    border-top: 1px solid var(--line)
+}
+:root[data-theme=light] .cs-opening h2 {
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-opening>p {
+    color: var(--soft)
+}
+:root[data-theme=light] .cs-context {
+    border-top: 1px solid var(--line)
+}
+:root[data-theme=light] .cs-context h3 {
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-references>span {
+    color: var(--muted)
+}
+:root[data-theme=light] .cs-references a {
+    color: var(--accent)
+}
+:root[data-theme=light] .cs-references a:hover {
+    color: var(--ink)
+}
+:root[data-theme=light] .cs-specimen>img {
+    background: #e8e1da;
+    border: 1px solid #e0d5ca
+}

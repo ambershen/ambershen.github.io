@@ -30,25 +30,36 @@ export const buttondownUrls = user => user ? {
 // (the part after watch?v=) and the local file is no longer loaded.
 export const films = [
   {
+    id: 'fish-audio-drama-3-x-astorie',
+    title: 'Fish Audio Drama 3 x Astorie',
+    kind: 'Fish Audio · Commercial',
+    src: new URL('../../films/fish-audio-drama-3-x-astorie.mp4', import.meta.url).href,
+    featured: true,
+  },
+  {
     id: 'fragrance-scent-simulations',
     title: 'Scent Simulations',
-    year: '2025', // PLACEHOLDER
-    kind: 'Fragrance film', // PLACEHOLDER
-    note: 'Add a one-line logline here.', // PLACEHOLDER
-    youtube: '',
+    kind: 'Fragrance film',
     src: new URL('../../films/fragrance-scent-simulations.mp4', import.meta.url).href,
-    featured: true,
+  },
+  {
+    id: 'macroscope-ad-astra',
+    title: 'ad astra.',
+    kind: 'Macroscope · Commercial',
+    src: new URL('../../films/macroscope-ad-astra.mp4', import.meta.url).href,
   },
   {
     id: 'jewelry-commercial',
     title: 'Jewelry Commercial',
-    year: '2025', // PLACEHOLDER
-    kind: 'Commercial', // PLACEHOLDER
-    note: 'Add a one-line logline here.', // PLACEHOLDER
-    youtube: '',
+    kind: 'Commercial',
     src: new URL('../../films/jewelry-commercial.mp4', import.meta.url).href,
   },
-  // { id:'murmur', title:'Murmur', year:'2026', kind:'Concept film', youtube:'VIDEO_ID', note:'' },
+  {
+    id: 'trae-limited-time-free',
+    title: 'TRAE Agent launch',
+    kind: 'TRAE · Commercial',
+    src: new URL('../../films/Limited-time-FREE-final.mp4', import.meta.url).href,
+  },
 ];
 
 // ── Music ─────────────────────────────────────────────────────

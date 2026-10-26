@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { readdirSync, existsSync } from 'fs';
+import { cloudAssets } from './scripts/portfolio/cloud-assets.mjs';
 
 // Every folder in /work/ with an index.html becomes a case-study page at /work/<slug>/.
 const caseStudies = Object.fromEntries(
@@ -10,6 +11,7 @@ const caseStudies = Object.fromEntries(
 );
 
 export default defineConfig({
+  plugins: [cloudAssets(__dirname)],
   build: {
     rollupOptions: {
       input: {

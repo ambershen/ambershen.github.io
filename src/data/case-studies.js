@@ -17,69 +17,207 @@ export const caseStudySections = [
 const img = url => url.href;
 
 const ne = {
-  water: img(new URL('../../images/natural-expressions/water.mp4', import.meta.url)),
-  waterPoster: img(new URL('../../images/natural-expressions/water.jpg', import.meta.url)),
+  water: img(new URL('../../images/natural-expressions/water-demo.mp4', import.meta.url)),
+  waterPoster: img(new URL('../../images/natural-expressions/water-demo.jpg', import.meta.url)),
   ice: img(new URL('../../images/natural-expressions/ice.mp4', import.meta.url)),
   icePoster: img(new URL('../../images/natural-expressions/ice.jpg', import.meta.url)),
-  sand: img(new URL('../../images/natural-expressions/sand.mp4', import.meta.url)),
-  sandPoster: img(new URL('../../images/natural-expressions/sand.jpg', import.meta.url)),
-  snow: img(new URL('../../images/natural-expressions/snow-01.mp4', import.meta.url)),
-  snowPoster: img(new URL('../../images/natural-expressions/snow-01.jpg', import.meta.url)),
+  sand: img(new URL('../../images/natural-expressions/sand-projection.mp4', import.meta.url)),
+  sandPoster: img(new URL('../../images/natural-expressions/sand-demo.jpg', import.meta.url)),
   windowHand: img(new URL('../../images/natural-expressions/window-3688.mp4', import.meta.url)),
   windowHandPoster: img(new URL('../../images/natural-expressions/window-3688.jpg', import.meta.url)),
   windowHeart: img(new URL('../../images/natural-expressions/window-3686.mp4', import.meta.url)),
   windowHeartPoster: img(new URL('../../images/natural-expressions/window-3686.jpg', import.meta.url)),
 };
 
+// Shared by the selected-work feature and the case-study introduction.
+export const naturalMedia = [
+  {id: 'water', title: 'Water', interaction: 'Voice becomes ripples', kind: 'Sound & emotion', poster: ne.waterPoster,
+    description: 'Exploring how the emotion in a voice can become the movement of water.'},
+  {id: 'sand', title: 'Sand', interaction: 'Sketches become a story', kind: 'Drawing & projection', poster: ne.sandPoster,
+    description: 'An agent draws from learned sketches, turning sand into a projected storyline.'},
+  {id: 'ice', title: 'Ice', interaction: 'Touch becomes fractured objects', kind: 'Touch & resistance', poster: ne.icePoster,
+    description: 'Contact builds simulated pressure, leaving traces and spreading cracks through ice.'},
+];
+
+
+export const softMatterMedia = [
+  {title:'Purl',kind:'Knitted yarn',image:img(new URL('../../images/soft-matter/purl.png',import.meta.url)),text:'A knitting grid gives each letter its structure. Repeated V-shaped stitches turn curves into stepped, chunky forms; the gauge changes how much detail a letter can hold.'},
+  {title:'Ganache',kind:'Piped chocolate',image:img(new URL('../../images/soft-matter/ganache.png',import.meta.url)),text:'Each stroke is a separate squeeze. A rounded beginning, a thinning tail, and an occasional drip carry the gesture of piping chocolate into the letterform.'},
+  {title:'Tangle',kind:'Earphone cable',image:img(new URL('../../images/soft-matter/tangle.png',import.meta.url)),text:'A cable becomes a continuous lowercase script. Curves and loops keep the line connected from earbuds to plug, while slack changes its looseness.'},
+  {title:'Picot',kind:'Lace ribbon',image:img(new URL('../../images/soft-matter/picot.png',import.meta.url)),text:'Thick strokes open into mesh, flowers, and eyelets. Thin strokes narrow to a thread, with small picot loops tracing the edges.'},
+];
+
 export const caseStudies = [
   {
-    // A series with its own chapters instead of the template sections above.
-    // Block types: string (paragraph), {lead}, {study, sub}, {video, poster, caption}, {loops, caption}, {link}, {diagram},
-    // {placeholder}, {note, text}, {step, text}, {meta}.
-    slug: 'natural-expressions',
-    title: 'Natural Expressions',
+    slug:'soft-matter',title:'Soft Matter',year:'2026',medium:'Creative coding · Type design · Material studies',
+    tagline:'Everyday materials become a language.',status:'published',cover:false,gallery:[],sections:{},
+    opening:{toc:'Overview',title:'Four materials. Four ways to write.',blocks:[{specimens:softMatterMedia,compact:true}]},
+    chapters:[
+      {key:'origins-materials',label:'Looking for letters in everyday things',toc:'The starting point',blocks:[
+        'Soft Matter begins with familiar things: knitted yarn, piped chocolate, tangled earphones, and lace ribbon. I turn their textures and physical constraints into rules for drawing letters.',
+        'The question is how much of a material’s character can remain when it becomes a typeface. A stitch creates a grid. A squeeze leaves a drip. A cable makes a loop. These details become the structure of a visual language.'
+      ]},
+      {key:'typefaces',label:'Four materials, four systems',toc:'The typefaces',blocks:[{specimens:softMatterMedia}]},
+      {key:'variation',label:'A system you can play with',toc:'Variation',blocks:[
+        'Each family supports five weights, from Light to Black, alongside color and material controls. Gauge, drip, slack, and contrast make the behavior of each material part of the design interface.',
+        {image:img(new URL('../../images/soft-matter/purl-heavy.png',import.meta.url)),caption:'Purl in Black: the same words, with a heavier knitted letterform.'},
+        {link:{label:'Try the type specimens',url:'https://softmatter.vercel.app/#typefaces',text:'Type your own words, change a weight, and explore the material parameters.'}}
+      ]},
+      {key:'outputs',label:'From material studies to usable type',toc:'Reusable outputs',blocks:[
+        {study:'Material lettering',sub:'PNG lettering · transparent glyph packs'},
+        'The full material rendering can be exported as lettering or individual glyph images, keeping the stitches, drips, cables, and lace details for use in graphics, motion, and interfaces.',
+        {study:'Installable type',sub:'Five weights · OpenType families'},
+        'The font files simplify each material into monochrome vector outlines. This creates a typeable family that can be used in design tools and on the web, alongside the richer material images.',
+        {link:{label:'Explore the export desk',url:'https://softmatter.vercel.app/#studio',text:'Choose a family, weight, and colorway, then export the format that fits your design.'}}
+      ]},
+      {key:'in-use',label:'A language in use',toc:'In use',blocks:[
+        'A fictional makers’ market brings the four families into a shared world of objects, packaging, and signage. Purl becomes lettering knitted into a tote; Ganache gives the cocoa bar its piped letterforms; Picot wraps a hatbox in a lace band; Tangle becomes an earphone cable that writes inside its packaging.',
+        'The applications extend into interactive 3D displays: moving the cursor changes the light on the white-chocolate title, dragging turns the lace box, and a knitted banner moves in the wind. The material becomes part of how the typography is experienced.',
+        {image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),caption:'Soft Matter market — material type across 3D objects, packaging, and interactive displays. A fictional application demo.'},
+        {link:{label:'Explore the market demo',url:'https://softmatter.vercel.app/#in-use',text:'Explore the material typefaces in an interactive 3D setting.'}}
+      ]},
+    ],links:[{label:'Try Soft Matter',url:'https://softmatter.vercel.app/'}]
+  },
+  {
+    slug: 'natural-expressions', // Keep the existing public URL.
+    title: 'Natural Effects as the New Brush',
     year: '2026',
-    medium: 'Creative coding · Ongoing research',
-    tagline: 'Designing creative expression through natural interactions.',
+    medium: 'Creative coding · Interactive materials',
+    tagline: 'Three ways to make an impression.',
     status: 'in-progress',
     thumb: ne.waterPoster,
-    cover: false, // no cover; the page opens straight into the question
+    cover: false,
+    materials: naturalMedia,
+    opening: {
+      title: 'It began with a drawing.',
+      blocks: [
+        'I drew on a fogged window and watched the moisture gradually change the mark. Nature became a temporary canvas: a surface to draw on, with its own texture, movement, and sense of time.',
+        {loops: [{video: ne.windowHeart, poster: ne.windowHeartPoster}], caption: 'Drawing on a fogged window — the starting point.'},
+      ],
+    },
     gallery: [],
     sections: {},
     chapters: [
-      {key: 'question', label: 'How can familiar interactions with natural materials become expressive tools for drawing and storytelling?', toc: 'Where it began', blocks: [
-        {lead: 'How might the feel of a surface change what we choose to create?'},
-        'The project began with drawing on a winter car window and watching moisture gradually change the mark.',
-        {loops: [{video: ne.windowHand, poster: ne.windowHandPoster}, {video: ne.windowHeart, poster: ne.windowHeartPoster}], caption: 'Where it began — a fogged car window on a snowy drive.'},
-        'It has grown into five studies of water, ice, condensation, sand, and snow. Each starts with a familiar real-world interaction (stirring, rubbing, wiping, pushing, or compressing) and explores how its movement, texture, sound, and sense of effort can become expressive controls for drawing and storytelling.',
+      {key: 'question', label: 'What if natural materials became a language for interaction?', toc: 'The inquiry', blocks: [
+        {lead: 'Water listens. Sand tells a story. Ice responds to touch.'},
+        'Natural Effects explores how the familiar behavior of a material can become a way to express something. Across water, sand, and ice, I am developing three distinct interactions: voice translated into ripples, agent-led drawing for projected storytelling, and touch translated into simulated pressure and fracture.',
+        'The same question runs through all three: how can the behavior of natural materials shape the way we express ourselves through digital experiences?',
       ]},
-      {key: 'studies', label: 'Material studies', blocks: [
-        {study: 'Water', sub: 'Sound as part of movement'},
-        'Water explores gesture-driven sound synthesis alongside ripples and wakes. A fingertip and an open hand suggest different scales of contact, shaping both movement and its sonic character. Propagation, damping, and gesture-to-sound mappings become ways to explore continuity: how water responds to a sustained movement, changes direction, and settles after release.',
-        {video: ne.water, poster: ne.waterPoster, caption: 'Water — movement and sound'},
-        {study: 'Ice', sub: 'Weight, resistance, and accumulation'},
-        'Ice explores how touch can suggest weight and resistance. Slow rubbing accumulates faint traces; sustained contact and two-finger compression build simulated load, spreading irregular cracks and triggering sound. Duration and movement act as proxies for pressure, exploring how the weight of a hand on physical ice can be translated into screen-based interaction.',
-        {video: ne.ice, poster: ne.icePoster, caption: 'Ice — friction and fractures'},
-        {study: 'Condensation, Sand and Snow', sub: 'Temporary canvas'},
-        'My initial experiment explored being imaginative with a foggy window, turning it into a temporary canvas for drawing and storytelling. Later iterations extended this idea to sand and snow, exploring how different natural surfaces can hold, reshape, and gradually lose a trace.',
-        'I map fingertip movements, broad swipes, and sustained contact to different surface responses: clearing condensation, pushing sand into ridges, and compressing snow into impressions. Fine droplets, individual grains, and powdery relief give each canvas its texture. Simulated gravity draws water downward and lets displaced sand and snow settle, while returning moisture and fresh snowfall gradually change what was drawn.',
-        {placeholder: 'Condensation — drawing on a foggy window, followed by droplets and returning moisture. Coming soon.'},
-        {video: ne.sand, poster: ne.sandPoster, caption: 'Sand — drawing through displacement'},
-        {video: ne.snow, poster: ne.snowPoster, caption: 'Snow — compression and accumulation'},
-        {note: 'Emerging observations', text: 'While testing the prototypes, I found myself moving continuously through water, slowing down and retracing on ice, and watching marks change in fog, sand, and snow. These early observations make me curious about how a surface’s behavior might shape someone else’s way of drawing.'},
+      {key: 'water', label: 'Water', toc: 'Water · Voice', material: true, blocks: [
+        {lead: 'Where inner experiences become visible'},
+        'Water gives a voice a visible afterlife: a disturbance that spreads, changes, and gradually settles. I connect water with emotion because its movement offers a way to express a feeling as something unfolding over time. Fish Audio’s speech-to-text model is part of the emotion-to-water interaction.',
+        {experience: {
+          label: 'The interaction', video: ne.water, poster: ne.waterPoster,
+          caption: 'Water — interaction demo.',
+          actions: [
+            {title: 'Speak to the water', text: 'Voice is the input. The interaction begins with the emotional character of speech.'},
+            {title: 'Transcribe the speech', text: 'Fish Audio’s speech-to-text model turns spoken input into text for the emotion-to-water interaction.'},
+            {title: 'Watch it take shape', text: 'The reading becomes a change in ripple behavior. There is currently a slight delay between the voice and its expression in the water.'},
+          ],
+          link: {label: 'Try the water prototype', url: 'https://naturaleffects.vercel.app/?mode=water'},
+        }},
+        {interaction: {input: 'Voice', mapping: 'Speech-to-text and emotion mapping', output: 'Expressive ripple behavior'}},
+        {context: {
+          title: 'Water as a visual echo',
+          paragraphs: [
+            'An acoustic echo happens when sound reflects from a surface and returns to the listener. Here, I use echo as a visual metaphor: a voice leaves a response in water. Its spreading and settling suggest how a feeling can linger after someone has finished speaking.',
+            'Art offers another way to think about that response. Monet repeatedly observed the changing water and reflections of his lily pond. In The Reflecting Pool, Bill Viola used water and reflection to explore perception and the passage of time. These are points of reference for considering water as a surface through which an inner experience might become visible.',
+            'My question is what happens when that surface can respond to a person.',
+          ],
+          references: [
+            {label: 'Echo · ETH Zurich', url: 'https://ethz.ch/en/campus/getting-to-know/discover/culture/acoustic-mirrors/background-physics.html'},
+            {label: 'Monet · The Met', url: 'https://www.metmuseum.org/art/collection/search/437137'},
+            {label: 'Bill Viola · MCBA', url: 'https://www.mcba.ch/en/collection/the-reflecting-pool-from-the-reflecting-pool-collected-work-1977-80/'},
+          ],
+        }},
+        {development: {
+          title: 'Developing the water brush',
+          intro: 'The process brings together a responsive water surface and an emotion-reading layer. The current experiment uses Fish Audio; the next comparison will be with Dessa.',
+          stages: [
+            {title: 'Observe motion that carries on', text: 'Ripples travel beyond their point of contact. I use propagation, directional wakes, and gradual decay to give the surface continuity after a gesture ends.'},
+            {title: 'Connect speech to text', text: 'I use Fish Audio’s speech-to-text model as input to the emotion-to-water mapping. This builds on an earlier sound-responsive prototype, where energy and frequency bands shaped the water shader.'},
+            {title: 'Test the timing of the response', text: 'The Fish Audio experiment introduces a slight latency in reading emotion into the water. That delay is a current limitation of the interaction; I plan to try Dessa next and compare the experience.'},
+          ],
+          decision: {label: 'Design decision', title: 'The surface is the visualization.', text: 'Sound changes how the water behaves, rather than adding a separate waveform or chart. The material remains the expressive medium.'},
+        }},
       ]},
-      {key: 'tools', label: 'From experiments to tools', blocks: [
-        {step: 'Observe and decompose', text: 'Each study begins by observing how a natural surface looks, moves, and responds to a hand. I break the experience down into texture, gesture, and material behavior, then share descriptions, images, and videos with AI to help identify patterns and translate them into rules for an interaction.'},
-        {step: 'Build and iterate', text: 'Working with a coding agent, I turn these observations into interactive prototypes. I test and refine hand tracking, sound mappings, and approximations of gravity, friction, and resistance, returning to the references and the experience of using each surface to guide each revision.'},
-        {step: 'Capture skills and compose recipes', text: 'I capture working behaviors in reusable code modules and their design reasoning as skills. The next step is to package them into material recipes, preserving relationships such as how much effort leaves a mark, when sound responds, and what continues after contact. Making these relationships adjustable could help artists create new drawing surfaces and storytelling tools.'},
-        {link: {text: 'The skills are open source as Natural Effects: five materials, a shared touch and hand-tracking layer, and the Temporary Canvas recipe, each written for a coding agent.', label: 'View the skills on GitHub', url: 'https://github.com/ambershen/natural-effect'}},
-        {diagram: 'process', caption: 'Natural observation → AI-assisted decomposition → coding and iteration → reusable modules and skills → material recipes.'},
+      {key: 'sand', label: 'Sand', toc: 'Sand · Storytelling', material: true, blocks: [
+        {lead: 'From a temporary canvas to an infinite canvas'},
+        'The story began with a drawing on a fogged window: a fleeting mark on a canvas that nature would eventually take back. I captured that temporary, ephemeral canvas and carried the idea into sand. Through sound and projected imagery, it becomes an infinite canvas for visuals and stories, able to hold another drawing, another rhythm, and another telling.',
+        'I choose to tell art history through the agent’s act of drawing. Brush simulation gives the canvas its material behavior; BPM-driven visuals give it rhythm. The storyteller agent interprets artistic references and styles as sketches in the sand, making the audiovisual gallery a story told through marks.',
+        {experience: {
+          label: 'The interaction', video: ne.sand, poster: ne.sandPoster,
+          caption: 'Sand — drawing demonstration.',
+          actions: [
+            {title: 'Establish the rhythm', text: 'BPM provides the foundation for the beat visualization, connecting the music to movement on the sand.', phase: 'Beat visualization'},
+            {title: 'Draw a story', text: 'A storyteller agent draws sketches into the surface, informed by artistic learning and styles.', phase: 'Storyteller agent'},
+            {title: 'Watch the gallery unfold', text: 'Rhythm and drawing come together as an audiovisual sand gallery, exploring different artistic styles.', phase: 'Sand gallery visualization'},
+          ],
+          link: {label: 'Try the sand surface', url: 'https://naturaleffects.vercel.app/?mode=sand'},
+        }},
+        {interaction: {input: 'Music / BPM and artistic styles', mapping: 'Beat visualization and storyteller agent', output: 'An audiovisual sand gallery'}},
+        {context: {
+          title: 'Telling art history through marks',
+          paragraphs: [
+            'The connection reaches back to people making images with materials around them: ochre, stone, and the surfaces of caves. At Blombos Cave, a cross-hatched drawing was made with ochre on stone around 73,000 years ago. Cave paintings at Lascaux also used mineral pigments. These traces offer a history of the relationship between a body, a material, and an image.',
+            'Sand brings that relationship into an ephemeral medium. The agent is a storyteller: its artistic references and styles become drawings that take shape through the simulated brush. I want art history to unfold through the act of making an image, with the material shaping how it is told.',
+            'The temporary canvas becomes infinite through the stories it can carry. Sound gives the drawing a rhythm; projected imagery gives it a shared space. Each drawing can become part of a continuing audiovisual gallery.',
+          ],
+          references: [
+            {label: 'Blombos drawing · Natural History Museum', url: 'https://www.nhm.ac.uk/discover/news/2018/september/the-oldest-drawing-ever-found-is-a-stone-hashtag.html'},
+            {label: 'Mineral pigments · Lascaux', url: 'https://archeologie.culture.gouv.fr/lascaux/en/raw-materials'},
+          ],
+        }},
+        {development: {
+          title: 'From a sand brush to a gallery',
+          intro: 'The process starts with the temporary canvas and expands what it can hold: simulated material, musical rhythm, and agent-led stories, composed across artistic styles.',
+          stages: [
+            {title: 'Simulate the brush', text: 'Begin with movement, brush shape, and gravity. A stroke displaces sand into a groove with raised edges; the surface needs to behave like material before it can become a drawing tool.'},
+            {title: 'Build the beat visualization', text: 'Use BPM as the foundation for a rhythmic visual layer. This connects the brush and the sand surface to the timing of the music.'},
+            {title: 'Add the storyteller agent', text: 'The agent interprets artistic references and styles as sketches in the sand. This is how I choose to tell art history: through a drawing taking shape, with sound and material contributing to the story.'},
+            {title: 'Compose the sand gallery', text: 'Combine the material, beat visualization, and agent-led drawing into an audiovisual gallery. Different artistic styles shape the sketches and the character of each visualization.'},
+          ],
+        }},
+        {note: 'Ongoing inquiry · Agent & performance', text: 'How can an agent compose a story through the act of drawing, with the material shaping how that story unfolds?'},
+      ]},
+      {key: 'ice', label: 'Ice', toc: 'Ice · Touch', material: true, blocks: [
+        {lead: 'From a gentle touch to a growing fracture'},
+        'Ice makes effort visible. A light movement, repeated rubbing, and a sustained press each leave a different kind of mark, from a faint impression to a fractured surface.',
+        {experience: {
+          label: 'The interaction', video: ne.ice, poster: ne.icePoster,
+          caption: 'Ice prototype — faint friction marks, accumulated contact, and irregular fractures. Touch duration acts as a pressure proxy.',
+          actions: [
+            {title: 'Glide across', text: 'An ordinary movement leaves a soft, damp impression. It does not immediately break the ice.'},
+            {title: 'Rub and retrace', text: 'Slow, repeated passes build a faint mark through the frost. The trace gradually fades as the surface refrosts.'},
+            {title: 'Hold, then release', text: 'Near-stationary contact builds simulated load. Jagged cracks grow, accompanied by short fracture sounds. Growth stops on release; the damage remains.'},
+          ],
+          link: {label: 'Try the ice prototype', url: 'https://naturaleffects.vercel.app/?mode=ice'},
+        }},
+        {interaction: {input: 'Touchscreen or mouse contact', mapping: 'Motion, retracing, and contact duration', output: 'Faint marks and fractured ice'}},
+        {development: {
+          title: 'Developing the ice brush',
+          intro: 'The iterations focused on separating the sensation of writing from the sensation of breaking, so every touch does not produce the same response.',
+          stages: [
+            {title: 'Establish the material', text: 'Ice references guided a gray-white surface, cloudy frost, and connected irregular plates. Shared jagged boundaries let neighboring pieces fit together as seams open.'},
+            {title: 'Give friction a memory', text: 'Bright scratches and loose particles were replaced by faint, accumulated rubbing. Slow passes contribute more than fast ones; retracing increases visibility within a low opacity ceiling.'},
+            {title: 'Separate pressure from movement', text: 'Near-stationary contact builds load, while ordinary slow writing stays separate. Cracks branch over time. Continuous rubbing audio and sparse fracture events replace short, repeatedly triggered sounds.'},
+          ],
+          decision: {label: 'Design decision', title: 'Effort comes from accumulation, not delay.', text: 'The contact tracks immediately. Resistance comes from how slowly a mark builds and how load accumulates before a fracture. Ordinary touch uses dwell as a pressure proxy, not a force sensor.'},
+        }},
+        {note: 'Next exploration · Temperature', text: 'I want to add a temperature sensor as another input, exploring how warmth could trigger or change the fractures. This extension is planned.'},
+      ]},
+      {key: 'tools', label: 'Recipes for new materials and interfaces', toc: 'Reusable skills', blocks: [
+        {lead: 'A material study can become a recipe for something new.'},
+        'I extract the effects and their interaction principles into reusable skills for coding agents. Each skill carries a material’s behavior: how it responds to input, how a mark builds, and what continues after contact ends.',
+        'These skills can serve as recipes for UI design, new materials, and new interfaces. Water’s motion could shape responsive feedback; ice’s accumulated contact could inform an interface that responds to sustained input. Combining behaviors or changing the input opens up new surfaces and ways to interact.',
+        {link: {text: 'The open-source collection includes five material skills, shared touch and hand-tracking behaviors, and a Temporary Canvas recipe to adapt and combine in new designs.', label: 'Explore the reusable skills', url: 'https://github.com/ambershen/natural-effect'}},
       ]},
       {key: 'implementation', label: 'Implementation', blocks: [
-        {meta: 'TypeScript · Canvas 2D / WebGL · MediaPipe hand tracking · Web Audio with sample-based sound synthesis · Pointer and touchscreen input. TouchDesigner supports a separate projection and reflection prototype.'},
+        {meta: 'Material prototypes: TypeScript · Canvas 2D / WebGL · MediaPipe hand tracking · Web Audio · Pointer and touchscreen input. Water speech input: Fish Audio’s speech-to-text model. TouchDesigner supports a separate projection and reflection prototype.'},
+        {link: {text: 'The material prototypes and interaction code live in dirty-window. The reusable agent skills are maintained separately in Natural Effects.', label: 'Explore the implementation on GitHub', url: 'https://github.com/ambershen/dirty-window'}},
       ]},
     ],
-    links: [{label: 'Explore the interactive work', url: 'https://naturaleffects.vercel.app/'}, {label: 'Agent skills on GitHub', url: 'https://github.com/ambershen/natural-effect'}],
+    links: [{label: 'Try the material prototypes', url: 'https://naturaleffects.vercel.app/'}, {label: 'Implementation on GitHub', url: 'https://github.com/ambershen/dirty-window'}, {label: 'Agent skills on GitHub', url: 'https://github.com/ambershen/natural-effect'}],
   },
   {
     slug: 'birth-crystal',

@@ -4,7 +4,7 @@ import {themeToggle} from './theme.js';
 // Header nav for standalone pages (case studies). Mirrors the nav in /index.html.
 export const navItems = [
   {page: 'products', label: 'Work', href: '/#work'},
-  {page: 'art', label: 'Gallery', href: '/#gallery'},
+  {page: 'art', label: 'Sketchbook', href: '/#sketchbook'},
   {page: 'film', label: 'Film', href: '/#film'},
   {page: 'writing', label: 'Writing', href: '/#writing'},
 ];

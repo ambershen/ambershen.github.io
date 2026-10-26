@@ -654,6 +654,114 @@
         border-bottom-color: #a77f6f
     }
 }
+:root[data-theme=light] .selection-label {
+    color: #7b6b5f
+}
+:root[data-theme=light] .selected-feature {
+    border-top: 1px solid #e0d5ca
+}
+:root[data-theme=light] .selected-feature-intro p {
+    color: #2a211c
+}
+:root[data-theme=light] .selected-feature-intro p.selected-feature-note {
+    color: #7b6b5f
+}
+:root[data-theme=light] .selected-material {
+    color: inherit;
+    text-decoration: none
+}
+:root[data-theme=light] .selected-material img {
+    background: #e8e2da
+}
+:root[data-theme=light] .selected-material p {
+    color: #4a3d34
+}
+:root[data-theme=light] .selected-feature-footer {
+    border-top: 1px solid #e0d5ca
+}
+:root[data-theme=light] .selected-feature-footer p {
+    color: #7b6b5f
+}
+:root[data-theme=light] .selected-link {
+    color: #a2654c;
+    text-decoration: none
+}
+:root[data-theme=light] .selected-projects {
+    border-top: 1px solid #e0d5ca
+}
+:root[data-theme=light] .selected-project {
+    color: inherit;
+    text-decoration: none
+}
+:root[data-theme=light] .selected-project-media {
+    background: #e8e2da
+}
+:root[data-theme=light] .selected-project-tagline {
+    color: #7b6b5f
+}
+:root[data-theme=light] .selected-more {
+    border-top: 1px solid #e0d5ca
+}
+:root[data-theme=light] .selected-more a {
+    color: inherit;
+    text-decoration: none
+}
+:root[data-theme=light] .selected-more p {
+    color: #7b6b5f
+}
+:root[data-theme=light] .selected-project:hover h3, :root[data-theme=light] .selected-more a:hover h3, :root[data-theme=light] .selected-link:hover {
+    color: #a2654c
+}
+:root[data-theme=light] .project-all {
+    color: inherit;
+    text-decoration: none
+}
+:root[data-theme=light] .visual-studies .work-media {
+    background: #e8e2da
+}
+:root[data-theme=light] .visual-studies figcaption {
+    color: #7b6b5f
+}
+:root[data-theme=light] .visual-study-title {
+    color: #2a211c
+}
+:root[data-theme=light] .visual-study-description {
+    color: #4a3d34
+}
+:root[data-theme=light] .dictionary-chapter {
+    border-top: 1px solid #e0d5ca
+}
+:root[data-theme=light] .dictionary-chapter > p:last-child {
+    color: #7b6b5f
+}
+:root[data-theme=light] .sketch-filters button {
+    border: 1px solid #e0d5ca;
+    background: transparent;
+    color: #7b6b5f
+}
+:root[data-theme=light] .sketch-filters button[aria-pressed=true] {
+    background: #2a211c;
+    color: #dcd4ca;
+    border-color: #2a211c
+}
+:root[data-theme=light] .sketch-filters button:focus-visible {
+    outline: 2px solid #a2654c
+}
+:root[data-theme=light] .sketch-heading {
+    border-top: 1px solid #e0d5ca
+}
+:root[data-theme=light] .sketch-heading p {
+    color: #7b6b5f
+}
+:root[data-theme=light] #work-window.gallery-mode .sketch-grid .work-card h3 {
+    color: #2a211c
+}
+:root[data-theme=light] #work-window .sketch-grid .sketch-exploration {
+    color: #7b6b5f
+}
+:root[data-theme=light] .soft-matter-cover {
+    background: #e8e1da
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
 :root[data-theme=light] .word:hover,:root[data-theme=light] .word.selected{background:#efd8ca;color:#2a211c;border-color:#efd8ca}

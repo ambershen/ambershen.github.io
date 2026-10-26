@@ -386,3 +386,79 @@ body.case-open{overflow:hidden}
   50%,100%{height:0}
 }
 @media(prefers-reduced-motion:reduce){#home-page button.word[data-mode=bloom] span,#home-page button.word[data-mode=bloom] .letter{opacity:1!important;transform:none!important;animation:none!important}#home-page button.word[data-mode=bloom].dropping{border-bottom-color:#947366}#home-page button.word[data-mode=bloom]::before{display:none}}
+
+/* Curated portfolio: the material series leads, followed by selected projects. */
+.selection-label{font:10px/1.6 var(--mono);letter-spacing:1.2px;text-transform:uppercase;color:#a99b8f;margin:0 0 14px}
+.selected-feature{border-top:1px solid #332c27;padding-top:28px}
+.selected-feature-header{display:grid;grid-template-columns:1fr;gap:24px;margin-bottom:32px}
+#work-window h3.selected-feature-title{font:clamp(42px,5vw,64px)/1 var(--display);font-weight:400;letter-spacing:-.02em;margin:0}
+.selected-feature-intro p{font:24px/1.3 var(--read);color:#eee8e4;margin:0 0 12px}
+.selected-feature-intro p.selected-feature-note{font:clamp(11px,1.8vw,14px)/1.7 'Manrope',sans-serif;color:#a99b8f;margin:0;max-width:none}
+.selected-materials{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.selected-material{min-width:0;display:block;color:inherit;text-decoration:none}
+.selected-material img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:#12100e;transition:filter .25s}
+.selected-material:hover img{filter:brightness(1.12)}
+.selected-material-copy{padding:20px 0 0}
+.selected-material-copy .selection-label{font-size:9px;display:block;margin:0 0 12px}
+.selected-material h4{font:44px/1 var(--display);font-weight:400;letter-spacing:-.02em;margin:0 0 10px}
+.selected-material p{font:13px/1.6 'Manrope',sans-serif;color:#d4c9bf;margin:0}
+.selected-feature-footer{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0 0;margin-top:26px;border-top:1px solid #332c27}
+.selected-feature-footer p{font:15px/1.6 var(--read);color:#a99b8f;margin:0}
+.selected-link{display:inline-flex;align-items:center;min-height:44px;font:14px/1.5 'Manrope',sans-serif;color:#d9b5a3;text-decoration:none}
+.selected-projects{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:80px;padding-top:32px;border-top:1px solid #332c27}
+.selected-project{display:block;min-width:0;color:inherit;text-decoration:none}
+.selected-project-media{aspect-ratio:4/3;background:#12100e;overflow:hidden;margin-bottom:24px}
+.selected-project-media .work-media{width:100%;height:100%;object-fit:cover;display:block}
+#work-window .selected-project h3{font:32px/1.1 var(--display);font-weight:400;letter-spacing:-.01em;margin:0 0 10px}
+.selected-project-tagline{font:14px/1.6 'Manrope',sans-serif;color:#a99b8f;margin:0}
+.selected-more{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:80px;border-top:1px solid #332c27;padding-top:28px}
+.selected-more a{color:inherit;text-decoration:none;padding-bottom:20px}
+#work-window .selected-more h3{font:32px/1.1 var(--display);font-weight:400;margin:0 0 14px}
+.selected-more p{font:14px/1.7 'Manrope',sans-serif;color:#a99b8f;margin:0}
+.selected-project:hover h3,.selected-more a:hover h3,.selected-link:hover{color:#d9b5a3}
+.project-all{display:flex;align-items:center;min-height:44px;font-size:12px;color:inherit;text-decoration:none;margin-bottom:16px}
+.visual-studies{display:grid;gap:36px}.visual-studies figure{margin:0}.visual-studies .work-media{display:block;width:100%;max-height:65svh;object-fit:contain;background:#12100e}
+.visual-studies figcaption{font:15px/1.6 var(--read);color:#a99b8f;margin-top:12px}
+@media(max-width:760px){
+  .selected-feature-header{grid-template-columns:1fr;gap:22px}
+  .selected-materials{gap:12px}.selected-material img{aspect-ratio:3/4}
+  .selected-material h4{font-size:34px}.selected-material p{font-size:11px}.selected-material-copy .selection-label{font-size:8px;letter-spacing:.4px}
+  .selected-projects{grid-template-columns:1fr;gap:42px;margin-top:56px}.selected-project-media{aspect-ratio:16/9}
+  .selected-feature-footer{align-items:flex-start;flex-direction:column;gap:8px}
+  .selected-more{margin-top:56px;gap:24px}.selected-more p{font-size:12px}
+  .project-directory .project-all{flex:0 0 100px;margin-bottom:0}
+}
+@media(max-width:440px){.selected-materials{grid-template-columns:1fr;gap:26px}.selected-material{display:grid;grid-template-columns:42% 1fr;align-items:center;gap:20px}.selected-material-copy{padding:0}.selected-material img{aspect-ratio:1}.selected-material p{font-size:12px}.selected-material-copy .selection-label{font-size:9px}.selected-more{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.selected-material img{transition:none}}
+.visual-studies .visual-study-caption{margin:0 0 24px}
+.visual-study-caption .selection-label{margin:0 0 12px}
+.visual-study-title{font:clamp(30px,3.6vw,44px)/1.1 var(--display);font-weight:400;letter-spacing:-.01em;color:#eee8e4;margin:0 0 14px}
+.visual-study-description{font:18px/1.6 var(--read);color:#d4c9bf;margin:0;max-width:580px}
+
+/* Sound Dictionaries: book, voice, conversation. */
+.dictionary-story { max-width: 860px; margin: 72px 0 24px; }
+.dictionary-chapter { padding: 36px 0; border-top: 1px solid #332c27; }
+.dictionary-chapter h4 { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 4vw, 46px); font-weight: 400; line-height: 1.12; margin: 16px 0 24px; }
+.dictionary-chapter > p:last-child { font-family: 'Newsreader', serif; font-size: clamp(20px, 2vw, 25px); line-height: 1.65; color: #a99b8f; }
+
+.sketch-filters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 48px}
+.sketch-filters button{border:1px solid #332c27;border-radius:24px;background:transparent;color:#a99b8f;padding:12px 20px;font:13px 'Manrope',sans-serif;min-height:44px}
+.sketch-filters button[aria-pressed=true]{background:#eee8e4;color:#2a211c;border-color:#eee8e4}
+.sketch-filters button:focus-visible{outline:2px solid #d9b5a3;outline-offset:4px}
+.sketch-gallery{display:grid;gap:64px}
+.sketch-heading{border-top:1px solid #332c27;padding-top:26px;margin-bottom:28px}
+#work-window .sketch-heading h3{font:400 36px/1.1 'Cormorant Garamond',serif;margin-bottom:12px}
+.sketch-heading p{color:#a99b8f;font:15px/1.6 'Manrope',sans-serif;margin:0}
+.sketch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px 24px;align-items:start}
+#work-window.gallery-mode .sketch-grid .work-card{margin:0;display:block}
+.sketch-grid .work-media-frame{aspect-ratio:4/3}
+.sketch-grid .work-media{object-fit:contain}
+#work-window.gallery-mode .sketch-grid .work-card h3{font-size:16px;color:#eee8e4;margin:14px 0 6px}
+#work-window .sketch-grid .sketch-exploration{font-size:13px;line-height:1.6;color:#a99b8f}
+@media(max-width:800px){.sketch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:450px){.sketch-grid{grid-template-columns:1fr}.sketch-filters{gap:8px}.sketch-filters button{padding:10px 14px}.sketch-gallery{gap:44px}}
+
+.soft-matter-cover{display:grid;grid-template-columns:1fr 1fr;width:100%;height:100%;background:#111;overflow:hidden}
+.soft-matter-cover img{display:block;width:100%;height:100%;min-height:0;object-fit:contain}
+
+.project-process-image{display:block;width:100%;max-height:760px;object-fit:contain;margin:28px auto 0}

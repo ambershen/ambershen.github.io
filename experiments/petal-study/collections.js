@@ -1,134 +1,102 @@
+import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
+import {resolveCatalog} from '../../src/data/catalog-assets.js';
+import {videoPoster} from '../../src/data/video-posters.js';
+import {naturalMedia,softMatterMedia} from '../../src/data/case-studies.js';
 import {articles} from '../../src/data/essays.js';
-import {films,newsletter,buttondownUrls,socials} from '../../src/data/site.js';
-import deskmate from '../../images/deskmate/frontpage.mp4';
-import soundDictionariesDemo from '../../images/sound-dictionaries/frontpage.mp4';
-import soundDictionariesPoster from '../../images/sound-dictionaries/frontpage.jpg';
+import {films as defaultFilms,newsletter,buttondownUrls,socials} from '../../src/data/site.js';
+import {projects as defaultProjects, items as defaultItems, sketchGroups} from '../../src/data/portfolio.js';
 
-const artworkAssets=import.meta.glob('../../images/art-paintings/*',{eager:true,query:'?url',import:'default'});
-const paintings=[
-  {
-    "title": "Night Times",
-    "category": "art",
-    "file": "amberber_edward_hopper_painting_depicting_a_building_with_two_n_ad1fa9c4-5847-4918-822f-bbbab1a80937.png"
-  },
-  {
-    "title": "Cloud House",
-    "category": "art",
-    "file": "amberber_a_surrealist_house_constructed_entirely_of_billowing_7b7428e2-6860-4ad0-80fa-fc25d93e6e35_0 (1).png"
-  },
-  {
-    "title": "Spring",
-    "category": "art",
-    "file": "spring.jpeg",
-    "series": "The Seasons"
-  },
-  {
-    "title": "Summer",
-    "category": "art",
-    "file": "summer.jpeg",
-    "series": "The Seasons"
-  },
-  {
-    "title": "Autumn",
-    "category": "art",
-    "file": "autumn.jpeg",
-    "series": "The Seasons"
-  },
-  {
-    "title": "Winter",
-    "category": "art",
-    "file": "winter.jpeg",
-    "series": "The Seasons"
-  },
-  {
-    "title": "Feather Bicycle",
-    "category": "art",
-    "file": "amberber_dreamcore_surrealist_vintage_bicycle_constructed_ent_866176a6-b66e-4faa-b0d8-7f7c0fd2f855_3.png"
-  },
-  {
-    "title": "Feather Throne",
-    "category": "art",
-    "file": "amberber_httpss.mj.runkFqjjPAJUpw_dreamcore_surrealist_armcha_f7b9c177-225a-44ac-a5da-59f36f1b8123_1 (1).png"
-  },
-  {
-    "title": "Dissolve",
-    "category": "art",
-    "file": "amberber_generate_--v_6.1_e52a4fb6-c6a1-478f-a855-fe2250fb5002_3.png"
-  },
-  {
-    "title": "Highway",
-    "category": "art",
-    "file": "amberber_edward_hopper_painting_depicting_a_guy_driving_in_his__48175de5-bd7b-4eac-9f6a-a5fb59c7dcd0.png"
-  },
-  {
-    "title": "Late Night Terminal",
-    "category": "art",
-    "file": "amberber_httpss.mj.run7whEF-4sqiM_same_scene_and_setting_but__83e6ffd3-c957-44cf-972b-0345a8932674_1.png"
-  },
-  {
-    "title": "Floating Island",
-    "category": "art",
-    "file": "amberber_Generate_--v_7_dac14766-df20-4d4c-8f44-a00456f696fe_1.png"
-  },
-  {
-    "title": "Signal",
-    "category": "art",
-    "file": "amberber_generate_a_--v_6.1_a5217ea3-c8e6-4864-9627-d9e73eb3f2eb_2.png"
-  }
-].map(({file,...item})=>({...item,image:artworkAssets['../../images/art-paintings/'+file]}));
-const interactiveAssets=import.meta.glob('../../images/art-interactive/*.mp4',{eager:true,query:'?url',import:'default'});
-const interactive=[
-  {title:'Places to Be',video:interactiveAssets['../../images/art-interactive/places_to_be.mp4'],description:'Interactive installation, 2025.'},
-  {title:'Peony Glyph',video:interactiveAssets['../../images/art-interactive/peony-glyph.mp4'],poster:new URL('../../images/art-interactive/peony-glyph-poster.jpg',import.meta.url).href,previewAutoplay:true,description:'Made with TouchDesigner.'},
-  {title:'Cloud Croissant',video:interactiveAssets['../../images/art-interactive/cloud-croissant.mp4']},
-  {title:'Mirror — Central Park, Summer',video:interactiveAssets['../../images/art-interactive/mirror-central-park-summer.mp4']},
-  {title:'Calligramme — Le Pont Mirabeau',video:interactiveAssets['../../images/art-interactive/calligramme.mp4'],description:'Interactive poem, 2025.'},
-  {title:'Infinite Gallery',video:new URL('../../images/infinite-gallery/frontpage.mp4',import.meta.url).href,description:'A 3D funnel for showcasing artwork or consumer products.'},
-  {title:'Birth Crystal',image:new URL('../../images/birth-crystal/frontpage.png',import.meta.url).href,description:'Procedural 3D crystals generated from birthdates.'},
-].map(item=>({...item,category:'art',group:'interactive'}));
-const selectedPaintings=['Feather Bicycle','Cloud House','Feather Throne','Spring','Summer','Autumn','Winter'];
-const photographyAssets=import.meta.glob('../../images/photography/*',{eager:true,query:'?url',import:'default'});
-const photography=[
-  '5440944_5440944-R2-008-2A.jpg',
-  'AFCA7DE1-FF42-476D-AE10-76B1267CB4FF.JPG',
-  'DSCF0253.jpg',
-  'P1000133_lab.JPG',
-  'P1000219_lab.JPG',
-].map(file=>({title:file,image:photographyAssets['../../images/photography/'+file],category:'art',group:'photography'}));
-const items=[...interactive,...selectedPaintings.map(title=>({...paintings.find(item=>item.title===title),group:['Spring','Summer','Autumn','Winter'].includes(title)?'seasons':'paintings'})),...photography];
+let films=defaultFilms, projects=defaultProjects, items=defaultItems;
+let catalogApplied=false, routeVersion=0;
+let sketchFilter='all';
+
 const modal=document.querySelector('#work-window'),content=document.querySelector('#work-content');
 const title=document.querySelector('#work-title'),description=document.querySelector('#work-description');
-let category='products',activeProject='sound-dictionaries';
+let category='products',activeProject='natural-effects';
 const home=document.querySelector('#home-page'),viewer=document.querySelector('#art-viewer'),artDetail=document.querySelector('#art-detail');
 let homeScroll=0,artOpener=null;
-const projects=[
-  {id:'natural-effects',title:'Natural Effects',tagline:'Water, ice, fog, sand and snow you can touch.',page:'/work/natural-expressions/'},   // opens the full case study
-  {id:'sound-dictionaries',title:'Sound Dictionaries',tagline:'Books that talk back.',video:soundDictionariesDemo,poster:soundDictionariesPoster,
-    summary:'An interactive dictionary voiced by an AI voice model: a shelf of ten talking books for learning five languages by ear. Five dictionaries pronounce each word syllable by syllable, and five notebooks let you talk your way through Paris, Tokyo, Seoul, Madrid and Beijing. Every voice is designed and acted with Fish Audio Drama 3.',
-    live:'https://sound-dictionaries.vercel.app',links:[{label:'View on GitHub',url:'https://github.com/ambershen/sound-dictionaries'}]},
-  {id:'deskmate',title:'Deskmate',tagline:'Find your coworking people.',video:deskmate,
-    summary:'An AI-native app for finding places and people to co-work with, by vibes. More than 10,000 active users.',live:'https://desk-mate.ai'},
-];
+
 const projectAliases={'dirty-window':'natural-effects'};   // old links to Dirty Window land on Natural Effects
 function node(tag,className,text){const el=document.createElement(tag);if(className)el.className=className;if(text)el.textContent=text;return el;}
 function media(item,detail=false){
-  const el=node(item.video?'video':'img','work-media');
-  if(item.video){el.src=item.video;el.muted=true;el.playsInline=true;el.preload='metadata';el.controls=detail;if(item.poster)el.poster=item.poster;if(!detail && item.previewAutoplay && !matchMedia('(prefers-reduced-motion: reduce)').matches){el.autoplay=true;el.loop=true;}el.setAttribute('aria-label',item.title);}
-  else{el.src=item.image;el.alt=item.title;el.loading='lazy';}
+  if(item.images){const grid=node('div','soft-matter-cover');for(const src of item.images){const image=node('img');image.src=src;image.alt=item.title+' material type specimen';image.loading='lazy';image.decoding='async';grid.append(image);}return grid;}
+
+  const isPlayer=Boolean(item.video&&detail);
+  const el=node(isPlayer?'video':'img','work-media');
+  if(isPlayer){el.src=item.video;el.muted=!item.sound;el.playsInline=true;el.preload='none';el.controls=true;el.poster=item.poster||videoPoster(item.video)||'';el.setAttribute('aria-label',item.title);}
+  else{el.src=item.video?(item.poster||videoPoster(item.video)):item.image;el.alt=item.title;el.loading='lazy';el.decoding='async';}
   return el;
 }
 function stopMedia(){content.querySelectorAll('video').forEach(video=>video.pause());}
+content.addEventListener('play',event=>{
+  if(event.target.tagName!=='VIDEO')return;
+  content.querySelectorAll('video').forEach(video=>{if(video!==event.target)video.pause();});
+},true);
+function selectedWork(){
+  const feature=node('article','selected-feature');
+  const header=node('div','selected-feature-header');
+  const heading=node('div');
+  heading.append(node('p','selection-label','01 / INTERACTIVE MATERIALS'),node('h3','selected-feature-title','Natural Effects as the New Brush'));
+  const intro=node('div','selected-feature-intro');
+  intro.append(node('p','','Three ways to make an impression.'),node('p','selected-feature-note','Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.'));
+  header.append(heading,intro);
+  const materials=node('div','selected-materials');
+  naturalMedia.forEach((material,index)=>{
+    const link=node('a','selected-material');link.href=`/work/natural-expressions/#s-${material.id}`;
+    const image=node('img');image.src=material.poster;image.alt=`${material.title} material study`;image.loading='lazy';
+    const copy=node('div','selected-material-copy');
+    copy.append(node('span','selection-label',`0${index+1} / ${material.kind}`),node('h4','',material.title),node('p','',material.interaction+''));
+    link.append(image,copy);materials.append(link);
+  });
+  const foot=node('div','selected-feature-footer');
+  foot.append(node('p','','An ongoing series, with reusable effects and agent skills.'));
+  const read=node('a','selected-link','Explore the series');read.href='#work/natural-effects';
+  read.onclick=e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;caseOpener=read;caseOpenedHere=true;};foot.append(read);
+  feature.append(header,materials,foot);content.append(feature);
+  const grid=node('div','selected-projects');
+  projects.filter(project=>project.id!=='natural-effects').forEach((project,index)=>{
+    const card=node('a','selected-project');card.href=`#work/${project.id}`;
+    const image=media(project);const frame=node('div','selected-project-media');frame.append(image);
+    card.append(frame,node('p','selection-label',`0${index+2} / ${project.kind||(project.id==='soft-matter'?'MATERIAL TYPE & CREATIVE CODING':project.id==='live-visuals'?'CREATIVE CODING & 3D':'PRODUCT DESIGN')}`),node('h3','',project.title+''),node('p','selected-project-tagline',project.tagline));
+    grid.append(card);
+  });
+  content.append(grid);
+  const more=node('nav','selected-more');more.setAttribute('aria-label','More from my practice');
+  for(const [label,text,href] of [['Sketchbook','Visual experiments, typography, and ways of seeing.','#sketchbook'],['Selected Films','Commercial work and visual storytelling.','#film']]){
+    const a=node('a');a.href=href;a.append(node('h3','',label+''),node('p','',text));more.append(a);
+  }
+  content.append(more);
+}
 function projectArchive(){
   modal.classList.add('archive-mode');
   const layout=node('div','project-archive'),directory=node('nav','project-directory'),article=node('article','project-article');
   directory.setAttribute('aria-label','Choose a project');
-  directory.append(node('p','directory-label','PROJECT FILES'));
+  const all=node('a','project-all','Selected work');all.href='#work';directory.append(all,node('p','directory-label','PROJECTS'));
   function select(id,updateURL=true){
     activeProject=id;stopMedia();article.replaceChildren();
     const project=projects.find(p=>p.id===id);
     directory.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.project===id)));
-    article.append(node('span','project-number',`0${projects.indexOf(project)+1} / WORK`),node('h3','project-title',project.title),node('p','project-summary',project.summary));
-    const demo=media(project,true);if(project.poster)demo.poster=project.poster;demo.classList.add('archive-demo');article.append(demo);
+    article.append(node('span','project-number',`0${projects.indexOf(project)+1} / ${project.kind||'WORK'}`),node('h3','project-title',project.title));
+    if(project.summary)article.append(node('p','project-summary',project.summary));
+    if(project.studies){
+      const studies=node('div','visual-studies');
+      project.studies.forEach(study=>{
+        const figure=node('figure'),caption=node('figcaption','visual-study-caption');
+        if(study.kind)caption.append(node('p','selection-label',study.kind));
+        caption.append(node('h4','visual-study-title',study.title));
+        if(study.description)caption.append(node('p','visual-study-description',study.description));
+        figure.append(caption,media(study,true));studies.append(figure);
+      });
+      article.append(studies);
+    }else if(!project.hideHero){
+      const demo=media(project,true);if(project.poster)demo.poster=project.poster;demo.classList.add('archive-demo');if(project.portrait){demo.style.aspectRatio='9 / 16';demo.style.width='min(100%, 420px)';demo.style.margin='24px auto 0';}article.append(demo);
+    }
+    if(project.motionCaption)article.append(node('p','visual-study-description',project.motionCaption));
+    if(project.sections){
+      const story=node('div','dictionary-story');
+      project.sections.forEach((part,index)=>{const section=node('section','dictionary-chapter');section.append(node('p','selection-label',`0${index+1}`),node('h4','',part.title),node('p','',part.text));if(part.image){const image=node('img','project-process-image');image.src=part.image;image.alt=part.alt||part.title;image.loading='lazy';section.append(image);}story.append(section);});
+      article.append(story);
+    }
     const notes=node('div','project-notes');
     for(const [label,text] of [['Why I made it',project.why],['What I built',project.made],['What came out of it',project.result]]){
       if(!text)continue;
@@ -136,18 +104,18 @@ function projectArchive(){
     }
     if(notes.children.length)article.append(notes);
     const links=node('div','project-actions');
-    if(project.live){const link=node('a','','Try it ↗');link.href=project.live;link.target='_blank';link.rel='noopener noreferrer';links.append(link);}
-    for(const l of project.links||[]){const a=node('a','',l.internal?`${l.label} →`:`${l.label} ↗`);a.href=l.url;if(!l.internal){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);}
+    if(project.live){const link=node('a','','Try it');link.href=project.live;link.target='_blank';link.rel='noopener noreferrer';links.append(link);}
+    for(const l of project.links||[]){const a=node('a','',l.internal?`${l.label}`:`${l.label}`);a.href=l.url;if(!l.internal){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);}
     article.append(links);
     if(updateURL && location.hash!==`#work/${id}`)history.replaceState(null,'',`#work/${id}`);
   }
   for(const project of projects){
-    const button=node(project.page?'a':'button','project-choice');button.dataset.project=project.id;button.append(node('strong','',project.page?`${project.title} →`:project.title),node('span','',project.tagline));
+    const button=node(project.page?'a':'button','project-choice');button.dataset.project=project.id;button.append(node('strong','',project.page?`${project.title}`:project.title),node('span','',project.tagline));
     if(project.page){button.href=project.page;button.onclick=e=>{if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();caseOpener=button;caseOpenedHere=true;location.hash=`work/${project.id}`;};}
     else button.onclick=()=>select(project.id);
     directory.append(button);
   }
-  layout.append(directory,article);content.append(layout);select(activeProject);
+  layout.append(directory,article);content.append(layout);select(activeProject,false);
 }
 function detail(item,index){
   artOpener=content.querySelectorAll('.work-card')[index];artDetail.replaceChildren();
@@ -155,6 +123,7 @@ function detail(item,index){
   const caption=node('figcaption','gallery-caption');
   const heading=node('h3','',item.title);heading.id='art-title';caption.append(heading);
   if(item.series)caption.append(node('p','gallery-series',item.series));
+  if(item.exploration)caption.append(node('p','',item.exploration));
   if(item.description)caption.append(node('p','',item.description));
   figure.append(caption);artDetail.append(figure);viewer.showModal();document.body.classList.add('art-is-open');
 }
@@ -171,13 +140,20 @@ function filmRoom(){
     else{const v=node('video');v.src=film.src;v.controls=true;v.playsInline=true;v.autoplay=true;v.setAttribute('aria-label',film.title);frame.append(v);}
   };
   const still=(film,el)=>{
-    if(film.youtube){const img=node('img');img.src=`https://i.ytimg.com/vi/${film.youtube}/hqdefault.jpg`;img.alt='';img.loading='lazy';el.append(img);}
-    else if(film.src){const v=node('video');v.src=film.src+'#t=0.5';v.muted=true;v.playsInline=true;v.preload='metadata';v.setAttribute('aria-hidden','true');el.append(v);}
+    if(film.poster){const img=node('img');img.src=film.poster;img.alt=film.title;img.loading='lazy';el.append(img);}
+    else if(film.youtube){const img=node('img');img.src=`https://i.ytimg.com/vi/${film.youtube}/hqdefault.jpg`;img.alt='';img.loading='lazy';el.append(img);}
+    else if(film.src){const img=node('img');img.src=videoPoster(film.src);img.alt='';img.loading='lazy';img.decoding='async';el.append(img);}
   };
   const show=(film,autoplay)=>{
     caption.replaceChildren(node('span','film-kind',[film.kind,film.year].filter(Boolean).join(' · ')),node('h3','',film.title));
     if(film.note)caption.append(node('p','',film.note));
     thumbs.forEach((btn,id)=>{const on=id===film.id;btn.classList.toggle('is-active',on);btn.setAttribute('aria-current',on?'true':'false');});
+    if(film.external){
+      frame.replaceChildren();
+      const link=node('a','film-play');link.href=film.external;link.target='_blank';link.rel='noopener noreferrer';link.setAttribute('aria-label',`Watch ${film.title} on X`);
+      still(film,link);frame.append(link);
+      const watch=node('a','','Watch on X');watch.href=film.external;watch.target='_blank';watch.rel='noopener noreferrer';caption.append(watch);return;
+    }
     if(autoplay){play(film);return;}
     frame.replaceChildren();
     const btn=node('button','film-play');btn.type='button';btn.setAttribute('aria-label',`Play ${film.title}`);
@@ -207,7 +183,7 @@ function filmRoom(){
   room.append(stage,reel);
   const elsewhere=node('div','film-elsewhere');elsewhere.append(node('h3','work-section-label','Watch elsewhere'));
   const links=node('div','film-socials');
-  socials.filter(s=>s.label!=='GitHub').forEach(s=>{const a=node('a');a.href=s.url;a.target='_blank';a.rel='noopener noreferrer';a.append(node('strong','',s.label),node('span','',s.handle+' ↗'));links.append(a);});
+  socials.filter(s=>s.label!=='GitHub').forEach(s=>{const a=node('a');a.href=s.url;a.target='_blank';a.rel='noopener noreferrer';a.append(node('strong','',s.label),node('span','',s.handle+''));links.append(a);});
   elsewhere.append(links);room.append(elsewhere);content.append(room);
   const featured=films.find(f=>f.featured)||films[0];
   if(featured)show(featured,false);
@@ -232,7 +208,7 @@ function newsletterSignup(compact=false){
     setTimeout(()=>{status.textContent='Almost there: check your inbox to confirm.';form.reset();},50);
   });
   box.append(form,status);
-  if(urls&&!compact){const more=node('p','newsletter-more');const a=node('a','','View full archive ↗');a.href=urls.archive;a.target='_blank';a.rel='noopener noreferrer';const r=node('a','','RSS');r.href=urls.rss;more.append(a,r);box.append(more);}
+  if(urls&&!compact){const more=node('p','newsletter-more');const a=node('a','','View full archive');a.href=urls.archive;a.target='_blank';a.rel='noopener noreferrer';const r=node('a','','RSS');r.href=urls.rss;more.append(a,r);box.append(more);}
   return box;
 }
 function render(next){
@@ -244,9 +220,9 @@ function render(next){
   const reading=next==='writing' && Boolean(selectedArticle);
   modal.classList.toggle('reading-mode',reading);
   document.title=reading?selectedArticle.title+' — Amber Shen':'Amber Shen — Creative Technologist';
-  title.textContent={selected:'Selected work',products:'Work',art:'Gallery',film:'Film',writing:'Writing'}[category];
-  description.textContent={selected:'A few things from my world.',products:'What I’m making now.',art:'Images, experiments, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb}[category];
-  if(category==='products'){projectArchive();modal.scrollTop=0;return;}
+  title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',film:'Selected Films',writing:'Writing'}[category];
+  description.textContent={selected:'A few things from my world.',products:'Exploring code, AI, and materials as tools for expression.',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb}[category];
+  if(category==='products'){if(location.hash.startsWith('#work/') && projects.some(p=>p.id===activeProject && !p.page))projectArchive();else selectedWork();modal.scrollTop=0;return;}
   if(category==='film'){filmRoom();modal.scrollTop=0;return;}
   if(category==='writing'){
     if(reading){
@@ -261,7 +237,7 @@ function render(next){
           if(!list || list.tagName!=='UL'){list=node('ul');article.append(list);}list.append(node('li','',line));
         }else{list=null;const tag=selectedArticle.headings?.includes(line)?'h3':selectedArticle.subheadings?.includes(line)?'h4':'p';article.append(node(tag,'',line));}
       }
-      const links=node('div','essay-links');const back=node('a','','← All writing');back.href='#writing';
+      const links=node('div','essay-links');const back=node('a','','All writing');back.href='#writing';
       links.append(back);content.append(article,links);if(newsletter.show)content.append(newsletterSignup(true));return;
     }
     if(newsletter.show)content.append(newsletterSignup());
@@ -269,27 +245,39 @@ function render(next){
     const list=node('div','writing-list');
     [...articles].reverse().forEach(article=>{
       const link=node('a','writing-entry');link.href=article.route;
-      link.append(node('span','writing-title',article.title),node('span','writing-source','Read →'));
+      link.append(node('span','writing-title',article.title),node('span','writing-source','Read'));
       list.append(link);
     });content.append(list);return;
   }
 
-  const gallery=node('div','curated-gallery');
-  const grids={};
-  for(const [group,label] of [['interactive','Interactive art'],['paintings','Selected artwork'],['seasons','The Seasons'],['photography','Photography']]){
-    const grid=node('section',`work-grid gallery-${group}`);grid.setAttribute('aria-label',label);grids[group]=grid;gallery.append(grid);
-  }
-  for(const [index,item] of items.filter(item=>category==='selected'?item.selected:item.category===category).entries()){
-    const card=node(item.url?'a':'button','work-card');
-    if(item.url){card.href=item.url;card.target='_blank';card.rel='noopener noreferrer';card.setAttribute('aria-label',`${item.title} (opens in a new tab)`);}
-    else{card.type='button';card.onclick=()=>detail(item,index);card.setAttribute('aria-label',`View ${item.title}`);}
+  const filters=node('nav','sketch-filters');filters.setAttribute('aria-label','Filter sketchbook');
+  const gallery=node('div','sketch-gallery');gallery.id='sketch-gallery';
+  const makeCard=(item)=>{
+    const card=node('button','work-card');card.type='button';card.setAttribute('aria-label',`View ${item.title}`);
+    card.onclick=()=>{if(item.page){location.href=item.page;return;}detail(item,0);artOpener=card;};
     const frame=node('div','work-media-frame');frame.append(media(item));
-    if(item.video)frame.append(node('span','video-label','Moving image ↗'));
-    card.append(frame);
-    if(item.group!=='photography')card.append(node('h3','',item.title));
-    grids[item.group].append(card);
+    if(item.video)frame.append(node('span','video-label','Moving image'));
+    card.append(frame,node('h3','',item.title));
+    if(item.exploration)card.append(node('p','sketch-exploration',item.exploration));
+    return card;
+  };
+  const showSketches=()=>{
+    stopMedia();gallery.replaceChildren();
+    filters.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.filter===sketchFilter)));
+    for(const group of sketchGroups.filter(group=>sketchFilter==='all'||group.id===sketchFilter)){
+      const section=node('section','sketch-section');section.setAttribute('aria-label',group.title);
+      const heading=node('header','sketch-heading');heading.append(node('h3','',group.title),node('p','',group.description));
+      const grid=node('div','sketch-grid');
+      items.filter(item=>item.theme===group.id).forEach(item=>grid.append(makeCard(item)));
+      section.append(heading,grid);gallery.append(section);
+    }
+
+  };
+  for(const group of [{id:'all',title:'All'},...sketchGroups]){
+    const button=node('button','',group.title);button.type='button';button.dataset.filter=group.id;button.setAttribute('aria-controls','sketch-gallery');
+    button.onclick=()=>{sketchFilter=group.id;showSketches();};filters.append(button);
   }
-  content.append(gallery);modal.scrollTop=0;
+  content.append(filters,gallery);showSketches();modal.scrollTop=0;
 }
 let articleOrigin=null;
 let readingAnimations=[];
@@ -329,15 +317,15 @@ function showPage(next,focus=false){
   else{articleOrigin=null;window.scrollTo(0,homeScroll);if(focus)document.querySelector('.home-flower').focus({preventScroll:true});}
 }
 // A project with its own case study page slides in over Work: the page in a frame (?embed hides its nav).
-// Back, Esc and "← Work" slide it away again.
+// Back, Esc and "Work" slide it away again.
 let slide=null,slideFrame=null,slideClose=null,slideFull=null,caseOpener=null,caseOpenedHere=false;
 function leaveCase(){if(caseOpenedHere){caseOpenedHere=false;history.back();}else{history.replaceState(null,'','#work');route();}}
 function openCase(project){
   if(!slide){
     slide=node('div','case-slide');slide.hidden=true;slide.setAttribute('role','dialog');slide.setAttribute('aria-modal','true');
     const bar=node('div','case-slide-bar');
-    slideClose=node('button','case-slide-close','← Work');slideClose.type='button';slideClose.onclick=leaveCase;
-    slideFull=node('a','case-slide-full','Open as a page ↗');
+    slideClose=node('button','case-slide-close','Work');slideClose.type='button';slideClose.onclick=leaveCase;
+    slideFull=node('a','case-slide-full','Open as a page');
     slideFrame=node('iframe','case-slide-frame');
     slideFrame.addEventListener('load',()=>{try{slideFrame.contentWindow.addEventListener('keydown',e=>{if(e.key==='Escape')leaveCase();});}catch{}});
     bar.append(slideClose,slideFull);slide.append(bar,slideFrame);document.body.append(slide);
@@ -356,13 +344,24 @@ function closeCase(){
   matchMedia('(prefers-reduced-motion: reduce)').matches?done():slide.addEventListener('transitionend',done,{once:true});
   caseOpener?.focus({preventScroll:true});
 }
-function route(focus=false){
+async function route(focus=false){
+  const version=++routeVersion;
   const hash=location.hash;
+  if(hash && hash!=='#home' && !catalogApplied){
+    const catalog=await loadPortfolio();
+    if(version!==routeVersion)return;
+    if(catalog){
+      if(catalog.films)films=resolveCatalog(catalog.films.map(row=>row.payload));
+      if(catalog.projects)projects=resolveCatalog(catalog.projects.map(row=>row.payload));
+      if(catalog.sketches)items=resolveCatalog(catalog.sketches.map(row=>row.payload));
+    }
+    catalogApplied=true;
+  }
   if(hash.startsWith('#work/')){const id=projectAliases[hash.slice(6)]||hash.slice(6),project=projects.find(p=>p.id===id);
-    if(project?.page){if(modal.hidden||category!=='products')showPage('products');openCase(project);return;}
+    if(project?.page){activeProject=project.id;if(modal.hidden||category!=='products')showPage('products');openCase(project);return;}
     closeCase();if(project)activeProject=id;showPage('products',focus);return;}
   closeCase();
-  showPage(hash==='#gallery'?'art':hash==='#film'?'film':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
+  showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#film'?'film':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
 }
 document.querySelectorAll('[data-open-work]').forEach(button=>button.addEventListener('click',()=>{location.hash=button.dataset.openWork==='art'?'gallery':'work';}));
 document.querySelector('#close-art').addEventListener('click',()=>viewer.close());

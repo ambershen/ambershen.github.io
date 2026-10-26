@@ -14,7 +14,7 @@ npm run build    # production build to dist/
 ## Structure
 
 ```
-index.html                       # Home (flower) + hash-routed sections: #work #gallery #film #writing
+index.html                       # Home (flower) + hash-routed sections: #work #sketchbook (#gallery alias) #film #writing
 experiments/petal-study/         # Home page logic: study.js (flower), collections.js (sections), style.css
 src/data/site.js                 # Socials, newsletter (Buttondown) config, films  ← edit content here
 src/data/case-studies.js         # Case-study entries + the section template
@@ -25,6 +25,8 @@ product/*                        # Older standalone product pages
 ```
 
 ## Common edits
+
+- Work opens with a curated overview in `collections.js`: Natural Effects leads with Water / Sand / Ice, followed by Live Visuals and product projects. `#work/<id>` retains individual project views. Shared `naturalMedia` data supplies the material cards on both Work and the case study; its existing URL remains `/work/natural-expressions/`.
 
 - New case study: add an entry to `src/data/case-studies.js`, then copy any `work/<slug>/` folder and change its title, description and `data-slug`. Empty sections render as dashed placeholder prompts in `npm run dev` only; the live site skips them, and `status: 'draft'` pages redirect to Work.
 - Newsletter: the signup form is hidden while `newsletter.show` is false. Set `newsletter.buttondown` in `src/data/site.js` to the Buttondown username. Until then the form shows "launching soon".

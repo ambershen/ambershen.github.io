@@ -8,3 +8,7 @@ infinte-gallery/
 *.pen
 preview.command
 .vercel/
+.portfolio/
+.env
+.env.local
+.env.*.local
