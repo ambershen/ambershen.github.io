@@ -1,3 +1,4 @@
+import {loadXWidgets} from '../../src/x-embed.js';
 import {teachingGroups} from '../../src/data/teaching.js';
 import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
 import {resolveCatalog} from '../../src/data/catalog-assets.js';
@@ -237,20 +238,39 @@ function render(next){
         const card=node('article','teaching-card');
         const url=video.url||`https://www.youtube.com/watch?v=${video.youtube}${video.start?'&t='+video.start+'s':''}`;
         const frame=node('div','teaching-media');
-        const cover=node(video.youtube?'button':'a','teaching-cover');
-        if(video.youtube){cover.type='button';cover.setAttribute('aria-label',`Play ${video.title}`);}
-        else{cover.href=url;cover.target='_blank';cover.rel='noopener noreferrer';cover.setAttribute('aria-label',`Watch ${video.title} on X`);}
+        const cover=node('button','teaching-cover');
+        cover.type='button';cover.setAttribute('aria-label',`Play ${video.title}`);
         const image=node('img');image.src=video.poster||`https://i.ytimg.com/vi/${video.youtube}/hqdefault.jpg`;image.alt='';image.loading='lazy';image.decoding='async';
-        cover.append(image,node('span','teaching-play',video.youtube?'Play video':'Watch on X'));
+        cover.append(image,node('span','teaching-play','Play video'));
         frame.append(cover);
-        if(video.youtube)cover.onclick=()=>{
-          if(activePlayer){activePlayer.frame.replaceChildren(activePlayer.cover);}
-          const player=node('iframe');player.title=video.title;player.src=`https://www.youtube-nocookie.com/embed/${video.youtube}?autoplay=1&rel=0${video.start?'&start='+video.start:''}`;
-          player.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';player.allowFullscreen=true;player.referrerPolicy='strict-origin-when-cross-origin';
-          frame.replaceChildren(player);activePlayer={frame,cover};
+        cover.onclick=async()=>{
+          if(activePlayer){activePlayer.frame.replaceChildren(activePlayer.cover);activePlayer.frame.classList.remove('is-x-embed');}
+          const current={frame,cover};activePlayer=current;
+          if(video.youtube){
+            const player=node('iframe');player.title=video.title;player.src=`https://www.youtube-nocookie.com/embed/${video.youtube}?autoplay=1&rel=0${video.start?'&start='+video.start:''}`;
+            player.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';player.allowFullscreen=true;player.referrerPolicy='strict-origin-when-cross-origin';
+            frame.replaceChildren(player);return;
+          }
+          frame.classList.add('is-x-embed');
+          const status=node('p','teaching-embed-status','Loading video from X…');status.setAttribute('role','status');
+          const host=node('div','teaching-x-host');frame.replaceChildren(status,host);
+          let timer;
+          try{
+            const widgets=await loadXWidgets();
+            if(activePlayer!==current||!frame.isConnected)return;
+            const result=await Promise.race([
+              widgets.widgets.createTweet(new URL(url).pathname.split('/').pop(),host,{conversation:'none',dnt:true,theme:document.documentElement.dataset.theme==='light'?'light':'dark'}),
+              new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('X embed timed out')),15000);}),
+            ]);
+            if(!result)throw new Error('X embed unavailable');
+            if(activePlayer===current&&frame.isConnected)status.remove();
+          }catch{
+            if(activePlayer===current&&frame.isConnected){host.remove();status.textContent='The X player couldn’t load. Open the original post below.';const retry=node('button','','Try again');retry.type='button';retry.onclick=()=>cover.click();frame.append(retry);}
+          }finally{clearTimeout(timer);}
         };
         const heading=node('h4');const link=node('a','',video.title);link.href=url;link.target='_blank';link.rel='noopener noreferrer';heading.append(link);
         card.append(frame,node('p','teaching-publisher',video.publisher||'TRAE · YouTube'),heading,node('p','teaching-summary',video.summary));
+        if(!video.youtube){const fallback=node('a','teaching-source-link','Open on X');fallback.href=url;fallback.target='_blank';fallback.rel='noopener noreferrer';card.append(fallback);}
         grid.append(card);
       }
       section.append(grid);overview.append(section);

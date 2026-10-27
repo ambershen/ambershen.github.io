@@ -821,6 +821,12 @@
 :root[data-theme=light] .teaching-card h4 a:hover {
     text-decoration: underline
 }
+:root[data-theme=light] .teaching-media.is-x-embed {
+    background: transparent
+}
+:root[data-theme=light] .teaching-source-link {
+    color: #a2654c
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
 :root[data-theme=light] .soft-feature{background:#e8dfd3}

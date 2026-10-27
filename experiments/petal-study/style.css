@@ -516,3 +516,9 @@ body.case-open{overflow:hidden}
 .teaching-card h4 a:hover{text-decoration:underline;text-underline-offset:4px}
 .teaching-card .teaching-summary{font:14px/1.7 'Manrope',sans-serif;max-width:none}
 @media(max-width:600px){.teaching-grid{grid-template-columns:1fr;gap:32px}.teaching-library{gap:52px}}
+.teaching-media.is-x-embed{aspect-ratio:auto;min-height:240px;background:transparent;overflow:visible}
+.teaching-x-host{width:100%;min-width:0}
+.teaching-x-host .twitter-tweet{margin:0!important}
+.teaching-media.is-x-embed iframe{height:revert}
+.teaching-embed-status{padding:20px 0}
+.teaching-source-link{display:inline-block;margin-top:14px;color:#d9b5a3;font:13px/1.6 'Manrope',sans-serif;text-underline-offset:4px}
