@@ -7,7 +7,8 @@ import {caseStudies, caseStudySections} from './data/case-studies.js';
 import {processFlow} from './diagrams/process-flow.js';
 
 const slug = document.body.dataset.slug;
-const catalog = await loadPortfolio();
+const localPreview = import.meta.env.DEV && new URLSearchParams(location.search).get('preview') === 'local';
+const catalog = localPreview ? null : await loadPortfolio();
 const study = resolveCatalog(catalog ? catalog.case_studies.find(row => row.payload.slug === slug)?.payload : caseStudies.find(s => s.slug === slug));
 const main = document.querySelector('#case-study');
 // ?embed: shown inside the Work page's slide-in panel, which has its own way back.
@@ -40,6 +41,23 @@ function media(item, alt) {
 // Content blocks for studies that define their own chapters.
 function block(b) {
   if (typeof b === 'string') return el('p', '', b);
+  if (b.applications) {
+    const grid = el('div', 'cs-applications');
+    for (const application of b.applications) {
+      const figure = el('figure', 'cs-application');
+      const frame = el('div', 'cs-application-crop');
+      frame.style.aspectRatio = `${application.cropWidth} / ${application.cropHeight}`;
+      const image = el('img');
+      image.src = application.image; image.alt = application.title;
+      image.loading = 'lazy'; image.decoding = 'async';
+      image.style.top = `${-application.cropTop / application.cropHeight * 100}%`;
+      image.style.left = `${-application.cropLeft / application.cropWidth * 100}%`;
+      image.style.width = `${1280 / application.cropWidth * 100}%`;
+      frame.append(image);
+      figure.append(frame); grid.append(figure);
+    }
+    return grid;
+  }
   if (b.specimens) {
     const grid=el('div',b.compact?'cs-specimens is-compact':'cs-specimens');
     for(const specimen of b.specimens){

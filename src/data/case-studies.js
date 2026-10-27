@@ -54,12 +54,12 @@ export const softMatterMedia = [
 export const caseStudies = [
   {
     slug:'soft-matter',title:'Soft Matter',year:'2026',medium:'Creative coding · Type design · Material studies',
-    tagline:'Everyday materials become a language.',status:'published',cover:false,gallery:[],sections:{},
+    tagline:'Everyday objects become fonts. Fonts become new objects.',status:'published',cover:false,gallery:[],sections:{},
     opening:{toc:'Overview',title:'Four materials. Four ways to write.',blocks:[{specimens:softMatterMedia,compact:true}]},
     chapters:[
       {key:'origins-materials',label:'Looking for letters in everyday things',toc:'The starting point',blocks:[
-        'Soft Matter begins with familiar things: knitted yarn, piped chocolate, tangled earphones, and lace ribbon. I turn their textures and physical constraints into rules for drawing letters.',
-        'The question is how much of a material’s character can remain when it becomes a typeface. A stitch creates a grid. A squeeze leaves a drip. A cable makes a loop. These details become the structure of a visual language.'
+        'Soft Matter turns everyday objects into new fonts. Knitted yarn, piped chocolate, tangled earphones, and lace ribbon become letterforms through their textures, gestures, and physical constraints.',
+        'The question is how much of a material’s character can remain when it becomes a typeface. A stitch creates a grid. A squeeze leaves a drip. A cable makes a loop. These details become the structure of a visual language that can take shape on a screen, in motion, or as a physical object.'
       ]},
       {key:'typefaces',label:'Four materials, four systems',toc:'The typefaces',blocks:[{specimens:softMatterMedia}]},
       {key:'variation',label:'A system you can play with',toc:'Variation',blocks:[
@@ -67,18 +67,33 @@ export const caseStudies = [
         {image:img(new URL('../../images/soft-matter/purl-heavy.png',import.meta.url)),caption:'Purl in Black: the same words, with a heavier knitted letterform.'},
         {link:{label:'Try the type specimens',url:'https://softmatter.vercel.app/#typefaces',text:'Type your own words, change a weight, and explore the material parameters.'}}
       ]},
-      {key:'outputs',label:'From material studies to usable type',toc:'Reusable outputs',blocks:[
+      {key:'outputs',label:'Fonts that carry their material with them',toc:'Reusable outputs',blocks:[
         {study:'Material lettering',sub:'PNG lettering · transparent glyph packs'},
         'The full material rendering can be exported as lettering or individual glyph images, keeping the stitches, drips, cables, and lace details for use in graphics, motion, and interfaces.',
         {study:'Installable type',sub:'Five weights · OpenType families'},
         'The font files simplify each material into monochrome vector outlines. This creates a typeable family that can be used in design tools and on the web, alongside the richer material images.',
         {link:{label:'Explore the export desk',url:'https://softmatter.vercel.app/#studio',text:'Choose a family, weight, and colorway, then export the format that fits your design.'}}
       ]},
-      {key:'in-use',label:'A language in use',toc:'In use',blocks:[
+      {key:'material-motion',label:'Letterforms with volume and movement',toc:'Volume & motion',blocks:[
+        'Because these fonts come from physical things, their material qualities can shape how they move and occupy space. Ganache carries the rounded volume of piped chocolate into a sculptural, 3D letterform.',
+        'The other families suggest their own movements: knitted stitches could stretch and gather, an earphone cable could coil and unravel, and lace could fold and flutter. I see motion as another way to draw with the material, extending each typeface into an expressive visual system.',
+        'These systems can extend beyond website and UI typography into brand artifacts, packaging, physical objects, and accessories.'
+      ]},
+      {key:'in-use',label:'From type to a world of objects',toc:'In use',blocks:[
         'A fictional makers’ market brings the four families into a shared world of objects, packaging, and signage. Purl becomes lettering knitted into a tote; Ganache gives the cocoa bar its piped letterforms; Picot wraps a hatbox in a lace band; Tangle becomes an earphone cable that writes inside its packaging.',
         'The applications extend into interactive 3D displays: moving the cursor changes the light on the white-chocolate title, dragging turns the lace box, and a knitted banner moves in the wind. The material becomes part of how the typography is experienced.',
-        {image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),caption:'Soft Matter market — material type across 3D objects, packaging, and interactive displays. A fictional application demo.'},
+        {applications:[
+          {title:'Knitted tote bag',image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),cropLeft:75,cropTop:1140,cropWidth:540,cropHeight:600},
+          {title:'Lace hatbox',image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),cropLeft:70,cropTop:3200,cropWidth:540,cropHeight:430},
+          {title:'Earphone cable poster',image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),cropLeft:100,cropTop:4440,cropWidth:540,cropHeight:720},
+          {title:'Chocolate menu',image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),cropLeft:640,cropTop:2190,cropWidth:600,cropHeight:660},
+        ]},
+        {meta:'Application concepts from the fictional Soft Matter market.'},
         {link:{label:'Explore the market demo',url:'https://softmatter.vercel.app/#in-use',text:'Explore the material typefaces in an interactive 3D setting.'}}
+      ]},
+      {key:'second-creation',label:'A second life for everyday materials',toc:'Back to objects',blocks:[
+        'An everyday object becomes a font; that font becomes the starting point for another object. This second act of making is at the heart of Soft Matter: the source material returns in a new form, carrying something of its original character.',
+        {note:'Ongoing exploration · Accessories',text:'I am exploring how a letterform can become an accessory: taking it off the screen and into something that can be made, held, and worn. The next experiment is to fabricate a piece from one of these typefaces.'}
       ]},
     ],links:[{label:'Try Soft Matter',url:'https://softmatter.vercel.app/'}]
   },
