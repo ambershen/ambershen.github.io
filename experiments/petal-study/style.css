@@ -472,9 +472,13 @@ body.case-open{overflow:hidden}
 .home-feature{display:block;color:inherit;text-decoration:none;min-width:0}
 .home-feature-media{aspect-ratio:4/3;display:grid;overflow:hidden;margin-bottom:26px;gap:3px;background:#332c27}
 .natural-feature{grid-template-columns:repeat(3,1fr)}
-.soft-feature{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;background:#e8dfd3}
+.soft-feature{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));background:#e8dfd3}
 .home-feature-media img{display:block;width:100%;height:100%;min-height:0;min-width:0;object-fit:cover;transition:transform .4s}
 .soft-feature img{object-fit:contain}
+.soft-feature img:nth-child(1){background:#bfb8aa}
+.soft-feature img:nth-child(2){background:#e3d6bc}
+.soft-feature img:nth-child(3){background:#0e0e10}
+.soft-feature img:nth-child(4){background:#303755}
 .home-feature:hover img{transform:scale(1.025)}
 .home-feature h3{font:400 clamp(28px,2.8vw,42px)/1.15 'Cormorant Garamond',serif;margin:0 0 14px}
 .home-feature>p:last-child{font:15px/1.7 'Manrope',sans-serif;color:#a99b8f;margin:0;max-width:440px}
