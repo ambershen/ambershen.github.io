@@ -827,6 +827,9 @@
 :root[data-theme=light] .teaching-source-link {
     color: #a2654c
 }
+:root[data-theme=light] .home-feature-media {
+    background: #ebe5de
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
 :root[data-theme=light] .soft-feature{background:#e8dfd3}

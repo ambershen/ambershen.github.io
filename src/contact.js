@@ -24,6 +24,12 @@ if (!new URLSearchParams(location.search).has('embed')) {
       <p class="contact-status" role="status" aria-live="polite"></p>
     </form>`;
   document.body.append(launcher, dialog);
+  // The home flower owns the first screen; the nav's Contact link covers it there.
+  const home = document.getElementById('home-page');
+  const tuck = () => launcher.classList.toggle('is-tucked', Boolean(home) && !location.hash && scrollY < innerHeight * .6);
+  tuck();
+  addEventListener('scroll', tuck, {passive: true});
+  addEventListener('hashchange', tuck);
   let opener = launcher;
   function open(trigger) { opener = trigger; if (!dialog.open) dialog.showModal(); }
   launcher.addEventListener('click', () => open(launcher));

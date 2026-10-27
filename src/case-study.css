@@ -265,3 +265,7 @@ html{scroll-behavior:smooth}
 .cs-application-crop{position:relative;overflow:hidden;background:#111}
 .cs-application-crop img{position:absolute;left:0;width:100%;height:auto;max-width:none;display:block}
 @media(max-width:650px){.cs-applications{grid-template-columns:1fr}}
+
+/* Same left edge as the home page and Work. */
+:root{--edge:max(clamp(24px,5vw,76px),calc((100vw - 1600px) / 2 + clamp(24px,5vw,76px)))}
+@media(min-width:601px){.site-header,main{max-width:none;padding-left:var(--edge);padding-right:var(--edge)}}

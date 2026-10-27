@@ -16,3 +16,6 @@
 .contact-status:empty{display:none}
 .contact-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 @media(max-width:500px){.contact-dialog{right:16px;bottom:16px;padding:24px}.contact-launcher{right:16px;bottom:16px}}
+.contact-launcher{transition:opacity .3s,transform .3s,visibility .3s}
+.contact-launcher.is-tucked{opacity:0;visibility:hidden;transform:translateY(8px)}
+@media(prefers-reduced-motion:reduce){.contact-launcher{transition:none}}

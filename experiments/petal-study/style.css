@@ -529,3 +529,18 @@ body.case-open{overflow:hidden}
 .home-feature:hover .sand-cover-crop img{transform:scale(1.025)}
 
 .soft-feature svg{display:block;width:100%;height:100%;min-width:0;min-height:0}
+
+/* One left edge for the nav and every page: 72px at 1440, centred beyond 1600. */
+:root{--edge:max(clamp(24px,5vw,76px),calc((100vw - 1600px) / 2 + clamp(24px,5vw,76px)))}
+@media(min-width:601px){
+  header.site-header,body > main{padding-left:var(--edge);padding-right:var(--edge)}
+  .home-featured{max-width:none;padding-left:var(--edge);padding-right:var(--edge)}
+  #work-window.collection-page{max-width:none;padding-left:var(--edge);padding-right:var(--edge)}
+}
+.home-feature-media{background:#0c0b0a}
+/* Two lead projects, then three. */
+@media(min-width:761px){
+  .selected-projects{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .selected-project{grid-column:span 2}
+  .selected-project:nth-child(-n+2){grid-column:span 3}
+}
