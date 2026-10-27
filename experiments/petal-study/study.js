@@ -314,7 +314,7 @@ function interact(event){
 canvas.addEventListener('pointermove',interact);
 canvas.addEventListener('pointerdown',event=>{
   if(event.isPrimary===false)return;
-  canvas.setPointerCapture(event.pointerId);
+  if(event.isTrusted)canvas.setPointerCapture(event.pointerId);   // home-story's ghost brush sends synthetic pointers, which cannot be captured
   if(mode==='code' && ready){
     const rect=canvas.getBoundingClientRect();
     const point={x:(event.clientX-rect.left-ox)/scale,y:(event.clientY-rect.top-oy)/scale};

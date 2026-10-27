@@ -58,7 +58,7 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
   .d-stage{top:72px;height:58svh;background:#000;z-index:3}
   .home-d .d-stage #flower{left:0!important;top:0!important;width:100%!important;height:100%!important}
   .d-track{margin-top:0;padding-bottom:30svh}
-  .d-step{height:auto;min-height:36svh;width:auto;margin:0;padding:28px 6%;justify-content:flex-start}
+  .d-step{height:auto;min-height:22svh;width:auto;margin:0;padding:28px 6%;justify-content:flex-start}
   .d-step:last-child{height:auto;min-height:60svh;padding-top:28px}
   .d-step h2,.d-step p{font-size:32px}
   .d-step p.d-social{font-size:19px}
@@ -87,3 +87,9 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
     #fffcf7}
 :root[data-theme=light] .d-links a:hover,:root[data-theme=light] .d-links a:focus-visible{outline-color:#a2654c}
 @media(max-width:600px){:root[data-theme=light] .d-stage{background:#f7f2ec}}
+
+/* The closing line rises into the empty band below the work tiles instead of leaving a black gap. */
+@media(min-width:601px){
+  .d-step:last-child{height:calc(115svh - 88px)}
+  .home-d .home-featured{position:relative;z-index:2;margin-top:calc((100svh - 88px) * -.17);padding-top:24px}
+}

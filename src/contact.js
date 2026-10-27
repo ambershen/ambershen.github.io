@@ -24,9 +24,13 @@ if (!new URLSearchParams(location.search).has('embed')) {
       <p class="contact-status" role="status" aria-live="polite"></p>
     </form>`;
   document.body.append(launcher, dialog);
-  // The home flower owns the first screen; the nav's Contact link covers it there.
+  // The home flower owns the first screen; the nav's Contact link covers it there. The home Contact
+  // block repeats the launcher, so it also steps aside while that block is on screen.
   const home = document.getElementById('home-page');
-  const tuck = () => launcher.classList.toggle('is-tucked', Boolean(home) && !location.hash && scrollY < innerHeight * .6);
+  const homeContact = document.querySelector('.home-contact');
+  let contactInView = false;
+  const tuck = () => launcher.classList.toggle('is-tucked', Boolean(home) && !location.hash && (scrollY < innerHeight * .6 || contactInView));
+  if (homeContact) new IntersectionObserver(([entry]) => { contactInView = entry.isIntersecting; tuck(); }).observe(homeContact);
   tuck();
   addEventListener('scroll', tuck, {passive: true});
   addEventListener('hashchange', tuck);

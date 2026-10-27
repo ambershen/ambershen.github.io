@@ -14,14 +14,14 @@ const whenReady = () => new Promise(resolve => {
   check();
 });
 
-/* ---------- Content: tags for what the introduction leaves unsaid; chaos has none. ---------- */
+/* ---------- Content: tags for what the introduction leaves unsaid; the greeting and chaos have none. ---------- */
 const stickers = {
-  bloom: ['product builder', 'creative technologist', 'digital artist'],
-  art: ['visual experiments', 'typography', 'digital media experiences'],
-  narrative: ['visual storytelling', 'content creation', 'wear my product marketing hat'],
-  code: ['agent building', 'reinforcement learning', 'design frameworks'],
+  bloom: [],
+  art: ['digital media', 'typography', 'visual experiments'],
+  narrative: ['filming', 'storytelling', 'brand'],
+  code: ['creative coding', 'agent building', 'design tools'],
   chaos: [],
-  play: ['physical objects', 'whimsical ideas'],
+  play: ['wearables', 'physical objects', 'everyday materials'],
 };
 const work = [
   {title: 'Natural Effects as the New Brush', href: '/work/natural-expressions/', image: new URL('../../images/natural-expressions/water-demo.jpg', import.meta.url).href},
@@ -44,7 +44,9 @@ let ready = false, mode = null, modeAt = 0, touched = -1e9, ghosting = false, gh
 
 /* ---------- Ticks: a quiet chapter index on the right edge ---------- */
 const ticks = document.querySelector('.d-ticks');
-const jump = s => scrollTo({top: scrollY + s.getBoundingClientRect().top + 2 - (phone.matches ? innerHeight * .58 : headerHeight()), behavior: still ? 'instant' : 'smooth'});
+// On phones a step is current only while its line sits in the band under the flower, so tags never outlive their sentence.
+const phoneLine = () => innerHeight * .92;
+const jump = s => scrollTo({top: scrollY + s.getBoundingClientRect().top + 2 - (phone.matches ? phoneLine() - 40 : headerHeight()), behavior: still ? 'instant' : 'smooth'});
 const tickButtons = steps.map(s => {
   const b = document.createElement('button'); b.type = 'button'; b.className = 'd-tick';
   b.setAttribute('aria-label', s.dataset.label); b.dataset.label = s.dataset.label;
@@ -57,7 +59,7 @@ document.querySelectorAll('[data-jump]').forEach(a => a.addEventListener('click'
 
 /* ---------- Which step is current ---------- */
 function current() {
-  const line = phone.matches ? innerHeight * .82 : headerHeight() + (innerHeight - headerHeight()) * .5;
+  const line = phone.matches ? phoneLine() : headerHeight() + (innerHeight - headerHeight()) * .5;
   let index = 0;
   steps.forEach((s, i) => { if (s.getBoundingClientRect().top < line) index = i; });
   const r = steps[index].getBoundingClientRect();
