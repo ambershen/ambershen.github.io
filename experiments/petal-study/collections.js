@@ -428,3 +428,5 @@ for(const [selector,items] of [['#home-natural-media',naturalMedia],['#home-soft
   const frame=document.querySelector(selector);
   if(frame)for(const item of items){const img=node('img');img.src=item.poster||item.image;img.alt=item.title;img.loading='lazy';img.decoding='async';frame.append(img);}
 }
+
+document.querySelectorAll('[data-scroll-featured]').forEach(button=>button.addEventListener('click',()=>{document.querySelector('#home-featured')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
