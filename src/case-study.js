@@ -107,7 +107,8 @@ function block(b) {
     if (development.decision) {
       const decision = development.decision;
       const aside = el('aside', 'cs-decision');
-      aside.append(el('p', 'cs-block-label', decision.label), el('h4', '', decision.title), el('p', '', decision.text));
+      if (decision.label) aside.append(el('p', 'cs-block-label', decision.label));
+      aside.append(el('h4', '', decision.title), el('p', '', decision.text));
       group.append(aside);
     }
     return group;
