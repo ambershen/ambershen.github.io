@@ -793,6 +793,34 @@
 :root[data-theme=light] .teaching-category p {
     color: #7b6b5f
 }
+:root[data-theme=light] .teaching-media {
+    background: #e5ded7
+}
+:root[data-theme=light] .teaching-cover {
+    border: 0;
+    background: transparent;
+    text-decoration: none
+}
+:root[data-theme=light] .teaching-play {
+    background: #e5ded7;
+    color: #2a211c
+}
+:root[data-theme=light] .teaching-cover:hover .teaching-play {
+    background: #e0d5ca
+}
+:root[data-theme=light] .teaching-media iframe {
+    border: 0
+}
+:root[data-theme=light] .teaching-card .teaching-publisher {
+    color: #7b6b5f
+}
+:root[data-theme=light] .teaching-card h4 a {
+    color: inherit;
+    text-decoration: none
+}
+:root[data-theme=light] .teaching-card h4 a:hover {
+    text-decoration: underline
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
 :root[data-theme=light] .soft-feature{background:#e8dfd3}

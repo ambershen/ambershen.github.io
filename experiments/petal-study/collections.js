@@ -1,3 +1,4 @@
+import {teachingGroups} from '../../src/data/teaching.js';
 import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
 import {resolveCatalog} from '../../src/data/catalog-assets.js';
 import {videoPoster} from '../../src/data/video-posters.js';
@@ -226,13 +227,33 @@ function render(next){
   if(category==='film'){filmRoom();modal.scrollTop=0;return;}
   if(category==='teaching'){
     document.title='Teaching & Sharing — Amber Shen';
-    const overview=node('div','teaching-overview');
-    for(const [heading,copy] of [
-      ['Tutorials & Walkthroughs','Creative coding, AI tools, and the process of making things.'],
-      ['Developer Education','Technical demos and developer content that connect tools with practice.'],
-    ]){
+    const overview=node('div','teaching-library');
+    let activePlayer=null;
+    for(const group of teachingGroups){
       const section=node('section','teaching-category');
-      section.append(node('h3','',heading),node('p','',copy));overview.append(section);
+      section.append(node('h3','',group.title),node('p','teaching-group-description',group.description));
+      const grid=node('div','teaching-grid');
+      for(const video of group.videos){
+        const card=node('article','teaching-card');
+        const url=video.url||`https://www.youtube.com/watch?v=${video.youtube}${video.start?'&t='+video.start+'s':''}`;
+        const frame=node('div','teaching-media');
+        const cover=node(video.youtube?'button':'a','teaching-cover');
+        if(video.youtube){cover.type='button';cover.setAttribute('aria-label',`Play ${video.title}`);}
+        else{cover.href=url;cover.target='_blank';cover.rel='noopener noreferrer';cover.setAttribute('aria-label',`Watch ${video.title} on X`);}
+        const image=node('img');image.src=video.poster||`https://i.ytimg.com/vi/${video.youtube}/hqdefault.jpg`;image.alt='';image.loading='lazy';image.decoding='async';
+        cover.append(image,node('span','teaching-play',video.youtube?'Play video':'Watch on X'));
+        frame.append(cover);
+        if(video.youtube)cover.onclick=()=>{
+          if(activePlayer){activePlayer.frame.replaceChildren(activePlayer.cover);}
+          const player=node('iframe');player.title=video.title;player.src=`https://www.youtube-nocookie.com/embed/${video.youtube}?autoplay=1&rel=0${video.start?'&start='+video.start:''}`;
+          player.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';player.allowFullscreen=true;player.referrerPolicy='strict-origin-when-cross-origin';
+          frame.replaceChildren(player);activePlayer={frame,cover};
+        };
+        const heading=node('h4');const link=node('a','',video.title);link.href=url;link.target='_blank';link.rel='noopener noreferrer';heading.append(link);
+        card.append(frame,node('p','teaching-publisher',video.publisher||'TRAE · YouTube'),heading,node('p','teaching-summary',video.summary));
+        grid.append(card);
+      }
+      section.append(grid);overview.append(section);
     }
     content.append(overview);return;
   }

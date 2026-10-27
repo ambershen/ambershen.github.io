@@ -499,3 +499,20 @@ body.case-open{overflow:hidden}
 #work-window .teaching-category h3{font:400 32px/1.2 'Cormorant Garamond',serif;margin:0 0 16px}
 .teaching-category p{font:16px/1.8 'Manrope',sans-serif;color:#a99b8f;max-width:390px;margin:0}
 @media(max-width:600px){.teaching-overview{grid-template-columns:1fr;gap:36px}}
+
+.teaching-library{display:grid;gap:72px;margin-top:20px}
+.teaching-library .teaching-category>p{max-width:680px}
+.teaching-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 30px;margin-top:32px}
+.teaching-card{min-width:0}
+.teaching-media{aspect-ratio:16/9;background:#171512;overflow:hidden}
+.teaching-cover{display:block;position:relative;width:100%;height:100%;padding:0;border:0;border-radius:0;background:transparent;text-decoration:none}
+.teaching-cover img{display:block;width:100%;height:100%;object-fit:cover}
+.teaching-play{position:absolute;bottom:14px;left:14px;padding:8px 12px;background:#171512;color:#eee8e4;font:12px/1.4 'Manrope',sans-serif;margin:0}
+.teaching-cover:hover .teaching-play{background:#332c27}
+.teaching-media iframe{width:100%;height:100%;border:0;display:block}
+.teaching-card .teaching-publisher{font:10px/1.5 'DM Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin:18px 0 10px;color:#a99b8f}
+.teaching-card h4{font:400 27px/1.2 'Cormorant Garamond',serif;margin:0 0 12px}
+.teaching-card h4 a{color:inherit;text-decoration:none}
+.teaching-card h4 a:hover{text-decoration:underline;text-underline-offset:4px}
+.teaching-card .teaching-summary{font:14px/1.7 'Manrope',sans-serif;max-width:none}
+@media(max-width:600px){.teaching-grid{grid-template-columns:1fr;gap:32px}.teaching-library{gap:52px}}
