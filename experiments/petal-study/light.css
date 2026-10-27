@@ -787,6 +787,12 @@
 :root[data-theme=light] .home-contact a {
     color: #a2654c
 }
+:root[data-theme=light] .teaching-category {
+    border-top: 1px solid #e0d5ca
+}
+:root[data-theme=light] .teaching-category p {
+    color: #7b6b5f
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
 :root[data-theme=light] .soft-feature{background:#e8dfd3}

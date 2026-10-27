@@ -493,3 +493,9 @@ body.case-open{overflow:hidden}
   .site-header .theme-toggle{flex-shrink:0}
 }
 @media(prefers-reduced-motion:reduce){.home-feature-media img{transition:none}.home-feature:hover img{transform:none}}
+
+.teaching-overview{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:20px;max-width:1000px}
+.teaching-category{border-top:1px solid #332c27;padding-top:28px}
+#work-window .teaching-category h3{font:400 32px/1.2 'Cormorant Garamond',serif;margin:0 0 16px}
+.teaching-category p{font:16px/1.8 'Manrope',sans-serif;color:#a99b8f;max-width:390px;margin:0}
+@media(max-width:600px){.teaching-overview{grid-template-columns:1fr;gap:36px}}

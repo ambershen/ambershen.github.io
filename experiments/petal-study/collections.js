@@ -220,10 +220,22 @@ function render(next){
   const reading=next==='writing' && Boolean(selectedArticle);
   modal.classList.toggle('reading-mode',reading);
   document.title=reading?selectedArticle.title+' — Amber Shen':'Amber Shen — Creative Technologist';
-  title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',film:'Selected Films',writing:'Writing'}[category];
-  description.textContent={selected:'A few things from my world.',products:'Exploring code, AI, and materials as tools for expression.',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb}[category];
+  title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',film:'Selected Films',writing:'Writing',teaching:'Teaching & Sharing'}[category];
+  description.textContent={selected:'A few things from my world.',products:'Exploring code, AI, and materials as tools for expression.',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb,teaching:'Making technical ideas easier to understand, explore, and build with.'}[category];
   if(category==='products'){if(location.hash.startsWith('#work/') && projects.some(p=>p.id===activeProject && !p.page))projectArchive();else selectedWork();modal.scrollTop=0;return;}
   if(category==='film'){filmRoom();modal.scrollTop=0;return;}
+  if(category==='teaching'){
+    document.title='Teaching & Sharing — Amber Shen';
+    const overview=node('div','teaching-overview');
+    for(const [heading,copy] of [
+      ['Tutorials & Walkthroughs','Creative coding, AI tools, and the process of making things.'],
+      ['Developer Education','Technical demos and developer content that connect tools with practice.'],
+    ]){
+      const section=node('section','teaching-category');
+      section.append(node('h3','',heading),node('p','',copy));overview.append(section);
+    }
+    content.append(overview);return;
+  }
   if(category==='writing'){
     if(reading){
       title.textContent=selectedArticle.title;description.textContent='';
@@ -348,7 +360,7 @@ function closeCase(){
 async function route(focus=false){
   const version=++routeVersion;
   const hash=location.hash;
-  if(hash && hash!=='#home' && !catalogApplied){
+  if(hash && hash!=='#home' && hash!=='#teaching' && !catalogApplied){
     const catalog=await loadPortfolio();
     if(version!==routeVersion)return;
     if(catalog){
@@ -362,7 +374,7 @@ async function route(focus=false){
     if(project?.page){activeProject=project.id;if(modal.hidden||category!=='products')showPage('products');openCase(project);return;}
     closeCase();if(project)activeProject=id;showPage('products',focus);return;}
   closeCase();
-  showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#film'?'film':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
+  showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#film'?'film':hash==='#teaching'?'teaching':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
 }
 document.querySelectorAll('[data-open-work]').forEach(button=>button.addEventListener('click',()=>{location.hash=button.dataset.openWork==='art'?'gallery':'work';}));
 document.querySelector('#close-art').addEventListener('click',()=>viewer.close());
