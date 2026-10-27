@@ -7,7 +7,6 @@ export const navItems = [
   {page: 'art', label: 'Sketchbook', href: '/#sketchbook'},
   {page: 'film', label: 'Film', href: '/#film'},
   {page: 'teaching', label: 'Teaching', href: '/#teaching'},
-  {page: 'writing', label: 'Writing', href: '/#writing'},
   {page: 'contact', label: 'Contact', href: 'mailto:hanziashen@gmail.com'},
 ];
 
