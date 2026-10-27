@@ -18,6 +18,8 @@ const img = url => url.href;
 
 const ne = {
   water: img(new URL('../../images/natural-expressions/water-demo.mp4', import.meta.url)),
+  waterDraft: img(new URL('../../images/natural-expressions/water.mp4', import.meta.url)),
+  waterDraftPoster: img(new URL('../../images/natural-expressions/water.jpg', import.meta.url)),
   waterPoster: img(new URL('../../images/natural-expressions/water-demo.jpg', import.meta.url)),
   ice: img(new URL('../../images/natural-expressions/ice.mp4', import.meta.url)),
   icePoster: img(new URL('../../images/natural-expressions/ice.jpg', import.meta.url)),
@@ -100,11 +102,11 @@ export const caseStudies = [
       {key: 'question', label: 'What if natural materials became a language for interaction?', toc: 'The inquiry', blocks: [
         {lead: 'Water listens. Sand tells a story. Ice responds to touch.'},
         'Natural Effects explores how the familiar behavior of a material can become a way to express something. Across water, sand, and ice, I am developing three distinct interactions: voice translated into ripples, agent-led drawing for projected storytelling, and touch translated into simulated pressure and fracture.',
-        'The same question runs through all three: how can the behavior of natural materials shape the way we express ourselves through digital experiences?',
+        'How can natural materials become a new canvas for self-expression—one where we can recreate familiar sensations and make something new through a digital experience?',
       ]},
       {key: 'water', label: 'Water', toc: 'Water · Voice', material: true, blocks: [
-        {lead: 'Where inner experiences become visible'},
-        'Water gives a voice a visible afterlife: a disturbance that spreads, changes, and gradually settles. I connect water with emotion because its movement offers a way to express a feeling as something unfolding over time. Fish Audio’s speech-to-text model is part of the emotion-to-water interaction.',
+        {lead: 'Where inner emotions become visible'},
+        'I use the voice of water to retell human emotions. Spoken words become ripples that gather, spread, and gradually settle. The water gives a feeling its own movement and duration, making an inner emotion visible on a surface we can respond to.',
         {experience: {
           label: 'The interaction', video: ne.water, poster: ne.waterPoster,
           caption: 'Water — interaction demo.',
@@ -115,13 +117,11 @@ export const caseStudies = [
           ],
           link: {label: 'Try the water prototype', url: 'https://naturaleffects.vercel.app/?mode=water'},
         }},
-        {interaction: {input: 'Voice', mapping: 'Speech-to-text and emotion mapping', output: 'Expressive ripple behavior'}},
         {context: {
           title: 'Water as a visual echo',
           paragraphs: [
             'An acoustic echo happens when sound reflects from a surface and returns to the listener. Here, I use echo as a visual metaphor: a voice leaves a response in water. Its spreading and settling suggest how a feeling can linger after someone has finished speaking.',
-            'Art offers another way to think about that response. Monet repeatedly observed the changing water and reflections of his lily pond. In The Reflecting Pool, Bill Viola used water and reflection to explore perception and the passage of time. These are points of reference for considering water as a surface through which an inner experience might become visible.',
-            'My question is what happens when that surface can respond to a person.',
+            'Monet’s water studies and Bill Viola’s The Reflecting Pool offer points of reference for water as a surface of reflection. My exploration brings that surface into a conversation: a person speaks, and water retells the emotion through movement.',
           ],
           references: [
             {label: 'Echo · ETH Zurich', url: 'https://ethz.ch/en/campus/getting-to-know/discover/culture/acoustic-mirrors/background-physics.html'},
@@ -131,11 +131,11 @@ export const caseStudies = [
         }},
         {development: {
           title: 'Developing the water brush',
-          intro: 'The process brings together a responsive water surface and an emotion-reading layer. The current experiment uses Fish Audio; the next comparison will be with Dessa.',
+          intro: 'I began with the material and its movement, then introduced spoken language. These studies move from a surface we can disturb to a surface that can retell what we feel.',
           stages: [
-            {title: 'Observe motion that carries on', text: 'Ripples travel beyond their point of contact. I use propagation, directional wakes, and gradual decay to give the surface continuity after a gesture ends.'},
-            {title: 'Connect speech to text', text: 'I use Fish Audio’s speech-to-text model as input to the emotion-to-water mapping. This builds on an earlier sound-responsive prototype, where energy and frequency bands shaped the water shader.'},
-            {title: 'Test the timing of the response', text: 'The Fish Audio experiment introduces a slight latency in reading emotion into the water. That delay is a current limitation of the interaction; I plan to try Dessa next and compare the experience.'},
+            {title: 'Simulate water and ripple movement', text: 'I first built a water surface and explored how ripples respond to a mouse, camera tracking, and a touchscreen. Propagation, overlapping waves, and gradual decay let a gesture continue through the material after contact ends.', media: {video: ne.waterDraft, poster: ne.waterDraftPoster, caption: 'Early water study — exploring the surface and ripple movement before the emotion mapping.'}},
+            {title: 'Connect spoken words to emotion', text: 'A speech-to-text (STT) model transcribes spoken words for emotion mapping. The current prototype uses Fish Audio. Real-time translation remains a limitation: the transcription and interpretation introduce a delay between speaking and seeing the water respond.'},
+            {title: 'Let water retell the emotion', text: 'I then map the interpreted emotion to the behavior of the ripples: how they gather, spread, overlap, and settle. The aim is to give water an expressive voice, allowing a feeling to unfold again through movement.'},
           ],
           decision: {label: 'Design decision', title: 'The surface is the visualization.', text: 'Sound changes how the water behaves, rather than adding a separate waveform or chart. The material remains the expressive medium.'},
         }},

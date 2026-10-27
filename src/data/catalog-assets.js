@@ -1,5 +1,7 @@
 // Resolves legacy catalog paths; verified assets are rewritten to Storage URLs by Vite.
 export const localAssets = new Map([
+  ["/images/natural-expressions/water.mp4", new URL("../../images/natural-expressions/water.mp4", import.meta.url).href],
+  ["/images/natural-expressions/water.jpg", new URL("../../images/natural-expressions/water.jpg", import.meta.url).href],
   ["/films/Limited-time-FREE-final.mp4", new URL("../../films/Limited-time-FREE-final.mp4", import.meta.url).href],
   ["/films/fish-audio-drama-3-x-astorie.mp4", new URL("../../films/fish-audio-drama-3-x-astorie.mp4", import.meta.url).href],
   ["/films/fragrance-scent-simulations.mp4", new URL("../../films/fragrance-scent-simulations.mp4", import.meta.url).href],

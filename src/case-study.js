@@ -100,6 +100,7 @@ function block(b) {
     for (const stage of development.stages) {
       const item = el('li');
       item.append(el('h4', '', stage.title), el('p', '', stage.text));
+      if (stage.media) item.append(block(stage.media));
       stages.append(item);
     }
     group.append(stages);
