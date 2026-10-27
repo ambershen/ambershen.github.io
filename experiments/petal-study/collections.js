@@ -426,7 +426,7 @@ window.addEventListener('hashchange',()=>route(true));route();
 // Static, lazy covers keep the homepage independent of a database round trip.
 for(const [selector,items] of [['#home-natural-media',naturalMedia],['#home-soft-media',softMatterMedia]]){
   const frame=document.querySelector(selector);
-  if(frame)for(const item of items){const img=node('img');img.src=item.poster||item.image;img.alt=item.title;img.loading='lazy';img.decoding='async';if(item.id==='sand'){const crop=node('div','sand-cover-crop');crop.append(img);frame.append(crop);}else frame.append(img);}
+  if(frame)for(const item of items){const img=node('img');img.src=item.id==='sand'?new URL('../../images/natural-expressions/sand-featured.jpg',import.meta.url).href:item.poster||item.image;img.alt=item.title;img.loading='lazy';img.decoding='async';if(item.id==='sand'){const crop=node('div','sand-cover-crop');crop.append(img);frame.append(crop);}else frame.append(img);}
 }
 
 document.querySelectorAll('[data-scroll-featured]').forEach(button=>button.addEventListener('click',()=>{document.querySelector('#home-featured')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
