@@ -83,7 +83,6 @@ export const caseStudies = [
     title: 'Natural Effects as the New Brush',
     year: '2026',
     medium: 'Creative coding · Interactive materials',
-    tagline: 'Three ways to make an impression.',
     status: 'in-progress',
     thumb: ne.waterPoster,
     cover: false,

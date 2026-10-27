@@ -161,7 +161,8 @@ if (!study) {
       study.links.forEach(l => { const a = el('a', '', `${l.label}`); a.href = l.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; f.append(a); });
       credit('Links', f);
     }
-    hero.append(el('h1', 'cs-title', study.title), el('p', 'cs-tagline', study.tagline));
+    hero.append(el('h1', 'cs-title', study.title));
+    if (study.tagline) hero.append(el('p', 'cs-tagline', study.tagline));
     if (study.opening) {
       const opening = el('section', 'cs-opening'); opening.id = 's-origins';
       opening.append(el('h2', '', study.opening.title));
