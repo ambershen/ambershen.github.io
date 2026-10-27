@@ -123,7 +123,7 @@ const items=[...interactive,...selectedPaintings.map(title=>({...paintings.find(
 });
 const projects=[
   {id:'natural-effects',title:'Natural Effects as the New Brush',tagline:'Voice, storytelling, and touch through three materials.',page:'/work/natural-expressions/'},   // opens the full case study
-  {id:'soft-matter',title:'Soft Matter',tagline:'Everyday materials become a language.',page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
+  {id:'soft-matter',title:'Soft Matter',tagline:'Everyday materials become typography, shaping a unique visual system.',page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
   {id:'live-visuals',title:'Live Visuals / VJ',tagline:'Imagined spaces, sound, and moving images.',
     summary:'Visual experiments in sound, atmosphere, and imagined spaces.',
     image:dataCenterPoster,
@@ -133,7 +133,7 @@ const projects=[
       {title:'Data Center in 3D',kind:'3D · Spatial study',
         description:'An orbit around the data center’s form, lighting, and atmosphere.',
         video:dataCenter3D,poster:dataCenter3DPoster,sound:true}]},
-  {id:'sound-dictionaries',title:'Sound Dictionaries',tagline:'From reading a word to finding your voice.',video:dictionaryDemo,poster:soundDictionariesPoster,sound:true,
+  {id:'sound-dictionaries',title:'Sound Dictionaries',tagline:'Using a model as a learning partner.',video:dictionaryDemo,poster:soundDictionariesPoster,sound:true,
     sections:[
       {title:'What if a dictionary could speak—and listen?',text:'Sound Dictionaries explores the model as a learning experience. I design the relationship between a learner, a voice, and an interface: how a word is heard, how a character responds, and what makes someone want to speak again.'},
       {title:'It begins with a physical book.',text:'The product design begins with the familiar objects we use to learn: dictionaries and notebooks. A cover gives each book a character; a page creates a focused place to read and listen. Dictionaries hold words to practise. Notebooks open those words into situations and conversations.'},

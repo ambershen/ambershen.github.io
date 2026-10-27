@@ -40,14 +40,14 @@ function selectedWork(){
   const heading=node('div');
   heading.append(node('p','selection-label','01 / INTERACTIVE MATERIALS'),node('h3','selected-feature-title','Natural Effects as the New Brush'));
   const intro=node('div','selected-feature-intro');
-  intro.append(node('p','','Three ways to make an impression.'),node('p','selected-feature-note','Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.'));
+  intro.append(node('p','selected-feature-note','Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.'));
   header.append(heading,intro);
   const materials=node('div','selected-materials');
   naturalMedia.forEach((material,index)=>{
     const link=node('a','selected-material');link.href=`/work/natural-expressions/#s-${material.id}`;
     const image=node('img');image.src=material.poster;image.alt=`${material.title} material study`;image.loading='lazy';
     const copy=node('div','selected-material-copy');
-    copy.append(node('span','selection-label',`0${index+1} / ${material.kind}`),node('h4','',material.title),node('p','',material.interaction+''));
+    copy.append(node('span','selection-label',`0${index+1} / ${material.kind}`),node('h4','',material.title));
     link.append(image,copy);materials.append(link);
   });
   const foot=node('div','selected-feature-footer');
