@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flower prototype %LETTER% — Amber Shen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;450;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../petal-study/style.css" />
+  <link rel="stylesheet" href="../petal-study/light.css" />
+  <link rel="stylesheet" href="./protos.css" />
+  <script>(function(){var q=new URLSearchParams(location.search),r=document.documentElement;if(q.has("embed")){r.classList.add("embed");return}try{var t=q.get("theme");if(t)localStorage.setItem("theme",t);else t=localStorage.getItem("theme");if(t==="light")r.dataset.theme="light"}catch(e){}})();</script>
+</head>
+<body class="proto proto-%LETTER_LOWER%">
+  <a class="proto-switch" href="./">Prototypes · %LETTER%</a>
+  <header class="site-header">
+    <nav class="desktop-collections header-nav" aria-label="Explore my work">
+      <a class="collection home-flower" href="/" aria-label="Home"><svg class="home-mark" viewBox="0 0 92 96" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M 12,32 C 8,25 15,19 23,21 C 20,12 28,9 34,15 C 38,5 47,7 51,12 C 60,7 66,14 67,20 C 78,16 82,24 79,32 C 89,35 87,44 82,48 C 89,57 80,66 71,65 C 68,74 57,76 49,70 C 40,78 30,71 28,66 C 17,70 9,60 13,51 C 3,48 5,36 12,32 Z"/><path d="M 23,21 C 20,37 24,51 37,57 C 28,44 31,34 37,27 C 32,25 31,20 34,15"/><path d="M 37,27 C 42,17 57,17 64,27 C 72,34 71,47 63,54 M 67,20 C 75,33 76,46 71,53"/><path d="M 37,36 C 43,29 52,28 58,34 C 62,40 60,46 54,48 C 57,38 49,35 44,40"/><path d="M 32,40 C 30,52 38,61 49,62 C 59,64 67,57 71,53 M 13,51 C 23,46 24,61 39,65 M 49,62 C 56,70 66,69 71,65"/><path d="M 47,72 C 50,78 49,85 51,91 M 49,82 C 41,76 34,79 31,86 C 40,85 44,81 49,82 M 50,85 C 57,79 63,84 66,89 C 58,89 55,85 50,85"/></svg></a>
+      <a class="collection" href="/#work">Work</a>
+      <a class="collection" href="/#sketchbook">Sketchbook</a>
+      <a class="collection" href="/#film">Film</a>
+      <a class="collection" href="/#teaching">Teaching</a>
+    </nav>
+  </header>
+  <main id="home-page">
+    <span id="state" class="sr-only" aria-live="polite">Preparing specimen</span>
+    <div class="intro">
+      <button id="intro-toggle" class="mobile-only" type="button" aria-expanded="false">Read introduction</button>
+      <h1>Hi, I’m Amber.<br>I like making things <button class="word" data-mode="bloom" title="A breeze through the petals" disabled><span>bloom</span></button>.</h1>
+      <div id="chapter-two" class="chapter"%HIDDEN%>
+        <p class="story">Somewhere between <button class="word" data-mode="art" title="Brush the flower into fragments" aria-pressed="false" disabled>art</button>, <button class="word" data-mode="narrative" title="Draw the flower in pencil" aria-pressed="false" disabled>narrative</button>, <button class="word" data-mode="code" title="Float the petals and let them return" aria-pressed="false" disabled>code</button>, and a little <button class="word" data-mode="chaos" title="Let the petals fall to find me" aria-pressed="false" disabled>chaos</button>.</p>
+      </div>
+      <div id="chapter-three" class="chapter"%HIDDEN%>
+        <p class="story">I turn curious ideas into things you can <button class="word" id="play" title="Wipe the mist from my portrait" aria-pressed="false">play with</button>.</p>
+        <p class="story social-story">You can find me on <a class="word" href="https://x.com/whosamberella">X</a>, <a class="word" href="https://instagram.com/whosamberella">Instagram</a>, <a class="word" href="https://www.youtube.com/@whosamberella">YouTube</a>, <a class="word" href="https://github.com/ambershen">GitHub</a>, or just browse some of <a class="word" href="/#home-featured">my featured work</a>.</p>
+      </div>
+    </div>
+    <div id="mobile-reading"></div>
+    <canvas id="flower" aria-label="Interactive flower."></canvas>
+    <div class="mobile-tools mobile-only"><span id="touch-hint">Tap bloom to begin</span><button id="mobile-reset" type="button" disabled>Reset ↺</button></div>
+    <div id="loading" role="status">Growing your flower…</div>
+%EXTRA%
+  </main>
+  <script type="module" src="../petal-study/study.js"></script>
+  <script type="module" src="./%LETTER_LOWER%.js"></script>
+</body>
+</html>

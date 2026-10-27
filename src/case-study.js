@@ -5,6 +5,7 @@ import './case-study.css';
 import './case-study-light.css';
 import {renderNav} from './site-nav.js';
 import {caseStudies, caseStudySections} from './data/case-studies.js';
+import {projects} from './data/portfolio.js';
 import {processFlow} from './diagrams/process-flow.js';
 
 const slug = document.body.dataset.slug;
@@ -307,14 +308,17 @@ if (!study) {
     study.links.forEach(l => { const a = el('a', '', `${l.label}`); a.href = l.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; links.append(a); });
     footer.append(links);
   }
-  const listed = caseStudies.filter(s => s.listed !== false), idx = listed.indexOf(study);
-  const next = listed.length > 1 && idx >= 0 ? listed[(idx + 1) % listed.length] : null;
+  // Next follows the Work page's order, so case studies and project views read as one sequence.
+  const order = projects.filter((p, i, all) => all.findIndex(q => q.id === p.id) === i);
+  const here = order.findIndex(p => p.page === `/work/${study.slug}/`);
+  const next = here >= 0 ? order[(here + 1) % order.length] : null;
   const back = el('a', 'cs-back', 'All work'); back.href = '/#work';
   if (embedded) back.onclick = e => { e.preventDefault(); parent.postMessage({type: 'case-close'}, location.origin); };
   const nav = el('div', 'cs-pager'); nav.append(back);
   if (next) {
-    const nxt = el('a', 'cs-next'); nxt.href = `/work/${next.slug}/`;
-    nxt.append(el('span', '', 'Next case study'), el('strong', '', `${next.title}`));
+    const nxt = el('a', 'cs-next'); nxt.href = next.page || `/#work/${next.id}`;
+    nxt.append(el('span', '', 'Next work'), el('strong', '', `${next.title}`));
+    if (embedded) nxt.onclick = e => { e.preventDefault(); parent.postMessage({type: 'case-open', id: next.id}, location.origin); };
     nav.append(nxt);
   }
   footer.append(nav);

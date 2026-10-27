@@ -833,6 +833,27 @@
 :root[data-theme=light] .case-slide-close:focus:not(:focus-visible) {
     outline: none
 }
+:root[data-theme=light] .work-next {
+    border-top: 1px solid #e0d5ca;
+    color: inherit;
+    text-decoration: none
+}
+:root[data-theme=light] .work-next span {
+    color: #7b6b5f
+}
+:root[data-theme=light] .work-next strong {
+    color: #2a211c
+}
+:root[data-theme=light] .work-next:hover strong, :root[data-theme=light] .work-next:focus-visible strong {
+    color: #a2654c
+}
+:root[data-theme=light] .selected-feature-title a {
+    color: inherit;
+    text-decoration: none
+}
+:root[data-theme=light] .selected-feature-title a:hover, :root[data-theme=light] .selected-feature-title a:focus-visible {
+    color: #a2654c
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
 :root[data-theme=light] .soft-feature{background:#e8dfd3}

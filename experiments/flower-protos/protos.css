@@ -1,0 +1,199 @@
+/* Shared by the three flower prototypes. Desktop first; phones get a simple stacked version. */
+.proto-switch{position:fixed;right:16px;bottom:16px;z-index:20;font:11px/1 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#a99b8f;text-decoration:none;padding:10px 14px;border:1px solid #332c27;border-radius:999px;background:#0c0b0acc}
+.proto-switch:hover{color:#eee8e4}
+
+/* ---------- A · Open from the start ---------- */
+.proto-a #chapter-two,.proto-a #chapter-three{animation:none}
+.proto-caption{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0;text-align:center;pointer-events:none;z-index:2}
+.proto-caption[hidden]{display:none}
+.proto-caption b{font:italic 400 30px/1 var(--display,'Cormorant Garamond'),serif;color:#d9b5a3}
+.proto-caption span{font:14px/1.5 'Manrope',sans-serif;color:#d8cec5}
+.proto-caption i{font:normal 10px/1.4 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#a99b8f}
+@media(min-width:601px){.proto-a main > .proto-caption{grid-column:2;grid-row:1;align-self:end;justify-self:center;margin-bottom:8px}}
+@media(max-width:600px){.proto-caption{order:2;padding:8px 0 24px}}
+
+/* ---------- B · Scroll story ---------- */
+.proto-b main > .intro,.proto-c main > .intro{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.proto-steps{list-style:none;margin:0;padding:0}
+.proto-step{min-height:78svh;display:flex;flex-direction:column;justify-content:center;opacity:.28;transition:opacity .5s}
+.proto-step:first-child{min-height:calc(100svh - 120px);justify-content:flex-start;padding-top:24px}
+.proto-step:last-child{min-height:100svh}
+.proto-step.is-active{opacity:1}
+.proto-step-n{font:11px/1 'DM Mono',monospace;letter-spacing:.12em;color:#a99b8f;margin-bottom:22px}
+.proto-step h2,.proto-step p{font:400 clamp(40px,4vw,62px)/1.12 'Cormorant Garamond',serif;color:#eee8e4;margin:0}
+.proto-step p.proto-social{font-size:clamp(22px,1.9vw,28px);line-height:1.5;margin-top:28px;color:#d8cec5}
+.proto-social a{color:#d9b5a3;text-underline-offset:6px}
+.proto-word{font:inherit;font-style:italic;color:#d9b5a3;background:none;border:0;border-bottom:1px solid #947366;padding:0 4px;cursor:pointer}
+.proto-step.is-active .proto-word{color:#f3d4c2;border-bottom-color:#d9b5a3}
+@media(min-width:601px){
+  .proto-b body,.proto-b{overflow:visible}
+  .proto-b main{align-items:start}
+  .proto-b main > .proto-steps{grid-column:1;grid-row:1}
+  .proto-b main > #flower{position:sticky!important;top:88px;grid-column:2;grid-row:1;height:calc(100svh - 108px)}
+}
+@media(max-width:600px){.proto-b main > #flower{position:sticky!important;top:0;order:-1;z-index:1;background:#000}.proto-step{min-height:60svh;padding:0 6%}.proto-step h2,.proto-step p{font-size:34px}}
+
+/* ---------- C · Specimen viewer ---------- */
+@media(min-width:601px){
+  .proto-c main{grid-template-columns:1fr!important;grid-template-rows:auto auto!important}
+  .proto-c main > #flower{grid-column:1!important;grid-row:1!important;height:calc(100svh - 230px)!important;min-height:420px}
+  .proto-c main > .proto-viewer{grid-column:1;grid-row:2}
+}
+.proto-viewer{display:flex;flex-direction:column;align-items:center;gap:18px}
+.proto-plate-label{display:flex;flex-direction:column;align-items:center;gap:6px;margin:0;min-height:44px;text-align:center}
+.proto-plate-label span{font:italic 400 24px/1.2 'Cormorant Garamond',serif;color:#eee8e4}
+.proto-plate-label i{font:normal 10px/1.4 'DM Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:#a99b8f}
+.proto-plates{display:flex;gap:clamp(8px,2vw,28px);flex-wrap:wrap;justify-content:center}
+.proto-plate{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:84px;padding:10px 8px 14px;background:none;border:0;border-radius:0;color:#a99b8f;cursor:pointer;font:italic 400 22px/1 'Cormorant Garamond',serif}
+.proto-plate small{font:normal 10px/1 'DM Mono',monospace;letter-spacing:.1em}
+.proto-plate i{position:absolute;left:8px;right:8px;bottom:0;height:1px;background:#332c27;overflow:hidden}
+.proto-plate i:after{content:'';position:absolute;inset:0;background:#d9b5a3;transform-origin:left;transform:scaleX(var(--p,0))}
+.proto-plate.is-active{color:#f3d4c2}
+.proto-plate.is-active i{background:#5a4a40}
+.proto-plate:hover{color:#eee8e4}
+.is-paused .proto-plate.is-active i:after{transform:scaleX(1);opacity:.6}
+@media(max-width:600px){.proto-plate{min-width:0;font-size:18px;padding:8px 6px 12px}}
+.proto-step{min-height:58svh}
+.proto-step-note{display:block;margin-top:18px;font:italic 400 22px/1.4 'Cormorant Garamond',serif;color:#a99b8f}
+.proto-step-note:before{content:'— '}
+.proto-c-title{font:400 clamp(26px,2.4vw,36px)/1.15 'Cormorant Garamond',serif;color:#eee8e4;margin:0}
+@media(min-width:601px){
+  .proto-c main{grid-template-rows:auto minmax(0,1fr) auto!important;row-gap:0!important;height:calc(100svh - 88px);min-height:600px!important;padding-bottom:20px!important}
+  .proto-c main > .proto-c-title{grid-column:1;grid-row:1;position:relative;z-index:2;align-self:start;padding-top:12px}
+  .proto-c main > #flower{grid-row:1 / 3!important;height:100%!important;min-height:0!important}
+  .proto-c main > .proto-viewer{grid-row:3}
+}
+@media(max-width:600px){.proto-c-title{padding:16px 6% 0;font-size:26px}}
+
+/* ---------- D · Scroll story + specimen viewer + water ---------- */
+.proto-d main{display:block!important;padding:0!important;height:auto!important;min-height:0!important}
+.proto-d main > .intro{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.d-wrap{position:relative}
+.d-stage{position:sticky;top:0;height:100svh;overflow:hidden;z-index:1}
+.proto-d .d-stage #flower{position:absolute!important;inset:auto!important;left:26%!important;top:4%!important;width:74%!important;height:83%!important;min-height:0!important;transition:opacity .5s}
+.proto-d .d-stage #loading{left:60%;top:45%}
+.d-water{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;opacity:0;pointer-events:none;transition:opacity .4s;touch-action:none}
+.d-stage.is-work .d-water{opacity:1}
+.d-stage.is-work #flower{opacity:0;pointer-events:none}
+.d-links{position:absolute;inset:0;display:none;z-index:2}
+.d-stage.is-work .d-links{display:block}
+.d-links a{position:absolute;display:block;border-radius:2px;touch-action:none}
+.d-links a:hover,.d-links a:focus-visible{outline:1px solid #d9b5a3;outline-offset:6px}
+.d-stickers{position:absolute;inset:0;pointer-events:none;z-index:2}
+.d-sticker{position:absolute;left:0;top:0;max-width:240px;padding:8px 14px;font:italic 400 18px/1.25 'Newsreader',serif;color:#2a211c;background:#f3ebe3;border-radius:3px;box-shadow:0 8px 22px rgba(0,0,0,.45);white-space:nowrap;will-change:transform,opacity;opacity:0}
+.d-sticker.is-outline{background:rgba(12,11,10,.6);color:#f3d4c2;border:1px solid rgba(217,181,163,.55);border-radius:999px;font:400 11px/1.2 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:9px 14px;backdrop-filter:blur(4px)}
+.d-plates{position:absolute;left:0;right:0;bottom:14px;z-index:3}
+.d-track{position:relative;z-index:2;margin-top:-100svh;pointer-events:none}
+.d-step{height:100svh;display:flex;flex-direction:column;justify-content:center;width:min(28vw,420px);margin-left:clamp(24px,5vw,76px);opacity:.15;transition:opacity .5s}
+.d-step:last-child{height:150svh;justify-content:flex-start;padding-top:12svh}
+.d-step.is-active{opacity:1}
+.d-step h2,.d-step p{font:400 clamp(34px,3.3vw,52px)/1.12 'Cormorant Garamond',serif;color:#eee8e4;margin:0}
+.d-step p.proto-social{font-size:clamp(19px,1.5vw,24px);line-height:1.5;margin-top:24px;color:#d8cec5}
+.d-step a,.d-step .proto-word{pointer-events:auto}
+.d-step.is-active .proto-word{color:#f3d4c2;border-bottom-color:#d9b5a3}
+@media(max-width:600px){
+  .d-stage{height:62svh;background:#000;z-index:3}
+  .proto-d .d-stage #flower{left:0!important;top:0!important;width:100%!important;height:100%!important}
+  .d-track{margin-top:0;padding-bottom:30svh}
+  .d-step{height:auto;min-height:44svh;width:auto;margin:0;padding:28px 6%;justify-content:flex-start}
+  .d-step:last-child{height:auto;min-height:60svh;padding-top:28px}
+  .d-step h2,.d-step p{font-size:32px}
+  .d-step p.proto-social{font-size:19px}
+  .d-plates{display:none}
+  .d-sticker{font-size:14px;padding:6px 10px;max-width:160px}
+  .d-sticker.is-outline{font-size:9px;padding:7px 10px}
+}
+@media(prefers-reduced-motion:reduce){.d-step,.d-water,.proto-d .d-stage #flower{transition:none}}
+/* Sticky needs the page itself to scroll; clip (unlike hidden) does not make body a scroll container. */
+body.proto-d{overflow:visible!important;overflow-x:clip!important}
+@media(max-width:600px){.d-sticker{white-space:normal;max-width:46vw}.d-step{min-height:36svh}}
+
+/* D, round 2: the nav stays; a quiet tick index replaces the plates; one sticker style. */
+.proto-d .site-header{position:sticky;top:0;z-index:10;background:#000}
+.proto-d .d-stage{top:88px;height:calc(100svh - 88px)}
+.proto-d .d-track{margin-top:calc(88px - 100svh)}
+.proto-d .d-step{height:calc(100svh - 88px)}
+.proto-d .d-step:last-child{height:calc(150svh - 88px)}
+.d-hint{display:block;margin-top:22px;font:400 10px/1.4 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#7b6b5f;transition:color .5s}
+.d-step.is-active .d-hint{color:#a99b8f}
+.d-sticker,.d-sticker.is-outline{background:rgba(12,11,10,.55);color:#f3d4c2;border:1px solid rgba(217,181,163,.5);border-radius:999px;box-shadow:none;font:400 11px/1.2 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;padding:9px 15px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.d-ticks{position:absolute;right:clamp(16px,2.4vw,36px);top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.d-tick{position:relative;display:block;width:44px;height:22px;padding:0;border:0;border-radius:0;background:none;cursor:pointer}
+.d-tick:before{content:'';position:absolute;right:0;top:50%;width:14px;height:1px;background:#4a3e36;transition:width .35s,background .35s}
+.d-tick.is-active:before{width:36px;background:#d9b5a3}
+.d-tick:hover:before{background:#eee8e4}
+.d-tick:after{content:attr(data-label);position:absolute;right:48px;top:50%;transform:translateY(-50%);font:italic 400 18px/1 'Cormorant Garamond',serif;color:#d9b5a3;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+.d-tick:hover:after,.d-tick:focus-visible:after{opacity:1}
+@media(max-width:600px){
+  .proto-d .d-stage{top:72px;height:58svh}
+  .proto-d .d-track{margin-top:0}
+  .proto-d .d-step{height:auto;min-height:36svh}
+  .proto-d .d-step:last-child{height:auto;min-height:60svh}
+  .d-ticks{display:none}
+  .d-sticker,.d-sticker.is-outline{font-size:9px;padding:7px 10px}
+}
+
+/* D, round 3: highlighted words instead of underlines; paper stickers. */
+.proto-d .proto-word{border:0;padding:0 .14em;margin:0 .02em;border-radius:2px;color:#d9b5a3;background:transparent;transition:background .35s,color .35s;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.proto-d .d-step.is-active .proto-word{background:#f6efe9;color:#b8634c;border:0}
+.proto-d .proto-word:hover{background:#f6efe933;color:#f3d4c2}
+.proto-d .d-step.is-active .proto-word:hover{background:#fff;color:#a2543e}
+.d-sticker,.d-sticker.is-outline{background:#fbf8f3;color:#2a211c;border:0;border-radius:2px;backdrop-filter:none;-webkit-backdrop-filter:none;font:500 14px/1.25 'Manrope',sans-serif;letter-spacing:-.01em;text-transform:none;padding:11px 16px 12px;box-shadow:0 1px 1px rgba(0,0,0,.12),0 10px 24px rgba(0,0,0,.5)}
+.d-sticker.paper-pink{background:#f7e2d9}
+.d-sticker.paper-butter{background:#f5edcf}
+/* A lifted corner, as if peeling off. */
+.d-sticker:after{content:'';position:absolute;right:0;bottom:0;width:12px;height:12px;background:linear-gradient(135deg,rgba(0,0,0,.18) 0%,rgba(0,0,0,.06) 45%,transparent 50%),linear-gradient(315deg,#000 50%,transparent 50%);border-top-left-radius:2px;opacity:.9}
+@media(max-width:600px){.d-sticker,.d-sticker.is-outline{font-size:12px;padding:8px 11px 9px}}
+
+/* D, round 4: torn paper scraps, after the reference. The shadow sits on the wrapper because clip-path clips its own shadow. */
+.d-sticker,.d-sticker.is-outline{background:none!important;padding:0!important;border:0;box-shadow:none!important;backdrop-filter:none;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35)) drop-shadow(0 8px 14px rgba(0,0,0,.45))}
+.d-sticker:after{content:none}
+.d-paper{display:block;padding:9px 18px 10px;font:400 19px/1.15 'Newsreader',serif;letter-spacing:-.01em;color:#1f1915;white-space:nowrap;
+  background:
+    linear-gradient(var(--fold-angle,95deg),transparent calc(var(--fold,50%) - 1px),rgba(255,255,255,.55) var(--fold,50%),rgba(0,0,0,.07) calc(var(--fold,50%) + 1px),transparent calc(var(--fold,50%) + 14px)),
+    radial-gradient(120% 90% at 20% 10%,rgba(255,255,255,.5),transparent 60%),
+    radial-gradient(90% 80% at 85% 90%,rgba(120,100,80,.16),transparent 70%),
+    #ece6dc}
+@media(max-width:600px){.d-paper{font-size:15px;padding:7px 13px 8px;white-space:normal}}
+.d-sticker,.d-sticker.is-outline{max-width:none!important}@media(max-width:600px){.d-sticker,.d-sticker.is-outline{max-width:48vw!important}}
+
+/* D, round 5: three word highlights to compare (?h=marker | circle | pink). */
+.proto-d .d-step .proto-word,.proto-d .d-step.is-active .proto-word{position:relative;background:transparent;color:#d9b5a3;padding:0 .08em;z-index:0}
+.proto-d .d-step .proto-word:before,.proto-d .d-step .proto-word:after{content:'';position:absolute;pointer-events:none;z-index:-1;opacity:0;transition:opacity .3s}
+/* 1 · marker: a loose highlighter swipe across the lower half, drawn left to right */
+[data-highlight=marker] .d-step.is-active .proto-word{color:#fbe7dc}
+[data-highlight=marker] .d-step .proto-word:before{left:-.12em;right:-.16em;bottom:.06em;height:.48em;background:rgba(232,140,122,.78);border-radius:.3em .12em .35em .1em;transform:rotate(-1.2deg) scaleX(0);transform-origin:left center;transition:transform .55s cubic-bezier(.3,.7,.2,1),opacity .2s}
+[data-highlight=marker] .d-step.is-active .proto-word:before{opacity:1;transform:rotate(-1.2deg) scaleX(1)}
+/* 2 · circle: a pencil ellipse drawn around the word */
+[data-highlight=circle] .d-step.is-active .proto-word{color:#f3d4c2}
+[data-highlight=circle] .d-step .proto-word:after{left:-.32em;right:-.32em;top:-.12em;bottom:-.18em;background:no-repeat center/100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80' preserveAspectRatio='none'%3E%3Cpath d='M16 46 C10 22 60 8 104 9 C152 10 192 22 189 42 C186 62 146 74 98 73 C52 72 12 64 13 44 C14 30 40 17 70 13' fill='none' stroke='%23d9b5a3' stroke-width='2.2' stroke-linecap='round' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");clip-path:inset(0 100% 0 0);transition:clip-path .7s ease,opacity .2s}
+[data-highlight=circle] .d-step.is-active .proto-word:after{opacity:1;clip-path:inset(0 0 0 0)}
+/* 3 · pink: the current homepage block, pink ground and dark ink */
+[data-highlight=pink] .d-step.is-active .proto-word{background:#d6ae99;color:#17110e;border-radius:2px}
+@media(prefers-reduced-motion:reduce){[data-highlight] .d-step .proto-word:before,[data-highlight] .d-step .proto-word:after{transition:none}}
+
+/* D · light mode: paper #f7f2ec, ink #2a211c, muted #7b6b5f, accent #a2654c, lines #e0d5ca. */
+:root[data-theme=light] body.proto-d{background:#f7f2ec;color:#2a211c}
+:root[data-theme=light] .proto-d .site-header{background:#f7f2ec}
+:root[data-theme=light] .proto-d .d-step h2,:root[data-theme=light] .proto-d .d-step p{color:#2a211c}
+:root[data-theme=light] .proto-d .d-step p.proto-social{color:#5a4b41}
+:root[data-theme=light] .proto-d .d-step a{color:#a2654c}
+:root[data-theme=light] .proto-d .d-step .proto-word{color:#a2654c}
+:root[data-theme=light] .proto-d[data-highlight=marker] .d-step.is-active .proto-word{color:#2a211c}
+:root[data-theme=light] .proto-d[data-highlight=marker] .d-step .proto-word:before{background:rgba(236,150,128,.42)}
+:root[data-theme=light] .proto-d[data-highlight=pink] .d-step.is-active .proto-word{background:#e9c6b6;color:#2a211c}
+:root[data-theme=light] .proto-d .d-tick:before{background:#d6c8bb}
+:root[data-theme=light] .proto-d .d-tick.is-active:before{background:#a2654c}
+:root[data-theme=light] .proto-d .d-tick:hover:before{background:#2a211c}
+:root[data-theme=light] .proto-d .d-tick:after{color:#a2654c}
+/* Paper on paper: a whiter scrap and a softer, warmer shadow. */
+:root[data-theme=light] .proto-d .d-sticker{filter:drop-shadow(0 1px 1px rgba(80,55,35,.22)) drop-shadow(0 6px 12px rgba(80,55,35,.18))}
+:root[data-theme=light] .proto-d .d-paper{background:
+    linear-gradient(var(--fold-angle,95deg),transparent calc(var(--fold,50%) - 1px),rgba(255,255,255,.7) var(--fold,50%),rgba(0,0,0,.06) calc(var(--fold,50%) + 1px),transparent calc(var(--fold,50%) + 14px)),
+    radial-gradient(120% 90% at 20% 10%,rgba(255,255,255,.6),transparent 60%),
+    radial-gradient(90% 80% at 85% 90%,rgba(120,100,80,.1),transparent 70%),
+    #fffcf7}
+:root[data-theme=light] .proto-d .d-links a:hover,:root[data-theme=light] .proto-d .d-links a:focus-visible{outline-color:#a2654c}
+:root[data-theme=light] .proto-switch{background:#f7f2eccc;border-color:#e0d5ca;color:#7b6b5f}
+@media(max-width:600px){:root[data-theme=light] .proto-d .d-stage{background:#f7f2ec}}
+:root[data-theme=light] .proto-d .d-tick{background:none!important;border:0!important;box-shadow:none!important}

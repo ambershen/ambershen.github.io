@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>%TITLE% prototype — Amber Shen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=DM+Mono&display=swap" rel="stylesheet" />
+  <script>(function(){var q=new URLSearchParams(location.search),r=document.documentElement;try{var t=q.get("theme");if(t)localStorage.setItem("theme",t);else t=localStorage.getItem("theme");if(t==="light")r.dataset.theme="light"}catch(e){}})();</script>
+  <link rel="stylesheet" href="./shared.css" />
+  <link rel="stylesheet" href="./%CSS%" />
+</head>
+<body>
+  <main id="page"></main>
+  <a class="p-switch" href="./">Prototypes · %LABEL%</a>
+  <script type="module" src="./%JS%"></script>
+</body>
+</html>

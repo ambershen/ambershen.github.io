@@ -555,3 +555,11 @@ body.case-open{overflow:hidden}
 /* Sidebar lists titles only. */
 @media(min-width:761px){.project-choice{padding:10px 12px;margin-bottom:2px}.project-choice strong{font-size:16px}}
 @media(max-width:760px){.project-choice{flex:0 0 auto}}
+/* One sequence through the work: the next project closes every project view. */
+.work-next{display:flex;flex-direction:column;align-items:flex-end;gap:6px;margin-top:72px;padding-top:28px;border-top:1px solid #332c27;color:inherit;text-decoration:none}
+.work-next span{font:400 11px/1.4 'DM Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:#a99b8f}
+.work-next strong{font:400 clamp(26px,2.4vw,34px)/1.15 'Cormorant Garamond',serif;color:#eee8e4;transition:color .2s}
+.work-next:hover strong,.work-next:focus-visible strong{color:#d9b5a3}
+.selected-feature-title a{color:inherit;text-decoration:none;transition:color .2s}
+.selected-feature-title a:hover,.selected-feature-title a:focus-visible{color:#d9b5a3}
+@media(max-width:600px){.work-next{align-items:flex-start;margin-top:56px}}

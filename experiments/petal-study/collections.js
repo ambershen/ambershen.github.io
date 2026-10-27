@@ -3,8 +3,9 @@ import {teachingGroups} from '../../src/data/teaching.js';
 import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
 import {resolveCatalog} from '../../src/data/catalog-assets.js';
 import {videoPoster} from '../../src/data/video-posters.js';
-import {naturalMedia,softMatterMedia} from '../../src/data/case-studies.js';
+import {naturalMedia} from '../../src/data/case-studies.js';
 import {naturalTile} from '../../src/natural-play.js';
+import './sketchbook.css';
 import {articles} from '../../src/data/essays.js';
 import {films as defaultFilms,newsletter,buttondownUrls,socials} from '../../src/data/site.js';
 import {projects as defaultProjects, items as defaultItems, sketchGroups} from '../../src/data/portfolio.js';
@@ -39,13 +40,14 @@ function selectedWork(){
   const feature=node('article','selected-feature');
   const header=node('div','selected-feature-header');
   const heading=node('div');
-  heading.append(node('p','selection-label','01 / INTERACTIVE MATERIALS'),node('h3','selected-feature-title','Natural Effects as the New Brush'));
+  const featureTitle=node('h3','selected-feature-title');const featureLink=node('a','','Natural Effects as the New Brush');featureLink.href='#work/natural-effects';featureTitle.append(featureLink);
+  heading.append(node('p','selection-label','01 / INTERACTIVE MATERIALS'),featureTitle);
   const intro=node('div','selected-feature-intro');
   intro.append(node('p','selected-feature-note','Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.'));
   header.append(heading,intro);
   const materials=node('div','selected-materials');
   naturalMedia.forEach((material,index)=>{
-    const link=node('a','selected-material');link.href=`/work/natural-expressions/#s-${material.id}`;
+    const link=node('a','selected-material');link.href=`#work/natural-effects/${material.id}`;
     const image=naturalTile(material.id,material.title);
     const copy=node('div','selected-material-copy');
     copy.append(node('span','selection-label',`0${index+1} / ${material.kind}`),node('h4','',material.title));
@@ -54,7 +56,8 @@ function selectedWork(){
   const foot=node('div','selected-feature-footer');
   foot.append(node('p','','An ongoing series, with reusable effects and agent skills.'));
   const read=node('a','selected-link','Explore the series');read.href='#work/natural-effects';
-  read.onclick=e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;caseOpener=read;caseOpenedHere=true;};foot.append(read);
+  for(const a of [read,featureLink,...materials.querySelectorAll('a')])a.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;caseOpener=a;caseOpenedHere=true;});
+  foot.append(read);
   feature.append(header,materials,foot);content.append(feature);
   const grid=node('div','selected-projects');
   projects.filter(project=>project.id!=='natural-effects').forEach((project,index)=>{
@@ -69,6 +72,13 @@ function selectedWork(){
     const a=node('a');a.href=href;a.append(node('h3','',label+''),node('p','',text));more.append(a);
   }
   content.append(more);
+}
+// The next work in Work order, opening the way that work opens (case slide or project view).
+function nextWork(id){
+  const list=projects.filter((p,i,all)=>all.findIndex(q=>q.id===p.id)===i),next=list[(list.findIndex(p=>p.id===id)+1)%list.length];
+  const a=node('a','work-next');a.href=`#work/${next.id}`;a.append(node('span','','Next work'),node('strong','',next.title));
+  a.addEventListener('click',()=>{caseOpener=null;caseOpenedHere=false;requestAnimationFrame(()=>scrollTo({top:0,behavior:'instant'}));});
+  return a;
 }
 function projectArchive(){
   modal.classList.add('archive-mode');
@@ -109,7 +119,7 @@ function projectArchive(){
     const links=node('div','project-actions');
     if(project.live){const link=node('a','','Try it');link.href=project.live;link.target='_blank';link.rel='noopener noreferrer';links.append(link);}
     for(const l of project.links||[]){const a=node('a','',l.internal?`${l.label}`:`${l.label}`);a.href=l.url;if(!l.internal){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);}
-    article.append(links);
+    article.append(links,nextWork(id));
     if(updateURL && location.hash!==`#work/${id}`)history.replaceState(null,'',`#work/${id}`);
   }
   for(const project of projects){
@@ -304,34 +314,36 @@ function render(next){
     });content.append(list);return;
   }
 
-  const filters=node('nav','sketch-filters');filters.setAttribute('aria-label','Filter sketchbook');
-  const gallery=node('div','sketch-gallery');gallery.id='sketch-gallery';
-  const makeCard=(item)=>{
-    const card=node('button','work-card');card.type='button';card.setAttribute('aria-label',`View ${item.title}`);
+  // Sketchbook wall: pieces taped up as prints, the title on the print's margin. The group names are the
+  // filter, and the chosen one takes a highlighter swipe. Hover plays a moving piece; click opens it.
+  const filters=node('nav','sb-filters');filters.setAttribute('aria-label','Filter sketchbook');
+  const wall=node('div','sb-wall');wall.id='sketch-gallery';
+  const tilt=seed=>{const x=Math.sin(seed*91.7+13.1)*43758.5453;return x-Math.floor(x);};
+  const prints=items.map((item,i)=>{
+    const card=node('button','sb-print');card.type='button';card.setAttribute('aria-label',`View ${item.title}`);card.dataset.theme=item.theme;
+    card.style.setProperty('--tilt',`${(tilt(i)-.5)*5}deg`);card.style.setProperty('--nudge',`${(tilt(i+7)-.5)*28}px`);card.style.setProperty('--tape',`${(tilt(i+3)-.5)*14}deg`);
+    if(i%5===0)card.classList.add('is-wide');
+    const photo=node('span','sb-photo'),still=media(item);photo.append(still,node('span','sb-caption',item.title));
+    card.append(node('span','sb-tape'),photo);
+    if(item.video){let clip=null;
+      card.addEventListener('pointerenter',()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+        if(!clip){clip=node('video','work-media');clip.muted=true;clip.loop=true;clip.playsInline=true;clip.src=item.video;clip.poster=still.src;still.replaceWith(clip);}
+        clip.play().catch(()=>{});});
+      card.addEventListener('pointerleave',()=>clip?.pause());}
     card.onclick=()=>{if(item.page){location.href=item.page;return;}detail(item,0);artOpener=card;};
-    const frame=node('div','work-media-frame');frame.append(media(item));
-    if(item.video)frame.append(node('span','video-label','Moving image'));
-    card.append(frame,node('h3','',item.title));
-    if(item.exploration)card.append(node('p','sketch-exploration',item.exploration));
-    return card;
-  };
+    wall.append(card);return card;
+  });
   const showSketches=()=>{
-    stopMedia();gallery.replaceChildren();
-    filters.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.filter===sketchFilter)));
-    for(const group of sketchGroups.filter(group=>sketchFilter==='all'||group.id===sketchFilter)){
-      const section=node('section','sketch-section');section.setAttribute('aria-label',group.title);
-      const heading=node('header','sketch-heading');heading.append(node('h3','',group.title),node('p','',group.description));
-      const grid=node('div','sketch-grid');
-      items.filter(item=>item.theme===group.id).forEach(item=>grid.append(makeCard(item)));
-      section.append(heading,grid);gallery.append(section);
-    }
-
+    stopMedia();
+    filters.querySelectorAll('button').forEach(button=>{const on=button.dataset.filter===sketchFilter;button.setAttribute('aria-pressed',String(on));button.classList.toggle('is-on',on);});
+    prints.forEach(card=>{card.hidden=sketchFilter!=='all'&&card.dataset.theme!==sketchFilter;});
   };
-  for(const group of [{id:'all',title:'All'},...sketchGroups]){
-    const button=node('button','',group.title);button.type='button';button.dataset.filter=group.id;button.setAttribute('aria-controls','sketch-gallery');
+  [{id:'all',title:'All'},...sketchGroups].forEach((group,i,all)=>{
+    const button=node('button','sb-filter',group.title);button.type='button';button.dataset.filter=group.id;button.setAttribute('aria-controls','sketch-gallery');
     button.onclick=()=>{sketchFilter=group.id;showSketches();};filters.append(button);
-  }
-  content.append(filters,gallery);showSketches();modal.scrollTop=0;
+    if(i<all.length-1)filters.append(node('span','sb-dot','·'));
+  });
+  content.append(filters,wall);showSketches();modal.scrollTop=0;
 }
 let articleOrigin=null;
 let readingAnimations=[];
@@ -375,7 +387,7 @@ function showPage(next,focus=false){
 // Back, Esc and "Work" slide it away again.
 let slide=null,slideFrame=null,slideClose=null,slideFull=null,caseOpener=null,caseOpenedHere=false;
 function leaveCase(){if(caseOpenedHere){caseOpenedHere=false;history.back();}else{history.replaceState(null,'','#work');route();}}
-function openCase(project){
+function openCase(project,part){
   if(!slide){
     slide=node('div','case-slide');slide.hidden=true;slide.setAttribute('role','dialog');slide.setAttribute('aria-modal','true');
     const bar=node('div','case-slide-bar');
@@ -385,10 +397,12 @@ function openCase(project){
     slideFrame.addEventListener('load',()=>{try{slideFrame.contentWindow.addEventListener('keydown',e=>{if(e.key==='Escape')leaveCase();});}catch{}});
     bar.append(slideClose,slideFull);slide.append(bar,slideFrame);document.body.append(slide);
     addEventListener('keydown',e=>{if(e.key==='Escape'&&slide.classList.contains('open'))leaveCase();});
-    addEventListener('message',e=>{if(e.origin===location.origin&&e.data?.type==='case-close')leaveCase();});
+    addEventListener('message',e=>{if(e.origin!==location.origin)return;if(e.data?.type==='case-close')leaveCase();if(e.data?.type==='case-open'&&typeof e.data.id==='string')location.hash=`work/${e.data.id}`;});
   }
   slide.setAttribute('aria-label',project.title);slideFrame.title=project.title;slideFull.href=project.page;
-  if(slideFrame.dataset.page!==project.page){slideFrame.dataset.page=project.page;slideFrame.src=project.page+'?embed';}
+  const anchor=part?`#s-${part}`:'';
+  if(slideFrame.dataset.page!==project.page){slideFrame.dataset.page=project.page;slideFrame.src=project.page+'?embed'+anchor;}
+  else{try{if(anchor)slideFrame.contentWindow.location.hash=anchor;else slideFrame.contentWindow.scrollTo(0,0);}catch{}}
   slide.hidden=false;slide.offsetWidth;slide.classList.add('open');document.body.classList.add('case-open');
   slideClose.focus({preventScroll:true,focusVisible:false});
 }
@@ -412,8 +426,8 @@ async function route(focus=false){
     }
     catalogApplied=true;
   }
-  if(hash.startsWith('#work/')){const id=projectAliases[hash.slice(6)]||hash.slice(6),project=projects.find(p=>p.id===id);
-    if(project?.page){activeProject=project.id;if(modal.hidden||category!=='products')showPage('products');openCase(project);return;}
+  if(hash.startsWith('#work/')){const [slug,part]=hash.slice(6).split('/'),id=projectAliases[slug]||slug,project=projects.find(p=>p.id===id);
+    if(project?.page){activeProject=project.id;if(modal.hidden||category!=='products')showPage('products');openCase(project,part);return;}
     closeCase();if(project)activeProject=id;showPage('products',focus);return;}
   closeCase();
   showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#film'?'film':hash==='#teaching'?'teaching':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
@@ -423,18 +437,5 @@ document.querySelector('#close-art').addEventListener('click',()=>viewer.close()
 viewer.addEventListener('click',event=>{if(event.target!==viewer)return;const box=viewer.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)viewer.close();});
 viewer.addEventListener('close',()=>{artDetail.querySelectorAll('video').forEach(video=>video.pause());document.body.classList.remove('art-is-open');artOpener?.focus({preventScroll:true});});
 window.addEventListener('hashchange',()=>route(true));route();
-
-// Static, lazy covers keep the homepage independent of a database round trip.
-for(const [selector,items] of [['#home-natural-media',naturalMedia],['#home-soft-media',softMatterMedia]]){
-  const frame=document.querySelector(selector);
-  if(frame&&selector==='#home-natural-media'){for(const item of items)frame.append(naturalTile(item.id,item.title));continue;}
-  if(frame)for(const item of items){const img=node('img');img.src=item.id==='sand'?new URL('../../images/natural-expressions/sand-featured.jpg',import.meta.url).href:item.poster||item.image;img.alt=item.title;img.loading='lazy';img.decoding='async';if(selector==='#home-soft-media'){
-      const heights={Purl:391,Ganache:419,Tangle:619,Picot:474};
-      const h=heights[item.title],pad=(624-h)/2,ns='http://www.w3.org/2000/svg';
-      const svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 832 624');svg.setAttribute('preserveAspectRatio','none');svg.setAttribute('role','img');svg.setAttribute('aria-label',item.title);
-      const slice=(y,height,viewY,viewHeight)=>{const part=document.createElementNS(ns,'svg');part.setAttribute('y',y);part.setAttribute('width','832');part.setAttribute('height',height);part.setAttribute('viewBox',`0 ${viewY} 832 ${viewHeight}`);part.setAttribute('preserveAspectRatio','none');const image=document.createElementNS(ns,'image');image.setAttribute('href',img.src);image.setAttribute('width','832');image.setAttribute('height',h);part.append(image);svg.append(part);};
-      slice(0,pad,0,1);slice(pad,h,0,h);slice(pad+h,pad,h-1,1);frame.append(svg);
-    }else if(item.id==='sand'){const crop=node('div','sand-cover-crop');crop.append(img);frame.append(crop);}else frame.append(img);}
-}
 
 document.querySelectorAll('[data-scroll-featured]').forEach(button=>button.addEventListener('click',()=>{document.querySelector('#home-featured')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));
