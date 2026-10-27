@@ -223,7 +223,7 @@ function render(next){
   modal.classList.toggle('reading-mode',reading);
   document.title=reading?selectedArticle.title+' — Amber Shen':'Amber Shen — Creative Technologist';
   title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',film:'Selected Films',writing:'Writing',teaching:'Teaching & Sharing'}[category];
-  description.textContent={selected:'A few things from my world.',products:'Exploring code, AI, and materials as tools for expression.',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb,teaching:'Making technical ideas easier to understand, explore, and build with.'}[category];
+  description.textContent={selected:'A few things from my world.',products:'',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb,teaching:'Making technical ideas easier to understand, explore, and build with.'}[category];
   if(category==='products'){if(location.hash.startsWith('#work/') && projects.some(p=>p.id===activeProject && !p.page))projectArchive();else selectedWork();modal.scrollTop=0;return;}
   if(category==='film'){filmRoom();modal.scrollTop=0;return;}
   if(category==='teaching'){

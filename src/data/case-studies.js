@@ -54,7 +54,7 @@ export const softMatterMedia = [
 export const caseStudies = [
   {
     slug:'soft-matter',title:'Soft Matter',year:'2026',medium:'Creative coding · Type design · Material studies',
-    tagline:'Everyday objects become fonts. Fonts become new objects.',status:'published',cover:false,gallery:[],sections:{},
+    tagline:'Everyday materials become fonts. The fonts become new objects.',status:'published',cover:false,gallery:[],sections:{},
     opening:{toc:'Overview',title:'Four materials. Four ways to write.',blocks:[{specimens:softMatterMedia,compact:true}]},
     chapters:[
       {key:'origins-materials',label:'Looking for letters in everyday things',toc:'The starting point',blocks:[
@@ -117,7 +117,7 @@ export const caseStudies = [
     sections: {},
     chapters: [
       {key: 'question', label: 'What if natural materials became a language for interaction?', toc: 'The inquiry', blocks: [
-        {lead: 'Water listens. Sand tells a story. Ice responds to touch.'},
+        {lead: 'Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.'},
         'Natural Effects explores how the familiar behavior of a material can become a way to express something. Across water, sand, and ice, I am developing three distinct interactions: voice translated into ripples, agent-led drawing for projected storytelling, and touch translated into simulated pressure and fracture.',
         'How can natural materials become a new canvas for self-expression—one where we can recreate familiar sensations and make something new through a digital experience?',
       ]},

@@ -122,8 +122,8 @@ const items=[...interactive,...selectedPaintings.map(title=>({...paintings.find(
   return {...item,theme,exploration};
 });
 const projects=[
-  {id:'natural-effects',title:'Natural Effects as the New Brush',tagline:'Voice, storytelling, and touch through three materials.',page:'/work/natural-expressions/'},   // opens the full case study
-  {id:'soft-matter',title:'Soft Matter',tagline:'Everyday materials become typography, shaping a unique visual system.',page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
+  {id:'natural-effects',title:'Natural Effects as the New Brush',tagline:'Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.',page:'/work/natural-expressions/'},   // opens the full case study
+  {id:'soft-matter',title:'Soft Matter',tagline:'Everyday materials become fonts. The fonts become new objects.',page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
   {id:'live-visuals',title:'Live Visuals / VJ',tagline:'Imagined spaces, sound, and moving images.',
     summary:'Visual experiments in sound, atmosphere, and imagined spaces.',
     image:dataCenterPoster,
