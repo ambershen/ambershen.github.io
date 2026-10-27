@@ -522,3 +522,8 @@ body.case-open{overflow:hidden}
 .teaching-media.is-x-embed iframe{height:revert}
 .teaching-embed-status{padding:20px 0}
 .teaching-source-link{display:inline-block;margin-top:14px;color:#d9b5a3;font:13px/1.6 'Manrope',sans-serif;text-underline-offset:4px}
+
+/* Frame the projected drawing without the surrounding room. */
+.sand-cover-crop{min-width:0;min-height:0;overflow:hidden}
+.home-feature .sand-cover-crop img{transform:scale(2.3);transform-origin:50% 22%}
+.home-feature:hover .sand-cover-crop img{transform:scale(2.35)}
