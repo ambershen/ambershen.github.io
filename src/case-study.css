@@ -258,3 +258,4 @@ html{scroll-behavior:smooth}
 .cs-specimens.is-compact .cs-specimen figcaption{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:baseline}
 .cs-specimens.is-compact .cs-specimen figcaption h3{order:-1}
 @media(max-width:540px){.cs-specimens{grid-template-columns:1fr}}
+@media(max-width:600px){.site-header .header-nav{min-width:0;flex:1;overflow-x:auto;gap:16px;scrollbar-width:none}.site-header .header-nav .collection{flex-shrink:0;font-size:12px}.site-header .theme-toggle{flex-shrink:0}}

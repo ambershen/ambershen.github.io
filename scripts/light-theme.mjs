@@ -11,6 +11,7 @@ const SCOPE = ':root[data-theme=light]';
 const targets = [
   ['experiments/petal-study/style.css', 'experiments/petal-study/light.css', `
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
+${SCOPE} .soft-feature{background:#e8dfd3}
 ${SCOPE} .word:hover,${SCOPE} .word.selected{background:#efd8ca;color:#2a211c;border-color:#efd8ca}
 ${SCOPE} .work-filters button[aria-pressed=true]{background:#2a211c;color:#f7f2ec;border-color:#2a211c}
 ${SCOPE} .film-play:hover .film-play-icon{background:#a2654c;color:#f7f2ec}

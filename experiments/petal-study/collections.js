@@ -310,6 +310,7 @@ function showPage(next,focus=false){
   if(viewer.open)viewer.close();
   if(!home.hidden && next!=='home')homeScroll=window.scrollY;
   stopMedia();home.hidden=next!=='home';modal.hidden=next==='home';
+  const featured=document.querySelector('#home-featured');if(featured)featured.hidden=next!=='home';
   document.querySelectorAll('[data-page]').forEach(link=>{
     if(link.dataset.page===next)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
   });
@@ -368,3 +369,9 @@ document.querySelector('#close-art').addEventListener('click',()=>viewer.close()
 viewer.addEventListener('click',event=>{if(event.target!==viewer)return;const box=viewer.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)viewer.close();});
 viewer.addEventListener('close',()=>{artDetail.querySelectorAll('video').forEach(video=>video.pause());document.body.classList.remove('art-is-open');artOpener?.focus({preventScroll:true});});
 window.addEventListener('hashchange',()=>route(true));route();
+
+// Static, lazy covers keep the homepage independent of a database round trip.
+for(const [selector,items] of [['#home-natural-media',naturalMedia],['#home-soft-media',softMatterMedia]]){
+  const frame=document.querySelector(selector);
+  if(frame)for(const item of items){const img=node('img');img.src=item.poster||item.image;img.alt=item.title;img.loading='lazy';img.decoding='async';frame.append(img);}
+}

@@ -762,8 +762,34 @@
 :root[data-theme=light] .soft-matter-cover {
     background: #e8e1da
 }
+:root[data-theme=light] .home-featured .featured-label {
+    color: #7b6b5f
+}
+:root[data-theme=light] .home-featured>h2 {
+    color: #2a211c
+}
+:root[data-theme=light] .home-feature {
+    color: inherit;
+    text-decoration: none
+}
+:root[data-theme=light] .home-feature-media {
+    background: #e0d5ca
+}
+:root[data-theme=light] .soft-feature {
+    background: #312a21
+}
+:root[data-theme=light] .home-feature>p:last-child {
+    color: #7b6b5f
+}
+:root[data-theme=light] .home-contact {
+    border-top: 1px solid #e0d5ca
+}
+:root[data-theme=light] .home-contact a {
+    color: #a2654c
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
+:root[data-theme=light] .soft-feature{background:#e8dfd3}
 :root[data-theme=light] .word:hover,:root[data-theme=light] .word.selected{background:#efd8ca;color:#2a211c;border-color:#efd8ca}
 :root[data-theme=light] .work-filters button[aria-pressed=true]{background:#2a211c;color:#f7f2ec;border-color:#2a211c}
 :root[data-theme=light] .film-play:hover .film-play-icon{background:#a2654c;color:#f7f2ec}
