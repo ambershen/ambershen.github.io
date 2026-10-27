@@ -363,3 +363,44 @@
 :root[data-theme=light] .cs-application-crop {
     background: #e8e1da
 }
+:root[data-theme=light] .cs-editorial .cs-part {
+    border-top: 1px solid var(--line)
+}
+:root[data-theme=light] .cs-editorial .cs-section p.cs-part-label {
+    color: var(--accent)
+}
+:root[data-theme=light] .cs-part-label span+span {
+    color: var(--muted)
+}
+:root[data-theme=light] .cs-part-label span+span:before {
+    background: var(--line)
+}
+:root[data-theme=light] .cs-editorial .cs-actions p {
+    color: var(--soft)
+}
+:root[data-theme=light] .cs-stage-media .cs-loop {
+    background: #ebe5de
+}
+:root[data-theme=light] .cs-stage-media figcaption {
+    color: var(--muted)
+}
+:root[data-theme=light] .cs-loop {
+    background: #ebe5de
+}
+:root[data-theme=light] .cs-appendix {
+    border-top: 1px solid var(--line)
+}
+:root[data-theme=light] .cs-toc a.is-current {
+    color: var(--ink);
+    border-left-color: var(--accent)
+}
+:root[data-theme=light] .cs-toc a.is-part:before {
+    color: var(--accent)
+}
+:root[data-theme=light] .cs-demo {
+    color: var(--accent);
+    text-decoration: underline
+}
+:root[data-theme=light] .cs-demo:hover, :root[data-theme=light] .cs-demo:focus-visible {
+    color: var(--ink)
+}

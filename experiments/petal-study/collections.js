@@ -4,6 +4,7 @@ import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
 import {resolveCatalog} from '../../src/data/catalog-assets.js';
 import {videoPoster} from '../../src/data/video-posters.js';
 import {naturalMedia,softMatterMedia} from '../../src/data/case-studies.js';
+import {naturalTile} from '../../src/natural-play.js';
 import {articles} from '../../src/data/essays.js';
 import {films as defaultFilms,newsletter,buttondownUrls,socials} from '../../src/data/site.js';
 import {projects as defaultProjects, items as defaultItems, sketchGroups} from '../../src/data/portfolio.js';
@@ -45,7 +46,7 @@ function selectedWork(){
   const materials=node('div','selected-materials');
   naturalMedia.forEach((material,index)=>{
     const link=node('a','selected-material');link.href=`/work/natural-expressions/#s-${material.id}`;
-    const image=node('img');image.src=material.poster;image.alt=`${material.title} material study`;image.loading='lazy';
+    const image=naturalTile(material.id,material.title);
     const copy=node('div','selected-material-copy');
     copy.append(node('span','selection-label',`0${index+1} / ${material.kind}`),node('h4','',material.title));
     link.append(image,copy);materials.append(link);
@@ -112,7 +113,7 @@ function projectArchive(){
     if(updateURL && location.hash!==`#work/${id}`)history.replaceState(null,'',`#work/${id}`);
   }
   for(const project of projects){
-    const button=node(project.page?'a':'button','project-choice');button.dataset.project=project.id;button.append(node('strong','',project.page?`${project.title}`:project.title),node('span','',project.tagline));
+    const button=node(project.page?'a':'button','project-choice');button.dataset.project=project.id;button.append(node('strong','',project.title));
     if(project.page){button.href=project.page;button.onclick=e=>{if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();caseOpener=button;caseOpenedHere=true;location.hash=`work/${project.id}`;};}
     else button.onclick=()=>select(project.id);
     directory.append(button);
@@ -389,7 +390,7 @@ function openCase(project){
   slide.setAttribute('aria-label',project.title);slideFrame.title=project.title;slideFull.href=project.page;
   if(slideFrame.dataset.page!==project.page){slideFrame.dataset.page=project.page;slideFrame.src=project.page+'?embed';}
   slide.hidden=false;slide.offsetWidth;slide.classList.add('open');document.body.classList.add('case-open');
-  slideClose.focus({preventScroll:true});
+  slideClose.focus({preventScroll:true,focusVisible:false});
 }
 function closeCase(){
   if(!slide?.classList.contains('open'))return;
@@ -426,6 +427,7 @@ window.addEventListener('hashchange',()=>route(true));route();
 // Static, lazy covers keep the homepage independent of a database round trip.
 for(const [selector,items] of [['#home-natural-media',naturalMedia],['#home-soft-media',softMatterMedia]]){
   const frame=document.querySelector(selector);
+  if(frame&&selector==='#home-natural-media'){for(const item of items)frame.append(naturalTile(item.id,item.title));continue;}
   if(frame)for(const item of items){const img=node('img');img.src=item.id==='sand'?new URL('../../images/natural-expressions/sand-featured.jpg',import.meta.url).href:item.poster||item.image;img.alt=item.title;img.loading='lazy';img.decoding='async';if(selector==='#home-soft-media'){
       const heights={Purl:391,Ganache:419,Tangle:619,Picot:474};
       const h=heights[item.title],pad=(624-h)/2,ns='http://www.w3.org/2000/svg';

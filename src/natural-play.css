@@ -1,0 +1,12 @@
+.np-tile{position:relative;overflow:hidden;background:#12100e;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none;cursor:crosshair}
+.np-tile canvas{position:absolute;inset:0;display:block;width:100%;height:100%}
+.np-tile.np-flat{background:#c9a676}
+
+.np-sound{position:absolute;right:8px;bottom:8px;z-index:1;display:grid;place-items:center;width:32px;height:32px;padding:0;border:0;border-radius:50%;background:rgba(12,11,10,.42);color:#f4eee8;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .2s}
+.np-sound:hover,.np-sound:focus-visible{background:rgba(12,11,10,.7)}
+.np-sound svg{width:17px;height:17px}
+.np-sound[aria-pressed=false]{opacity:.75}
+@media(max-width:520px){.np-sound{width:28px;height:28px;right:5px;bottom:5px}.np-sound svg{width:15px;height:15px}}
+
+.np-hint{position:absolute;left:8px;bottom:8px;display:flex;align-items:center;height:32px;padding:0 12px;border-radius:999px;background:rgba(12,11,10,.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);font:10px/1 'DM Mono',ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:#f4eee8;pointer-events:none;white-space:nowrap}
+@media(max-width:520px){.np-hint{left:5px;bottom:5px;height:28px;padding:0 8px;font-size:8px;letter-spacing:.02em}}

@@ -154,7 +154,6 @@ export const caseStudies = [
             {title: 'Connect spoken words to emotion', text: 'A speech-to-text (STT) model transcribes spoken words for emotion mapping. The current prototype uses Fish Audio. Real-time translation remains a limitation: the transcription and interpretation introduce a delay between speaking and seeing the water respond.'},
             {title: 'Let water retell the emotion', text: 'I then map the interpreted emotion to the behavior of the ripples: how they gather, spread, overlap, and settle. The aim is to give water an expressive voice, allowing a feeling to unfold again through movement.'},
           ],
-          decision: {label: 'Design decision', title: 'The surface is the visualization.', text: 'Sound changes how the water behaves, rather than adding a separate waveform or chart. The material remains the expressive medium.'},
         }},
       ]},
       {key: 'sand', label: 'Sand', toc: 'Sand · Storytelling', material: true, blocks: [
@@ -224,7 +223,7 @@ export const caseStudies = [
         {lead: 'A material study can become a recipe for something new.'},
         'I extract the effects and their interaction principles into reusable skills for coding agents. Each skill carries a material’s behavior: how it responds to input, how a mark builds, and what continues after contact ends.',
         'These skills can serve as recipes for UI design, new materials, and new interfaces. Water’s motion could shape responsive feedback; ice’s accumulated contact could inform an interface that responds to sustained input. Combining behaviors or changing the input opens up new surfaces and ways to interact.',
-        {link: {text: 'The open-source collection includes five material skills, shared touch and hand-tracking behaviors, and a Temporary Canvas recipe to adapt and combine in new designs.', label: 'Explore the Natural Effect skills', url: 'https://github.com/ambershen/natural-effect'}},
+        {link: {text: 'The open-source collection includes five material skills, shared touch and hand-tracking behaviors, and a Temporary Canvas recipe to adapt and combine in new designs.', label: 'Explore the Natural Effect skills', url: 'https://github.com/ambershen/natural-effect', more: {label: 'Try the material prototypes', url: 'https://naturaleffects.vercel.app/'}}},
       ]},
       {key: 'implementation', label: 'Implementation', blocks: [
         {meta: 'Material simulation & interaction: TypeScript · Vite · Canvas 2D · WebGL shaders · MediaPipe hand tracking · Pointer and touchscreen input.'},

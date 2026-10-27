@@ -830,6 +830,9 @@
 :root[data-theme=light] .home-feature-media {
     background: #ebe5de
 }
+:root[data-theme=light] .case-slide-close:focus:not(:focus-visible) {
+    outline: none
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
 :root[data-theme=light] .soft-feature{background:#e8dfd3}

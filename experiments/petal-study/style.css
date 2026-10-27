@@ -544,3 +544,14 @@ body.case-open{overflow:hidden}
   .selected-project{grid-column:span 2}
   .selected-project:nth-child(-n+2){grid-column:span 3}
 }
+.selected-material .np-tile{aspect-ratio:4/5}
+@media(max-width:760px){.selected-material .np-tile{aspect-ratio:3/4}}
+.natural-feature .np-tile{min-width:0;min-height:0}
+.natural-feature{position:relative}
+/* The slide's Work link takes focus on open; keep its keyboard ring a quiet underline-sized box, never a circle. */
+.case-slide-close{border-radius:2px}
+.case-slide-close:focus:not(:focus-visible){outline:none}
+.case-slide-close:before{content:'← '}
+/* Sidebar lists titles only. */
+@media(min-width:761px){.project-choice{padding:10px 12px;margin-bottom:2px}.project-choice strong{font-size:16px}}
+@media(max-width:760px){.project-choice{flex:0 0 auto}}

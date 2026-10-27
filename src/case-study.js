@@ -1,4 +1,5 @@
 import {loadPortfolio} from './data/portfolio-cloud.js';
+import {naturalTile} from './natural-play.js';
 import {resolveCatalog} from './data/catalog-assets.js';
 import './case-study.css';
 import './case-study-light.css';
@@ -36,6 +37,27 @@ function media(item, alt) {
   const ph = el('div', 'cs-media cs-media-placeholder');
   ph.append(el('span', '', item?.placeholder || 'Cover image or film — coming soon'));
   return ph;
+}
+
+// Drafts and ambient clips play like GIFs: muted, looping, only while on screen.
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const loopWatcher = 'IntersectionObserver' in window && !still ? new IntersectionObserver(entries => {
+  for (const entry of entries) entry.isIntersecting ? entry.target.play().catch(() => {}) : entry.target.pause();
+}, {rootMargin: '200px 0px'}) : null;
+function loop(src, poster, label) {
+  const v = el('video', 'cs-media cs-loop'); v.src = src; if (poster) v.poster = poster;
+  v.muted = true; v.setAttribute('muted', ''); v.loop = true; v.playsInline = true; v.preload = 'none';
+  v.setAttribute('aria-label', label);
+  if (loopWatcher) loopWatcher.observe(v); else v.controls = true;
+  return v;
+}
+
+// Size a player from its poster so recordings keep their own proportions.
+function fitToPoster(v) {
+  if (!v.poster) return;
+  const probe = new Image();
+  probe.onload = () => { v.style.aspectRatio = `${probe.naturalWidth} / ${probe.naturalHeight}`; };
+  probe.src = v.poster;
 }
 
 // Content blocks for studies that define their own chapters.
@@ -92,7 +114,7 @@ function block(b) {
     const group = el('div', 'cs-experience');
     group.append(el('h3', 'cs-block-label', experience.label));
     const figure = el('figure', 'cs-figure');
-    const video = media(experience, experience.caption); video.preload = 'none';
+    const video = media(experience, experience.caption); video.preload = 'none'; fitToPoster(video);
     figure.append(video, el('figcaption', '', experience.caption));
     const actions = el('ol', 'cs-actions');
     for (const [i, action] of experience.actions.entries()) {
@@ -117,8 +139,16 @@ function block(b) {
     const stages = el('ol', 'cs-development-stages');
     for (const stage of development.stages) {
       const item = el('li');
-      item.append(el('h4', '', stage.title), el('p', '', stage.text));
-      if (stage.media) item.append(block(stage.media));
+      const text = el('div', 'cs-stage-text');
+      text.append(el('h4', '', stage.title), el('p', '', stage.text));
+      item.append(text);
+      if (stage.media?.video) { // a draft beside the step it documents
+        item.classList.add('has-media');
+        const figure = el('figure', 'cs-stage-media');
+        figure.append(loop(stage.media.video, stage.media.poster, stage.media.caption || stage.title));
+        if (stage.media.caption) figure.append(el('figcaption', '', stage.media.caption));
+        item.append(figure);
+      } else if (stage.media) item.append(block(stage.media));
       stages.append(item);
     }
     group.append(stages);
@@ -143,17 +173,15 @@ function block(b) {
   if (b.link) {
     const n = el('aside', 'cs-callout'), a = el('a', '', `${b.link.label}`);
     a.href = b.link.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-    n.append(el('p', '', b.link.text), a); return n;
+    n.append(el('p', '', b.link.text), a);
+    if (b.link.more) { const m = el('a', '', b.link.more.label); m.href = b.link.more.url; m.target = '_blank'; m.rel = 'noopener noreferrer'; n.append(m); }
+    return n;
   }
   const fig = el('figure', 'cs-figure');
   if (b.diagram === 'process') fig.append(processFlow());
   else if (b.loops) { // muted ambient clips that play like moving photographs
     const grid = el('div', 'cs-loops');
-    for (const l of b.loops) {
-      const v = el('video', 'cs-media'); v.src = l.video; v.poster = l.poster;
-      v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = false; v.controls = true; v.preload = 'none';
-      v.setAttribute('aria-label', b.caption); grid.append(v);
-    }
+    for (const l of b.loops) grid.append(loop(l.video, l.poster, b.caption));
     fig.append(grid);
   }
   else if (b.image) fig.append(media({image:b.image},b.caption||''));
@@ -183,6 +211,10 @@ if (!study) {
     }
     hero.append(el('h1', 'cs-title', study.title));
     if (study.tagline) hero.append(el('p', 'cs-tagline', study.tagline));
+    if (study.links[0]) { // the live demo, where a reader looks first
+      const demo = el('a', 'cs-demo', study.links[0].label); demo.href = study.links[0].url; demo.target = '_blank'; demo.rel = 'noopener noreferrer';
+      hero.append(demo);
+    }
     if (study.opening) {
       const opening = el('section', 'cs-opening'); opening.id = 's-origins';
       opening.append(el('h2', '', study.opening.title));
@@ -196,8 +228,7 @@ if (!study) {
       materials.setAttribute('aria-label', 'Explore the three materials');
       for (const [i, material] of study.materials.entries()) {
         const link = el('a', 'cs-material'); link.href = `#s-${material.id}`;
-        const image = el('img'); image.src = material.poster; image.alt = `${material.title} material study`; image.loading = 'lazy'; image.decoding = 'async';
-        link.append(image, el('span', 'cs-material-kind', `${String(i + 1).padStart(2, '0')} / ${material.kind}`), el('h2', '', material.title), el('p', '', `${material.interaction}`));
+        link.append(naturalTile(material.id, material.title), el('span', 'cs-material-kind', `${String(i + 1).padStart(2, '0')} / ${material.kind}`), el('h2', '', material.title), el('p', '', `${material.interaction}`));
         materials.append(link);
       }
       hero.append(materials);
@@ -218,13 +249,36 @@ if (!study) {
     const beginning = el('a', '', study.opening.toc || 'The starting point'); beginning.href = '#s-origins'; toc.append(beginning);
   }
   const sections = el('div', 'cs-sections');
+  // Studies with materials read as parts: one per material, then the reusable skills.
+  const isPart = ch => ch.material || (study.materials && ch.key === 'tools');
+  const hasParts = study.chapters?.some(isPart);
+  let partCount = 0, lastSection = null, lastWasPart = false;
   if (study.chapters) for (const [i, ch] of study.chapters.entries()) {
     const id = `s-${ch.key}`;
-    const a = el('a', '', ch.toc || ch.label); a.href = `#${id}`; toc.append(a);
-    const sec = el('section', ch.material ? 'cs-section cs-material-chapter' : 'cs-section'); sec.id = id;
-    sec.append(el('p', 'cs-num', String(i + 1).padStart(2, '0')), el('h2', ch.label.length > 60 ? 'cs-h2-question' : '', ch.label));
+    if (hasParts && ch.key === 'implementation' && lastWasPart) { // the build notes close the skills part
+      const appendix = el('div', 'cs-appendix'); appendix.id = id;
+      appendix.append(el('h3', 'cs-block-label', ch.label));
+      for (const b of ch.blocks) { const n = block(b); if (n) appendix.append(n); }
+      lastSection.append(appendix);
+      continue;
+    }
+    const part = isPart(ch);
+    const a = el('a', part ? 'is-part' : '', ch.toc || ch.label); a.href = `#${id}`; toc.append(a);
+    const sec = el('section', ['cs-section', ch.material && 'cs-material-chapter', part && 'cs-part'].filter(Boolean).join(' ')); sec.id = id;
+    if (part) {
+      partCount += 1;
+      const kind = study.materials?.find(m => m.id === ch.key)?.kind || ch.toc;
+      const label = el('p', 'cs-part-label');
+      label.append(el('span', '', `Part ${String(partCount).padStart(2, '0')}`));
+      if (kind) label.append(el('span', '', kind));
+      sec.append(label, el('h2', ch.label.length > 24 ? 'cs-part-title is-long' : 'cs-part-title', ch.label));
+    } else {
+      if (!hasParts) sec.append(el('p', 'cs-num', String(i + 1).padStart(2, '0')));
+      sec.append(el('h2', ch.label.length > 60 ? 'cs-h2-question' : '', ch.label));
+    }
     for (const b of ch.blocks) { const n = block(b); if (n) sec.append(n); }
     sections.append(sec);
+    lastSection = sec; lastWasPart = part;
   }
   else for (const s of caseStudySections.filter(s => editing || study.sections[s.key] || (s.key === 'process' && study.gallery.length))) {
     const i = toc.children.length;
@@ -271,4 +325,17 @@ if (!study) {
   };
   requestAnimationFrame(scrollToChapter);
   if (document.readyState !== 'complete') addEventListener('load', scrollToChapter, {once: true});
+
+  // Keep the reader's place in the table of contents.
+  const tocLinks = [...toc.querySelectorAll('a')];
+  const targets = tocLinks.map(link => document.getElementById(link.hash.slice(1)));
+  let pending = false;
+  const markCurrent = () => {
+    pending = false;
+    let current = -1;
+    targets.forEach((target, i) => { if (target && target.getBoundingClientRect().top < innerHeight * .35) current = i; });
+    tocLinks.forEach((link, i) => link.classList.toggle('is-current', i === current));
+  };
+  addEventListener('scroll', () => { if (!pending) { pending = true; requestAnimationFrame(markCurrent); } }, {passive: true});
+  markCurrent();
 }
