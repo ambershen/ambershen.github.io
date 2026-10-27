@@ -1,0 +1,18 @@
+.contact-launcher,.contact-dialog{--contact-bg:#211e1b;--contact-ink:#eee8e4;--contact-muted:#b9aca0;--contact-line:#55493f;--contact-field:#171513;color:var(--contact-ink);font-family:'Manrope',sans-serif}
+:root[data-theme=light] .contact-launcher,:root[data-theme=light] .contact-dialog{--contact-bg:#f7f3ed;--contact-ink:#302923;--contact-muted:#78695b;--contact-line:#d7cbbc;--contact-field:#fffaf3}
+.contact-launcher{position:fixed;right:24px;bottom:24px;z-index:80;border:1px solid var(--contact-line);border-radius:30px;padding:13px 21px;background:var(--contact-bg);font-size:13px;cursor:pointer;box-shadow:0 5px 24px #0002}
+.contact-dialog{position:fixed;inset:auto 24px 24px auto;box-sizing:border-box;width:380px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);margin:0;padding:30px;border:1px solid var(--contact-line);border-radius:16px;background:var(--contact-bg);box-shadow:0 15px 70px #0003;overflow:auto}
+.contact-dialog::backdrop{background:#0002}
+.contact-dialog h2{font:400 38px/1.1 'Cormorant Garamond',serif;margin:0 0 10px}
+.contact-dialog>p{font-size:13px;line-height:1.6;color:var(--contact-muted);margin:0 0 23px}
+.contact-close{position:absolute;right:14px;top:10px;background:none;border:0;color:var(--contact-muted);font-size:27px;width:36px;height:36px;cursor:pointer}
+.contact-dialog label{display:block;font-size:12px;margin:16px 0 7px}
+.contact-dialog input,.contact-dialog textarea{box-sizing:border-box;width:100%;padding:12px;border:1px solid var(--contact-line);border-radius:6px;background:var(--contact-field);color:var(--contact-ink);font:14px/1.6 'Manrope',sans-serif}
+.contact-dialog textarea{resize:vertical;min-height:130px}
+.contact-dialog input:focus-visible,.contact-dialog textarea:focus-visible,.contact-dialog button:focus-visible,.contact-launcher:focus-visible{outline:2px solid #b98261;outline-offset:3px}
+.contact-send{width:100%;margin-top:18px;padding:12px;background:var(--contact-ink);color:var(--contact-bg);border:0;border-radius:6px;font:14px 'Manrope',sans-serif;cursor:pointer}
+.contact-send:disabled{opacity:.6;cursor:wait}
+.contact-dialog .contact-status{font-size:12px;line-height:1.6;margin:12px 0 0;color:var(--contact-muted)}
+.contact-status:empty{display:none}
+.contact-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+@media(max-width:500px){.contact-dialog{right:16px;bottom:16px;padding:24px}.contact-launcher{right:16px;bottom:16px}}
