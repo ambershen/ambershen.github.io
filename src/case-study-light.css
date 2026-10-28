@@ -404,3 +404,6 @@
 :root[data-theme=light] .cs-demo:hover, :root[data-theme=light] .cs-demo:focus-visible {
     color: var(--ink)
 }
+:root[data-theme=light] {
+    scrollbar-color: #cfc7be #f7f2ec
+}

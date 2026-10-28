@@ -9,11 +9,12 @@ if (!new URLSearchParams(location.search).has('embed')) {
   launcher.setAttribute('aria-controls', 'contact-dialog');
   const dialog = document.createElement('dialog');
   dialog.id = 'contact-dialog';
+  dialog.tabIndex = -1; // focus lands on the dialog itself, not as a ring around the close button
   dialog.className = 'contact-dialog';
   dialog.setAttribute('aria-labelledby', 'contact-title');
   dialog.innerHTML = `<button type="button" class="contact-close" aria-label="Close contact form">×</button>
     <h2 id="contact-title">Say hello.</h2>
-    <p>A question, an idea, or just a hello.</p>
+    <p>Open to collaborations and commissions, or just a hello.</p>
     <form>
       <label for="contact-email">Your email</label>
       <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required>
@@ -35,7 +36,7 @@ if (!new URLSearchParams(location.search).has('embed')) {
   addEventListener('scroll', tuck, {passive: true});
   addEventListener('hashchange', tuck);
   let opener = launcher;
-  function open(trigger) { opener = trigger; if (!dialog.open) dialog.showModal(); }
+  function open(trigger) { opener = trigger; if (!dialog.open) { dialog.showModal(); dialog.focus(); } }
   launcher.addEventListener('click', () => open(launcher));
   document.addEventListener('click', event => {
     const trigger = event.target.closest('[data-contact]');
