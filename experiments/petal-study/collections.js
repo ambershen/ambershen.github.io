@@ -1,18 +1,22 @@
-import {loadXWidgets} from '../../src/x-embed.js';
-import {teachingGroups} from '../../src/data/teaching.js';
+import {filmRoom as mountFilmRoom} from './film-room.js';
+import {teachingRoom} from './teaching-room.js';
 import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
 import {resolveCatalog} from '../../src/data/catalog-assets.js';
 import {videoPoster} from '../../src/data/video-posters.js';
-import {naturalMedia} from '../../src/data/case-studies.js';
+import {naturalMedia,softMatterMedia} from '../../src/data/case-studies.js';
+import {hoverClip,specimenCover} from './work-motion.js';
 import {naturalTile} from '../../src/natural-play.js';
 import './sketchbook.css';
 import {articles} from '../../src/data/essays.js';
 import {films as defaultFilms,newsletter,buttondownUrls,socials} from '../../src/data/site.js';
-import {projects as defaultProjects, items as defaultItems, sketchGroups} from '../../src/data/portfolio.js';
+import {projects as defaultProjects, items as defaultItems, sketchGroups, sketchDates} from '../../src/data/portfolio.js';
 
 let films=defaultFilms, projects=defaultProjects, items=defaultItems;
 let catalogApplied=false, routeVersion=0;
-let sketchFilter='all';
+let field=null;
+function dropField(){field?.destroy();field=null;room?.destroy();room=null;}
+let room=null; // the Film or Teaching room on screen
+addEventListener('resize',()=>{field?.fit?.();room?.fit?.();});
 
 const modal=document.querySelector('#work-window'),content=document.querySelector('#work-content');
 const title=document.querySelector('#work-title'),description=document.querySelector('#work-description');
@@ -33,7 +37,7 @@ function media(item,detail=false){
 }
 function stopMedia(){content.querySelectorAll('video').forEach(video=>video.pause());}
 content.addEventListener('play',event=>{
-  if(event.target.tagName!=='VIDEO')return;
+  if(event.target.tagName!=='VIDEO'||event.target.classList.contains('hover-clip'))return;
   content.querySelectorAll('video').forEach(video=>{if(video!==event.target)video.pause();});
 },true);
 function selectedWork(){
@@ -62,16 +66,13 @@ function selectedWork(){
   const grid=node('div','selected-projects');
   projects.filter(project=>project.id!=='natural-effects').forEach((project,index)=>{
     const card=node('a','selected-project');card.href=`#work/${project.id}`;
-    const image=media(project);const frame=node('div','selected-project-media');frame.append(image);
+    const frame=node('div','selected-project-media');
+    if(project.id==='soft-matter')frame.append(specimenCover(card,softMatterMedia.map(s=>({...s})),project.title));
+    else{frame.append(media(project));hoverClip(card,frame,project.video||project.studies?.find(s=>s.video)?.video);}
     card.append(frame,node('p','selection-label',`0${index+2} / ${project.kind||(project.id==='soft-matter'?'MATERIAL TYPE & CREATIVE CODING':project.id==='live-visuals'?'CREATIVE CODING & 3D':'PRODUCT DESIGN')}`),node('h3','',project.title+''),node('p','selected-project-tagline',project.tagline));
     grid.append(card);
   });
   content.append(grid);
-  const more=node('nav','selected-more');more.setAttribute('aria-label','More from my practice');
-  for(const [label,text,href] of [['Sketchbook','Visual experiments, typography, and ways of seeing.','#sketchbook'],['Selected Films','Commercial work and visual storytelling.','#film']]){
-    const a=node('a');a.href=href;a.append(node('h3','',label+''),node('p','',text));more.append(a);
-  }
-  content.append(more);
 }
 // The next work in Work order, opening the way that work opens (case slide or project view).
 function nextWork(id){
@@ -132,77 +133,18 @@ function projectArchive(){
 }
 function detail(item,index){
   artOpener=content.querySelectorAll('.work-card')[index];artDetail.replaceChildren();
-  const figure=node('figure','work-detail');figure.append(media(item,true));
+  const figure=node('figure','work-detail'),shown=media(item,true);figure.append(shown);
+  if(shown.tagName==='VIDEO'){shown.preload='auto';shown.loop=true;shown.play().catch(()=>{});}
   const caption=node('figcaption','gallery-caption');
+  const meta=[sketchGroups.find(group=>group.id===item.theme)?.title,item.date||sketchDates[item.title]].filter(Boolean).join(' · ');
+  if(meta)caption.append(node('p','gallery-meta',meta));
   const heading=node('h3','',item.title);heading.id='art-title';caption.append(heading);
   if(item.series)caption.append(node('p','gallery-series',item.series));
   if(item.exploration)caption.append(node('p','',item.exploration));
   if(item.description)caption.append(node('p','',item.description));
-  figure.append(caption);artDetail.append(figure);viewer.showModal();document.body.classList.add('art-is-open');
+  figure.append(caption);artDetail.append(figure);viewer.tabIndex=-1;viewer.showModal();viewer.focus();document.body.classList.add('art-is-open');
 }
-function filmRoom(){
-  const room=node('div','film-room');
-  const stage=node('div','film-stage');
-  const frame=node('div','film-frame');
-  const caption=node('div','film-caption');
-  stage.append(frame,caption);
-  const thumbs=new Map();
-  const play=film=>{
-    frame.replaceChildren();
-    if(film.youtube){const f=node('iframe');f.src=`https://www.youtube-nocookie.com/embed/${film.youtube}?autoplay=1&rel=0`;f.title=film.title;f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;frame.append(f);}
-    else{const v=node('video');v.src=film.src;v.controls=true;v.playsInline=true;v.autoplay=true;v.setAttribute('aria-label',film.title);frame.append(v);}
-  };
-  const still=(film,el)=>{
-    if(film.poster){const img=node('img');img.src=film.poster;img.alt=film.title;img.loading='lazy';el.append(img);}
-    else if(film.youtube){const img=node('img');img.src=`https://i.ytimg.com/vi/${film.youtube}/hqdefault.jpg`;img.alt='';img.loading='lazy';el.append(img);}
-    else if(film.src){const img=node('img');img.src=videoPoster(film.src);img.alt='';img.loading='lazy';img.decoding='async';el.append(img);}
-  };
-  const show=(film,autoplay)=>{
-    caption.replaceChildren(node('span','film-kind',[film.kind,film.year].filter(Boolean).join(' · ')),node('h3','',film.title));
-    if(film.note)caption.append(node('p','',film.note));
-    thumbs.forEach((btn,id)=>{const on=id===film.id;btn.classList.toggle('is-active',on);btn.setAttribute('aria-current',on?'true':'false');});
-    if(film.external){
-      frame.replaceChildren();
-      const link=node('a','film-play');link.href=film.external;link.target='_blank';link.rel='noopener noreferrer';link.setAttribute('aria-label',`Watch ${film.title} on X`);
-      still(film,link);frame.append(link);
-      const watch=node('a','','Watch on X');watch.href=film.external;watch.target='_blank';watch.rel='noopener noreferrer';caption.append(watch);return;
-    }
-    if(autoplay){play(film);return;}
-    frame.replaceChildren();
-    const btn=node('button','film-play');btn.type='button';btn.setAttribute('aria-label',`Play ${film.title}`);
-    still(film,btn);btn.append(node('span','film-play-icon','▶'));
-    btn.onclick=()=>play(film);frame.append(btn);
-  };
-  const reel=node('div','film-reel');
-  const track=node('div','film-reel-track');
-  films.forEach(f=>{
-    const btn=node('button','film-thumb');btn.type='button';
-    const shot=node('span','film-thumb-shot');still(f,shot);
-    btn.append(shot,node('span','film-thumb-title',f.title),node('span','film-thumb-kind',[f.kind,f.year].filter(Boolean).join(' · ')));
-    btn.onclick=()=>show(f,true);
-    thumbs.set(f.id,btn);track.append(btn);
-  });
-  const nudge=dir=>{track.scrollBy({left:dir*Math.max(240,track.clientWidth*.7),behavior:'smooth'});};
-  const prev=node('button','film-reel-nav film-reel-prev','‹');prev.type='button';prev.setAttribute('aria-label','Scroll films left');prev.onclick=()=>nudge(-1);
-  const next=node('button','film-reel-nav film-reel-next','›');next.type='button';next.setAttribute('aria-label','Scroll films right');next.onclick=()=>nudge(1);
-  const edges=()=>{
-    const over=track.scrollWidth-track.clientWidth>4;
-    reel.classList.toggle('has-overflow',over);
-    reel.classList.toggle('at-start',track.scrollLeft<=4);
-    reel.classList.toggle('at-end',!over||track.scrollLeft>=track.scrollWidth-track.clientWidth-4);
-  };
-  track.addEventListener('scroll',edges,{passive:true});
-  reel.append(prev,track,next);
-  room.append(stage,reel);
-  const elsewhere=node('div','film-elsewhere');elsewhere.append(node('h3','work-section-label','Watch elsewhere'));
-  const links=node('div','film-socials');
-  socials.filter(s=>s.label!=='GitHub').forEach(s=>{const a=node('a');a.href=s.url;a.target='_blank';a.rel='noopener noreferrer';a.append(node('strong','',s.label),node('span','',s.handle+''));links.append(a);});
-  elsewhere.append(links);room.append(elsewhere);content.append(room);
-  const featured=films.find(f=>f.featured)||films[0];
-  if(featured)show(featured,false);
-  requestAnimationFrame(edges);
-  if(window.ResizeObserver)new ResizeObserver(edges).observe(track);
-}
+function filmRoom(){room=mountFilmRoom({films,socials,videoPoster});content.append(room.el);}
 function newsletterSignup(compact=false){
   const urls=buttondownUrls(newsletter.buttondown);
   const box=node('section',compact?'newsletter newsletter-compact':'newsletter');box.setAttribute('aria-label','Subscribe to '+newsletter.name);
@@ -225,7 +167,7 @@ function newsletterSignup(compact=false){
   return box;
 }
 function render(next){
-  category=next;stopMedia();content.replaceChildren();
+  category=next;stopMedia();dropField();content.replaceChildren();
   modal.classList.remove('archive-mode');
   modal.classList.toggle('gallery-mode',next==='art');
   modal.classList.toggle('film-mode',next==='film');
@@ -237,57 +179,7 @@ function render(next){
   description.textContent={selected:'A few things from my world.',products:'',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb,teaching:'Making technical ideas easier to understand, explore, and build with.'}[category];
   if(category==='products'){if(location.hash.startsWith('#work/') && projects.some(p=>p.id===activeProject && !p.page))projectArchive();else selectedWork();modal.scrollTop=0;return;}
   if(category==='film'){filmRoom();modal.scrollTop=0;return;}
-  if(category==='teaching'){
-    document.title='Teaching & Sharing — Amber Shen';
-    const overview=node('div','teaching-library');
-    let activePlayer=null;
-    for(const group of teachingGroups){
-      const section=node('section','teaching-category');
-      section.append(node('h3','',group.title),node('p','teaching-group-description',group.description));
-      const grid=node('div','teaching-grid');
-      for(const video of group.videos){
-        const card=node('article','teaching-card');
-        const url=video.url||`https://www.youtube.com/watch?v=${video.youtube}${video.start?'&t='+video.start+'s':''}`;
-        const frame=node('div','teaching-media');
-        const cover=node('button','teaching-cover');
-        cover.type='button';cover.setAttribute('aria-label',`Play ${video.title}`);
-        const image=node('img');image.src=video.poster||`https://i.ytimg.com/vi/${video.youtube}/hqdefault.jpg`;image.alt='';image.loading='lazy';image.decoding='async';
-        cover.append(image,node('span','teaching-play','Play video'));
-        frame.append(cover);
-        cover.onclick=async()=>{
-          if(activePlayer){activePlayer.frame.replaceChildren(activePlayer.cover);activePlayer.frame.classList.remove('is-x-embed');}
-          const current={frame,cover};activePlayer=current;
-          if(video.youtube){
-            const player=node('iframe');player.title=video.title;player.src=`https://www.youtube-nocookie.com/embed/${video.youtube}?autoplay=1&rel=0${video.start?'&start='+video.start:''}`;
-            player.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';player.allowFullscreen=true;player.referrerPolicy='strict-origin-when-cross-origin';
-            frame.replaceChildren(player);return;
-          }
-          frame.classList.add('is-x-embed');
-          const status=node('p','teaching-embed-status','Loading video from X…');status.setAttribute('role','status');
-          const host=node('div','teaching-x-host');frame.replaceChildren(status,host);
-          let timer;
-          try{
-            const widgets=await loadXWidgets();
-            if(activePlayer!==current||!frame.isConnected)return;
-            const result=await Promise.race([
-              widgets.widgets.createTweet(new URL(url).pathname.split('/').pop(),host,{conversation:'none',dnt:true,theme:document.documentElement.dataset.theme==='light'?'light':'dark'}),
-              new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('X embed timed out')),15000);}),
-            ]);
-            if(!result)throw new Error('X embed unavailable');
-            if(activePlayer===current&&frame.isConnected)status.remove();
-          }catch{
-            if(activePlayer===current&&frame.isConnected){host.remove();status.textContent='The X player couldn’t load. Open the original post below.';const retry=node('button','','Try again');retry.type='button';retry.onclick=()=>cover.click();frame.append(retry);}
-          }finally{clearTimeout(timer);}
-        };
-        const heading=node('h4');const link=node('a','',video.title);link.href=url;link.target='_blank';link.rel='noopener noreferrer';heading.append(link);
-        card.append(frame,node('p','teaching-publisher',video.publisher||'TRAE · YouTube'),heading,node('p','teaching-summary',video.summary));
-        if(!video.youtube){const fallback=node('a','teaching-source-link','Open on X');fallback.href=url;fallback.target='_blank';fallback.rel='noopener noreferrer';card.append(fallback);}
-        grid.append(card);
-      }
-      section.append(grid);overview.append(section);
-    }
-    content.append(overview);return;
-  }
+  if(category==='teaching'){document.title='Teaching & Sharing — Amber Shen';room=teachingRoom({fullBleed:el=>{if(!el.isConnected)return;const box=content.getBoundingClientRect();el.style.width=document.documentElement.clientWidth+'px';el.style.marginLeft=-box.left+'px';}});content.append(room.el);room.fit();return;}
   if(category==='writing'){
     if(reading){
       title.textContent=selectedArticle.title;description.textContent='';
@@ -314,36 +206,22 @@ function render(next){
     });content.append(list);return;
   }
 
-  // Sketchbook wall: pieces taped up as prints, the title on the print's margin. The group names are the
-  // filter, and the chosen one takes a highlighter swipe. Hover plays a moving piece; click opens it.
-  const filters=node('nav','sb-filters');filters.setAttribute('aria-label','Filter sketchbook');
-  const wall=node('div','sb-wall');wall.id='sketch-gallery';
-  const tilt=seed=>{const x=Math.sin(seed*91.7+13.1)*43758.5453;return x-Math.floor(x);};
-  const prints=items.map((item,i)=>{
-    const card=node('button','sb-print');card.type='button';card.setAttribute('aria-label',`View ${item.title}`);card.dataset.theme=item.theme;
-    card.style.setProperty('--tilt',`${(tilt(i)-.5)*5}deg`);card.style.setProperty('--nudge',`${(tilt(i+7)-.5)*28}px`);card.style.setProperty('--tape',`${(tilt(i+3)-.5)*14}deg`);
-    if(i%5===0)card.classList.add('is-wide');
-    const photo=node('span','sb-photo'),still=media(item);photo.append(still,node('span','sb-caption',item.title));
-    card.append(node('span','sb-tape'),photo);
-    if(item.video){let clip=null;
-      card.addEventListener('pointerenter',()=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-        if(!clip){clip=node('video','work-media');clip.muted=true;clip.loop=true;clip.playsInline=true;clip.src=item.video;clip.poster=still.src;still.replaceWith(clip);}
-        clip.play().catch(()=>{});});
-      card.addEventListener('pointerleave',()=>clip?.pause());}
-    card.onclick=()=>{if(item.page){location.href=item.page;return;}detail(item,0);artOpener=card;};
-    wall.append(card);return card;
-  });
-  const showSketches=()=>{
-    stopMedia();
-    filters.querySelectorAll('button').forEach(button=>{const on=button.dataset.filter===sketchFilter;button.setAttribute('aria-pressed',String(on));button.classList.toggle('is-on',on);});
-    prints.forEach(card=>{card.hidden=sketchFilter!=='all'&&card.dataset.theme!==sketchFilter;});
+  // Sketchbook field: every piece on an endless field you drag across (sketchbook-field.js).
+  const stage=node('div','sb-field');stage.id='sketch-gallery';
+  const fit=()=>{
+    if(!stage.isConnected)return;
+    const width=document.documentElement.clientWidth,box=content.getBoundingClientRect();
+    stage.style.width=width+'px';stage.style.marginLeft=-box.left+'px';
+    stage.style.height=Math.max(420,innerHeight-(stage.getBoundingClientRect().top+scrollY))+'px';
   };
-  [{id:'all',title:'All'},...sketchGroups].forEach((group,i,all)=>{
-    const button=node('button','sb-filter',group.title);button.type='button';button.dataset.filter=group.id;button.setAttribute('aria-controls','sketch-gallery');
-    button.onclick=()=>{sketchFilter=group.id;showSketches();};filters.append(button);
-    if(i<all.length-1)filters.append(node('span','sb-dot','·'));
+  const open=(item,from)=>{detail(item);artOpener=from;};
+  content.append(stage);modal.scrollTop=0;fit();
+  // three.js loads only when the Sketchbook opens.
+  import('./sketchbook-field.js').then(({mountField})=>{
+    if(!stage.isConnected||field)return;
+    field=mountField(stage,items,{onOpen:open,isPaused:()=>viewer.open});
+    field.fit=fit;
   });
-  content.append(filters,wall);showSketches();modal.scrollTop=0;
 }
 let articleOrigin=null;
 let readingAnimations=[];
@@ -375,7 +253,7 @@ function showPage(next,focus=false){
   readingAnimations.forEach(animation=>animation.cancel());readingAnimations=[];
   if(viewer.open)viewer.close();
   if(!home.hidden && next!=='home')homeScroll=window.scrollY;
-  stopMedia();home.hidden=next!=='home';modal.hidden=next==='home';
+  stopMedia();if(next==='home')dropField();home.hidden=next!=='home';modal.hidden=next==='home';
   const featured=document.querySelector('#home-featured');if(featured)featured.hidden=next!=='home';
   document.querySelectorAll('[data-page]').forEach(link=>{
     if(link.dataset.page===next)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');

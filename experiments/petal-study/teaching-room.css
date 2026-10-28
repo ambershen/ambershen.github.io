@@ -1,0 +1,39 @@
+/* Teaching ring. Colours are tokens so light mode needs no generated copy. */
+.lessons{--ls-ink:#eee8e4;--ls-muted:#a99b8f;--ls-faint:#6f6157;--ls-accent:#d9b5a3;--ls-line:#332c27}
+:root[data-theme=light] .lessons{--ls-ink:#2a211c;--ls-muted:#7b6b5f;--ls-faint:#a3948a;--ls-accent:#a2654c;--ls-line:#e0d5ca}
+.lessons{display:flex;flex-direction:column;gap:28px;margin-top:8px}
+.lesson-ring{position:relative;height:clamp(280px,calc(100svh - 480px),600px);cursor:grab}
+.lesson-ring.is-dragging{cursor:grabbing}
+.lesson-ring.is-pointing{cursor:pointer}
+.ring-canvas{display:block;width:100%;height:100%;touch-action:pan-y;outline:none}
+.ring-canvas:focus,.ring-canvas:focus-visible{outline:none}
+.lesson-foot{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+.lesson-caption{min-width:0;min-height:120px}
+:root .lessons .lesson-meta{margin:0 0 12px;font:11px/1.4 'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--ls-muted)}
+#work-window .lesson-caption h3{margin:0 0 10px;font:400 clamp(26px,2.6vw,38px)/1.1 'Cormorant Garamond',serif;letter-spacing:-.005em;color:var(--ls-ink);max-width:34ch}
+:root .lessons .lesson-publisher{margin:0;font:11px/1.4 'DM Mono',monospace;letter-spacing:1.4px;text-transform:uppercase;color:var(--ls-faint)}
+.lesson-nav{display:flex;gap:8px;flex:none}
+:root #work-window .lesson-step{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--ls-line);border-radius:50%;background:none;color:var(--ls-muted);font:16px/1 'Manrope',sans-serif;cursor:pointer;transition:color .2s,border-color .2s}
+:root #work-window .lesson-step:hover{color:var(--ls-ink);border-color:var(--ls-muted)}
+.lesson-sr-list{position:absolute;width:1px;height:1px;margin:0;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+.lesson-theatre{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:clamp(64px,8vh,96px) clamp(16px,5vw,72px);border:0;box-sizing:border-box;background:rgba(0,0,0,.94);display:none;place-items:center}
+.lesson-theatre[open]{display:grid}
+.lesson-theatre::backdrop{background:transparent}
+.lesson-theatre:focus{outline:none}
+.lesson-screen{width:min(100%,calc((100dvh - 200px) * 16 / 9));aspect-ratio:16/9}
+.lesson-screen iframe{width:100%;height:100%;border:0;display:block}
+.lesson-screen.is-x-embed{aspect-ratio:auto;width:min(100%,560px);max-height:100%;overflow:auto}
+.lesson-status{font:14px/1.6 'Manrope',sans-serif;color:#a99b8f}
+.lesson-status a{color:#d9b5a3}
+:root .lesson-theatre .lesson-theatre-close{position:fixed;top:20px;right:clamp(16px,4vw,56px);display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;border-radius:0;background:none;color:#a99b8f;font:300 32px/1 'Manrope',sans-serif;cursor:pointer}
+:root .lesson-theatre .lesson-theatre-close:hover{color:#eee8e4}
+
+@media(max-width:700px){
+  .lesson-ring{height:64vw}
+  .lesson-caption{min-height:150px}
+  :root #work-window .lesson-step{width:38px;height:38px}
+}
+:root .lessons .lesson-more{align-self:flex-start;margin-top:8px;font:14px/1.6 'Manrope',sans-serif;color:var(--ls-accent);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:6px}
+:root .lessons .lesson-more::after{content:' ↗'}
+:root .lessons .lesson-more:hover{color:var(--ls-ink)}

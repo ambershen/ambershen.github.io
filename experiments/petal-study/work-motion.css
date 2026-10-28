@@ -1,0 +1,18 @@
+/* Work overview motion: hover clips and the Soft Matter specimen cover. */
+.selected-project-media{position:relative}
+.selected-projects{padding-bottom:clamp(72px,10vh,120px)} /* the page ends on the cards; leave room past them */
+.hover-clip{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;pointer-events:none}
+.hover-clip.is-on{opacity:1}
+.selected-project-media .work-media{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+@media(hover:hover){
+  .selected-project:hover .selected-project-media .work-media{transform:scale(1.03)}
+}
+
+.specimen-cover{position:relative;width:100%;height:100%;background:#12100e;transition:background-color .35s}
+.specimen-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .3s}
+.specimen-cover img.is-on{opacity:1}
+.specimen-label{position:absolute;left:14px;bottom:12px;padding:6px 10px 5px;border-radius:999px;background:rgba(10,8,7,.62);color:#eee8e4;font:10px/1 'DM Mono',monospace;letter-spacing:1.3px;text-transform:uppercase}
+
+:root[data-theme=light] .specimen-cover{background-color:#ebe3da}
+
+@media(prefers-reduced-motion:reduce){.hover-clip,.specimen-cover,.specimen-cover img,.selected-project-media .work-media{transition:none}}

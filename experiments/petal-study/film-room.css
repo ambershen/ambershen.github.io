@@ -1,0 +1,46 @@
+/* Film screening room. Colours are tokens so light mode needs no generated copy. */
+.screening,.theatre{--sr-ink:#eee8e4;--sr-muted:#a99b8f;--sr-faint:#6f6157;--sr-accent:#d9b5a3;--sr-line:#332c27;--sr-frame:#0c0b0a}
+:root[data-theme=light] .screening,:root[data-theme=light] .theatre{--sr-ink:#2a211c;--sr-muted:#7b6b5f;--sr-faint:#a3948a;--sr-accent:#a2654c;--sr-line:#e0d5ca;--sr-frame:#ebe3da}
+.screening{display:flex;flex-direction:column;gap:88px}
+.screening-layout{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(32px,5vw,80px);align-items:start}
+.screening-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--sr-line);counter-reset:none}
+.screening-row{border-bottom:1px solid var(--sr-line)}
+:root #work-window .screening-item{display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:8px;row-gap:8px;width:100%;padding:22px 0;border:0;border-radius:0;background:none;color:var(--sr-muted);text-align:left;cursor:pointer;white-space:normal}
+:root .screening .screening-index{grid-row:span 2;padding-top:12px;font:11px/1 'DM Mono',monospace;letter-spacing:1.5px;color:var(--sr-faint)}
+:root .screening .screening-title{font:400 clamp(28px,2.6vw,40px)/1.08 'Cormorant Garamond',serif;letter-spacing:-.005em;color:var(--sr-muted);transition:color .25s,transform .35s cubic-bezier(.2,.7,.2,1)}
+:root .screening .screening-meta{font:11px/1.4 'DM Mono',monospace;letter-spacing:1.4px;text-transform:uppercase;color:var(--sr-faint)}
+:root .screening .screening-row.is-active .screening-title{color:var(--sr-ink);transform:translateX(6px)}
+:root .screening .screening-row.is-active .screening-index{color:var(--sr-accent)}
+:root #work-window .screening-item:focus-visible{outline:1px solid var(--sr-accent);outline-offset:4px}
+:root #work-window .screening-frame{position:sticky;top:96px;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;border-radius:2px;overflow:hidden;background:var(--sr-frame);cursor:pointer}
+.screening-poster,.screening-preview{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.screening-preview{opacity:0;transition:opacity .5s}
+.screening-preview.is-on{opacity:1}
+:root .screening .screening-play{position:absolute;left:20px;bottom:18px;font:11px/1 'DM Mono',monospace;letter-spacing:1.6px;text-transform:uppercase;color:#f4ede7;text-shadow:0 1px 10px #0009;opacity:.85;transition:opacity .2s}
+.screening-play::before{content:'▶';margin-right:10px;font-size:9px}
+.screening-frame:hover .screening-play{opacity:1}
+
+.theatre{width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:clamp(64px,8vh,96px) clamp(16px,5vw,72px) 28px;border:0;box-sizing:border-box;background:rgba(0,0,0,.94);color:#eee8e4;display:none;grid-template-rows:minmax(0,1fr) auto;gap:22px}
+.theatre[open]{display:grid}
+.theatre::backdrop{background:transparent}
+.theatre:focus{outline:none}
+.theatre-stage{min-height:0;display:flex;align-items:center;justify-content:center}
+.theatre-stage video{max-width:100%;max-height:100%;display:block}
+.theatre-stage iframe{width:min(100%,calc((100dvh - 220px) * 16 / 9));aspect-ratio:16/9;border:0}
+.theatre-external{color:#d9b5a3;font:15px/1.6 'Manrope',sans-serif}
+.theatre-caption{display:flex;align-items:baseline;gap:20px;flex-wrap:wrap}
+.theatre-kind{font:11px/1 'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;color:#a99b8f}
+.theatre-caption h3{margin:0;font:400 32px/1.1 'Cormorant Garamond',serif;color:#eee8e4}
+.theatre-caption p{flex-basis:100%;margin:0;font:15px/1.6 'Newsreader',serif;color:#a99b8f}
+:root .theatre .theatre-close{position:fixed;top:20px;right:clamp(16px,4vw,56px);display:grid;place-items:center;width:40px;height:40px;padding:0;border:0;border-radius:0;background:none;color:#a99b8f;font:300 32px/1 'Manrope',sans-serif;cursor:pointer}
+:root .theatre .theatre-close:hover{color:#eee8e4}
+
+@media(max-width:820px){
+  .screening{gap:64px}
+  .screening-layout{grid-template-columns:1fr;gap:28px}
+  :root #work-window .screening-frame{position:relative;top:auto;order:-1}
+  :root .screening .screening-row.is-active .screening-title{transform:none}
+  .theatre{padding:64px 16px 24px}
+  .theatre-caption h3{font-size:26px}
+}
+@media(prefers-reduced-motion:reduce){:root .screening .screening-title,.screening-preview{transition:none}:root .screening .screening-row.is-active .screening-title{transform:none}}

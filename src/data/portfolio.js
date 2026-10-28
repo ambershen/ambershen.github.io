@@ -117,9 +117,24 @@ const sketchNotes={
   'Feather Throne':['ai','A study of softness, structure, and an imagined chair.'],
   'Cloud House':['ai','An architectural form imagined in clouds.'],
 };
+// Roughly when each piece was made, shown as "Apr 2025". Leave a title out to show no date.
+const sketchDates={
+  'Ferrari':'Oct 2026',
+  'The Persistence of Taste':'Jul 2026',
+  'Places to Be':'Dec 2025',
+  'Cloud Croissant':'Jun 2026',
+  'Mirror — Central Park, Summer':'Jun 2026',
+  'Calligramme — Le Pont Mirabeau':'Apr 2026',
+  'Infinite Gallery':'Jan 2026',
+  'Birth Crystal':'Nov 2025',
+  'Feather Bicycle':'Sep 2025',
+  'Cloud House':'Sep 2025',
+  'Feather Throne':'Sep 2025',
+  'Spring':'Aug 2024','Summer':'Aug 2024','Autumn':'Aug 2024','Winter':'Aug 2024',
+};
 const items=[...interactive,...selectedPaintings.map(title=>({...paintings.find(item=>item.title===title),group:'paintings'}))].map(item=>{
   const [theme,exploration]=sketchNotes[item.title]||['drawing','A seasonal study in color and atmosphere.'];
-  return {...item,theme,exploration};
+  return {...item,theme,exploration,date:sketchDates[item.title]||''};
 });
 const projects=[
   {id:'natural-effects',title:'Natural Effects as the New Brush',tagline:'Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.',page:'/work/natural-expressions/'},   // opens the full case study
@@ -158,4 +173,4 @@ const projects=[
       {title:'Something I can hold—and wear.',text:'3D printing made the digital form tangible. The asymmetric pair still needed a little polishing after printing: a photograph had become my first piece of jewelry.',image:new URL('../../images/printed-earrings/in-hand.jpg',import.meta.url).href,alt:'Hands holding the physical 3D-printed earring.'}
     ]},
 ];
-export {projects, items, sketchGroups};
+export {projects, items, sketchGroups, sketchDates};
