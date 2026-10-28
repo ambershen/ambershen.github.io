@@ -857,6 +857,9 @@
 :root[data-theme=light] {
     scrollbar-color: #cfc7be #f7f2ec
 }
+:root[data-theme=light] #flower:focus, :root[data-theme=light] #flower:focus-visible {
+    outline: none
+}
 
 /* Hand-tuned: inverting would turn these dark-on-light pairs light-on-light. */
 :root[data-theme=light] .soft-feature{background:#e8dfd3}

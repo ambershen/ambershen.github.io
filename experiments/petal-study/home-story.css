@@ -70,6 +70,8 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
 
 /* Light: paper #f7f2ec, ink #2a211c, muted #7b6b5f, accent #a2654c, lines #e0d5ca. */
 :root[data-theme=light] .home-d .site-header{background:#f7f2ec}
+/* The generic light button rule (pill border and fill) must not reach the story words or chapter ticks. */
+:root[data-theme=light] .d-word,:root[data-theme=light] .home-d .d-tick{background:none;border:0}
 :root[data-theme=light] .d-step h2,:root[data-theme=light] .d-step p{color:#2a211c}
 :root[data-theme=light] .d-step p.d-social{color:#5a4b41}
 :root[data-theme=light] .d-social a,:root[data-theme=light] .d-word{color:#a2654c}

@@ -566,3 +566,6 @@ body.case-open{overflow:hidden}
 
 /* Page scrollbar: flat and in the page colors, instead of the browser default with its bordered light track. */
 html{scrollbar-color:#3a322c #000000}
+
+/* The flower canvas takes focus for the code-mode collage; no browser focus box around the artwork. */
+#flower:focus,#flower:focus-visible{outline:none}
