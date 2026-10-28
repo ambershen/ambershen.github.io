@@ -9,7 +9,7 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
 
 .d-wrap{position:relative}
 .d-stage{position:sticky;top:88px;height:calc(100svh - 88px);overflow:hidden;z-index:1}
-.home-d .d-stage #flower{position:absolute!important;inset:auto!important;left:26%!important;top:4%!important;width:74%!important;height:83%!important;min-height:0!important;transition:opacity .5s}
+.home-d .d-stage #flower{position:absolute!important;inset:auto!important;left:26%!important;top:max(0px,calc((100% - 780px) / 2))!important;width:74%!important;height:min(96%,780px)!important;min-height:0!important;transition:opacity .5s}
 .home-d .d-stage #loading{left:60%;top:45%}
 .d-water{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;opacity:0;pointer-events:none;transition:opacity .4s;touch-action:none}
 .d-stage.is-work .d-water{opacity:1}
@@ -40,11 +40,11 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
 
 /* The scrolling introduction. */
 .d-track{position:relative;z-index:2;margin-top:calc(88px - 100svh);pointer-events:none}
-.d-step{height:calc(100svh - 88px);display:flex;flex-direction:column;justify-content:center;width:min(28vw,420px);margin-left:clamp(24px,5vw,76px);opacity:.15;transition:opacity .5s}
+.d-step{height:calc(100svh - 88px);display:flex;flex-direction:column;justify-content:center;padding-bottom:7svh;box-sizing:border-box;width:min(27vw,400px);margin-left:var(--edge,clamp(24px,5vw,76px));opacity:.15;transition:opacity .5s}
 .d-step:last-child{height:calc(150svh - 88px);justify-content:flex-start;padding-top:12svh}
 .d-step.is-active{opacity:1}
-.d-step h2,.d-step p{font:400 clamp(34px,3.3vw,52px)/1.12 'Cormorant Garamond',serif;color:#eee8e4;margin:0}
-.d-step p.d-social{font-size:clamp(19px,1.5vw,24px);line-height:1.5;margin-top:24px;color:#d8cec5}
+.d-step h2,.d-step p{font:400 clamp(32px,3vw,48px)/1.14 'Cormorant Garamond',serif;color:#eee8e4;margin:0}
+.d-step p.d-social{font-size:clamp(18px,1.4vw,21px);line-height:1.5;margin-top:24px;color:#d8cec5}
 .d-social a{color:#d9b5a3;text-underline-offset:6px}
 .d-step a,.d-word{pointer-events:auto}
 /* The current word takes a highlighter swipe, drawn left to right. */

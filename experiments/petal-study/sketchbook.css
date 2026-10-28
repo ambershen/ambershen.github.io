@@ -18,6 +18,8 @@
 :root[data-theme=light] .sb-dot{color:#d6c8bb}
 /* The field runs edge to edge under the filters and down to the bottom of the screen; collections.js sizes it. */
 #work-window.gallery-mode.collection-page{padding-bottom:0}
+/* Sketchbook leads with its one-line description; the title stays for screen readers only. */
+#work-window.gallery-mode #work-title{position:absolute;width:1px;height:1px;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .sb-field{--sb-bg:#000;position:relative;overflow:hidden;background:var(--sb-bg);cursor:grab}
 .sb-field.is-dragging{cursor:grabbing}
 .sb-field.is-pointing{cursor:pointer}

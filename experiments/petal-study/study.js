@@ -6,6 +6,7 @@ import { createCollage } from './collage.js';
 import { createPencilReveal } from './pencil-reveal.js';
 import { cutOutBlack } from './cutout.js';
 import { themeToggle, isLight } from '../../src/theme.js';
+import { createChaosPortrait } from './chaos-looks.js';
 
 document.querySelector('.site-header')?.append(themeToggle());
 
@@ -47,6 +48,9 @@ let renderBreeze=null, collage=null;
 const BLOOM_DURATION=3.6;
 let revealAfterBloom=false;
 let portrait=null, portraitReveal=0;
+// The chaos step's pixel portrait (chaos-looks.js); the play step keeps the misted polaroid below.
+let chaosLook=null;
+const chaosLive=()=>mode==='chaos' && chaosLook && !playfulPortrait;
 let playfulPortrait=false, polaroidStart=null, wiggleStart=null;
 
 let photoLeanX=0,photoLeanY=0;
@@ -258,6 +262,7 @@ function chooseMode(next){
   }else{
     state.textContent='Brush the flower to find me';
     demoStart=now+.35;
+    chaosLook?.reset(now);
     if(paused){
       // Respect a paused/reduced-motion session with a still of the effect.
       for(const g of groups){release(g);g.born=now-3;g.age=3;}
@@ -295,6 +300,7 @@ function interact(event){
   const previousPointer=pointer;
   pointer={x:(event.clientX-rect.left-ox)/scale,y:(event.clientY-rect.top-oy)/scale};
   if(playfulPortrait && portraitReveal>.9){wipeFog(previousPointer || pointer,pointer,event.pointerType==='touch'?48:34);return;}
+  if(chaosLive()){chaosLook.move(pointer);return;}
   if(mode==='code'){canvas.style.cursor=collage.move(pointer);return;}
   if(mode==='narrative'){
     pencilReveal.paint(previousPointer || pointer,pointer,event.pointerType==='touch'?55:35);
@@ -315,6 +321,7 @@ canvas.addEventListener('pointermove',interact);
 canvas.addEventListener('pointerdown',event=>{
   if(event.isPrimary===false)return;
   if(event.isTrusted)canvas.setPointerCapture(event.pointerId);   // home-story's ghost brush sends synthetic pointers, which cannot be captured
+  if(chaosLive() && ready){chaosLook.burst();return;}
   if(mode==='code' && ready){
     const rect=canvas.getBoundingClientRect();
     const point={x:(event.clientX-rect.left-ox)/scale,y:(event.clientY-rect.top-oy)/scale};
@@ -323,7 +330,7 @@ canvas.addEventListener('pointerdown',event=>{
   }
   interact(event);
 });
-canvas.addEventListener('pointerleave',()=>{pointer=null;collage?.leave();});
+canvas.addEventListener('pointerleave',()=>{pointer=null;collage?.leave();chaosLook?.leave();});
 canvas.addEventListener('pointerup',()=>{pointer=null;collage?.up();if(mode==='code')canvas.style.cursor='grab';});
 canvas.addEventListener('pointercancel',()=>{pointer=null;collage?.up();collage?.leave();});
 canvas.addEventListener('lostpointercapture',()=>{pointer=null;collage?.up();});
@@ -350,8 +357,9 @@ function frame(timestamp){
     }
     if(mode!=='chaos' && demoStart===null && !restore && now-lastTouch>4.5 && groups.some(g=>g.born!==null))bloom();
     ctx.save();ctx.translate(ox,oy);ctx.scale(scale,scale);
-    if(mode==='chaos' && portrait)drawPortrait(dt);
-    if(mode==='code'){collage.draw(ctx,dt,reduced);}
+    if(!chaosLive() && mode==='chaos' && portrait)drawPortrait(dt);
+    if(chaosLive())chaosLook.draw(ctx,dt,now,pointer);
+    else if(mode==='code'){collage.draw(ctx,dt,reduced);}
     else if(mode!=='art' && groups.every(g=>g.born===null)){
       if(mode==='narrative'){
         pencilReveal.draw(ctx);
@@ -392,7 +400,7 @@ function frame(timestamp){
     }
     ctx.restore();
     if(restore && groups.every(g=>g.born===null)){restore=false;state.textContent='In bloom';}
-    if(!restore && groups.some(g=>g.born!==null))state.textContent=mode==='chaos' && portraitReveal>.95?'Hi, it’s me. Amber.':'Petals becoming pixels';
+    if(!restore && groups.some(g=>g.born!==null))state.textContent=mode==='chaos' && (chaosLive()?chaosLook.formed>.95:portraitReveal>.95)?'Hi, it’s me. Amber.':'Petals becoming pixels';
   }
   requestAnimationFrame(frame);
 }
@@ -429,6 +437,7 @@ loadImage(flowerURL,'high').then(image=>{
     }).catch(()=>{state.textContent='Pencil artwork unavailable. The other flower effects are ready.';});
     loadImage(portraitURL).then(photo=>{
       portrait=photo;
+      chaosLook=createChaosPortrait(photo,flowerSource,groups,N,reduced);
       words.filter(button=>button.dataset.mode==='chaos').forEach(button=>{button.disabled=false;});
       playControl.disabled=false;
     }).catch(()=>{state.textContent='Portrait unavailable. The other flower effects are ready.';});

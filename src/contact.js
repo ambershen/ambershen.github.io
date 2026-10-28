@@ -30,7 +30,8 @@ if (!new URLSearchParams(location.search).has('embed')) {
   const home = document.getElementById('home-page');
   const homeContact = document.querySelector('.home-contact');
   let contactInView = false;
-  const tuck = () => launcher.classList.toggle('is-tucked', Boolean(home) && !location.hash && (scrollY < innerHeight * .6 || contactInView));
+  const onHome = () => !location.hash || location.hash === '#home';
+  const tuck = () => launcher.classList.toggle('is-tucked', Boolean(home) && onHome() && (scrollY < innerHeight * .6 || contactInView));
   if (homeContact) new IntersectionObserver(([entry]) => { contactInView = entry.isIntersecting; tuck(); }).observe(homeContact);
   tuck();
   addEventListener('scroll', tuck, {passive: true});

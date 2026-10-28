@@ -17,8 +17,8 @@ const whenReady = () => new Promise(resolve => {
 /* ---------- Content: tags for what the introduction leaves unsaid; the greeting and chaos have none. ---------- */
 const stickers = {
   bloom: [],
-  art: ['digital media', 'typography', 'visual experiments'],
-  narrative: ['filming', 'storytelling', 'brand'],
+  art: ['painting', 'typography', 'digital media', 'visual experiments'],
+  narrative: ['visual storytelling', 'branding', 'filming', 'voice design'],
   code: ['creative coding', 'agent building', 'design tools'],
   chaos: [],
   play: ['wearables', 'physical objects', 'everyday materials'],
@@ -153,16 +153,11 @@ function sweep(t) {
   const dt = Math.min(.05, (t - (ghostAt || t)) / 1000); ghostAt = t;
   const dx = ghostTarget.x - ghostPos.x, dy = ghostTarget.y - ghostPos.y, d = Math.hypot(dx, dy);
   if (d < .04) ghostTarget = {x: .2 + Math.random() * .6, y: .18 + Math.random() * .62};
-  const speed = mode === 'narrative' ? 1.5 : 1.1;
+  const speed = mode === 'narrative' ? 1.5 : mode === 'code' ? .6 : 1.1; // code: a slow pass that only lifts petals, never drags them
   ghostPos.x += dx / (d || 1) * Math.min(d, speed * dt) + (Math.random() - .5) * .012;
   ghostPos.y += dy / (d || 1) * Math.min(d, speed * dt) + (Math.random() - .5) * .012;
   const x = ghostPos.x, y = ghostPos.y;
-  if (mode === 'code') {
-    const phase = k % 3.2;
-    if (phase < .06 && !ghostDown) ghost('pointerdown', x, y);
-    else if (phase > 2.2 && ghostDown) ghost('pointerup', x, y);
-    else ghost('pointermove', x, y);
-  } else ghost('pointermove', x, y);
+  ghost('pointermove', x, y);
 }
 for (const type of ['pointerdown', 'pointermove']) flower.addEventListener(type, e => {
   if (ghosting) return;
