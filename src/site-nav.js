@@ -7,7 +7,7 @@ export const navItems = [
   {page: 'products', label: 'Work', href: '/#work'},
   {page: 'art', label: 'Sketchbook', href: '/#sketchbook'},
   {page: 'film', label: 'Film', href: '/#film'},
-  {page: 'teaching', label: 'Teaching', href: '/#teaching'},
+  {page: 'teaching', label: 'Tutorials', href: '/#tutorials'},
   {page: 'contact', label: 'Contact', href: '#contact'},
 ];
 

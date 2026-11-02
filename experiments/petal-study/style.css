@@ -569,3 +569,6 @@ html{scrollbar-color:#3a322c #000000}
 
 /* The flower canvas takes focus for the code-mode collage; no browser focus box around the artwork. */
 #flower:focus,#flower:focus-visible{outline:none}
+
+/* Under 390px (iPhone mini, SE) the six nav items overflowed and Contact was cut off: tighten the gaps to fit. */
+@media(max-width:389px){.site-header .header-nav{gap:max(8px,calc(16px - (389px - 100vw) / 4))}}
