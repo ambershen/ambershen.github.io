@@ -39,14 +39,24 @@ const layer = document.querySelector('.d-stickers'), links = document.querySelec
 const waterCanvas = document.querySelector('.d-water');
 stage.prepend(flower); stage.append(document.querySelector('#loading'));
 
+/* ---------- Phones: study.js's touch hint sits under the flower until the visitor first touches it,
+   so it reads as something to play with rather than a video. ---------- */
+const hint = document.createElement('p'); hint.className = 'd-hint';
+stage.append(hint);
+const touchHint = document.querySelector('#touch-hint');
+const syncHint = () => { hint.textContent = touchHint.textContent; };
+new MutationObserver(syncHint).observe(touchHint, {childList: true, characterData: true, subtree: true}); syncHint();
+let triedFlower = false;
+
 let ghostPos = {x: .5, y: .5}, ghostTarget = {x: .3, y: .3}, ghostAt = 0;
 let ready = false, mode = null, modeAt = 0, touched = -1e9, ghosting = false, ghostDown = false;
 
 /* ---------- Ticks: a quiet chapter index on the right edge ---------- */
 const ticks = document.querySelector('.d-ticks');
-// On phones a step is current only while its line sits in the band under the flower, so tags never outlive their sentence.
-const phoneLine = () => innerHeight * .92;
-const jump = s => scrollTo({top: scrollY + s.getBoundingClientRect().top + 2 - (phone.matches ? phoneLine() - 40 : headerHeight()), behavior: still ? 'instant' : 'smooth'});
+// On phones the line being read is the one right under the flower: a step is current until half of it has
+// slid up beneath the flower, and the dim lines below wait their turn instead of lighting up as they peek in.
+const phoneLine = () => stage.getBoundingClientRect().bottom + 8;
+const jump = s => scrollTo({top: scrollY + s.getBoundingClientRect().top + 2 - (phone.matches ? phoneLine() - 4 : headerHeight()), behavior: still ? 'instant' : 'smooth'});
 const tickButtons = steps.map(s => {
   const b = document.createElement('button'); b.type = 'button'; b.className = 'd-tick';
   b.setAttribute('aria-label', s.dataset.label); b.dataset.label = s.dataset.label;
@@ -59,7 +69,14 @@ document.querySelectorAll('[data-jump]').forEach(a => a.addEventListener('click'
 
 /* ---------- Which step is current ---------- */
 function current() {
-  const line = phone.matches ? phoneLine() : headerHeight() + (innerHeight - headerHeight()) * .5;
+  if (phone.matches) {
+    const line = phoneLine();
+    let index = steps.findIndex(s => { const r = s.getBoundingClientRect(); return r.top + r.height / 2 > line; });
+    if (index < 0) index = steps.length - 1;
+    const r = steps[index].getBoundingClientRect();
+    return {index, progress: Math.max(0, Math.min(1, (line - r.top) / r.height))};
+  }
+  const line = headerHeight() + (innerHeight - headerHeight()) * .5;
   let index = 0;
   steps.forEach((s, i) => { if (s.getBoundingClientRect().top < line) index = i; });
   const r = steps[index].getBoundingClientRect();
@@ -114,7 +131,7 @@ function stickersFrame(t, dt) {
     if (!still) s.angle += s.drift * dt;
     s.w = s.el.offsetWidth; s.h = s.el.offsetHeight; // fonts may still be arriving
     const x = Math.max(s.w / 2 + 8, Math.min(g.w - s.w / 2 - 8, g.cx + Math.cos(s.angle) * g.rx));
-    const y = Math.max(s.h / 2 + 8, Math.min(g.h - s.h / 2 - 12, g.cy + Math.sin(s.angle) * g.ry));
+    const y = Math.max(s.h / 2 + 8, Math.min(g.h - s.h / 2 - (phone.matches ? 66 : 12), g.cy + Math.sin(s.angle) * g.ry));
     const enter = Math.min(1, age / .45), exit = Math.min(1, (s.life - age) / .6);
     const pop = still ? 1 : .7 + .3 * (1 - (1 - enter) ** 3) + Math.sin(enter * Math.PI) * .06;
     s.el.style.opacity = Math.min(enter, exit);
@@ -162,6 +179,7 @@ function sweep(t) {
 for (const type of ['pointerdown', 'pointermove']) flower.addEventListener(type, e => {
   if (ghosting) return;
   if (type === 'pointerdown' || e.pointerType === 'mouse') { if (ghostDown) ghost('pointerup'); touched = performance.now(); }
+  if (type === 'pointerdown') triedFlower = true;
 });
 
 /* ---------- Selected work: the flower sinks into water and the covers surface ---------- */
@@ -250,6 +268,7 @@ function frame(t) {
     tickButtons.forEach((b, i) => b.classList.toggle('is-active', i === index));
     if (mode !== 'work' && !still && t - touched > 5000) sweep(t);
     stickersFrame(t, dt);
+    hint.classList.toggle('is-on', !triedFlower && !['bloom', 'work'].includes(mode));
     if (mode === 'work' && water) {
       if (blend < blendTarget) { blend = Math.min(1, blend + dt / 1.4); composeWater(); }
       idleDrop -= dt;

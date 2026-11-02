@@ -30,6 +30,7 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
     #ece6dc}
 
 /* A quiet chapter index on the right edge. */
+.d-hint{display:none}
 .d-ticks{position:absolute;right:clamp(16px,2.4vw,36px);top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
 .home-d .d-tick{position:relative;display:block;width:44px;height:22px;padding:0;border:0;border-radius:0;background:none;cursor:pointer}
 .d-tick:before{content:'';position:absolute;right:0;top:50%;width:14px;height:1px;background:#4a3e36;transition:width .35s,background .35s}
@@ -55,14 +56,21 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
 .d-word:focus-visible{outline:2px solid #ead0b7;outline-offset:4px}
 
 @media(max-width:600px){
-  .d-stage{top:72px;height:58svh;background:#000;z-index:3}
+  /* The flower is drawn square, so a stage taller than it is wide only adds black above and below. */
+  /* The flower is drawn square, so a stage taller than it is wide only adds black above and below. Its
+     last 40px, empty below the stem, fade out so the lines tuck up under the flower and dissolve into it. */
+  .d-stage{top:72px;height:min(58svh,calc(100vw + 12px));background:linear-gradient(#000 calc(100% - 40px),transparent);z-index:3}
   .home-d .d-stage #flower{left:0!important;top:0!important;width:100%!important;height:100%!important}
-  .d-track{margin-top:0;padding-bottom:30svh}
-  .d-step{height:auto;min-height:22svh;width:auto;margin:0;padding:28px 6%;justify-content:flex-start}
-  .d-step:last-child{height:auto;min-height:60svh;padding-top:28px}
+  .d-track{margin-top:-34px;padding-bottom:40svh}
+  .d-step{height:auto;min-height:0;width:auto;margin:0;padding:14px 6% 18px;justify-content:flex-start;opacity:.28}
+  .d-step:first-child{padding-top:34px}
+  .d-step:last-child{height:auto;min-height:60svh;padding-top:14px}
   .d-step h2,.d-step p{font-size:32px}
   .d-step p.d-social{font-size:19px}
   .d-ticks{display:none}
+  /* The touch hint under the flower until the first touch. */
+  .d-hint{display:block;position:absolute;left:0;right:0;bottom:44px;z-index:2;margin:0;text-align:center;font:400 11px/1.4 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#a99b8f;pointer-events:none;opacity:0;transition:opacity .5s}
+  .d-hint.is-on{opacity:1}
   .d-paper{font-size:15px;padding:7px 13px 8px;white-space:normal}
   .d-sticker{max-width:48vw}
 }
@@ -88,7 +96,7 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
     radial-gradient(90% 80% at 85% 90%,rgba(120,100,80,.1),transparent 70%),
     #fffcf7}
 :root[data-theme=light] .d-links a:hover,:root[data-theme=light] .d-links a:focus-visible{outline-color:#a2654c}
-@media(max-width:600px){:root[data-theme=light] .d-stage{background:#f7f2ec}}
+@media(max-width:600px){:root[data-theme=light] .d-hint{color:#7b6b5f}:root[data-theme=light] .d-stage{background:linear-gradient(#f7f2ec calc(100% - 40px),transparent)}}
 
 /* The closing line rises into the empty band below the work tiles instead of leaving a black gap. */
 @media(min-width:601px){
