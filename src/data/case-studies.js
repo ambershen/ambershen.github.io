@@ -232,7 +232,7 @@ export const caseStudies = [
         {meta: 'Spatial experiments: TouchDesigner for the separate projection and reflection prototype.'},
       ]},
     ],
-    links: [{label: 'Try the material prototypes', url: 'https://naturaleffects.vercel.app/'}, {label: 'Implementation on GitHub', url: 'https://github.com/ambershen/dirty-window'}, {label: 'Agent skills on GitHub', url: 'https://github.com/ambershen/natural-effect'}],
+    links: [{label: 'Try the material prototypes', url: 'https://naturaleffects.vercel.app/'}, {label: 'Agent skills on GitHub', url: 'https://github.com/ambershen/natural-effect'}],
   },
   {
     slug: 'birth-crystal',
