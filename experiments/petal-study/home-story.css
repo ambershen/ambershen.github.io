@@ -42,7 +42,7 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
 /* The scrolling introduction. */
 .d-track{position:relative;z-index:2;margin-top:calc(88px - 100svh);pointer-events:none}
 .d-step{height:calc(100svh - 88px);display:flex;flex-direction:column;justify-content:center;padding-bottom:7svh;box-sizing:border-box;width:min(27vw,400px);margin-left:var(--edge,clamp(24px,5vw,76px));opacity:.15;transition:opacity .5s}
-.d-step:last-child{height:calc(150svh - 88px);justify-content:flex-start;padding-top:12svh}
+.d-step[data-mode=work]{height:calc(150svh - 88px);justify-content:flex-start;padding-top:12svh}
 .d-step.is-active{opacity:1}
 .d-step h2,.d-step p{font:400 clamp(32px,3vw,48px)/1.14 'Cormorant Garamond',serif;color:#eee8e4;margin:0}
 .d-step p.d-social{font-size:clamp(18px,1.4vw,21px);line-height:1.5;margin-top:24px;color:#d8cec5}
@@ -51,8 +51,22 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
 /* The current word takes a highlighter swipe, drawn left to right. */
 .d-word{position:relative;z-index:0;font:inherit;font-style:italic;color:#d9b5a3;background:none;border:0;padding:0 .08em;cursor:pointer}
 .d-word:before{content:'';position:absolute;z-index:-1;left:-.12em;right:-.16em;bottom:.06em;height:.48em;background:rgba(232,140,122,.78);border-radius:.3em .12em .35em .1em;transform:rotate(-1.2deg) scaleX(0);transform-origin:left center;opacity:0;transition:transform .55s cubic-bezier(.3,.7,.2,1),opacity .2s;pointer-events:none}
-.d-step.is-active .d-word{color:#fbe7dc}
-.d-step.is-active .d-word:before{opacity:1;transform:rotate(-1.2deg) scaleX(1)}
+.d-step.is-active .d-word,.d-line.is-active .d-word{color:#fbe7dc}
+.d-step.is-active .d-word:before,.d-line.is-active .d-word:before{opacity:1;transform:rotate(-1.2deg) scaleX(1)}
+
+/* Desktop: the whole introduction is pinned beside the flower for its six steps. The current line is lit and
+   the rest stay dim; the steps keep their height and only set the pace. */
+.d-group{position:relative}
+/* The pull-up sits on the first step, not on the sentence: a negative margin on a sticky element would let it
+   stay pinned past the end of its group. */
+.d-sentence{position:sticky;top:88px;height:calc(100svh - 88px);margin:0 0 0 var(--edge,clamp(24px,5vw,76px));width:min(31vw,460px);display:flex;flex-direction:column;justify-content:center;gap:.55em;padding-bottom:7svh;box-sizing:border-box;font:400 clamp(28px,2.6vw,42px)/1.14 'Cormorant Garamond',serif;color:#eee8e4;pointer-events:none}
+.d-sentence h2,.d-sentence p{font:inherit;margin:0}
+.d-sentence p.d-social{font:400 clamp(17px,1.3vw,20px)/1.5 'Cormorant Garamond',serif;color:#d8cec5;margin-top:.2em}
+.d-sentence .d-word,.d-sentence a{pointer-events:auto}
+.d-line{display:block;opacity:.2;transition:opacity .5s}
+.d-line.is-active{opacity:1}
+.d-sentence + .d-step{margin-top:calc(88px - 100svh)}
+.d-group .d-step>*{visibility:hidden}
 .d-word:focus-visible{outline:2px solid #ead0b7;outline-offset:4px}
 
 @media(max-width:600px){
@@ -63,8 +77,11 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
   .home-d .d-stage #flower{left:0!important;top:0!important;width:100%!important;height:100%!important}
   .d-track{margin-top:-34px;padding-bottom:40svh}
   .d-step{height:auto;min-height:0;width:auto;margin:0;padding:14px 6% 18px;justify-content:flex-start;opacity:.28}
-  .d-step:first-child{padding-top:34px}
-  .d-step:last-child{height:auto;min-height:60svh;padding-top:14px}
+  .d-step[data-mode=bloom]{padding-top:34px}
+  .d-step[data-mode=work]{height:auto;min-height:60svh;padding-top:14px}
+  .d-sentence{display:none}
+  .d-sentence + .d-step{margin-top:0}
+  .d-group .d-step>*{visibility:visible}
   .d-step h2,.d-step p{font-size:32px}
   .d-step p.d-social{font-size:19px}
   .d-ticks{display:none}
@@ -74,7 +91,7 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
   .d-paper{font-size:15px;padding:7px 13px 8px;white-space:normal}
   .d-sticker{max-width:48vw}
 }
-@media(prefers-reduced-motion:reduce){.d-step,.d-water,.home-d .d-stage #flower,.d-word:before{transition:none}}
+@media(prefers-reduced-motion:reduce){.d-step,.d-line,.d-water,.home-d .d-stage #flower,.d-word:before{transition:none}}
 
 /* Light: paper #f7f2ec, ink #2a211c, muted #7b6b5f, accent #a2654c, lines #e0d5ca. */
 :root[data-theme=light] .home-d .site-header{background:#f7f2ec}
@@ -83,7 +100,9 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
 :root[data-theme=light] .d-step h2,:root[data-theme=light] .d-step p{color:#2a211c}
 :root[data-theme=light] .d-step p.d-social{color:#5a4b41}
 :root[data-theme=light] .d-social a,:root[data-theme=light] .d-word{color:#a2654c}
-:root[data-theme=light] .d-step.is-active .d-word{color:#2a211c}
+:root[data-theme=light] .d-step.is-active .d-word,:root[data-theme=light] .d-line.is-active .d-word{color:#2a211c}
+:root[data-theme=light] .d-sentence{color:#2a211c}
+:root[data-theme=light] .d-sentence p.d-social{color:#5a4b41}
 :root[data-theme=light] .d-word:before{background:rgba(236,150,128,.42)}
 :root[data-theme=light] .d-tick:before{background:#d6c8bb}
 :root[data-theme=light] .d-tick.is-active:before{background:#a2654c}
@@ -100,6 +119,6 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
 
 /* The closing line rises into the empty band below the work tiles instead of leaving a black gap. */
 @media(min-width:601px){
-  .d-step:last-child{height:calc(115svh - 88px)}
+  .d-step[data-mode=work]{height:calc(115svh - 88px)}
   .home-d .home-featured{position:relative;z-index:2;margin-top:calc((100svh - 88px) * -.17);padding-top:24px}
 }

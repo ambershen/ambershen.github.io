@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import { readdirSync, existsSync } from 'fs';
+import { readdirSync, existsSync, readFileSync } from 'fs';
 import { cloudAssets } from './scripts/portfolio/cloud-assets.mjs';
 
 // Every folder in /work/ with an index.html becomes a case-study page at /work/<slug>/.
@@ -10,8 +10,15 @@ const caseStudies = Object.fromEntries(
     .map(d => [`work-${d.name}`, resolve(__dirname, 'work', d.name, 'index.html')]),
 );
 
+// Reloads a page whose cached HTML points at a previous deploy's deleted assets (see the script).
+const staleBuildRecovery = {
+  name: 'stale-build-recovery',
+  apply: 'build' as const,
+  transformIndexHtml: () => [{tag: 'script', injectTo: 'head-prepend' as const, children: readFileSync(resolve(__dirname, 'scripts/stale-build-recovery.js'), 'utf8')}],
+};
+
 export default defineConfig({
-  plugins: [cloudAssets(__dirname)],
+  plugins: [cloudAssets(__dirname), staleBuildRecovery],
   build: {
     rollupOptions: {
       input: {

@@ -64,6 +64,10 @@ const tickButtons = steps.map(s => {
   ticks.append(b); return b;
 });
 steps.forEach(s => s.querySelector('.d-word')?.addEventListener('click', () => jump(s)));
+// Desktop: the whole introduction stays on screen beside the flower (the steps' own copies are hidden there and
+// only set the pace); the current line is lit and the rest stay dim, so a visitor always sees where it is going.
+const lines = [...document.querySelectorAll('.d-line')];
+lines.forEach(l => l.querySelector('.d-word')?.addEventListener('click', () => jump(steps.find(s => s.dataset.mode === l.dataset.mode))));
 // 'my featured work' scrolls to the Selected work step instead of leaving the page.
 document.querySelectorAll('[data-jump]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); jump(steps.find(s => s.dataset.mode === a.dataset.jump)); }));
 
@@ -87,6 +91,7 @@ function setMode(next) {
   const leaving = mode;
   mode = next; modeAt = performance.now();
   steps.forEach(s => s.classList.toggle('is-active', s.dataset.mode === next));
+  lines.forEach(l => l.classList.toggle('is-active', l.dataset.mode === next));
   if (next === 'work') enterWork();
   else {
     if (leaving === 'work') leaveWork();
@@ -176,9 +181,14 @@ function sweep(t) {
   const x = ghostPos.x, y = ghostPos.y;
   ghost('pointermove', x, y);
 }
+// Chrome sends a pointermove after every scroll so hover can catch up. The pointer has not moved, so it is not
+// a visitor playing, and counting it held the ghost back: art, which only moves under a brush, stayed whole.
+let lastX = null, lastY = null;
 for (const type of ['pointerdown', 'pointermove']) flower.addEventListener(type, e => {
   if (ghosting) return;
-  if (type === 'pointerdown' || e.pointerType === 'mouse') { if (ghostDown) ghost('pointerup'); touched = performance.now(); }
+  const moved = Math.hypot(e.clientX - lastX, e.clientY - lastY) > 2 || lastX === null;
+  lastX = e.clientX; lastY = e.clientY;
+  if (type === 'pointerdown' || e.pointerType === 'mouse' && moved) { if (ghostDown) ghost('pointerup'); touched = performance.now(); }
   if (type === 'pointerdown') triedFlower = true;
 });
 
@@ -266,7 +276,10 @@ function frame(t) {
     if (index >= steps.length - 3) loadCovers();
     setMode(steps[index].dataset.mode);
     tickButtons.forEach((b, i) => b.classList.toggle('is-active', i === index));
-    if (mode !== 'work' && !still && t - touched > 5000) sweep(t);
+    // The ghost waits 5s after a visitor's own strokes, except for the opening pass when a line arrives: then
+    // it only waits for the pointer to rest, so every effect starts with its line rather than seconds later.
+    const opening = t - modeAt < 2200;
+    if (mode !== 'work' && !still && (t - touched > 5000 || opening && t - touched > 400)) sweep(t);
     stickersFrame(t, dt);
     hint.classList.toggle('is-on', !triedFlower && !['bloom', 'work'].includes(mode));
     if (mode === 'work' && water) {
