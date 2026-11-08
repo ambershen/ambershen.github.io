@@ -59,19 +59,9 @@ export const caseStudies = [
       'How much of a material’s character survives when it becomes a typeface? A stitch becomes a grid, a squeeze leaves a drip, a pearl strand traces a curve. Soft Matter turns knitted yarn, piped chocolate, strung pearls, and lace ribbon into four 3D-printable typefaces.',
       {specimens:softMatterMedia}]},
     chapters:[
-      {key:'laundromat',label:'A word goes into the wash',toc:'Laundromat',blocks:[
-        'The Laundromat is the most direct way to meet the four materials. Pick one of four washing machines, filled with chocolate, yarn, pearls, or lace, and load it with a word. The drum spins, the door opens, and the word pops out as a one-off object lettered in that face, which you can hang on the line or download.',
-        {applications:[
-          {title:'Ganache: “Cocoa” in dark chocolate on a tin',image:img(new URL('../../images/soft-matter/card-ganache.jpg',import.meta.url)),sourceWidth:640,cropLeft:0,cropTop:0,cropWidth:640,cropHeight:640},
-          {title:'Purl: “Wool” in rose yarn on an embroidery hoop',image:img(new URL('../../images/soft-matter/card-purl.jpg',import.meta.url)),sourceWidth:640,cropLeft:0,cropTop:0,cropWidth:640,cropHeight:640},
-          {title:'Picot: “Oui” in ivory lace on a board',image:img(new URL('../../images/soft-matter/card-picot.jpg',import.meta.url)),sourceWidth:640,cropLeft:0,cropTop:0,cropWidth:640,cropHeight:640},
-          {title:'Nacre: “Bonjour” in white pearls on a mirror',image:img(new URL('../../images/soft-matter/card-nacre.jpg',import.meta.url)),sourceWidth:640,cropLeft:0,cropTop:0,cropWidth:640,cropHeight:640},
-        ]},
-        {meta:'Four washes, one from each machine.'},
-        {link:{label:'Open the Laundromat',url:'https://softmatter.vercel.app/#laundromat',text:'Choose a machine and wash a word into a typeface.'}}
-      ]},
-      {key:'second-creation',label:'Back to objects',toc:'Back to objects',blocks:[
-        'An everyday object becomes a font, and because the fonts are designed to be 3D printed, a font can become an object again: something that can be held and worn. The next experiment is to print a piece from one of these typefaces.'
+      {key:'laundromat',label:'Objects into fonts, fonts into objects',toc:'Laundromat',blocks:[
+        'Soft Matter makes fonts from everyday objects, then turns those fonts back into physical objects. Try it here: pick a washing machine, type a word, and see what comes out.',
+        {embed:{url:'https://softmatter.vercel.app/#laundromat',title:'Soft Matter Laundromat'}}
       ]},
     ],links:[{label:'Try Soft Matter',url:'https://softmatter.vercel.app/'}]
   },

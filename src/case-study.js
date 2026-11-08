@@ -81,6 +81,15 @@ function block(b) {
     }
     return grid;
   }
+  // A live piece, playable in the page.
+  if (b.embed) {
+    const figure = el('figure', 'cs-embed');
+    const frame = el('iframe');
+    frame.src = b.embed.url; frame.title = b.embed.title; frame.loading = 'lazy';
+    frame.allow = 'autoplay; clipboard-write'; frame.referrerPolicy = 'no-referrer';
+    figure.append(frame);
+    return figure;
+  }
   if (b.specimens) {
     const grid=el('div',b.compact?'cs-specimens is-compact':'cs-specimens');
     for(const specimen of b.specimens){

@@ -360,6 +360,10 @@
     background: #e8e1da;
     border: 1px solid #e0d5ca
 }
+:root[data-theme=light] .cs-embed iframe {
+    border: 1px solid #e0d5ca;
+    background: #e4ddd6
+}
 :root[data-theme=light] .cs-application-crop {
     background: #e8e1da
 }
