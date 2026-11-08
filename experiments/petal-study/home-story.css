@@ -1,23 +1,15 @@
-/* Home story: the introduction scrolls past a pinned flower. Each line takes over the flower, its tags
-   circle the flower as torn paper scraps, and the last step drops the flower into water where the
-   selected work surfaces. Applies only when body has .home-d (not in the ?embed Bloom window). */
+/* Home: the whole introduction sits beside the flower on one screen; pressing a word takes over the flower and
+   its tags circle it as torn paper scraps. Applies only when body has .home-d (not in the ?embed Bloom window). */
 body:not(.home-d) .d-wrap{display:none}
-body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky needs the page itself to scroll */
+body.home-d{overflow:visible!important;overflow-x:clip!important}
 .home-d .site-header{position:sticky;top:0;z-index:10;background:#000}
 .home-d #home-page:not([hidden]){display:block!important;padding:0!important;height:auto!important;min-height:0!important}
 .home-d #home-page > .intro,.home-d #home-page > .mobile-tools,.home-d #mobile-reading{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 .d-wrap{position:relative}
-.d-stage{position:sticky;top:88px;height:calc(100svh - 88px);overflow:hidden;z-index:1}
+.d-stage{position:relative;height:calc(100svh - 88px);overflow:hidden;z-index:1}
 .home-d .d-stage #flower{position:absolute!important;inset:auto!important;left:26%!important;top:max(0px,calc((100% - 780px) / 2))!important;width:74%!important;height:min(96%,780px)!important;min-height:0!important;transition:opacity .5s}
 .home-d .d-stage #loading{left:60%;top:45%}
-.d-water{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;opacity:0;pointer-events:none;transition:opacity .4s;touch-action:none}
-.d-stage.is-work .d-water{opacity:1}
-.d-stage.is-work #flower{opacity:0;pointer-events:none}
-.d-links{position:absolute;inset:0;display:none;z-index:2}
-.d-stage.is-work .d-links{display:block}
-.d-links a{position:absolute;display:block;border-radius:2px;touch-action:none}
-.d-links a:hover,.d-links a:focus-visible{outline:1px solid #d9b5a3;outline-offset:6px}
 
 /* Torn paper scraps. The shadow sits on the wrapper because clip-path clips its own. */
 .d-stickers{position:absolute;inset:0;pointer-events:none;z-index:2}
@@ -29,96 +21,50 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}   /* sticky ne
     radial-gradient(90% 80% at 85% 90%,rgba(120,100,80,.16),transparent 70%),
     #ece6dc}
 
-/* A quiet chapter index on the right edge. */
 .d-hint{display:none}
-.d-ticks{position:absolute;right:clamp(16px,2.4vw,36px);top:50%;transform:translateY(-50%);z-index:3;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
-.home-d .d-tick{position:relative;display:block;width:44px;height:22px;padding:0;border:0;border-radius:0;background:none;cursor:pointer}
-.d-tick:before{content:'';position:absolute;right:0;top:50%;width:14px;height:1px;background:#4a3e36;transition:width .35s,background .35s}
-.d-tick.is-active:before{width:36px;background:#d9b5a3}
-.d-tick:hover:before{background:#eee8e4}
-.d-tick:after{content:attr(data-label);position:absolute;right:48px;top:50%;transform:translateY(-50%);font:italic 400 18px/1 'Cormorant Garamond',serif;color:#d9b5a3;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
-.d-tick:hover:after,.d-tick:focus-visible:after{opacity:1}
-
-/* The scrolling introduction. */
-.d-track{position:relative;z-index:2;margin-top:calc(88px - 100svh);pointer-events:none}
-.d-step{height:calc(100svh - 88px);display:flex;flex-direction:column;justify-content:center;padding-bottom:7svh;box-sizing:border-box;width:min(27vw,400px);margin-left:var(--edge,clamp(24px,5vw,76px));opacity:.15;transition:opacity .5s}
-.d-step[data-mode=work]{height:calc(150svh - 88px);justify-content:flex-start;padding-top:12svh}
-.d-step.is-active{opacity:1}
-.d-step h2,.d-step p{font:400 clamp(32px,3vw,48px)/1.14 'Cormorant Garamond',serif;color:#eee8e4;margin:0}
-.d-step p.d-social{font-size:clamp(18px,1.4vw,21px);line-height:1.5;margin-top:24px;color:#d8cec5}
 .d-social a{color:#d9b5a3;text-underline-offset:6px}
-.d-step a,.d-word{pointer-events:auto}
 /* The current word takes a highlighter swipe, drawn left to right. */
 .d-word{position:relative;z-index:0;font:inherit;font-style:italic;color:#d9b5a3;background:none;border:0;padding:0 .08em;cursor:pointer}
 .d-word:before{content:'';position:absolute;z-index:-1;left:-.12em;right:-.16em;bottom:.06em;height:.48em;background:rgba(232,140,122,.78);border-radius:.3em .12em .35em .1em;transform:rotate(-1.2deg) scaleX(0);transform-origin:left center;opacity:0;transition:transform .55s cubic-bezier(.3,.7,.2,1),opacity .2s;pointer-events:none}
-.d-step.is-active .d-word,.d-line.is-active .d-word{color:#fbe7dc}
-.d-step.is-active .d-word:before,.d-line.is-active .d-word:before{opacity:1;transform:rotate(-1.2deg) scaleX(1)}
+.d-line.is-active .d-word{color:#fbe7dc}
+.d-line.is-active .d-word:before{opacity:1;transform:rotate(-1.2deg) scaleX(1)}
 
-/* Desktop: the whole introduction is pinned beside the flower for its six steps. The current line is lit and
-   the rest stay dim; the steps keep their height and only set the pace. */
-.d-group{position:relative}
-/* The pull-up sits on the first step, not on the sentence: a negative margin on a sticky element would let it
-   stay pinned past the end of its group. */
-.d-sentence{position:sticky;top:88px;height:calc(100svh - 88px);margin:0 0 0 var(--edge,clamp(24px,5vw,76px));width:min(31vw,460px);display:flex;flex-direction:column;justify-content:center;gap:.55em;padding-bottom:7svh;box-sizing:border-box;font:400 clamp(28px,2.6vw,42px)/1.14 'Cormorant Garamond',serif;color:#eee8e4;pointer-events:none}
+/* Desktop: the introduction lies over the left of the stage, every line at full strength. */
+.d-sentence{position:absolute;left:var(--edge,clamp(24px,5vw,76px));top:0;height:calc(100svh - 88px);width:min(31vw,460px);display:flex;flex-direction:column;justify-content:center;gap:.55em;padding-bottom:7svh;box-sizing:border-box;font:400 clamp(28px,2.6vw,42px)/1.14 'Cormorant Garamond',serif;color:#eee8e4;z-index:2}
 .d-sentence h2,.d-sentence p{font:inherit;margin:0}
 .d-sentence p.d-social{font:400 clamp(17px,1.3vw,20px)/1.5 'Cormorant Garamond',serif;color:#d8cec5;margin-top:.2em}
-.d-sentence .d-word,.d-sentence a{pointer-events:auto}
-.d-line{display:block;opacity:.2;transition:opacity .5s}
-.d-line.is-active{opacity:1}
-.d-sentence + .d-step{margin-top:calc(88px - 100svh)}
-.d-group .d-step>*{visibility:hidden}
+.d-line{display:block}
+.d-word:hover{color:#fbe7dc}
 .d-word:focus-visible{outline:2px solid #ead0b7;outline-offset:4px}
 
 @media(max-width:600px){
-  /* The flower is drawn square, so a stage taller than it is wide only adds black above and below. */
-  /* The flower is drawn square, so a stage taller than it is wide only adds black above and below. Its
-     last 40px, empty below the stem, fade out so the lines tuck up under the flower and dissolve into it. */
-  .d-stage{top:72px;height:min(58svh,calc(100vw + 12px));background:linear-gradient(#000 calc(100% - 40px),transparent);z-index:3}
+  /* The flower is drawn square, so a stage taller than it is wide only adds black above and below. Its last
+     40px, empty below the stem, fade out so the text tucks up under the flower. */
+  .d-stage{height:min(58svh,calc(100vw + 12px));background:linear-gradient(#000 calc(100% - 40px),transparent)}
   .home-d .d-stage #flower{left:0!important;top:0!important;width:100%!important;height:100%!important}
-  .d-track{margin-top:-34px;padding-bottom:40svh}
-  .d-step{height:auto;min-height:0;width:auto;margin:0;padding:14px 6% 18px;justify-content:flex-start;opacity:.28}
-  .d-step[data-mode=bloom]{padding-top:34px}
-  .d-step[data-mode=work]{height:auto;min-height:60svh;padding-top:14px}
-  .d-sentence{display:none}
-  .d-sentence + .d-step{margin-top:0}
-  .d-group .d-step>*{visibility:visible}
-  .d-step h2,.d-step p{font-size:32px}
-  .d-step p.d-social{font-size:19px}
-  .d-ticks{display:none}
+  .d-sentence{position:relative;left:auto;top:auto;height:auto;width:auto;margin-top:-34px;padding:0 6% 48px;justify-content:flex-start;font-size:30px}
+  .d-sentence p.d-social{font-size:18px}
   /* The touch hint under the flower until the first touch. */
   .d-hint{display:block;position:absolute;left:0;right:0;bottom:44px;z-index:2;margin:0;text-align:center;font:400 11px/1.4 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:#a99b8f;pointer-events:none;opacity:0;transition:opacity .5s}
   .d-hint.is-on{opacity:1}
   .d-paper{font-size:15px;padding:7px 13px 8px;white-space:normal}
   .d-sticker{max-width:48vw}
 }
-@media(prefers-reduced-motion:reduce){.d-step,.d-line,.d-water,.home-d .d-stage #flower,.d-word:before{transition:none}}
+@media(prefers-reduced-motion:reduce){.home-d .d-stage #flower,.d-word:before{transition:none}}
 
 /* Light: paper #f7f2ec, ink #2a211c, muted #7b6b5f, accent #a2654c, lines #e0d5ca. */
 :root[data-theme=light] .home-d .site-header{background:#f7f2ec}
-/* The generic light button rule (pill border and fill) must not reach the story words or chapter ticks. */
-:root[data-theme=light] .d-word,:root[data-theme=light] .home-d .d-tick{background:none;border:0}
-:root[data-theme=light] .d-step h2,:root[data-theme=light] .d-step p{color:#2a211c}
-:root[data-theme=light] .d-step p.d-social{color:#5a4b41}
+/* The generic light button rule (pill border and fill) must not reach the story words. */
+:root[data-theme=light] .d-word{background:none;border:0}
 :root[data-theme=light] .d-social a,:root[data-theme=light] .d-word{color:#a2654c}
-:root[data-theme=light] .d-step.is-active .d-word,:root[data-theme=light] .d-line.is-active .d-word{color:#2a211c}
+:root[data-theme=light] .d-line.is-active .d-word,:root[data-theme=light] .d-word:hover{color:#2a211c}
 :root[data-theme=light] .d-sentence{color:#2a211c}
 :root[data-theme=light] .d-sentence p.d-social{color:#5a4b41}
 :root[data-theme=light] .d-word:before{background:rgba(236,150,128,.42)}
-:root[data-theme=light] .d-tick:before{background:#d6c8bb}
-:root[data-theme=light] .d-tick.is-active:before{background:#a2654c}
-:root[data-theme=light] .d-tick:hover:before{background:#2a211c}
-:root[data-theme=light] .d-tick:after{color:#a2654c}
 :root[data-theme=light] .d-sticker{filter:drop-shadow(0 1px 1px rgba(80,55,35,.22)) drop-shadow(0 6px 12px rgba(80,55,35,.18))}
 :root[data-theme=light] .d-paper{background:
     linear-gradient(var(--fold-angle,95deg),transparent calc(var(--fold,50%) - 1px),rgba(255,255,255,.7) var(--fold,50%),rgba(0,0,0,.06) calc(var(--fold,50%) + 1px),transparent calc(var(--fold,50%) + 14px)),
     radial-gradient(120% 90% at 20% 10%,rgba(255,255,255,.6),transparent 60%),
     radial-gradient(90% 80% at 85% 90%,rgba(120,100,80,.1),transparent 70%),
     #fffcf7}
-:root[data-theme=light] .d-links a:hover,:root[data-theme=light] .d-links a:focus-visible{outline-color:#a2654c}
 @media(max-width:600px){:root[data-theme=light] .d-hint{color:#7b6b5f}:root[data-theme=light] .d-stage{background:linear-gradient(#f7f2ec calc(100% - 40px),transparent)}}
-
-/* The closing line rises into the empty band below the work tiles instead of leaving a black gap. */
-@media(min-width:601px){
-  .d-step[data-mode=work]{height:calc(115svh - 88px)}
-  .home-d .home-featured{position:relative;z-index:2;margin-top:calc((100svh - 88px) * -.17);padding-top:24px}
-}
