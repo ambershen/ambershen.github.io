@@ -3,13 +3,13 @@ import {teachingRoom} from './teaching-room.js';
 import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
 import {resolveCatalog} from '../../src/data/catalog-assets.js';
 import {videoPoster} from '../../src/data/video-posters.js';
-import {naturalMedia,softMatterMedia} from '../../src/data/case-studies.js';
-import {hoverClip,specimenCover} from './work-motion.js';
+import {hoverClip,laundromatCover} from './work-motion.js';
+import './work-grid.css';
 import {naturalTile} from '../../src/natural-play.js';
 import './sketchbook.css';
 import {articles} from '../../src/data/essays.js';
 import {films as defaultFilms,newsletter,buttondownUrls,socials} from '../../src/data/site.js';
-import {projects as defaultProjects, items as defaultItems, sketchGroups, sketchDates} from '../../src/data/portfolio.js';
+import {projects as defaultProjects, items as defaultItems, sketchGroups, sketchDates, workCards} from '../../src/data/portfolio.js';
 
 let films=defaultFilms, projects=defaultProjects, items=defaultItems;
 let catalogApplied=false, routeVersion=0;
@@ -20,7 +20,7 @@ addEventListener('resize',()=>{field?.fit?.();room?.fit?.();});
 
 const modal=document.querySelector('#work-window'),content=document.querySelector('#work-content');
 const title=document.querySelector('#work-title'),description=document.querySelector('#work-description');
-let category='products',activeProject='natural-effects';
+let category='products';
 const home=document.querySelector('#home-page'),viewer=document.querySelector('#art-viewer'),artDetail=document.querySelector('#art-detail');
 let homeScroll=0,artOpener=null;
 
@@ -35,101 +35,69 @@ function media(item,detail=false){
   else{el.src=item.video?(item.poster||videoPoster(item.video)):item.image;el.alt=item.title;el.loading='lazy';el.decoding='async';}
   return el;
 }
-function stopMedia(){content.querySelectorAll('video').forEach(video=>video.pause());}
-content.addEventListener('play',event=>{
+function stopMedia(){document.querySelectorAll('#work-content video,.case-slide video').forEach(video=>video.pause());}
+document.addEventListener('play',event=>{
   if(event.target.tagName!=='VIDEO'||event.target.classList.contains('hover-clip'))return;
-  content.querySelectorAll('video').forEach(video=>{if(video!==event.target)video.pause();});
+  document.querySelectorAll('#work-content video,.case-slide video').forEach(video=>{if(video!==event.target)video.pause();});
 },true);
-function selectedWork(){
-  const feature=node('article','selected-feature');
-  const header=node('div','selected-feature-header');
-  const heading=node('div');
-  const featureTitle=node('h3','selected-feature-title');const featureLink=node('a','','Natural Effects as the New Brush');featureLink.href='#work/natural-effects';featureTitle.append(featureLink);
-  heading.append(node('p','selection-label','01 / INTERACTIVE MATERIALS'),featureTitle);
-  const intro=node('div','selected-feature-intro');
-  intro.append(node('p','selected-feature-note','Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.'));
-  header.append(heading,intro);
-  const materials=node('div','selected-materials');
-  naturalMedia.forEach((material,index)=>{
-    const link=node('a','selected-material');link.href=`#work/natural-effects/${material.id}`;
-    const image=naturalTile(material.id,material.title);
-    const copy=node('div','selected-material-copy');
-    copy.append(node('span','selection-label',`0${index+1} / ${material.kind}`),node('h4','',material.title));
-    link.append(image,copy);materials.append(link);
-  });
-  const foot=node('div','selected-feature-footer');
-  foot.append(node('p','','An ongoing series, with reusable effects and agent skills.'));
-  const read=node('a','selected-link','Explore the series');read.href='#work/natural-effects';
-  for(const a of [read,featureLink,...materials.querySelectorAll('a')])a.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;caseOpener=a;caseOpenedHere=true;});
-  foot.append(read);
-  feature.append(header,materials,foot);content.append(feature);
-  const grid=node('div','selected-projects');
-  projects.filter(project=>project.id!=='natural-effects').forEach((project,index)=>{
-    const card=node('a','selected-project');card.href=`#work/${project.id}`;
-    const frame=node('div','selected-project-media');
-    if(project.id==='soft-matter')frame.append(specimenCover(card,softMatterMedia.map(s=>({...s})),project.title));
-    else{frame.append(media(project));hoverClip(card,frame,project.video||project.studies?.find(s=>s.video)?.video);}
-    card.append(frame,node('p','selection-label',`0${index+2} / ${project.kind||(project.id==='soft-matter'?'MATERIAL TYPE & CREATIVE CODING':project.id==='live-visuals'?'CREATIVE CODING & 3D':'PRODUCT DESIGN')}`),node('h3','',project.title+''),node('p','selected-project-tagline',project.tagline));
-    grid.append(card);
-  });
+const cardHash=card=>`#work/${card.project}${card.part?`/${card.part}`:''}`;
+function cardLinks(card,external=false){
+  const box=node('div','work-tile-actions');
+  for(const l of card?.links||[]){
+    const inside=l.url.startsWith('#');if(external&&inside)continue;
+    const a=node('a','',l.label);a.href=l.url;if(!inside){a.target='_blank';a.rel='noopener noreferrer';}box.append(a);
+  }
+  return box;
+}
+function workGrid(){
+  const grid=node('div','work-tiles');
+  for(const card of workCards){
+    const project=projects.find(p=>p.id===card.project);if(!project)continue;
+    const tile=node('article','work-tile'),open=node('a','work-tile-open'),frame=node('div','work-tile-media');
+    open.href=cardHash(card);
+    open.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;caseOpener=open;caseOpenedHere=true;});
+    if(card.tile)frame.append(naturalTile(card.tile,card.title));
+    else if(card.laundromat)frame.append(laundromatCover(card.thumb,card.title));
+    else if(card.image)frame.append(media({title:card.title,image:card.image}));
+    else{frame.append(media(project));hoverClip(open,frame,project.video);}
+    open.append(frame,node('h3','',card.title),node('p','work-tile-meta',card.meta),node('p','work-tile-line',card.line));
+    tile.append(open,cardLinks(card));grid.append(tile);
+  }
   content.append(grid);
 }
-// The next work in Work order, opening the way that work opens (case slide or project view).
-function nextWork(id){
-  const list=projects.filter((p,i,all)=>all.findIndex(q=>q.id===p.id)===i),next=list[(list.findIndex(p=>p.id===id)+1)%list.length];
-  const a=node('a','work-next');a.href=`#work/${next.id}`;a.append(node('span','','Next work'),node('strong','',next.title));
-  a.addEventListener('click',()=>{caseOpener=null;caseOpenedHere=false;requestAnimationFrame(()=>scrollTo({top:0,behavior:'instant'}));});
-  return a;
-}
-function projectArchive(){
-  modal.classList.add('archive-mode');
-  const layout=node('div','project-archive'),directory=node('nav','project-directory'),article=node('article','project-article');
-  directory.setAttribute('aria-label','Choose a project');
-  const all=node('a','project-all','Selected work');all.href='#work';directory.append(all,node('p','directory-label','PROJECTS'));
-  function select(id,updateURL=true){
-    activeProject=id;stopMedia();article.replaceChildren();
-    const project=projects.find(p=>p.id===id);
-    directory.querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.project===id)));
-    article.append(node('span','project-number',`0${projects.indexOf(project)+1} / ${project.kind||'WORK'}`),node('h3','project-title',project.title));
-    if(project.summary)article.append(node('p','project-summary',project.summary));
-    if(project.studies){
-      const studies=node('div','visual-studies');
-      project.studies.forEach(study=>{
-        const figure=node('figure'),caption=node('figcaption','visual-study-caption');
-        if(study.kind)caption.append(node('p','selection-label',study.kind));
-        caption.append(node('h4','visual-study-title',study.title));
-        if(study.description)caption.append(node('p','visual-study-description',study.description));
-        figure.append(caption,media(study,true));studies.append(figure);
-      });
-      article.append(studies);
-    }else if(!project.hideHero){
-      const demo=media(project,true);if(project.poster)demo.poster=project.poster;demo.classList.add('archive-demo');if(project.portrait){demo.style.aspectRatio='9 / 16';demo.style.width='min(100%, 420px)';demo.style.margin='24px auto 0';}article.append(demo);
-    }
-    if(project.motionCaption)article.append(node('p','visual-study-description',project.motionCaption));
-    if(project.sections){
-      const story=node('div','dictionary-story');
-      project.sections.forEach((part,index)=>{const section=node('section','dictionary-chapter');section.append(node('p','selection-label',`0${index+1}`),node('h4','',part.title),node('p','',part.text));if(part.image){const image=node('img','project-process-image');image.src=part.image;image.alt=part.alt||part.title;image.loading='lazy';section.append(image);}story.append(section);});
-      article.append(story);
-    }
-    const notes=node('div','project-notes');
-    for(const [label,text] of [['Why I made it',project.why],['What I built',project.made],['What came out of it',project.result]]){
-      if(!text)continue;
-      const section=node('section','project-note');section.append(node('h4','',label),node('p','',text));notes.append(section);
-    }
-    if(notes.children.length)article.append(notes);
-    const links=node('div','project-actions');
-    if(project.live){const link=node('a','','Try it');link.href=project.live;link.target='_blank';link.rel='noopener noreferrer';links.append(link);}
-    for(const l of project.links||[]){const a=node('a','',l.internal?`${l.label}`:`${l.label}`);a.href=l.url;if(!l.internal){a.target='_blank';a.rel='noopener noreferrer';}links.append(a);}
-    article.append(links,nextWork(id));
-    if(updateURL && location.hash!==`#work/${id}`)history.replaceState(null,'',`#work/${id}`);
+// A project without a case-study page, as the slide-in panel shows it.
+function projectArticle(project){
+  const article=node('article','project-article');
+  if(project.kind)article.append(node('span','project-number',project.kind));
+  article.append(node('h3','project-title',project.title));
+  if(project.summary||project.tagline)article.append(node('p','project-summary',project.summary||project.tagline));
+  if(project.tech){const tech=node('ul','project-tech');for(const t of project.tech)tech.append(node('li','',t));article.append(tech);}
+  if(project.studies){
+    const studies=node('div','visual-studies');
+    project.studies.forEach(study=>{
+      const figure=node('figure'),caption=node('figcaption','visual-study-caption');
+      if(study.kind)caption.append(node('p','selection-label',study.kind));
+      caption.append(node('h4','visual-study-title',study.title));
+      if(study.description)caption.append(node('p','visual-study-description',study.description));
+      figure.append(caption,media(study,true));studies.append(figure);
+    });
+    article.append(studies);
+  }else if(!project.hideHero){
+    const demo=media(project,true);if(project.poster)demo.poster=project.poster;demo.classList.add('archive-demo');if(project.portrait){demo.style.aspectRatio='9 / 16';demo.style.width='min(100%, 420px)';demo.style.margin='24px auto 0';}article.append(demo);
   }
-  for(const project of projects){
-    const button=node(project.page?'a':'button','project-choice');button.dataset.project=project.id;button.append(node('strong','',project.title));
-    if(project.page){button.href=project.page;button.onclick=e=>{if(e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();caseOpener=button;caseOpenedHere=true;location.hash=`work/${project.id}`;};}
-    else button.onclick=()=>select(project.id);
-    directory.append(button);
+  if(project.motionCaption)article.append(node('p','visual-study-description',project.motionCaption));
+  if(project.sections){
+    const story=node('div','dictionary-story');
+    project.sections.forEach((part,index)=>{const section=node('section','dictionary-chapter');section.append(node('p','selection-label',`0${index+1}`),node('h4','',part.title),node('p','',part.text));if(part.image){const image=node('img','project-process-image');image.src=part.image;image.alt=part.alt||part.title;image.loading='lazy';section.append(image);}story.append(section);});
+    article.append(story);
   }
-  layout.append(directory,article);content.append(layout);select(activeProject,false);
+  const notes=node('div','project-notes');
+  for(const [label,text] of [['Why I made it',project.why],['What I built',project.made],['What came out of it',project.result]]){
+    if(!text)continue;
+    const section=node('section','project-note');section.append(node('h4','',label),node('p','',text));notes.append(section);
+  }
+  if(notes.children.length)article.append(notes);
+  return article;
 }
 function detail(item,index){
   artOpener=content.querySelectorAll('.work-card')[index];artDetail.replaceChildren();
@@ -168,7 +136,6 @@ function newsletterSignup(compact=false){
 }
 function render(next){
   category=next;stopMedia();dropField();content.replaceChildren();
-  modal.classList.remove('archive-mode');
   modal.classList.toggle('gallery-mode',next==='art');
   modal.classList.toggle('film-mode',next==='film');
   const selectedArticle=articles.find(article=>article.route===location.hash);
@@ -177,7 +144,7 @@ function render(next){
   document.title=reading?selectedArticle.title+' — Amber Shen':'Amber Shen — Creative Technologist';
   title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',film:'Selected Films',writing:'Writing',teaching:'Tutorials'}[category];
   description.textContent={selected:'A few things from my world.',products:'',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb,teaching:'Making technical ideas easier to understand, explore, and build with.'}[category];
-  if(category==='products'){if(location.hash.startsWith('#work/') && projects.some(p=>p.id===activeProject && !p.page))projectArchive();else selectedWork();modal.scrollTop=0;return;}
+  if(category==='products'){workGrid();modal.scrollTop=0;return;}
   if(category==='film'){filmRoom();modal.scrollTop=0;return;}
   if(category==='teaching'){document.title='Tutorials — Amber Shen';room=teachingRoom({fullBleed:el=>{if(!el.isConnected)return;const box=content.getBoundingClientRect();el.style.width=document.documentElement.clientWidth+'px';el.style.marginLeft=-box.left+'px';}});content.append(room.el);room.fit();return;}
   if(category==='writing'){
@@ -261,32 +228,55 @@ function showPage(next,focus=false){
   if(next!=='home'){render(next);window.scrollTo(0,0);if(focus)title.focus({preventScroll:true});animateReading();}
   else{articleOrigin=null;window.scrollTo(0,homeScroll);if(focus)document.querySelector('.home-flower').focus({preventScroll:true});}
 }
-// A project with its own case study page slides in over Work: the page in a frame (?embed hides its nav).
-// Back, Esc and "Work" slide it away again.
-let slide=null,slideFrame=null,slideClose=null,slideFull=null,caseOpener=null,caseOpenedHere=false;
+// A project slides in from the right, its case study in a frame (?embed hides its nav) or its article in place,
+// while the grid folds into a rail on the left. Back, Esc and "Work" slide it away again.
+let slide=null,slideFrame=null,slideArticle=null,slideClose=null,slideLinks=null,rail=null,caseOpener=null,caseOpenedHere=false;
+// The panel opens below the header, which stays on top.
+const siteHeader=document.querySelector('.site-header');
+if(siteHeader)new ResizeObserver(()=>document.documentElement.style.setProperty('--header-h',`${siteHeader.offsetHeight}px`)).observe(siteHeader);
 function leaveCase(){if(caseOpenedHere){caseOpenedHere=false;history.back();}else{history.replaceState(null,'','#work');route();}}
+function railLink(card){
+  const project=projects.find(p=>p.id===card.project),a=node('a','work-rail-item'),image=node('img');
+  a.href=cardHash(card);a.dataset.card=cardHash(card);
+  image.src=card.thumb||project?.poster||videoPoster(project?.video)||project?.image||'';image.alt='';image.loading='lazy';image.decoding='async';
+  a.append(image,node('span','',card.title));
+  a.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;e.preventDefault();location.replace(a.href);}); // Back still leaves the panel in one step
+  return a;
+}
 function openCase(project,part){
   if(!slide){
-    slide=node('div','case-slide');slide.hidden=true;slide.setAttribute('role','dialog');slide.setAttribute('aria-modal','true');
-    const bar=node('div','case-slide-bar');
+    slide=node('div','case-slide');slide.hidden=true;slide.setAttribute('role','dialog');
+    const bar=node('div','case-slide-bar'),side=node('div','case-slide-side');
     slideClose=node('button','case-slide-close','Work');slideClose.type='button';slideClose.onclick=leaveCase;
-    slideFull=node('a','case-slide-full','Open as a page');
+    slideLinks=node('div','case-slide-links');
     slideFrame=node('iframe','case-slide-frame');
+    slideArticle=node('div','case-slide-article');
     slideFrame.addEventListener('load',()=>{try{slideFrame.contentWindow.addEventListener('keydown',e=>{if(e.key==='Escape')leaveCase();});}catch{}});
-    bar.append(slideClose,slideFull);slide.append(bar,slideFrame);document.body.append(slide);
+    side.append(slideLinks);bar.append(slideClose,side);slide.append(bar,slideFrame,slideArticle);
+    rail=node('nav','work-rail');rail.setAttribute('aria-label','Work');rail.append(...workCards.map(railLink));
+    document.body.append(slide,rail);
     addEventListener('keydown',e=>{if(e.key==='Escape'&&slide.classList.contains('open'))leaveCase();});
     addEventListener('message',e=>{if(e.origin!==location.origin)return;if(e.data?.type==='case-close')leaveCase();if(e.data?.type==='case-open'&&typeof e.data.id==='string')location.hash=`work/${e.data.id}`;});
   }
-  slide.setAttribute('aria-label',project.title);slideFrame.title=project.title;slideFull.href=project.page;
-  const anchor=part?`#s-${part}`:'';
-  if(slideFrame.dataset.page!==project.page){slideFrame.dataset.page=project.page;slideFrame.src=project.page+'?embed'+anchor;}
-  else{try{if(anchor)slideFrame.contentWindow.location.hash=anchor;else slideFrame.contentWindow.scrollTo(0,0);}catch{}}
+  stopMedia();
+  const card=workCards.find(c=>c.project===project.id&&c.part===part)||workCards.find(c=>c.project===project.id);
+  slide.setAttribute('aria-label',card?.title||project.title);
+  slideLinks.replaceChildren(...cardLinks(card,true).children);
+  rail.querySelectorAll('a').forEach(a=>{if(card&&a.dataset.card===cardHash(card)){a.setAttribute('aria-current','true');a.scrollIntoView({block:'nearest'});}else a.removeAttribute('aria-current');});
+  slideFrame.hidden=!project.page;slideArticle.hidden=Boolean(project.page);
+  if(project.page){
+    slideFrame.title=project.title;
+    const anchor=part?`#s-${part}`:'';
+    // replace, not src or hash: the frame must not add history entries, or Back and Esc stop leaving the panel in one step
+    if(slideFrame.dataset.page!==project.page){slideFrame.dataset.page=project.page;slideFrame.contentWindow.location.replace(project.page+'?embed'+anchor);}
+    else{try{if(anchor)slideFrame.contentWindow.location.replace(project.page+'?embed'+anchor);else slideFrame.contentWindow.scrollTo(0,0);}catch{}}
+  }else{slideArticle.replaceChildren(projectArticle(project));slideArticle.scrollTop=0;}
   slide.hidden=false;slide.offsetWidth;slide.classList.add('open');document.body.classList.add('case-open');
   slideClose.focus({preventScroll:true,focusVisible:false});
 }
 function closeCase(){
   if(!slide?.classList.contains('open'))return;
-  slide.classList.remove('open');document.body.classList.remove('case-open');
+  stopMedia();caseOpenedHere=false;slide.classList.remove('open');document.body.classList.remove('case-open');
   const done=()=>{if(!slide.classList.contains('open'))slide.hidden=true;};
   matchMedia('(prefers-reduced-motion: reduce)').matches?done():slide.addEventListener('transitionend',done,{once:true});
   caseOpener?.focus({preventScroll:true});
@@ -299,14 +289,14 @@ async function route(focus=false){
     if(version!==routeVersion)return;
     if(catalog){
       if(catalog.films)films=resolveCatalog(catalog.films.map(row=>row.payload));
-      if(catalog.projects)projects=resolveCatalog(catalog.projects.map(row=>row.payload));
+      if(catalog.projects){const cloud=resolveCatalog(catalog.projects.map(row=>row.payload));projects=[...cloud,...defaultProjects.filter(p=>!cloud.some(q=>q.id===p.id))];}
       if(catalog.sketches)items=resolveCatalog(catalog.sketches.map(row=>row.payload));
     }
     catalogApplied=true;
   }
   if(hash.startsWith('#work/')){const [slug,part]=hash.slice(6).split('/'),id=projectAliases[slug]||slug,project=projects.find(p=>p.id===id);
-    if(project?.page){activeProject=project.id;if(modal.hidden||category!=='products')showPage('products');openCase(project,part);return;}
-    closeCase();if(project)activeProject=id;showPage('products',focus);return;}
+    if(project){if(modal.hidden||category!=='products')showPage('products');openCase(project,part);return;}
+    closeCase();showPage('products',focus);return;}
   closeCase();
   showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#film'?'film':(hash==='#tutorials'||hash==='#teaching')?'teaching':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
 }

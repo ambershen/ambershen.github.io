@@ -75,7 +75,7 @@ function block(b) {
       image.loading = 'lazy'; image.decoding = 'async';
       image.style.top = `${-application.cropTop / application.cropHeight * 100}%`;
       image.style.left = `${-application.cropLeft / application.cropWidth * 100}%`;
-      image.style.width = `${1280 / application.cropWidth * 100}%`;
+      image.style.width = `${(application.sourceWidth || 1280) / application.cropWidth * 100}%`;
       frame.append(image);
       figure.append(frame); grid.append(figure);
     }

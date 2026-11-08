@@ -25,7 +25,7 @@ const stickers = {
 };
 const work = [
   {title: 'Natural Effects as the New Brush', href: '/work/natural-expressions/', image: new URL('../../images/natural-expressions/water-demo.jpg', import.meta.url).href},
-  {title: 'Soft Matter', href: '/work/soft-matter/', image: new URL('../../images/soft-matter/tangle.png', import.meta.url).href, fit: 'contain', ground: '#131315'},
+  {title: 'Soft Matter', href: '/work/soft-matter/', image: new URL('../../images/soft-matter/nacre.png', import.meta.url).href, fit: 'contain', ground: '#1b2649'},
 ];
 
 if (document.body.classList.contains('home-d')) {

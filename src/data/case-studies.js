@@ -45,55 +45,33 @@ export const naturalMedia = [
 
 
 export const softMatterMedia = [
-  {title:'Purl',kind:'Knitted yarn',image:img(new URL('../../images/soft-matter/purl.png',import.meta.url)),text:'A knitting grid gives each letter its structure. Repeated V-shaped stitches turn curves into stepped, chunky forms; the gauge changes how much detail a letter can hold.'},
-  {title:'Ganache',kind:'Piped chocolate',image:img(new URL('../../images/soft-matter/ganache.png',import.meta.url)),text:'Each stroke is a separate squeeze. A rounded beginning, a thinning tail, and an occasional drip carry the gesture of piping chocolate into the letterform.'},
-  {title:'Tangle',kind:'Earphone cable',image:img(new URL('../../images/soft-matter/tangle.png',import.meta.url)),text:'A cable becomes a continuous lowercase script. Curves and loops keep the line connected from earbuds to plug, while slack changes its looseness.'},
-  {title:'Picot',kind:'Lace ribbon',image:img(new URL('../../images/soft-matter/picot.png',import.meta.url)),text:'Thick strokes open into mesh, flowers, and eyelets. Thin strokes narrow to a thread, with small picot loops tracing the edges.'},
+  {title:'Purl',kind:'Knitted yarn',image:img(new URL('../../images/soft-matter/purl.png',import.meta.url)),text:'A knitting grid turns every curve into stepped, chunky stitches.'},
+  {title:'Ganache',kind:'Piped chocolate',image:img(new URL('../../images/soft-matter/ganache.png',import.meta.url)),text:'Each stroke is one squeeze of piped chocolate, with a thinning tail and the odd drip.'},
+  {title:'Nacre',kind:'Strung pearls',image:img(new URL('../../images/soft-matter/nacre.png',import.meta.url)),text:'A joined script of pearls knotted on silk: large pearls for downstrokes, seed pearls for hairlines.'},
+  {title:'Picot',kind:'Lace ribbon',image:img(new URL('../../images/soft-matter/picot.png',import.meta.url)),text:'Thick strokes open into lace mesh and flowers; thin strokes narrow to a thread.'},
 ];
 
 export const caseStudies = [
   {
-    slug:'soft-matter',title:'Soft Matter',year:'2026',medium:'Creative coding · Type design · Material studies',
-    tagline:'Everyday materials become fonts. The fonts become new objects.',status:'published',cover:false,gallery:[],sections:{},
-    opening:{toc:'Overview',title:'Four materials. Four ways to write.',blocks:[{specimens:softMatterMedia,compact:true}]},
+    slug:'soft-matter',title:'Soft Matter',year:'2026',medium:'Type design · Creative coding · 3D printing',
+    tagline:'3D-printable typefaces made of yarn, chocolate, pearls and lace.',status:'published',cover:false,gallery:[],sections:{},
+    opening:{toc:'Overview',title:'Four materials. Four ways to write.',blocks:[
+      'How much of a material’s character survives when it becomes a typeface? A stitch becomes a grid, a squeeze leaves a drip, a pearl strand traces a curve. Soft Matter turns knitted yarn, piped chocolate, strung pearls, and lace ribbon into four 3D-printable typefaces.',
+      {specimens:softMatterMedia}]},
     chapters:[
-      {key:'origins-materials',label:'Looking for letters in everyday things',toc:'The starting point',blocks:[
-        'Soft Matter turns everyday objects into new fonts. Knitted yarn, piped chocolate, tangled earphones, and lace ribbon become letterforms through their textures, gestures, and physical constraints.',
-        'The question is how much of a material’s character can remain when it becomes a typeface. A stitch creates a grid. A squeeze leaves a drip. A cable makes a loop. These details become the structure of a visual language that can take shape on a screen, in motion, or as a physical object.'
-      ]},
-      {key:'typefaces',label:'Four materials, four systems',toc:'The typefaces',blocks:[{specimens:softMatterMedia}]},
-      {key:'variation',label:'A system you can play with',toc:'Variation',blocks:[
-        'Each family supports five weights, from Light to Black, alongside color and material controls. Gauge, drip, slack, and contrast make the behavior of each material part of the design interface.',
-        {image:img(new URL('../../images/soft-matter/purl-heavy.png',import.meta.url)),caption:'Purl in Black: the same words, with a heavier knitted letterform.'},
-        {link:{label:'Try the type specimens',url:'https://softmatter.vercel.app/#typefaces',text:'Type your own words, change a weight, and explore the material parameters.'}}
-      ]},
-      {key:'outputs',label:'Fonts that carry their material with them',toc:'Reusable outputs',blocks:[
-        {study:'Material lettering',sub:'PNG lettering · transparent glyph packs'},
-        'The full material rendering can be exported as lettering or individual glyph images, keeping the stitches, drips, cables, and lace details for use in graphics, motion, and interfaces.',
-        {study:'Installable type',sub:'Five weights · OpenType families'},
-        'The font files simplify each material into monochrome vector outlines. This creates a typeable family that can be used in design tools and on the web, alongside the richer material images.',
-        {link:{label:'Explore the export desk',url:'https://softmatter.vercel.app/#studio',text:'Choose a family, weight, and colorway, then export the format that fits your design.'}}
-      ]},
-      {key:'material-motion',label:'Letterforms with volume and movement',toc:'Volume & motion',blocks:[
-        'Because these fonts come from physical things, their material qualities can shape how they move and occupy space. Ganache carries the rounded volume of piped chocolate into a sculptural, 3D letterform.',
-        'The other families suggest their own movements: knitted stitches could stretch and gather, an earphone cable could coil and unravel, and lace could fold and flutter. I see motion as another way to draw with the material, extending each typeface into an expressive visual system.',
-        'These systems can extend beyond website and UI typography into brand artifacts, packaging, physical objects, and accessories.'
-      ]},
-      {key:'in-use',label:'From type to a world of objects',toc:'In use',blocks:[
-        'A fictional makers’ market brings the four families into a shared world of objects, packaging, and signage. Purl becomes lettering knitted into a tote; Ganache gives the cocoa bar its piped letterforms; Picot wraps a hatbox in a lace band; Tangle becomes an earphone cable that writes inside its packaging.',
-        'The applications extend into interactive 3D displays: moving the cursor changes the light on the white-chocolate title, dragging turns the lace box, and a knitted banner moves in the wind. The material becomes part of how the typography is experienced.',
+      {key:'laundromat',label:'A word goes into the wash',toc:'Laundromat',blocks:[
+        'The Laundromat is the most direct way to meet the four materials. Pick one of four washing machines, filled with chocolate, yarn, pearls, or lace, and load it with a word. The drum spins, the door opens, and the word pops out as a one-off object lettered in that face, which you can hang on the line or download.',
         {applications:[
-          {title:'Knitted tote bag',image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),cropLeft:75,cropTop:1140,cropWidth:540,cropHeight:600},
-          {title:'Lace hatbox',image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),cropLeft:70,cropTop:3200,cropWidth:540,cropHeight:430},
-          {title:'Earphone cable poster',image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),cropLeft:100,cropTop:4440,cropWidth:540,cropHeight:720},
-          {title:'Chocolate menu',image:img(new URL('../../images/soft-matter/in-use.png',import.meta.url)),cropLeft:640,cropTop:2190,cropWidth:600,cropHeight:660},
+          {title:'Ganache: “Cocoa” in dark chocolate on a tin',image:img(new URL('../../images/soft-matter/card-ganache.jpg',import.meta.url)),sourceWidth:640,cropLeft:0,cropTop:0,cropWidth:640,cropHeight:640},
+          {title:'Purl: “Wool” in rose yarn on an embroidery hoop',image:img(new URL('../../images/soft-matter/card-purl.jpg',import.meta.url)),sourceWidth:640,cropLeft:0,cropTop:0,cropWidth:640,cropHeight:640},
+          {title:'Picot: “Oui” in ivory lace on a board',image:img(new URL('../../images/soft-matter/card-picot.jpg',import.meta.url)),sourceWidth:640,cropLeft:0,cropTop:0,cropWidth:640,cropHeight:640},
+          {title:'Nacre: “Bonjour” in white pearls on a mirror',image:img(new URL('../../images/soft-matter/card-nacre.jpg',import.meta.url)),sourceWidth:640,cropLeft:0,cropTop:0,cropWidth:640,cropHeight:640},
         ]},
-        {meta:'Application concepts from the fictional Soft Matter market.'},
-        {link:{label:'Explore the market demo',url:'https://softmatter.vercel.app/#in-use',text:'Explore the material typefaces in an interactive 3D setting.'}}
+        {meta:'Four washes, one from each machine.'},
+        {link:{label:'Open the Laundromat',url:'https://softmatter.vercel.app/#laundromat',text:'Choose a machine and wash a word into a typeface.'}}
       ]},
-      {key:'second-creation',label:'A second life for everyday materials',toc:'Back to objects',blocks:[
-        'An everyday object becomes a font; that font becomes the starting point for another object. This second act of making is at the heart of Soft Matter: the source material returns in a new form, carrying something of its original character.',
-        {note:'Ongoing exploration · Accessories',text:'I am exploring how a letterform can become an accessory: taking it off the screen and into something that can be made, held, and worn. The next experiment is to fabricate a piece from one of these typefaces.'}
+      {key:'second-creation',label:'Back to objects',toc:'Back to objects',blocks:[
+        'An everyday object becomes a font, and because the fonts are designed to be 3D printed, a font can become an object again: something that can be held and worn. The next experiment is to print a piece from one of these typefaces.'
       ]},
     ],links:[{label:'Try Soft Matter',url:'https://softmatter.vercel.app/'}]
   },

@@ -26,7 +26,7 @@ product/*                        # Older standalone product pages
 
 ## Common edits
 
-- Work opens with a curated overview in `collections.js`: Natural Effects leads with Water / Sand / Ice, followed by Live Visuals and product projects. `#work/<id>` retains individual project views. Shared `naturalMedia` data supplies the material cards on both Work and the case study; its existing URL remains `/work/natural-expressions/`.
+- Work is a 3-column grid of equal tiles, set by `workCards` at the end of `src/data/portfolio.js`: order, title, meta, one line and `links` (Try / Code / Watch) live there. Water, Sand and Ice are separate cards that open sections of `/work/natural-expressions/`. Clicking a card slides the project in from the right while the grid folds into a rail on the left (`openCase` in `collections.js`, styles in `work-grid.css`); `#work/<id>` and `#work/natural-effects/<material>` open it directly. The Soft Matter card runs the Laundromat animation (`laundromatCover` in `work-motion.js`). Projects missing from Supabase fall back to `portfolio.js`, so a new project needs no catalog row.
 
 - New case study: add an entry to `src/data/case-studies.js`, then copy any `work/<slug>/` folder and change its title, description and `data-slug`. Empty sections render as dashed placeholder prompts in `npm run dev` only; the live site skips them, and `status: 'draft'` pages redirect to Work.
 - Newsletter: the signup form is hidden while `newsletter.show` is false. Set `newsletter.buttondown` in `src/data/site.js` to the Buttondown username. Until then the form shows "launching soon".

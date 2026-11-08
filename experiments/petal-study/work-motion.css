@@ -1,18 +1,30 @@
 /* Work overview motion: hover clips and the Soft Matter specimen cover. */
-.selected-project-media{position:relative}
-.selected-projects{padding-bottom:clamp(72px,10vh,120px)} /* the page ends on the cards; leave room past them */
+.work-tile-media{position:relative}
 .hover-clip{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;pointer-events:none}
 .hover-clip.is-on{opacity:1}
-.selected-project-media .work-media{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.work-tile-media .work-media{transition:transform .6s cubic-bezier(.2,.7,.2,1)}
 @media(hover:hover){
-  .selected-project:hover .selected-project-media .work-media{transform:scale(1.03)}
+  .work-tile-open:hover .work-tile-media .work-media{transform:scale(1.03)}
 }
 
-.specimen-cover{position:relative;width:100%;height:100%;background:#12100e;transition:background-color .35s}
-.specimen-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .3s}
-.specimen-cover img.is-on{opacity:1}
+.wash-cover{position:relative;width:100%;height:100%;overflow:hidden;background:#2a1a1e}
+.wash-stage{position:absolute;left:0;top:0;width:100%;aspect-ratio:1089/1445;transform-origin:0 0;transition:transform 1.3s cubic-bezier(.65,0,.25,1);will-change:transform}
+.wash-stage>img{display:block;width:100%;height:100%}
+.wash-glass{position:absolute;border-radius:50%;overflow:hidden;isolation:isolate}
+.wash-glass:after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(60% 44% at 34% 24%,rgba(255,236,224,.3),transparent 70%);box-shadow:inset 0 0 12px rgba(40,18,14,.6);pointer-events:none}
+.wash-drum{position:absolute;inset:0;border-radius:50%;background-repeat:no-repeat;animation:washRock 7s ease-in-out infinite}
+.wash-glass.is-spinning .wash-drum{animation:washSpin 2.5s cubic-bezier(.5,0,.3,1) 1}
+.wash-cover.is-away .wash-drum{animation-play-state:paused}
+.wash-glass.is-spinning{animation:washShake .16s linear infinite}
+.wash-dim{position:absolute;inset:0;background:rgba(26,14,20,.42);opacity:0;transition:opacity .45s;pointer-events:none}
+.wash-cover.is-out .wash-dim{opacity:1}
+.wash-card{box-sizing:border-box;position:absolute;left:50%;top:50%;height:66%;aspect-ratio:1;padding:2.2%;background:#f8f1ec;border-radius:10px;box-shadow:0 18px 44px rgba(0,0,0,.5);transform:translate(-50%,-50%) scale(.12);opacity:0;pointer-events:none}
+.wash-card img{display:block;width:100%;height:100%;object-fit:cover;border-radius:6px}
+.wash-bubble{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.8),rgba(255,214,226,.14) 42%,rgba(190,226,255,.24) 72%,rgba(255,255,255,.45) 100%);box-shadow:inset 0 0 0 .5px rgba(255,255,255,.55)}
 .specimen-label{position:absolute;left:14px;bottom:12px;padding:6px 10px 5px;border-radius:999px;background:rgba(10,8,7,.62);color:#eee8e4;font:10px/1 'DM Mono',monospace;letter-spacing:1.3px;text-transform:uppercase}
+.specimen-label:empty{display:none}
+@keyframes washRock{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+@keyframes washSpin{0%{transform:rotate(0);filter:blur(0)}45%{filter:blur(2px)}100%{transform:rotate(-1080deg);filter:blur(0)}}
+@keyframes washShake{0%,100%{translate:0 0}25%{translate:.6px -.4px}75%{translate:-.6px .4px}}
 
-:root[data-theme=light] .specimen-cover{background-color:#ebe3da}
-
-@media(prefers-reduced-motion:reduce){.hover-clip,.specimen-cover,.specimen-cover img,.selected-project-media .work-media{transition:none}}
+@media(prefers-reduced-motion:reduce){.hover-clip,.wash-stage,.work-tile-media .work-media{transition:none}.wash-drum{animation:none}.wash-card{transform:translate(-50%,-50%);opacity:1}.wash-glass.is-spinning{animation:none}}

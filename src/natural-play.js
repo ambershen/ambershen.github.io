@@ -81,8 +81,104 @@ export function naturalTile(id, title = id) {
   return tile;
 }
 
-/* ---------- Water: a damped wave field refracting a photo of a pool, with the study's pond recordings ---------- */
+/* ---------- Water: a damped wave field over a tiled pool, drawn by a shader at full screen resolution ---------- */
+// The waves are simulated on a coarse grid; the pool, its caustics and the refraction are drawn per screen pixel,
+// so the tile stays sharp on any display. Without WebGL it falls back to rippling the pool photo.
+const POOL_VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+const POOL_FS = `precision highp float;
+uniform sampler2D field;uniform vec2 res;uniform float t;
+float caustic(vec2 p,float t){
+  vec2 i=p;float c=1.;
+  for(int n=0;n<4;n++){float tt=t*(1.-3.5/float(n+1));i=p+vec2(cos(tt-i.x)+sin(tt+i.y),sin(tt-i.y)+cos(tt+i.x));
+    c+=1./length(vec2(p.x/(sin(i.x+tt)/.005),p.y/(cos(i.y+tt)/.005)));}
+  c=1.17-pow(c/4.,1.4);return pow(abs(c),8.);
+}
+void main(){
+  vec2 uv=gl_FragCoord.xy/res;uv.y=1.-uv.y;
+  vec2 g=(texture2D(field,uv).rg-.5)*4.;
+  vec2 q=uv*vec2(res.x/res.y,1.);
+  vec2 cell=(q+g*.02)*15.;
+  vec2 f=abs(fract(cell)-.5);
+  float grout=smoothstep(.44,.485,max(f.x,f.y));
+  vec3 tile=mix(vec3(.36,.63,.84),vec3(.42,.7,.88),.5+.5*sin(dot(floor(cell),vec2(12.9,78.2))));
+  vec3 col=mix(tile,vec3(.16,.36,.56),grout*.8);
+  float c=caustic(mod((q+g*.05)*7.,6.2831)-250.,t*.35);
+  col+=vec3(.8,.93,1.)*min(c,1.2)*.7;
+  vec3 n=normalize(vec3(-g*1.6,1.));
+  col*=.86+.3*dot(n,normalize(vec3(-.4,.5,.75)));
+  col+=pow(max(0.,dot(reflect(vec3(0.,0.,-1.),n),normalize(vec3(-.3,.4,.9)))),40.)*.5;
+  col=mix(col,vec3(.12,.38,.6),.12*(1.-uv.y));
+  gl_FragColor=vec4(col,1.);
+}`;
+
 function water(canvas) {
+  const gl = canvas.getContext('webgl', {antialias: false, alpha: false, preserveDrawingBuffer: false});
+  if (!gl) return waterPhoto(canvas);
+  const shader = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+  const prog = gl.createProgram();
+  gl.attachShader(prog, shader(gl.VERTEX_SHADER, POOL_VS)); gl.attachShader(prog, shader(gl.FRAGMENT_SHADER, POOL_FS));
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) console.error('water shader', gl.getProgramInfoLog(prog));
+  gl.useProgram(prog);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+  const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+  const tex = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, tex);
+  for (const [k, v] of [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, k, v);
+  const uRes = gl.getUniformLocation(prog, 'res'), uT = gl.getUniformLocation(prog, 't');
+  const sound = new WaterSoundscape();
+  let w = 0, h = 0, a, b, grad, idle = 0, touching = false, muted = false, clock = 0;
+  function drop(x, y, r, s) {
+    const cx = x * w, cy = y * h;
+    for (let j = Math.max(1, cy - r | 0); j < Math.min(h - 1, cy + r + 1); j++)
+      for (let i = Math.max(1, cx - r | 0); i < Math.min(w - 1, cx + r + 1); i++) {
+        const d = Math.hypot(i - cx, j - cy) / r;
+        if (d < 1) a[j * w + i] += s * (.5 + .5 * Math.cos(d * Math.PI));
+      }
+  }
+  const listen = p => { if (!muted) sound.touch(p.x, p.y, performance.now()); };
+  const api = {
+    unlock() { muted = false; if (!sound.active) void sound.enable().catch(() => {}); else sound.unlock(); },
+    mute() { muted = true; sound.mute(); },
+    unmute() { muted = false; },
+    resize(cw, ch) {
+      const dpr = Math.min(2, devicePixelRatio || 1);
+      canvas.width = Math.round(cw * dpr); canvas.height = Math.round(ch * dpr);
+      gl.viewport(0, 0, canvas.width, canvas.height); gl.uniform2f(uRes, canvas.width, canvas.height);
+      const scale = Math.min(.6, 340 / cw); // the wave grid stays coarse: waves are smooth, the pool is not
+      w = Math.max(40, cw * scale | 0); h = Math.max(40, ch * scale | 0);
+      a = new Float32Array(w * h); b = new Float32Array(w * h); grad = new Uint8Array(w * h * 4);
+    },
+    hover(prev, p) {
+      if (prev) { const v = Math.min(1, Math.hypot(p.x - prev.x, p.y - prev.y) * 40); drop(p.x, p.y, 3.5, 2.2 * v); }
+      listen(p); idle = 0;
+    },
+    press(p) { drop(p.x, p.y, 6, 9); idle = 0; touching = true; listen(p); },
+    drag(prev, p) { const v = Math.min(1, Math.hypot(p.x - prev.x, p.y - prev.y) * 40); drop(p.x, p.y, 4, 2.6 + 3 * v); listen(p); },
+    release() { if (touching) { touching = false; sound.release(); } },
+    step(dt, ptr, now) {
+      if (!w) return false;
+      sound.tick(now);
+      idle += dt; clock += still ? 0 : dt;
+      if (!still && idle > 2.4) { idle = Math.random() * 1.2; drop(.15 + Math.random() * .7, .15 + Math.random() * .7, 4, 4); }
+      for (let j = 1; j < h - 1; j++) for (let i = 1, k = j * w + 1; i < w - 1; i++, k++)
+        b[k] = ((a[k - 1] + a[k + 1] + a[k - w] + a[k + w]) * .5 - b[k]) * .985;
+      [a, b] = [b, a];
+      for (let j = 0; j < h; j++) for (let i = 0, k = j * w; i < w; i++, k++) {
+        const dx = i > 0 && i < w - 1 ? a[k - 1] - a[k + 1] : 0, dy = j > 0 && j < h - 1 ? a[k - w] - a[k + w] : 0, q = k * 4;
+        grad[q] = Math.max(0, Math.min(255, 128 + dx * 16)); grad[q + 1] = Math.max(0, Math.min(255, 128 + dy * 16)); grad[q + 3] = 255;
+      }
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, grad);
+      gl.uniform1f(uT, clock + 40);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      return !still || !!ptr;
+    },
+  };
+  return api;
+}
+
+// Fallback: the same wave field refracting a photo of a pool, drawn small and scaled up.
+function waterPhoto(canvas) {
   const ctx = canvas.getContext('2d', {willReadFrequently: true});
   const photo = new Image(); photo.src = waterSrc;
   const sound = new WaterSoundscape();
