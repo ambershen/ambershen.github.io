@@ -306,6 +306,7 @@ html{scroll-behavior:smooth}
 
 /* Longer measure: ~80 characters a line for reading text. */
 .cs-editorial .cs-section>*:not(figure),.cs-editorial .cs-development-intro,.cs-editorial .cs-callout,.cs-editorial .cs-note,.cs-opening>p{max-width:720px}
+.cs-editorial .cs-section>h2{max-width:none}
 .cs-editorial .cs-development-stages p,.cs-editorial .cs-decision p:last-child{max-width:720px}
 @media(min-width:761px){.cs-development-stages li.has-media{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
 .cs-callout a+a{margin-left:28px}@media(max-width:520px){.cs-callout a{display:block}.cs-callout a+a{margin:10px 0 0}}
