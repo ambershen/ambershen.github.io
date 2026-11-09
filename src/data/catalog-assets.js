@@ -68,8 +68,6 @@ export const localAssets = new Map([
   ["/images/soft-matter/card-purl.jpg", new URL("../../images/soft-matter/card-purl.jpg", import.meta.url).href],
   ["/images/soft-matter/card-picot.jpg", new URL("../../images/soft-matter/card-picot.jpg", import.meta.url).href],
   ["/images/soft-matter/card-nacre.jpg", new URL("../../images/soft-matter/card-nacre.jpg", import.meta.url).href],
-  ["/images/soft-matter/laundromat-film.mp4", new URL("../../images/soft-matter/laundromat-film.mp4", import.meta.url).href],
-  ["/images/soft-matter/laundromat-film.jpg", new URL("../../images/soft-matter/laundromat-film.jpg", import.meta.url).href],
   ["/images/soft-matter/flavors-3d.mp4", new URL("../../images/soft-matter/flavors-3d.mp4", import.meta.url).href],
   ["/images/soft-matter/flavors-3d.jpg", new URL("../../images/soft-matter/flavors-3d.jpg", import.meta.url).href],
   ["/images/printed-earrings/pair.jpg", new URL("../../images/printed-earrings/pair.jpg", import.meta.url).href],

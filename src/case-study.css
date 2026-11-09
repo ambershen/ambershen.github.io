@@ -190,7 +190,6 @@ html{scroll-behavior:smooth}
 @media(max-width:440px){.cs-materials{grid-template-columns:1fr;gap:24px}.cs-material{display:grid;grid-template-columns:40% 1fr;column-gap:20px;align-content:center}.cs-material img{grid-row:1/4;aspect-ratio:1}.cs-material-kind{margin:0 0 8px}.cs-material p{font-size:12px}.cs-materials+.cs-credits{margin-bottom:56px}.cs-interaction{grid-template-columns:1fr;gap:20px}.cs-interaction dt{margin-bottom:4px}.cs-interaction dd{font-size:14px}}
 @media(max-width:760px){.cs-editorial .cs-body{grid-template-columns:minmax(0,1fr);gap:0}.cs-editorial .cs-sections{min-width:0}}
 .cs-editorial .cs-figure>video.cs-media{aspect-ratio:16/9}
-.cs-editorial .cs-figure.cs-square>video.cs-media{aspect-ratio:1;width:min(100%,640px);max-height:none}
 
 /* Material chapters: watch the interaction, follow the action, then inspect the process. */
 .cs-editorial .cs-material-chapter{border-top:1px solid var(--line);padding-top:36px}
@@ -239,7 +238,6 @@ html{scroll-behavior:smooth}
 .cs-opening h2{font:clamp(32px,3.6vw,44px)/1.15 var(--display);font-weight:400;margin:0 0 20px;color:var(--ink)}
 .cs-opening>p{font:19px/1.7 var(--read);max-width:640px;margin:0 0 28px;color:var(--soft)}
 .cs-opening .cs-figure{margin:0}
-.cs-opening .cs-figure.cs-square{margin:0 0 36px}
 .cs-opening .cs-loops{grid-template-columns:1fr;max-width:880px}
 .cs-opening .cs-loops .cs-media{aspect-ratio:16/9}
 @media(max-width:760px){.cs-opening{margin-top:40px}.cs-opening>p{font-size:18px}}

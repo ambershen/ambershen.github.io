@@ -195,7 +195,7 @@ function block(b) {
     fig.append(grid);
   }
   else if (b.image) fig.append(media({image:b.image},b.caption||''));
-  else if (b.video) { const v = media({video: b.video, poster: b.poster}, b.caption); v.preload = 'none'; fig.append(v); if (b.square) fig.classList.add('cs-square'); }
+  else if (b.video) { const v = media({video: b.video, poster: b.poster}, b.caption); v.preload = 'none'; fig.append(v); }
   else if (editing) fig.append(media({placeholder: b.placeholder}, ''));
   else return null;
   if (b.caption) fig.append(el('figcaption', '', b.caption));
@@ -227,7 +227,7 @@ if (!study) {
     }
     if (study.opening) {
       const opening = el('section', 'cs-opening'); opening.id = 's-origins';
-      opening.append(el('h2', '', study.opening.title));
+      if (study.opening.title) opening.append(el('h2', '', study.opening.title));
       for (const item of study.opening.blocks) {
         const content = block(item); if (content) opening.append(content);
       }
