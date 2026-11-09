@@ -195,7 +195,7 @@ function block(b) {
     fig.append(grid);
   }
   else if (b.image) fig.append(media({image:b.image},b.caption||''));
-  else if (b.video) { const v = media({video: b.video, poster: b.poster}, b.caption); v.preload = 'none'; fig.append(v); }
+  else if (b.video) { const v = media({video: b.video, poster: b.poster}, b.caption); v.preload = 'none'; fig.append(v); if (b.square) fig.classList.add('cs-square'); }
   else if (editing) fig.append(media({placeholder: b.placeholder}, ''));
   else return null;
   if (b.caption) fig.append(el('figcaption', '', b.caption));

@@ -54,9 +54,11 @@ export const softMatterMedia = [
 export const caseStudies = [
   {
     slug:'soft-matter',title:'Soft Matter',year:'2026',medium:'Type design · Creative coding · 3D printing',
-    tagline:'3D-printable typefaces made of yarn, chocolate, pearls and lace.',status:'published',cover:false,gallery:[],sections:{},
+    tagline:'Four typefaces made of chocolate, wool, pearls and lace, in 3D or 2D.',status:'published',cover:false,gallery:[],sections:{},
     opening:{toc:'Overview',title:'Four materials. Four ways to write.',blocks:[
-      'How much of a material’s character survives when it becomes a typeface? A stitch becomes a grid, a squeeze leaves a drip, a pearl strand traces a curve. Soft Matter turns knitted yarn, piped chocolate, strung pearls, and lace ribbon into four 3D-printable typefaces.',
+      {video:img(new URL('../../images/soft-matter/laundromat-film.mp4',import.meta.url)),poster:img(new URL('../../images/soft-matter/laundromat-film.jpg',import.meta.url)),square:true,caption:'Four washing machines, four materials: chocolate, wool, pearls and lace.'},
+      'How much of a material’s character survives when it becomes a typeface? A stitch becomes a grid, a squeeze leaves a drip, a pearl strand traces a curve. Soft Matter turns knitted yarn, piped chocolate, strung pearls, and lace ribbon into four typefaces. Every word comes out in 3D or 2D, in different flavors and weights.',
+      {loops:[{video:img(new URL('../../images/soft-matter/flavors-3d.mp4',import.meta.url)),poster:img(new URL('../../images/soft-matter/flavors-3d.jpg',import.meta.url))}],caption:'The same words in 3D, in different flavors.'},
       {specimens:softMatterMedia}]},
     chapters:[
       {key:'laundromat',label:'Objects into fonts, fonts into objects',toc:'Laundromat',blocks:[

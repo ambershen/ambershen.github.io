@@ -3,7 +3,7 @@ import {teachingRoom} from './teaching-room.js';
 import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
 import {resolveCatalog} from '../../src/data/catalog-assets.js';
 import {videoPoster} from '../../src/data/video-posters.js';
-import {hoverClip,laundromatCover} from './work-motion.js';
+import {hoverClip,loopCover} from './work-motion.js';
 import './work-grid.css';
 import {naturalTile} from '../../src/natural-play.js';
 import './sketchbook.css';
@@ -57,7 +57,7 @@ function workGrid(){
     open.href=cardHash(card);
     open.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;caseOpener=open;caseOpenedHere=true;});
     if(card.tile)frame.append(naturalTile(card.tile,card.title));
-    else if(card.laundromat)frame.append(laundromatCover(card.thumb,card.title));
+    else if(card.loop)frame.append(loopCover(card.loop,card.thumb,card.title));
     else if(card.image)frame.append(media({title:card.title,image:card.image}));
     else{frame.append(media(project));hoverClip(open,frame,project.video);}
     open.append(frame,node('h3','',card.title),node('p','work-tile-meta',card.meta),node('p','work-tile-line',card.line));
