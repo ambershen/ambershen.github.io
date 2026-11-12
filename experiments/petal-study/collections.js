@@ -1,3 +1,4 @@
+import {aboutPage} from '../../src/about.js';
 import {filmRoom as mountFilmRoom} from './film-room.js';
 import {teachingRoom} from './teaching-room.js';
 import {loadPortfolio} from '../../src/data/portfolio-cloud.js';
@@ -138,12 +139,14 @@ function render(next){
   category=next;stopMedia();dropField();content.replaceChildren();
   modal.classList.toggle('gallery-mode',next==='art');
   modal.classList.toggle('film-mode',next==='film');
+  modal.classList.toggle('about-mode',next==='about');
   const selectedArticle=articles.find(article=>article.route===location.hash);
   const reading=next==='writing' && Boolean(selectedArticle);
   modal.classList.toggle('reading-mode',reading);
   document.title=reading?selectedArticle.title+' — Amber Shen':'Amber Shen — Creative Technologist';
-  title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',film:'Selected Films',writing:'Writing',teaching:'Tutorials'}[category];
-  description.textContent={selected:'A few things from my world.',products:'',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb,teaching:'Making technical ideas easier to understand, explore, and build with.'}[category];
+  title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',film:'Visual storytelling for brands & products',writing:'Writing',teaching:'Tutorials',about:'About'}[category];
+  description.textContent={selected:'A few things from my world.',products:'',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb,teaching:'Making technical ideas easier to understand, explore, and build with.',about:''}[category];
+  if(category==='about'){document.title='About — Amber Shen';content.append(aboutPage());return;}
   if(category==='products'){workGrid();modal.scrollTop=0;return;}
   if(category==='film'){filmRoom();modal.scrollTop=0;return;}
   if(category==='teaching'){document.title='Tutorials — Amber Shen';room=teachingRoom({fullBleed:el=>{if(!el.isConnected)return;const box=content.getBoundingClientRect();el.style.width=document.documentElement.clientWidth+'px';el.style.marginLeft=-box.left+'px';}});content.append(room.el);room.fit();return;}
@@ -284,7 +287,7 @@ function closeCase(){
 async function route(focus=false){
   const version=++routeVersion;
   const hash=location.hash;
-  if(hash && hash!=='#home' && hash!=='#tutorials' && hash!=='#teaching' && !catalogApplied){
+  if(hash && hash!=='#home' && hash!=='#about' && hash!=='#tutorials' && hash!=='#teaching' && !catalogApplied){
     const catalog=await loadPortfolio();
     if(version!==routeVersion)return;
     if(catalog){
@@ -298,7 +301,7 @@ async function route(focus=false){
     if(project){if(modal.hidden||category!=='products')showPage('products');openCase(project,part);return;}
     closeCase();showPage('products',focus);return;}
   closeCase();
-  showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#film'?'film':(hash==='#tutorials'||hash==='#teaching')?'teaching':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
+  showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#about'?'about':hash==='#film'?'film':(hash==='#tutorials'||hash==='#teaching')?'teaching':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
 }
 document.querySelectorAll('[data-open-work]').forEach(button=>button.addEventListener('click',()=>{location.hash=button.dataset.openWork==='art'?'gallery':'work';}));
 document.querySelector('#close-art').addEventListener('click',()=>viewer.close());

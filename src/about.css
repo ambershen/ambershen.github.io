@@ -1,0 +1,22 @@
+#work-window.about-mode{max-width:1060px;margin-inline:auto}
+.about-page{--about-muted:#bdb0a5;padding-bottom:72px}
+.about-intro{max-width:760px;margin:8px 0 42px}
+.about-lead{font-size:18px;line-height:1.75;margin:0;letter-spacing:0}
+.about-section{display:block;margin:0 0 36px;padding:0;border:0}
+#work-window .about-section-title{font-family:'Manrope',sans-serif;font-size:21px;font-weight:600;line-height:1.4;letter-spacing:-.3px;margin:0 0 14px}
+.about-list{list-style:disc;margin:0;padding-left:22px}
+.about-entry{display:list-item;font-size:16px;line-height:1.8;padding-left:3px;margin:0 0 10px}
+.about-date,.about-role,.about-organization{font:inherit;color:inherit}
+.about-organization{font-weight:600}
+.about-education-note{color:var(--about-muted)}
+[data-theme=light] .about-page{--about-muted:#67584d}
+@media(max-width:600px){
+  .about-intro{margin-bottom:32px}
+  .about-lead{font-size:17px}
+  .about-entry{font-size:15px;line-height:1.8;margin-bottom:12px}
+  .site-header .header-nav{flex-wrap:wrap;overflow:visible;gap:10px 14px;padding-block:12px}
+  .site-header{height:auto;min-height:70px;align-items:center}
+  .site-header .header-nav .collection{min-height:24px}
+}
+/* Keep the page label accessible without a visible title or heading gap. */
+#work-window.about-mode .work-heading{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}

@@ -427,7 +427,7 @@ loadImage(flowerURL,'high').then(image=>{
   resetControl.disabled=false;
   words.forEach(button=>{button.disabled=button.dataset.mode==='narrative' || button.dataset.mode==='chaos';});
   playControl.disabled=true;
-  words.filter(button=>button.dataset.mode==='bloom').forEach(dropWord);
+  words.filter(button=>button.matches('button.word[data-mode="bloom"]')).forEach(dropWord);
   state.textContent='Waiting for a breeze';
   // Let the first flower frame paint before preparing the secondary modes.
   requestAnimationFrame(()=>setTimeout(()=>{

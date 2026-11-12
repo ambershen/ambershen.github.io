@@ -68,3 +68,18 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}
     radial-gradient(90% 80% at 85% 90%,rgba(120,100,80,.1),transparent 70%),
     #fffcf7}
 @media(max-width:600px){:root[data-theme=light] .d-hint{color:#7b6b5f}:root[data-theme=light] .d-stage{background:linear-gradient(#f7f2ec calc(100% - 40px),transparent)}}
+/* An editorial identity line, clipped like a small rolling typeset window. */
+.home-roles{display:block;position:relative;height:1.5em;margin:8px 0 22px;overflow:hidden;font:italic 400 clamp(24px,2.25vw,36px)/1.5 'Cormorant Garamond',serif;letter-spacing:-.015em;color:#d9b5a3}
+.home-role{position:absolute;inset:0 auto auto 0;white-space:nowrap;opacity:0;transform:translateY(100%);animation:home-role-cycle 15s cubic-bezier(.22,.68,.2,1) infinite}
+.home-role:nth-child(2){animation-delay:5s}
+.home-role:nth-child(3){animation-delay:10s}
+@keyframes home-role-cycle{
+  0%,27%{opacity:1;transform:translateY(0);filter:blur(0)}
+  33.333%{opacity:0;transform:translateY(-100%);filter:blur(2px)}
+  33.334%,94%{opacity:0;transform:translateY(100%);filter:blur(2px)}
+  100%{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+.home-roles:hover .home-role{animation-play-state:paused}
+:root[data-theme=light] .home-roles{color:#a2654c}
+@media(max-width:600px){.home-roles{font-size:28px;margin:6px 0 18px}}
+@media(prefers-reduced-motion:reduce){.home-role{animation:none;opacity:0;transform:none;filter:none}.home-role:first-child{opacity:1}}
