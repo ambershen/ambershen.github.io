@@ -26,8 +26,11 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}
 /* The current word takes a highlighter swipe, drawn left to right. */
 .d-word{position:relative;z-index:0;font:inherit;font-style:italic;color:#d9b5a3;background:none;border:0;padding:0 .08em;cursor:pointer}
 .d-word:before{content:'';position:absolute;z-index:-1;left:-.12em;right:-.16em;bottom:.06em;height:.48em;background:rgba(232,140,122,.78);border-radius:.3em .12em .35em .1em;transform:rotate(-1.2deg) scaleX(0);transform-origin:left center;opacity:0;transition:transform .55s cubic-bezier(.3,.7,.2,1),opacity .2s;pointer-events:none}
+/* Over a pressable word the pointer becomes the peony mark (the logo's path, drawn in the accent color). */
+.d-word{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 100 104' width='32' height='32' fill='none' stroke='%23f1d3c3' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M 12,32 C 8,25 15,19 23,21 C 20,12 28,9 34,15 C 38,5 47,7 51,12 C 60,7 66,14 67,20 C 78,16 82,24 79,32 C 89,35 87,44 82,48 C 89,57 80,66 71,65 C 68,74 57,76 49,70 C 40,78 30,71 28,66 C 17,70 9,60 13,51 C 3,48 5,36 12,32 Z'/%3E%3Cpath d='M 23,21 C 20,37 24,51 37,57 C 28,44 31,34 37,27 C 32,25 31,20 34,15'/%3E%3Cpath d='M 37,27 C 42,17 57,17 64,27 C 72,34 71,47 63,54 M 67,20 C 75,33 76,46 71,53'/%3E%3Cpath d='M 37,36 C 43,29 52,28 58,34 C 62,40 60,46 54,48 C 57,38 49,35 44,40'/%3E%3Cpath d='M 32,40 C 30,52 38,61 49,62 C 59,64 67,57 71,53 M 13,51 C 23,46 24,61 39,65 M 49,62 C 56,70 66,69 71,65'/%3E%3Cpath d='M 47,72 C 50,78 49,85 51,91 M 49,82 C 41,76 34,79 31,86 C 40,85 44,81 49,82 M 50,85 C 57,79 63,84 66,89 C 58,89 55,85 50,85'/%3E%3C/svg%3E") 16 15,pointer}
+:root[data-theme=light] .d-word{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 100 104' width='32' height='32' fill='none' stroke='%23a2654c' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M 12,32 C 8,25 15,19 23,21 C 20,12 28,9 34,15 C 38,5 47,7 51,12 C 60,7 66,14 67,20 C 78,16 82,24 79,32 C 89,35 87,44 82,48 C 89,57 80,66 71,65 C 68,74 57,76 49,70 C 40,78 30,71 28,66 C 17,70 9,60 13,51 C 3,48 5,36 12,32 Z'/%3E%3Cpath d='M 23,21 C 20,37 24,51 37,57 C 28,44 31,34 37,27 C 32,25 31,20 34,15'/%3E%3Cpath d='M 37,27 C 42,17 57,17 64,27 C 72,34 71,47 63,54 M 67,20 C 75,33 76,46 71,53'/%3E%3Cpath d='M 37,36 C 43,29 52,28 58,34 C 62,40 60,46 54,48 C 57,38 49,35 44,40'/%3E%3Cpath d='M 32,40 C 30,52 38,61 49,62 C 59,64 67,57 71,53 M 13,51 C 23,46 24,61 39,65 M 49,62 C 56,70 66,69 71,65'/%3E%3Cpath d='M 47,72 C 50,78 49,85 51,91 M 49,82 C 41,76 34,79 31,86 C 40,85 44,81 49,82 M 50,85 C 57,79 63,84 66,89 C 58,89 55,85 50,85'/%3E%3C/svg%3E") 16 15,pointer}
 .d-line.is-active .d-word{color:#fbe7dc}
-.d-line.is-active .d-word:before{opacity:1;transform:rotate(-1.2deg) scaleX(1)}
+.d-line.is-active .d-word:before{opacity:1;transform:rotate(-1.2deg) scaleX(1);height:calc(.48em + var(--stroke,0) * .5em);filter:brightness(calc(1 + var(--stroke,0) * .3))}
 
 /* Desktop: the introduction lies over the left of the stage, every line at full strength. */
 .d-sentence{position:absolute;left:var(--edge,clamp(24px,5vw,76px));top:0;height:calc(100svh - 88px);width:min(31vw,460px);display:flex;flex-direction:column;justify-content:center;gap:.55em;padding-bottom:7svh;box-sizing:border-box;font:400 clamp(28px,2.6vw,42px)/1.14 'Cormorant Garamond',serif;color:#eee8e4;z-index:2}
@@ -35,6 +38,8 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}
 .d-sentence p.d-social{font:400 clamp(17px,1.3vw,20px)/1.5 'Cormorant Garamond',serif;color:#d8cec5;margin-top:.2em}
 .d-line{display:block}
 .d-word:hover{color:#fbe7dc}
+/* The site's generic button:hover fill and border must not reach the story words, in either theme. */
+.d-sentence .d-word:hover,.d-sentence .d-word:active,:root[data-theme=light] .d-sentence .d-word:hover,:root[data-theme=light] .d-sentence .d-word:active{background:none;border:0}
 .d-word:focus-visible{outline:2px solid #ead0b7;outline-offset:4px}
 
 @media(max-width:600px){
@@ -68,18 +73,22 @@ body.home-d{overflow:visible!important;overflow-x:clip!important}
     radial-gradient(90% 80% at 85% 90%,rgba(120,100,80,.1),transparent 70%),
     #fffcf7}
 @media(max-width:600px){:root[data-theme=light] .d-hint{color:#7b6b5f}:root[data-theme=light] .d-stage{background:linear-gradient(#f7f2ec calc(100% - 40px),transparent)}}
-/* An editorial identity line, clipped like a small rolling typeset window. */
-.home-roles{display:block;position:relative;height:1.5em;margin:8px 0 22px;overflow:hidden;font:italic 400 clamp(24px,2.25vw,36px)/1.5 'Cormorant Garamond',serif;letter-spacing:-.015em;color:#d9b5a3}
-.home-role{position:absolute;inset:0 auto auto 0;white-space:nowrap;opacity:0;transform:translateY(100%);animation:home-role-cycle 15s cubic-bezier(.22,.68,.2,1) infinite}
-.home-role:nth-child(2){animation-delay:5s}
-.home-role:nth-child(3){animation-delay:10s}
+/* The greeting is one line: "Hi, I'm Amber. A" and then a role that rolls like a small typeset window. The roles
+   share one grid cell, so the window is as wide as the longest. The negative delays start the second and third
+   mid-cycle, so each one rolls in as the last rolls out from the first pass on. */
+.home-hello{display:block;white-space:nowrap;margin-bottom:.55em}
+.home-roll{display:inline-grid;overflow:hidden;vertical-align:bottom;padding:0 .12em .08em 0;margin-bottom:-.08em;font-style:italic;color:#d9b5a3}
+.home-role{grid-area:1/1;white-space:nowrap;opacity:0;transform:translateY(100%);animation:home-role-cycle 12s cubic-bezier(.22,.68,.2,1) infinite}
+.home-role:nth-child(2){animation-delay:-8s}
+.home-role:nth-child(3){animation-delay:-4s}
 @keyframes home-role-cycle{
   0%,27%{opacity:1;transform:translateY(0);filter:blur(0)}
   33.333%{opacity:0;transform:translateY(-100%);filter:blur(2px)}
   33.334%,94%{opacity:0;transform:translateY(100%);filter:blur(2px)}
   100%{opacity:1;transform:translateY(0);filter:blur(0)}
 }
-.home-roles:hover .home-role{animation-play-state:paused}
-:root[data-theme=light] .home-roles{color:#a2654c}
-@media(max-width:600px){.home-roles{font-size:28px;margin:6px 0 18px}}
+.home-roll:hover .home-role{animation-play-state:paused}
+:root[data-theme=light] .home-roll{color:#a2654c}
+/* Phones: the greeting is set smaller so the longest role still fits on the one line. */
+@media(max-width:600px){.home-hello{font-size:min(1em,6.1vw)}}
 @media(prefers-reduced-motion:reduce){.home-role{animation:none;opacity:0;transform:none;filter:none}.home-role:first-child{opacity:1}}

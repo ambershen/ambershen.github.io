@@ -6,8 +6,8 @@ import {themeToggle} from './theme.js';
 export const navItems = [
   {page: 'products', label: 'Work', href: '/#work'},
   {page: 'art', label: 'Sketchbook', href: '/#sketchbook'},
-  {page: 'film', label: 'Film', href: '/#film'},
-  {page: 'teaching', label: 'Tutorials', href: '/#tutorials'},
+  {page: 'video', label: 'Video', href: '/#video'},
+  {page: 'about', label: 'About', href: '/#about'},
   {page: 'contact', label: 'Contact', href: '#contact'},
 ];
 

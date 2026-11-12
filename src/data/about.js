@@ -19,7 +19,7 @@ export const about = {
       ['2025 — Present', 'Agent Skills', 'Contributor', 'An open standard for how AI agents discover and invoke skills.'],
     ]},
     {title: 'Education', entries: [
-      ['2018', 'University of Illinois at Urbana-Champaign', 'B.S. Mathematics and computer Science, French Studies', ''],
+      ['2018', 'University of Illinois at Urbana-Champaign', 'B.S. Mathematics and Computer Science, French Studies', ''],
     ]},
     {title: 'Award / Recognition', entries: [
       ['', 'Fashion’s Future Voices', 'Business of Fashion', ''],

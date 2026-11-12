@@ -50,21 +50,23 @@ function cardLinks(card,external=false){
   }
   return box;
 }
-function workGrid(){
+// The Work grid. The home page shows the cards marked `home` the same way, as title and meta only.
+function workGrid(target=content,cards=workCards,brief=false){
   const grid=node('div','work-tiles');
-  for(const card of workCards){
+  for(const card of cards){
     const project=projects.find(p=>p.id===card.project);if(!project)continue;
     const tile=node('article','work-tile'),open=node('a','work-tile-open'),frame=node('div','work-tile-media');
     open.href=cardHash(card);
-    open.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;caseOpener=open;caseOpenedHere=true;});
+    if(!brief)open.addEventListener('click',e=>{if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;caseOpener=open;caseOpenedHere=true;});
     if(card.tile)frame.append(naturalTile(card.tile,card.title));
     else if(card.loop)frame.append(loopCover(card.loop,card.thumb,card.title));
     else if(card.image)frame.append(media({title:card.title,image:card.image}));
     else{frame.append(media(project));hoverClip(open,frame,project.video);}
-    open.append(frame,node('h3','',card.title),node('p','work-tile-meta',card.meta),node('p','work-tile-line',card.line));
-    tile.append(open,cardLinks(card));grid.append(tile);
+    open.append(frame,node('h3','',card.title),node('p','work-tile-meta',card.meta));
+    if(!brief)open.append(node('p','work-tile-line',card.line));
+    tile.append(open);if(!brief)tile.append(cardLinks(card));grid.append(tile);
   }
-  content.append(grid);
+  target.append(grid);return grid;
 }
 // A project without a case-study page, as the slide-in panel shows it.
 function projectArticle(project){
@@ -113,7 +115,15 @@ function detail(item,index){
   if(item.description)caption.append(node('p','',item.description));
   figure.append(caption);artDetail.append(figure);viewer.tabIndex=-1;viewer.showModal();viewer.focus();document.body.classList.add('art-is-open');
 }
-function filmRoom(){room=mountFilmRoom({films,socials,videoPoster});content.append(room.el);}
+// Video: the Tutorials ring, then the Commercial screening room under its own heading. One nav entry, two parts.
+function videoPage(){
+  const lessons=teachingRoom({fullBleed:el=>{if(!el.isConnected)return;const box=content.getBoundingClientRect();el.style.width=document.documentElement.clientWidth+'px';el.style.marginLeft=-box.left+'px';}});
+  const screening=mountFilmRoom({films,socials,videoPoster});
+  const heading=node('div','work-heading video-part'),h=node('h2','','Visual storytelling for brands & products');h.id='film-title';h.tabIndex=-1;heading.append(h);
+  content.append(lessons.el,heading,screening.el);
+  room={fit:()=>lessons.fit(),destroy(){lessons.destroy();screening.destroy();}};
+  room.fit();
+}
 function newsletterSignup(compact=false){
   const urls=buttondownUrls(newsletter.buttondown);
   const box=node('section',compact?'newsletter newsletter-compact':'newsletter');box.setAttribute('aria-label','Subscribe to '+newsletter.name);
@@ -138,18 +148,16 @@ function newsletterSignup(compact=false){
 function render(next){
   category=next;stopMedia();dropField();content.replaceChildren();
   modal.classList.toggle('gallery-mode',next==='art');
-  modal.classList.toggle('film-mode',next==='film');
   modal.classList.toggle('about-mode',next==='about');
   const selectedArticle=articles.find(article=>article.route===location.hash);
   const reading=next==='writing' && Boolean(selectedArticle);
   modal.classList.toggle('reading-mode',reading);
   document.title=reading?selectedArticle.title+' — Amber Shen':'Amber Shen — Creative Technologist';
-  title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',film:'Visual storytelling for brands & products',writing:'Writing',teaching:'Tutorials',about:'About'}[category];
-  description.textContent={selected:'A few things from my world.',products:'',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',film:'Visual storytelling in motion.',writing:newsletter.blurb,teaching:'Making technical ideas easier to understand, explore, and build with.',about:''}[category];
+  title.textContent={selected:'Selected work',products:'Selected work',art:'Sketchbook',video:'Tutorials',writing:'Writing',about:'About'}[category];
+  description.textContent={selected:'A few things from my world.',products:'',art:'An ongoing collection of visual experiments, typography, and ways of seeing.',video:'Making technical ideas easier to understand, explore, and build with.',writing:newsletter.blurb,about:''}[category];
   if(category==='about'){document.title='About — Amber Shen';content.append(aboutPage());return;}
   if(category==='products'){workGrid();modal.scrollTop=0;return;}
-  if(category==='film'){filmRoom();modal.scrollTop=0;return;}
-  if(category==='teaching'){document.title='Tutorials — Amber Shen';room=teachingRoom({fullBleed:el=>{if(!el.isConnected)return;const box=content.getBoundingClientRect();el.style.width=document.documentElement.clientWidth+'px';el.style.marginLeft=-box.left+'px';}});content.append(room.el);room.fit();return;}
+  if(category==='video'){document.title='Video — Amber Shen';videoPage();modal.scrollTop=0;return;}
   if(category==='writing'){
     if(reading){
       title.textContent=selectedArticle.title;description.textContent='';
@@ -287,7 +295,7 @@ function closeCase(){
 async function route(focus=false){
   const version=++routeVersion;
   const hash=location.hash;
-  if(hash && hash!=='#home' && hash!=='#about' && hash!=='#tutorials' && hash!=='#teaching' && !catalogApplied){
+  if(hash && hash!=='#home' && hash!=='#about' && !catalogApplied){
     const catalog=await loadPortfolio();
     if(version!==routeVersion)return;
     if(catalog){
@@ -301,12 +309,17 @@ async function route(focus=false){
     if(project){if(modal.hidden||category!=='products')showPage('products');openCase(project,part);return;}
     closeCase();showPage('products',focus);return;}
   closeCase();
-  showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#about'?'about':hash==='#film'?'film':(hash==='#tutorials'||hash==='#teaching')?'teaching':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
+  showPage((hash==='#gallery'||hash==='#sketchbook')?'art':hash==='#about'?'about':['#video','#film','#tutorials','#teaching'].includes(hash)?'video':hash==='#work'?'products':(hash==='#writing' || articles.some(article=>article.route===hash))?'writing':'home',focus);
+  if(hash==='#film'){const part=document.querySelector('#film-title');part?.scrollIntoView({block:'start'});if(focus)part?.focus({preventScroll:true});}
 }
 document.querySelectorAll('[data-open-work]').forEach(button=>button.addEventListener('click',()=>{location.hash=button.dataset.openWork==='art'?'gallery':'work';}));
 document.querySelector('#close-art').addEventListener('click',()=>viewer.close());
 viewer.addEventListener('click',event=>{if(event.target!==viewer)return;const box=viewer.getBoundingClientRect();if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)viewer.close();});
 viewer.addEventListener('close',()=>{artDetail.querySelectorAll('video').forEach(video=>video.pause());document.body.classList.remove('art-is-open');artOpener?.focus({preventScroll:true});});
+// Home: the cards marked `home` sit under the statement line, between the flower and Contact.
+{const statement=document.querySelector('#featured-title');
+  if(statement){const holder=node('div','home-work');workGrid(holder,workCards.filter(card=>card.home),true);
+    const more=node('div','work-tile-actions'),all=node('a','','All work');all.href='#work';more.append(all);holder.append(more);statement.after(holder);}}
 window.addEventListener('hashchange',()=>route(true));route();
 
 document.querySelectorAll('[data-scroll-featured]').forEach(button=>button.addEventListener('click',()=>{document.querySelector('#home-featured')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});}));

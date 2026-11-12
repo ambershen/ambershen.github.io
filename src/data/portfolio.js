@@ -187,16 +187,16 @@ const projects=[
 export {projects, items, sketchGroups, sketchDates};
 
 // The Work grid, in reading order. `project` and `part` are what a card opens; `links` are the direct ways in.
-// Add a Water, Sand or Ice link here as {label:'Try',url:'…'}.
+// Add a Water, Sand or Ice link here as {label:'Try',url:'…'}. `home:true` also shows the card on the home page.
 const [water,sand,ice]=naturalMedia;
 export const workCards=[
-  {project:'natural-effects',part:'water',title:'Natural Effects: Water',meta:'2026 · '+water.kind,line:'Can water carry the emotion in a voice? Speech is read for emotion, and the reading sets how ripples gather, spread and settle.',tile:'water',thumb:water.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=water'}]},
-  {project:'natural-effects',part:'sand',title:'Natural Effects: Sand',meta:'2026 · '+sand.kind,line:'Sand as an infinite canvas for storytelling: an agent draws from learned sketches and tells art history in projected marks.',tile:'sand',thumb:sand.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=sand'}]},
-  {project:'natural-effects',part:'ice',title:'Natural Effects: Ice',meta:'2026 · '+ice.kind,line:'A physical simulation of ice: friction leaves faint marks, and sustained pressure grows cracks that stay.',tile:'ice',thumb:ice.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=ice'}]},
-  {project:'soft-matter',title:'Soft Matter',meta:'2026 · Type design · Creative coding',line:'Four typefaces made of chocolate, wool, pearls and lace, in 3D or 2D.',loop:laundromatCard,thumb:laundromatCardPoster,links:[{label:'Try',url:'https://softmatter.vercel.app/#laundromat'}]},
+  {project:'natural-effects',part:'water',home:true,title:'Natural Effects: Water',meta:'2026 · '+water.kind,line:'Can water carry the emotion in a voice? Speech is read for emotion, and the reading sets how ripples gather, spread and settle.',tile:'water',thumb:water.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=water'}]},
+  {project:'natural-effects',part:'sand',home:true,title:'Natural Effects: Sand',meta:'2026 · '+sand.kind,line:'Sand as an infinite canvas for storytelling: an agent draws from learned sketches and tells art history in projected marks.',tile:'sand',thumb:sand.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=sand'}]},
+  {project:'natural-effects',part:'ice',home:true,title:'Natural Effects: Ice',meta:'2026 · '+ice.kind,line:'A physical simulation of ice: friction leaves faint marks, and sustained pressure grows cracks that stay.',tile:'ice',thumb:ice.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=ice'}]},
+  {project:'soft-matter',home:true,title:'Soft Matter',meta:'2026 · Type design · Creative coding',line:'Four typefaces made of chocolate, wool, pearls and lace, in 3D or 2D.',loop:laundromatCard,thumb:laundromatCardPoster,links:[{label:'Try',url:'https://softmatter.vercel.app/#laundromat'}]},
   {project:'haunted-portal',title:'Looping Chapel',meta:'2026 · Blender · WebGL · Web Audio',line:'A sound visualization of a medieval chapel on a loop.',links:[{label:'Watch',url:'#work/haunted-portal'}]},
-  {project:'data-center',title:'2036 Data Center',meta:'2026 · 3D · Sound visualization',line:'A 3D sound visualization: a rave inside an abandoned AI data center in 2036.',links:[{label:'Watch',url:'#work/data-center'}]},
-  {project:'sound-dictionaries',title:'Sound Dictionaries',meta:'2026 · Voice · Product design',line:'Exploring new ways of learning with AI voices: hear a word, say it back, then use it in a conversation.',links:[{label:'Try',url:'https://sound-dictionaries.vercel.app'},{label:'Code',url:'https://github.com/ambershen/sound-dictionaries'}]},
+  {project:'data-center',home:true,title:'2036 Data Center',meta:'2026 · 3D · Sound visualization',line:'A 3D sound visualization: a rave inside an abandoned AI data center in 2036.',links:[{label:'Watch',url:'#work/data-center'}]},
+  {project:'sound-dictionaries',home:true,title:'Sound Dictionaries',meta:'2026 · Voice · Product design',line:'Exploring new ways of learning with AI voices: hear a word, say it back, then use it in a conversation.',links:[{label:'Try',url:'https://sound-dictionaries.vercel.app'}]},
   {project:'deskmate',title:'DeskMate',meta:'2026 · Product design',line:'A map of places to work and people to work beside.',links:[{label:'Try',url:'https://desk-mate.ai'}]},
   {project:'printed-earrings',title:'3D-Printed Earrings',meta:'Arts & crafts',line:'A photograph of leaves, turned into a 3D model and printed as a pair of earrings.',image:new URL('../../images/printed-earrings/pair.jpg',import.meta.url).href,links:[]},
 ];

@@ -251,7 +251,7 @@ html{scroll-behavior:smooth}
 
 .cs-specimens{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 24px;margin:32px 0}
 .cs-specimen{margin:0;min-width:0}
-.cs-specimen>img{width:100%;aspect-ratio:4/3;object-fit:contain;display:block;background:#111;border:1px solid #332c27}
+.cs-specimen>img{width:100%;aspect-ratio:2/1;object-fit:contain;display:block}
 .cs-specimen figcaption{padding-top:18px}
 .cs-specimen figcaption h3{font:400 36px/1.1 'Cormorant Garamond',serif;margin:10px 0 14px}
 .cs-specimen figcaption p{font-size:20px;line-height:1.55}

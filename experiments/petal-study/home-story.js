@@ -1,6 +1,6 @@
 // Home: the whole introduction sits beside the flower on one screen. Pressing a word in it takes over the
 // flower (by pressing study.js's own word buttons, so the five effects run unchanged), its tags circle the
-// flower as torn paper, and a ghost brush plays when nobody does. Not used in the ?embed Bloom window.
+// flower as torn paper, and a ghost brush plays when nobody does. Left alone, the words play in turn. Not used in the ?embed Bloom window.
 import './home-story.css';
 
 const button = id => id === 'play' ? document.querySelector('#play') : document.querySelector(`[data-mode="${id}"]`);
@@ -44,8 +44,8 @@ let mode = null, modeAt = 0, touched = -1e9, ghosting = false, ghostDown = false
 
 /* ---------- The lines: the word playing takes the highlighter swipe ---------- */
 const lines = [...document.querySelectorAll('.d-line')];
-function setMode(next) {
-  if (next === mode) return;
+function setMode(next, replay = false) {
+  if (next === mode && !replay) return;
   mode = next; modeAt = performance.now();
   lines.forEach(l => {
     l.classList.toggle('is-active', l.dataset.mode === next);
@@ -55,7 +55,33 @@ function setMode(next) {
   phrases = stickers[next] || []; phraseIndex = 0;
   for (const s of live) s.life = Math.min(s.life, (performance.now() - s.born) / 1000 + .6);
 }
-lines.forEach(l => l.querySelector('.d-word')?.addEventListener('click', () => setMode(l.dataset.mode)));
+// Resting the mouse on a word plays it, the same as pressing it; resting on the word already playing starts
+// its effect again. The short wait keeps a pointer that is only passing over from changing the flower.
+let hoverTimer = 0;
+lines.forEach(l => {
+  const word = l.querySelector('.d-word'); if (!word) return;
+  word.addEventListener('click', () => { clearTimeout(hoverTimer); visitor(); setMode(l.dataset.mode); });
+  word.addEventListener('pointerenter', e => {
+    if (e.pointerType !== 'mouse') return;
+    clearTimeout(hoverTimer); onWord = true; visitor();
+    hoverTimer = setTimeout(() => setMode(l.dataset.mode, performance.now() - modeAt > 1500), 140);
+  });
+  word.addEventListener('pointerleave', () => { clearTimeout(hoverTimer); onWord = false; visitor(); });
+  word.addEventListener('focus', visitor);
+});
+
+/* ---------- The tour: left alone, the highlight walks through the words in order and the flower plays each one.
+   A visitor's hover or press on a word, or a stroke on the flower, takes over; after a rest the tour picks up
+   from the word they left. ---------- */
+const tour = ['bloom', 'art', 'narrative', 'code', 'chaos', 'play'];
+const dwell = {bloom: 5.5, art: 6.5, narrative: 7.5, code: 7, chaos: 8, play: 9}; // seconds, long enough for each effect to play out
+const rest = 12000;
+let lastVisitor = -1e9, onWord = false;
+function visitor() { lastVisitor = performance.now(); }
+function tourFrame(t) {
+  if (still || onWord || document.hidden || t - lastVisitor < rest || t - modeAt < (dwell[mode] || 6) * 1000) return;
+  setMode(tour[(tour.indexOf(mode) + 1) % tour.length]);
+}
 
 /* ---------- Stickers circling the flower ---------- */
 let phrases = [], phraseIndex = 0, nextSticker = 0, paperIndex = 0;
@@ -142,11 +168,24 @@ function sweep(t) {
 let lastX = null, lastY = null;
 for (const type of ['pointerdown', 'pointermove']) flower.addEventListener(type, e => {
   if (ghosting) return;
-  const moved = Math.hypot(e.clientX - lastX, e.clientY - lastY) > 2 || lastX === null;
+  const travel = lastX === null ? 0 : Math.hypot(e.clientX - lastX, e.clientY - lastY);
+  const moved = travel > 2 || lastX === null;
   lastX = e.clientX; lastY = e.clientY;
-  if (type === 'pointerdown' || e.pointerType === 'mouse' && moved) { if (ghostDown) ghost('pointerup'); touched = performance.now(); }
+  // The flower answers back: a visitor's stroke swells the swipe under the word that is playing.
+  if (moved) stroke = Math.min(1, stroke + Math.min(travel, 60) / (e.buttons || e.pointerType !== 'mouse' ? 150 : 320));
+  if (type === 'pointerdown' || e.pointerType === 'mouse' && moved) { if (ghostDown) ghost('pointerup'); touched = performance.now(); visitor(); }
   if (type === 'pointerdown') triedFlower = true;
 });
+
+/* ---------- The word's swipe follows the visitor's strokes on the flower, and settles when they stop ---------- */
+let stroke = 0, strokeShown = 0;
+function strokeFrame(dt) {
+  stroke *= Math.exp(-dt * 2.6);
+  const value = stroke < .01 ? 0 : Math.round(stroke * 100) / 100;
+  if (value === strokeShown) return;
+  strokeShown = value;
+  lines.forEach(l => l.querySelector('.d-word')?.style.setProperty('--stroke', l.dataset.mode === mode ? value : 0));
+}
 
 /* ---------- Loop ---------- */
 let last = 0;
@@ -158,6 +197,8 @@ function frame(t) {
     const opening = t - modeAt < 2200;
     if (!still && (t - touched > 5000 || opening && t - touched > 400)) sweep(t);
     stickersFrame(t, dt);
+    tourFrame(t);
+    strokeFrame(dt);
     hint.classList.toggle('is-on', !triedFlower && mode !== 'bloom');
   }
   requestAnimationFrame(frame);

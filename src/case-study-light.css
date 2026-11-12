@@ -356,10 +356,6 @@
 :root[data-theme=light] .cs-references a:hover {
     color: var(--ink)
 }
-:root[data-theme=light] .cs-specimen>img {
-    background: #e8e1da;
-    border: 1px solid #e0d5ca
-}
 :root[data-theme=light] .cs-embed iframe {
     border: 1px solid #e0d5ca;
     background: #e4ddd6

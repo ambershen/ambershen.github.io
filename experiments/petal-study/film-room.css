@@ -44,3 +44,8 @@
   .theatre-caption h3{font-size:26px}
 }
 @media(prefers-reduced-motion:reduce){:root .screening .screening-title,.screening-preview{transition:none}:root .screening .screening-row.is-active .screening-title{transform:none}}
+
+/* On the Video page the screening room is the second part, under its own heading and clear of the sticky header. */
+#work-window.collection-page .video-part{margin-top:clamp(96px,14vh,160px);scroll-margin-top:120px}
+.video-part h2{scroll-margin-top:120px}
+.video-part h2:focus{outline:none}

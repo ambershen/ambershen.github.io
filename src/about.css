@@ -14,9 +14,10 @@
   .about-intro{margin-bottom:32px}
   .about-lead{font-size:17px}
   .about-entry{font-size:15px;line-height:1.8;margin-bottom:12px}
-  .site-header .header-nav{flex-wrap:wrap;overflow:visible;gap:10px 14px;padding-block:12px}
-  .site-header{height:auto;min-height:70px;align-items:center}
-  .site-header .header-nav .collection{min-height:24px}
+  /* The nav fits one row on most phones; on the narrowest it wraps, with the rows kept close. */
+  .site-header .header-nav{flex-wrap:wrap;overflow:visible;gap:0 14px;padding-block:10px}
+  .site-header{height:auto;min-height:0;align-items:flex-start}
+  .site-header .header-nav .collection{min-height:28px;padding-block:6px}
 }
 /* Keep the page label accessible without a visible title or heading gap. */
 #work-window.about-mode .work-heading{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}

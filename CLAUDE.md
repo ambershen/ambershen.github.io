@@ -14,7 +14,7 @@ npm run build    # production build to dist/
 ## Structure
 
 ```
-index.html                       # Home (flower) + hash-routed sections: #work #sketchbook (#gallery alias) #film #tutorials (#teaching alias) #writing
+index.html                       # Home (flower) + hash-routed sections: #work #sketchbook (#gallery alias) #video (Tutorials, then Commercial; #tutorials and #teaching open it, #film opens it at Commercial) #writing
 experiments/petal-study/         # Home page logic: study.js (flower), collections.js (sections), style.css
 src/data/site.js                 # Socials, newsletter (Buttondown) config, films  ← edit content here
 src/data/case-studies.js         # Case-study entries + the section template

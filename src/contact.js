@@ -24,18 +24,10 @@ if (!new URLSearchParams(location.search).has('embed')) {
       <button class="contact-send" type="submit">Send message</button>
       <p class="contact-status" role="status" aria-live="polite"></p>
     </form>`;
-  document.body.append(launcher, dialog);
-  // The home flower owns the first screen; the nav's Contact link covers it there. The home Contact
-  // block repeats the launcher, so it also steps aside while that block is on screen.
-  const home = document.getElementById('home-page');
-  const homeContact = document.querySelector('.home-contact');
-  let contactInView = false;
-  const onHome = () => !location.hash || location.hash === '#home';
-  const tuck = () => launcher.classList.toggle('is-tucked', Boolean(home) && onHome() && (scrollY < innerHeight * .6 || contactInView));
-  if (homeContact) new IntersectionObserver(([entry]) => { contactInView = entry.isIntersecting; tuck(); }).observe(homeContact);
-  tuck();
-  addEventListener('scroll', tuck, {passive: true});
-  addEventListener('hashchange', tuck);
+  // The floating launcher shows only on standalone pages (case studies), where a long scroll takes the nav's
+  // Contact link out of reach. The main site has that link on every section and a Contact block ending Home.
+  const mainSite = Boolean(document.getElementById('home-page'));
+  if (mainSite) document.body.append(dialog); else document.body.append(launcher, dialog);
   let opener = launcher;
   function open(trigger) { opener = trigger; if (!dialog.open) { dialog.showModal(); dialog.focus(); } }
   launcher.addEventListener('click', () => open(launcher));
