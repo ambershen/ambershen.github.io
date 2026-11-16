@@ -84,6 +84,7 @@ function block(b) {
   // A live piece, playable in the page.
   if (b.embed) {
     const figure = el('figure', 'cs-embed');
+    if (b.embed.id) figure.id = b.embed.id;
     const frame = el('iframe');
     frame.src = b.embed.url; frame.title = b.embed.title; frame.loading = 'lazy';
     frame.allow = 'autoplay; clipboard-write'; frame.referrerPolicy = 'no-referrer';
@@ -181,9 +182,10 @@ function block(b) {
     return flow;
   }
   if (b.link) {
-    const n = el('aside', 'cs-callout'), a = el('a', '', `${b.link.label}`);
+    const n = el('aside', b.link.text ? 'cs-callout' : 'cs-links'), a = el('a', '', `${b.link.label}`);
     a.href = b.link.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
-    n.append(el('p', '', b.link.text), a);
+    if (b.link.text) n.append(el('p', '', b.link.text));
+    n.append(a);
     if (b.link.more) { const m = el('a', '', b.link.more.label); m.href = b.link.more.url; m.target = '_blank'; m.rel = 'noopener noreferrer'; n.append(m); }
     return n;
   }
@@ -243,7 +245,7 @@ if (!study) {
       }
       hero.append(materials);
     }
-    hero.append(credits);
+    if (study.showCredits !== false) hero.append(credits);
   } else {
     const eyebrow = el('p', 'cs-eyebrow');
     eyebrow.append(el('span', '', `Case study · ${study.year}`));
@@ -331,7 +333,9 @@ if (!study) {
     nav.append(nxt);
   }
   footer.append(nav);
-  main.append(hero, cover, body, footer);
+  main.append(hero, cover);
+  if (sections.children.length) main.append(body);
+  main.append(footer);
   // Chapters are rendered after navigation; honor deep links once they exist.
   const scrollToChapter = () => {
     if (location.hash.startsWith('#s-')) document.getElementById(location.hash.slice(1))?.scrollIntoView({behavior: 'instant'});

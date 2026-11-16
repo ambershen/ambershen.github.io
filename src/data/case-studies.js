@@ -44,27 +44,28 @@ export const naturalMedia = [
 ];
 
 
+export const softMatterTagline = '2D/3D Typefaces designed from everyday objects. Objects turned into fonts. Fonts then turned back into objects.';
+
 export const softMatterMedia = [
-  {title:'Purl',kind:'Knitted yarn',image:img(new URL('../../images/soft-matter/purl.png',import.meta.url)),text:'A knitting grid turns every curve into stepped, chunky stitches.'},
-  {title:'Ganache',kind:'Piped chocolate',image:img(new URL('../../images/soft-matter/ganache.png',import.meta.url)),text:'Each stroke is one squeeze of piped chocolate, with a thinning tail and the odd drip.'},
-  {title:'Nacre',kind:'Strung pearls',image:img(new URL('../../images/soft-matter/nacre.png',import.meta.url)),text:'A joined script of pearls knotted on silk: large pearls for downstrokes, seed pearls for hairlines.'},
-  {title:'Picot',kind:'Lace ribbon',image:img(new URL('../../images/soft-matter/picot.png',import.meta.url)),text:'Thick strokes open into lace mesh and flowers; thin strokes narrow to a thread.'},
+  {title:'Purl',kind:'Knitted yarn',image:img(new URL('../../images/soft-matter/card-purl.jpg',import.meta.url)),text:'A knitting grid turns every curve into stepped, chunky stitches.'},
+  {title:'Ganache',kind:'Piped chocolate',image:img(new URL('../../images/soft-matter/card-ganache.jpg',import.meta.url)),text:'Each stroke is one squeeze of piped chocolate, with a thinning tail and the odd drip.'},
+  {title:'Nacre',kind:'Strung pearls',image:img(new URL('../../images/soft-matter/card-nacre.jpg',import.meta.url)),text:'A joined script of pearls knotted on silk: large pearls for downstrokes, seed pearls for hairlines.'},
+  {title:'Picot',kind:'Lace ribbon',image:img(new URL('../../images/soft-matter/card-picot.jpg',import.meta.url)),text:'Thick strokes open into lace mesh and flowers; thin strokes narrow to a thread.'},
 ];
 
 export const caseStudies = [
   {
     slug:'soft-matter',title:'Soft Matter',year:'2026',medium:'Type design · Creative coding · 3D printing',
-    tagline:'Four typefaces made of chocolate, wool, pearls and lace, in 3D or 2D.',status:'published',cover:false,gallery:[],sections:{},
-    opening:{toc:'Overview',blocks:[
-      'How much of a material’s character survives when it becomes a typeface? A stitch becomes a grid, a squeeze leaves a drip, a pearl strand traces a curve. Soft Matter turns knitted yarn, piped chocolate, strung pearls, and lace ribbon into four typefaces. Every word comes out in 3D or 2D, in different flavors and weights.',
-      {loops:[{video:img(new URL('../../images/soft-matter/flavors-3d.mp4',import.meta.url)),poster:img(new URL('../../images/soft-matter/flavors-3d.jpg',import.meta.url))}],caption:'The same words in 3D, in different flavors.'},
-      {specimens:softMatterMedia}]},
-    chapters:[
-      {key:'laundromat',label:'Objects into fonts, fonts into objects',toc:'Laundromat',blocks:[
-        'Soft Matter makes fonts from everyday objects, then turns those fonts back into physical objects. Try it here: pick a washing machine, type a word, and see what comes out.',
-        {embed:{url:'https://softmatter.vercel.app/#laundromat',title:'Soft Matter Laundromat'}}
-      ]},
-    ],links:[{label:'Try Soft Matter',url:'https://softmatter.vercel.app/'}]
+    tagline:softMatterTagline,status:'published',cover:false,gallery:[],sections:{},
+    showCredits:false,
+    opening:{blocks:[
+      'All four Soft Matter typefaces are part of the commons under the SIL Open Font License. Each family comes in five weights. You can download the OpenType fonts or export the material lettering as PNGs and glyph packs.',
+      {link:{label:'Download fonts',url:'https://softmatter.vercel.app/#typefaces',more:{label:'View on GitHub',url:'https://github.com/ambershen/softmatter'}}},
+      {loops:[{video:img(new URL('../../images/soft-matter/flavors-3d.mp4',import.meta.url)),poster:img(new URL('../../images/soft-matter/flavors-3d.jpg',import.meta.url))}],caption:'Ganache in motion'},
+      {specimens:softMatterMedia,compact:true},
+      {embed:{id:'s-laundromat',url:'https://softmatter.vercel.app/#laundromat',title:'Soft Matter Laundromat'}}
+    ]},
+    chapters:[],links:[]
   },
   {
     slug: 'natural-expressions', // Keep the existing public URL.

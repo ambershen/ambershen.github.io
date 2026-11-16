@@ -1,4 +1,4 @@
-import {naturalMedia,softMatterMedia} from './case-studies.js';
+import {naturalMedia,softMatterMedia,softMatterTagline} from './case-studies.js';
 import deskmate from '../../images/deskmate/frontpage.mp4';
 import soundDictionariesPoster from '../../images/sound-dictionaries/pronunciation-demo.jpg';
 import dictionaryDemo from '../../images/sound-dictionaries/pronunciation-demo.mp4';
@@ -142,7 +142,7 @@ const items=[...interactive,...selectedPaintings.map(title=>({...paintings.find(
 });
 const projects=[
   {id:'natural-effects',title:'Natural Effects as the New Brush',tagline:'Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.',page:'/work/natural-expressions/'},   // opens the full case study
-  {id:'soft-matter',title:'Soft Matter',tagline:'Four typefaces made of chocolate, wool, pearls and lace, in 3D or 2D.',page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
+  {id:'soft-matter',title:'Soft Matter',tagline:softMatterTagline,page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
   {id:'haunted-portal',title:'Looping Chapel',kind:'SOUND VISUALIZATION',tagline:'A sound visualization of a medieval chapel on a loop.',
     tech:['Blender','WebGL','Web Audio'],video:hauntedPortal,poster:hauntedPortalPoster,
     made:'The chapel, its doors and fog are a 3D scene in Blender, rendered as a 24-second loop. A WebGL and Web Audio layer then lights that video live: low frequencies drive the stained-glass glow, and sharp sounds flash along the architecture.'},
@@ -193,7 +193,7 @@ export const workCards=[
   {project:'natural-effects',part:'water',home:true,title:'Natural Effects: Water',meta:'2026 · '+water.kind,line:'Can water carry the emotion in a voice? Speech is read for emotion, and the reading sets how ripples gather, spread and settle.',tile:'water',thumb:water.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=water'}]},
   {project:'natural-effects',part:'sand',home:true,title:'Natural Effects: Sand',meta:'2026 · '+sand.kind,line:'Sand as an infinite canvas for storytelling: an agent draws from learned sketches and tells art history in projected marks.',tile:'sand',thumb:sand.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=sand'}]},
   {project:'natural-effects',part:'ice',home:true,title:'Natural Effects: Ice',meta:'2026 · '+ice.kind,line:'A physical simulation of ice: friction leaves faint marks, and sustained pressure grows cracks that stay.',tile:'ice',thumb:ice.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=ice'}]},
-  {project:'soft-matter',home:true,title:'Soft Matter',meta:'2026 · Type design · Creative coding',line:'Four typefaces made of chocolate, wool, pearls and lace, in 3D or 2D.',loop:laundromatCard,thumb:laundromatCardPoster,links:[{label:'Try',url:'https://softmatter.vercel.app/#laundromat'}]},
+  {project:'soft-matter',home:true,title:'Soft Matter',meta:'2026 · Type design · Creative coding',line:softMatterTagline,loop:laundromatCard,thumb:laundromatCardPoster,links:[{label:'Try',url:'https://softmatter.vercel.app/#laundromat'}]},
   {project:'haunted-portal',title:'Looping Chapel',meta:'2026 · Blender · WebGL · Web Audio',line:'A sound visualization of a medieval chapel on a loop.',links:[{label:'Watch',url:'#work/haunted-portal'}]},
   {project:'data-center',home:true,title:'2036 Data Center',meta:'2026 · 3D · Sound visualization',line:'A 3D sound visualization: a rave inside an abandoned AI data center in 2036.',links:[{label:'Watch',url:'#work/data-center'}]},
   {project:'sound-dictionaries',home:true,title:'Sound Dictionaries',meta:'2026 · Voice · Product design',line:'Exploring new ways of learning with AI voices: hear a word, say it back, then use it in a conversation.',links:[{label:'Try',url:'https://sound-dictionaries.vercel.app'}]},

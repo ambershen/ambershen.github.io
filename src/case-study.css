@@ -321,3 +321,7 @@ html{scrollbar-color:#3a322c #000000}
 
 /* Under 400px the six nav items overflowed and Contact was cut off: tighten the gaps to fit. */
 @media(max-width:399px){.site-header .header-nav{gap:max(8px,calc(16px - (397px - 100vw) / 5))}}
+
+.cs-opening .cs-links{flex-wrap:wrap;row-gap:10px}
+.cs-opening .cs-links a{text-decoration:underline;text-underline-offset:.25em}
+.cs-opening .cs-specimens.is-compact .cs-specimen>img{aspect-ratio:1;object-fit:cover}
