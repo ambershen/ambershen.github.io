@@ -85,6 +85,9 @@ function projectArticle(project){
       figure.append(caption,media(study,true));studies.append(figure);
     });
     article.append(studies);
+  }else if(project.liveFrame){
+    // the work itself, running; it rests by itself when the panel is closed or scrolled away
+    const live=node('iframe','archive-demo project-live');live.src=project.liveFrame;live.title=project.title;live.allow='fullscreen';article.append(live);
   }else if(!project.hideHero){
     const demo=media(project,true);if(project.poster)demo.poster=project.poster;demo.classList.add('archive-demo');if(project.portrait){demo.style.aspectRatio='9 / 16';demo.style.width='min(100%, 420px)';demo.style.margin='24px auto 0';}article.append(demo);
   }
