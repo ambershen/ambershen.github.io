@@ -20,6 +20,8 @@ src/data/site.js                 # Socials, newsletter (Buttondown) config, film
 src/data/case-studies.js         # Case-study entries + the section template
 src/data/essays.js               # Essays / newsletter issues (bodies are .txt in experiments/petal-study/)
 work/<slug>/index.html           # One shell per case study; rendered by src/case-study.js (auto-added to the build)
+/artwork/living-butterfly/       # Living Butterfly Sketch. Not in this repo: deploy.yml copies it from ambershen/super-duper-umbrella on every deploy.
+                                 # For local dev: npm run butterfly (copies from ../super-duper-umbrella into public/artwork/, which is gitignored)
 os/index.html + src/os/          # Amber OS: desktop of live work in windows. Hidden: not in the nav, still built at /os/
 product/*                        # Older standalone product pages
 ```

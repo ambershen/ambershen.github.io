@@ -145,10 +145,11 @@ const items=[...interactive,...selectedPaintings.map(title=>({...paintings.find(
 const projects=[
   {id:'natural-effects',title:'Natural Effects as the New Brush',tagline:'Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.',page:'/work/natural-expressions/'},   // opens the full case study
   {id:'soft-matter',title:'Soft Matter',tagline:softMatterTagline,page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
-  // The piece itself runs in the panel: `liveFrame` is a page under /public, shown in place of a video.
+  // The piece itself runs in the panel: `liveFrame` is a page on this site, shown in place of a video.
+  // Its files are not in this repo: the deploy copies them from ambershen/super-duper-umbrella (see deploy.yml).
   {id:'living-butterfly',title:'Living Butterfly Sketch',kind:'CREATIVE CODING · GENERATIVE ART',
     tagline:'100,000 butterflies, a new one generated with every wing beat.',
-    tech:['p5.js','WebGL'],liveFrame:'/living-butterfly/index.html?embed=1',video:butterflyCard,poster:butterflyCardPoster},
+    tech:['p5.js','WebGL'],liveFrame:'/artwork/living-butterfly/index.html?embed=1',video:butterflyCard,poster:butterflyCardPoster},
   {id:'haunted-portal',title:'Looping Chapel',kind:'SOUND VISUALIZATION',tagline:'A sound visualization of a medieval chapel on a loop.',
     tech:['Blender','WebGL','Web Audio'],video:hauntedPortal,poster:hauntedPortalPoster,
     made:'The chapel, its doors and fog are a 3D scene in Blender, rendered as a 24-second loop. A WebGL and Web Audio layer then lights that video live: low frequencies drive the stained-glass glow, and sharp sounds flash along the architecture.'},

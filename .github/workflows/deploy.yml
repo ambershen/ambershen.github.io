@@ -19,6 +19,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Living Butterfly Sketch lives in its own repo. Every deploy takes its
+      # current files and serves them at /artwork/living-butterfly/, so the
+      # link always shows the latest version. The key is read-only.
+      - uses: actions/checkout@v4
+        with:
+          repository: ambershen/super-duper-umbrella
+          ssh-key: ${{ secrets.BUTTERFLY_DEPLOY_KEY }}
+          path: .butterfly
+      - run: |
+          mkdir -p public/artwork/living-butterfly
+          cp .butterfly/index.html .butterfly/sketch.js .butterfly/liquid.js public/artwork/living-butterfly/
+          rm -rf .butterfly
       - uses: actions/setup-node@v4
         with:
           node-version: 20

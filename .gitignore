@@ -1,5 +1,6 @@
 node_modules/
 dist/
+public/artwork/
 .DS_Store
 .gstack/
 .claude/
