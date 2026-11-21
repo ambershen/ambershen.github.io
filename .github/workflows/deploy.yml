@@ -29,7 +29,7 @@ jobs:
           path: .butterfly
       - run: |
           mkdir -p public/artwork/living-butterfly
-          cp .butterfly/index.html .butterfly/sketch.js .butterfly/liquid.js public/artwork/living-butterfly/
+          cp .butterfly/index.html .butterfly/sketch.js .butterfly/liquid.js .butterfly/species-data.js public/artwork/living-butterfly/
           rm -rf .butterfly
       - uses: actions/setup-node@v4
         with:
