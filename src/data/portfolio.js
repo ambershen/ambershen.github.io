@@ -148,8 +148,9 @@ const projects=[
   // The piece itself runs in the panel: `liveFrame` is a page on this site, shown in place of a video.
   // Its files are not in this repo: the deploy copies them from ambershen/super-duper-umbrella (see deploy.yml).
   {id:'living-butterfly',title:'Living Butterfly Sketch',kind:'CREATIVE CODING · GENERATIVE ART',
-    tagline:'100,000,000 butterflies, every one drawn from real species. Draw a few strokes to hatch your own.',
-    tech:['p5.js','WebGL'],liveFrame:'/artwork/living-butterfly/index.html?embed=panel',video:butterflyCard,poster:butterflyCardPoster},
+    tagline:'A collection of 100,000,000 butterflies, hatched from a study of real species. Draw a sketch to hatch your own.',
+    summary:'Living Butterfly Sketch is a collection of 100,000,000 butterflies, hatched from a study of real species, their patterns and how they evolve. Every colour and marking is read from a museum specimen, and new butterflies arise as they do in nature: two related species cross, and each region of the wing is inherited whole from one parent. Anyone can draw a sketch and hatch a butterfly of their own.',
+    liveFrame:'/artwork/living-butterfly/index.html?embed=panel',video:butterflyCard,poster:butterflyCardPoster},
   {id:'haunted-portal',title:'Looping Chapel',kind:'SOUND VISUALIZATION',tagline:'A sound visualization of a medieval chapel on a loop.',
     tech:['Blender','WebGL','Web Audio'],video:hauntedPortal,poster:hauntedPortalPoster,
     made:'The chapel, its doors and fog are a 3D scene in Blender, rendered as a 24-second loop. A WebGL and Web Audio layer then lights that video live: low frequencies drive the stained-glass glow, and sharp sounds flash along the architecture.'},
@@ -197,7 +198,7 @@ export {projects, items, sketchGroups, sketchDates};
 // Add a Water, Sand or Ice link here as {label:'Try',url:'…'}. `home:true` also shows the card on the home page.
 const [water,sand,ice]=naturalMedia;
 export const workCards=[
-  {project:'living-butterfly',title:'Living Butterfly Sketch',meta:'2026 · Creative coding · Generative art',line:'100,000,000 butterflies, every one drawn from real species. Draw a few strokes to hatch your own.',loop:butterflyCard,thumb:butterflyCardPoster,links:[{label:'Try',url:'/artwork/living-butterfly/'}]},
+  {project:'living-butterfly',title:'Living Butterfly Sketch',meta:'2026 · Creative coding · Generative art',line:'A collection of 100,000,000 butterflies, hatched from a study of real species. Draw a sketch to hatch your own.',loop:butterflyCard,thumb:butterflyCardPoster,links:[{label:'Try',url:'/artwork/living-butterfly/'}]},
   {project:'natural-effects',part:'water',home:true,title:'Natural Effects: Water',meta:'2026 · '+water.kind,line:'Can water carry the emotion in a voice? Speech is read for emotion, and the reading sets how ripples gather, spread and settle.',tile:'water',thumb:water.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=water'}]},
   {project:'natural-effects',part:'sand',home:true,title:'Natural Effects: Sand',meta:'2026 · '+sand.kind,line:'Sand as an infinite canvas for storytelling: an agent draws from learned sketches and tells art history in projected marks.',tile:'sand',thumb:sand.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=sand'}]},
   {project:'natural-effects',part:'ice',home:true,title:'Natural Effects: Ice',meta:'2026 · '+ice.kind,line:'A physical simulation of ice: friction leaves faint marks, and sustained pressure grows cracks that stay.',tile:'ice',thumb:ice.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=ice'}]},
