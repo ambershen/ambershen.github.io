@@ -11,6 +11,8 @@
 #work-window .work-tile h3,.home-work .work-tile h3{font:400 30px/1.1 var(--display);letter-spacing:-.01em;color:var(--wk-ink);margin:0 0 8px;transition:color .2s}
 .work-tile-open:hover h3,.work-tile-open:focus-visible h3{color:var(--wk-accent)!important}
 .work-tile-meta{font:400 11px/1.5 'DM Mono',monospace;letter-spacing:.04em;color:var(--wk-muted);margin:0 0 10px}
+.work-tile-theme{color:var(--wk-accent);text-transform:uppercase;letter-spacing:.1em}
+.work-tile-form:not(:empty):before{content:'·';margin:0 .7em;color:var(--wk-line)}
 .work-tile-line{font:400 14px/1.55 'Manrope',sans-serif;color:var(--wk-muted);margin:0}
 .work-tile-actions,.case-slide-links{display:flex;flex-wrap:wrap;gap:8px}
 .work-tile-actions:not(:empty){margin-top:14px}

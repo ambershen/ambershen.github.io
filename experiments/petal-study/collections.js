@@ -50,6 +50,13 @@ function cardLinks(card,external=false){
   }
   return box;
 }
+// Theme and form when the card has them, otherwise the older meta line.
+function tileMeta(card){
+  const meta=node('p','work-tile-meta');
+  if(card.theme)meta.append(node('span','work-tile-theme',card.theme),node('span','work-tile-form',card.form||''));
+  else meta.textContent=card.meta||'';
+  return meta;
+}
 // The Work grid. The home page shows the cards marked `home` the same way, as title and meta only.
 function workGrid(target=content,cards=workCards,brief=false){
   const grid=node('div','work-tiles');
@@ -62,7 +69,7 @@ function workGrid(target=content,cards=workCards,brief=false){
     else if(card.loop)frame.append(loopCover(card.loop,card.thumb,card.title));
     else if(card.image)frame.append(media({title:card.title,image:card.image}));
     else{frame.append(media(project));hoverClip(open,frame,project.video);}
-    open.append(frame,node('h3','',card.title),node('p','work-tile-meta',card.meta));
+    open.append(frame,node('h3','',card.title),tileMeta(card));
     if(!brief)open.append(node('p','work-tile-line',card.line));
     tile.append(open);if(!brief)tile.append(cardLinks(card));grid.append(tile);
   }
