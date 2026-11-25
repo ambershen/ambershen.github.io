@@ -80,7 +80,7 @@ function projectArticle(project){
   const article=node('article','project-article');
   if(project.kind)article.append(node('span','project-number',project.kind));
   article.append(node('h3','project-title',project.title));
-  if(project.summary||project.tagline)article.append(node('p','project-summary',project.summary||project.tagline));
+  if(project.summary||project.tagline)for(const text of [].concat(project.summary||project.tagline))article.append(node('p','project-summary',text));   // a summary may be a list of paragraphs
   if(project.tech){const tech=node('ul','project-tech');for(const t of project.tech)tech.append(node('li','',t));article.append(tech);}
   if(project.studies){
     const studies=node('div','visual-studies');

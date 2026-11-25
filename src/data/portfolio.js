@@ -149,7 +149,8 @@ const projects=[
   // Its files are not in this repo: the deploy copies them from ambershen/super-duper-umbrella (see deploy.yml).
   {id:'living-butterfly',title:'Living Butterfly Sketch',kind:'CREATIVE CODING · GENERATIVE ART',
     tagline:'An ongoing generation of butterflies, hatched from a study of real species: 477,693 so far. Draw a sketch to hatch your own.',
-    summary:'Living Butterfly Sketch is an ongoing generation of butterflies, hatched from a study of real species, their patterns and how they evolve. So far there are 477,693, from 71 species and the crosses of 235 related pairs. My goal is to create 100 million butterflies for this project. Every colour and marking is read from a museum specimen, and new butterflies arise as they do in nature: two related species cross, and each region of the wing is inherited whole from one parent. Anyone can draw a sketch and hatch a butterfly of their own.',
+    summary:['Living Butterfly Sketch is an ongoing generation of butterflies, hatched from a study of real species, their patterns and how they evolve. So far there are 477,693, from 71 species and the crosses of 235 related pairs. My goal is to create 100 million butterflies for this project.',
+      'Every colour and marking is read from a museum specimen, and new butterflies arise as they do in nature: two related species cross, and each region of the wing is inherited whole from one parent.'],
     liveFrame:'/artwork/living-butterfly/index.html?embed=panel',video:butterflyCard,poster:butterflyCardPoster},
   {id:'haunted-portal',title:'Looping Chapel',kind:'SOUND VISUALIZATION',tagline:'A sound visualization of a medieval chapel on a loop.',
     tech:['Blender','WebGL','Web Audio'],video:hauntedPortal,poster:hauntedPortalPoster,
