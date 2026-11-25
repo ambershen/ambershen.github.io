@@ -147,11 +147,17 @@ const projects=[
   {id:'soft-matter',title:'Soft Matter',tagline:softMatterTagline,page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
   // The piece itself runs in the panel: `liveFrame` is a page on this site, shown in place of a video.
   // Its files are not in this repo: the deploy copies them from ambershen/super-duper-umbrella (see deploy.yml).
-  {id:'living-butterfly',title:'Living Butterfly Sketch',kind:'CREATIVE CODING · GENERATIVE ART',
+  {id:'living-butterfly',title:'Living Butterfly Sketch',kind:'ARTIFICIAL EVOLUTION · INTERACTIVE INSTALLATION',
     tagline:'An ongoing generation of butterflies, hatched from a study of real species: 477,693 so far. Draw a sketch to hatch your own.',
     summary:['Living Butterfly Sketch is an ongoing generation of butterflies, hatched from a study of real species, their patterns and how they evolve. So far there are 477,693, from 71 species and the crosses of 235 related pairs. My goal is to create 100 million butterflies for this project.',
       'Every colour and marking is read from a museum specimen, and new butterflies arise as they do in nature: two related species cross, and each region of the wing is inherited whole from one parent.'],
-    liveFrame:'/artwork/living-butterfly/index.html?embed=panel',video:butterflyCard,poster:butterflyCardPoster},
+    liveFrame:'/artwork/living-butterfly/index.html?embed=panel',video:butterflyCard,poster:butterflyCardPoster,
+    sections:[
+      {title:'The question',text:'Can a generative system be both faithful to nature and expressive, and can people take part in its evolution? The project treats butterfly wings as a grammar: veins come first, markings sit between them, bands follow the margin. From that grammar it grows an artificial species, numbered and reproducible, that keeps evolving.'},
+      {title:'Reading real wings, with an AI and a person',text:'Each species begins as a photograph of a museum specimen. An AI model reads the photograph into a written layout of the wing, and I review every reading in a lab tool I built: approve it, send it back, or correct it by hand. Only species a person has approved enter the collection, so the AI proposes and a person decides.'},
+      {title:'Painted by motion',text:'Nothing is drawn as a shape. Tens of thousands of fibres stream along the veins on the GPU and paint the wing as they move. Blues and greens that come from the structure of the scales, not from pigment, turn with the light as the wings beat.'},
+      {title:'The butterfly house',text:'Projected on a wall, a hundred butterflies take turns in flight, and their flight paints the wall: each kind carries its own brush, so a glider leaves long sweeps and a flutterer short dabs. The room notices the people in it: gentle kinds come to circle a viewer, timid ones veer away.'}
+    ]},
   {id:'haunted-portal',title:'Looping Chapel',kind:'SOUND VISUALIZATION',tagline:'A sound visualization of a medieval chapel on a loop.',
     tech:['Blender','WebGL','Web Audio'],video:hauntedPortal,poster:hauntedPortalPoster,
     made:'The chapel, its doors and fog are a 3D scene in Blender, rendered as a 24-second loop. A WebGL and Web Audio layer then lights that video live: low frequencies drive the stained-glass glow, and sharp sounds flash along the architecture.'},
@@ -200,7 +206,7 @@ export {projects, items, sketchGroups, sketchDates};
 const [water,sand,ice]=naturalMedia;
 // A card's label row: `theme` (the research direction) and `form` (what kind of work it is). Cards without them still show `meta`.
 export const workCards=[
-  {project:'living-butterfly',title:'Living Butterfly Sketch',theme:'Artificial Evolution',form:'Interactive art',line:'An ongoing generation of butterflies, hatched from a study of real species: 477,693 so far. Draw a sketch to hatch your own.',loop:butterflyCard,thumb:butterflyCardPoster,links:[{label:'Try',url:'/artwork/living-butterfly/'}]},
+  {project:'living-butterfly',title:'Living Butterfly Sketch',theme:'Artificial Evolution',form:'Interactive installation',line:'An ongoing generation of butterflies, hatched from a study of real species: 477,693 so far. Draw a sketch to hatch your own.',loop:butterflyCard,thumb:butterflyCardPoster,links:[{label:'Try',url:'/artwork/living-butterfly/'},{label:'Butterfly house',url:'/artwork/living-butterfly/flight.html'}]},
   {project:'natural-effects',part:'water',home:true,title:'Natural Effects: Water',meta:'2026 · '+water.kind,line:'Can water carry the emotion in a voice? Speech is read for emotion, and the reading sets how ripples gather, spread and settle.',tile:'water',thumb:water.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=water'}]},
   {project:'natural-effects',part:'sand',home:true,title:'Natural Effects: Sand',meta:'2026 · '+sand.kind,line:'Sand as an infinite canvas for storytelling: an agent draws from learned sketches and tells art history in projected marks.',tile:'sand',thumb:sand.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=sand'}]},
   {project:'natural-effects',part:'ice',home:true,title:'Natural Effects: Ice',theme:'Material Memory',form:'Physical simulation',line:'A physical simulation of ice: friction leaves faint marks, and sustained pressure grows cracks that stay.',tile:'ice',thumb:ice.poster,links:[{label:'Try',url:'https://naturaleffects.vercel.app/?mode=ice'}]},
