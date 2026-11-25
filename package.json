@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "butterfly": "mkdir -p public/artwork/living-butterfly && cp ../super-duper-umbrella/index.html ../super-duper-umbrella/sketch.js ../super-duper-umbrella/liquid.js ../super-duper-umbrella/fibres.js ../super-duper-umbrella/species-data.js public/artwork/living-butterfly/"
+    "butterfly": "mkdir -p public/artwork/living-butterfly && cp ../super-duper-umbrella/index.html ../super-duper-umbrella/sketch.js ../super-duper-umbrella/liquid.js ../super-duper-umbrella/fibres.js ../super-duper-umbrella/species-data.js ../super-duper-umbrella/flight.html ../super-duper-umbrella/flight.js public/artwork/living-butterfly/"
   },
   "devDependencies": {
     "typescript": "^6.0.2",
