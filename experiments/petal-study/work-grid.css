@@ -60,3 +60,7 @@ body.case-open .work-rail{opacity:1;visibility:visible;transform:none;transition
 .home-work .work-tiles{padding-bottom:0}
 .home-work .work-tile-meta{margin-bottom:0}
 .home-work>.work-tile-actions{margin-top:44px}
+.project-film{aspect-ratio:16/9!important;margin-top:24px}.project-film-caption{margin:10px 0 28px;font-size:12px;opacity:.75}
+.dictionary-chapter > p.chapter-text + p.chapter-text{margin-top:18px}.dictionary-chapter > p.visual-study-description.project-media-caption{margin:10px 0 0;font-size:12px;opacity:.75;color:inherit;font-family:inherit;line-height:1.5}
+.case-slide-article .project-article:has(.dictionary-story) .project-summary{max-width:none}   /* with chapters below, the opening runs as wide as they do */
+.case-slide-article .dictionary-chapter > p.chapter-text,.case-slide-article .dictionary-chapter > p:last-child:not(.project-media-caption){font:400 19px/1.55 'Newsreader',serif}   /* chapter text the same size as the opening */

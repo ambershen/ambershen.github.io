@@ -12,6 +12,10 @@ import laundromatCard from '../../images/soft-matter/laundromat-card.mp4';
 import laundromatCardPoster from '../../images/soft-matter/laundromat-card.jpg';
 import butterflyCard from '../../images/living-butterfly/card.mp4';
 import butterflyCardPoster from '../../images/living-butterfly/card.jpg';
+import butterflyFilm from '../../images/living-butterfly/house-demo.mp4';
+import butterflyFilmPoster from '../../images/living-butterfly/house-demo.jpg';
+import butterflyCompare from '../../images/living-butterfly/monarch-specimen-and-generated.jpg';
+import butterflyWings from '../../images/living-butterfly/wings.mp4';
 
 const artworkAssets=import.meta.glob('../../images/art-paintings/*',{eager:true,query:'?url',import:'default'});
 const paintings=[
@@ -145,18 +149,24 @@ const items=[...interactive,...selectedPaintings.map(title=>({...paintings.find(
 const projects=[
   {id:'natural-effects',title:'Natural Effects as the New Brush',tagline:'Voice becomes ripples. Sketches become a story. Touch becomes fractured objects.',page:'/work/natural-expressions/'},   // opens the full case study
   {id:'soft-matter',title:'Soft Matter',tagline:softMatterTagline,page:'/work/soft-matter/',images:softMatterMedia.map(item=>item.image)},
-  // The piece itself runs in the panel: `liveFrame` is a page on this site, shown in place of a video.
+  // The piece itself runs in its chapters: a `live` media item is a page on this site (the hatch, the butterfly house), shown in place of a video.
   // Its files are not in this repo: the deploy copies them from ambershen/super-duper-umbrella (see deploy.yml).
-  {id:'living-butterfly',title:'Living Butterfly Sketch',kind:'ARTIFICIAL EVOLUTION · INTERACTIVE INSTALLATION',
+  {id:'living-butterfly',title:'Living Butterfly Sketch',kind:'ARTIFICIAL EVOLUTION · INTERACTIVE ART',
     tagline:'An ongoing generation of butterflies, hatched from a study of real species: 477,693 so far. Draw a sketch to hatch your own.',
-    summary:['Living Butterfly Sketch is an ongoing generation of butterflies, hatched from a study of real species, their patterns and how they evolve. So far there are 477,693, from 71 species and the crosses of 235 related pairs. My goal is to create 100 million butterflies for this project.',
-      'Every colour and marking is read from a museum specimen, and new butterflies arise as they do in nature: two related species cross, and each region of the wing is inherited whole from one parent.'],
-    liveFrame:'/artwork/living-butterfly/index.html?embed=panel',video:butterflyCard,poster:butterflyCardPoster,
+    summary:['Living Butterfly Sketch is an ongoing generation of butterflies, hatched from a study of real species, their patterns and how they evolve. So far there are almost 500,000 butterflies, created from 71 species and the crosses of 235 related pairs. My goal is to create 100 million butterflies for this project.'],
+    film:{video:butterflyFilm,poster:butterflyFilmPoster},
+    hideHero:true,video:butterflyCard,poster:butterflyCardPoster,
     sections:[
-      {title:'The question',text:'Can a generative system be both faithful to nature and expressive, and can people take part in its evolution? The project treats butterfly wings as a grammar: veins come first, markings sit between them, bands follow the margin. From that grammar it grows an artificial species, numbered and reproducible, that keeps evolving.'},
-      {title:'Reading real wings, with an AI and a person',text:'Each species begins as a photograph of a museum specimen. An AI model reads the photograph into a written layout of the wing, and I review every reading in a lab tool I built: approve it, send it back, or correct it by hand. Only species a person has approved enter the collection, so the AI proposes and a person decides.'},
-      {title:'Painted by motion',text:'Nothing is drawn as a shape. Tens of thousands of fibres stream along the veins on the GPU and paint the wing as they move. Blues and greens that come from the structure of the scales, not from pigment, turn with the light as the wings beat.'},
-      {title:'The butterfly house',text:'Projected on a wall, a hundred butterflies take turns in flight, and their flight paints the wall: each kind carries its own brush, so a glider leaves long sweeps and a flutterer short dabs. The room notices the people in it: gentle kinds come to circle a viewer, timid ones veer away.'}
+      {title:'Each butterfly originates from a real museum specimen',
+        text:'I built the generative butterfly library from the real colours and layouts of living butterfly wings. New butterflies arise as they do in nature: two related species cross, and each region of the wing is inherited whole from one parent. The generated patterns are labelled by hand and then studied by the model to improve the generation. With these combinations, applied to all of the roughly 20,000 butterfly species known today, the system could produce more than 20 billion artificial butterflies.',
+        media:[{image:butterflyCompare,alt:'A monarch butterfly specimen photograph beside the monarch generated from it',caption:'A monarch specimen (left; The University of Texas at Austin, via GBIF, CC0) and the monarch generated from it (right).'},
+               {video:butterflyWings,alt:'Generated butterflies beating their wings, one species after another'}]},
+      {title:'Hatch your own',
+        text:'Every visitor can choose to “hatch a butterfly”: they make a sketch, and we match it against the existing pieces.',
+        media:[{live:'/artwork/living-butterfly/index.html?embed=panel',alt:'Living Butterfly Sketch: hatch your own butterfly'}]},
+      {title:'The butterfly house',
+        text:'I then bring these butterflies together and let them paint the traces of their wings as they move. Each kind carries its own brush, so a glider leaves long sweeps and a flutterer short dabs, forming a unique painting every second. The piece can be projected as an artwork, and together with hatching their own butterflies, the audience can interact with the butterflies and the ephemeral painting.',
+        media:[{live:'/artwork/living-butterfly/flight.html',alt:'The butterfly house'}]}
     ]},
   {id:'haunted-portal',title:'Looping Chapel',kind:'SOUND VISUALIZATION',tagline:'A sound visualization of a medieval chapel on a loop.',
     tech:['Blender','WebGL','Web Audio'],video:hauntedPortal,poster:hauntedPortalPoster,

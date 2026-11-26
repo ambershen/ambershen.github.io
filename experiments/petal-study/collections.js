@@ -92,16 +92,31 @@ function projectArticle(project){
       figure.append(caption,media(study,true));studies.append(figure);
     });
     article.append(studies);
-  }else if(project.liveFrame){
+  }
+  if(project.film){   // a filmed demo of the work in a room, with sound, before the work itself
+    const film=node('video','archive-demo project-film');film.src=project.film.video;if(project.film.poster)film.poster=project.film.poster;film.controls=true;film.playsInline=true;film.preload='metadata';film.setAttribute('aria-label',project.film.caption||project.title);article.append(film);
+    if(project.film.caption)article.append(node('p','visual-study-description project-film-caption',project.film.caption));
+  }
+  if(!project.studies&&project.liveFrame){
     // the work itself, running; it rests by itself when the panel is closed or scrolled away
     const live=node('iframe','archive-demo project-live');live.src=project.liveFrame;live.title=project.title;live.allow='fullscreen';article.append(live);
-  }else if(!project.hideHero){
+  }else if(!project.studies&&!project.hideHero){
     const demo=media(project,true);if(project.poster)demo.poster=project.poster;demo.classList.add('archive-demo');if(project.portrait){demo.style.aspectRatio='9 / 16';demo.style.width='min(100%, 420px)';demo.style.margin='24px auto 0';}article.append(demo);
   }
   if(project.motionCaption)article.append(node('p','visual-study-description',project.motionCaption));
   if(project.sections){
     const story=node('div','dictionary-story');
-    project.sections.forEach((part,index)=>{const section=node('section','dictionary-chapter');section.append(node('p','selection-label',`0${index+1}`),node('h4','',part.title),node('p','',part.text));if(part.image){const image=node('img','project-process-image');image.src=part.image;image.alt=part.alt||part.title;image.loading='lazy';section.append(image);}story.append(section);});
+    project.sections.forEach((part,index)=>{const section=node('section','dictionary-chapter');section.append(node('p','selection-label',`0${index+1}`),node('h4','',part.title));
+      for(const text of [].concat(part.text))section.append(node('p','chapter-text',text));
+      // a chapter's pictures and films: an image, a video that plays silently on a loop, or the live piece, each with an optional caption
+      for(const m of [].concat(part.media||(part.image?{image:part.image,alt:part.alt}:[]))){
+        let el;
+        if(m.live){el=node('iframe','archive-demo project-live');el.src=m.live;el.title=m.alt||part.title;el.allow='fullscreen';el.loading='lazy';}   // the work itself, running
+        else if(m.video){el=node('video','project-process-image');el.src=m.video;if(m.poster)el.poster=m.poster;el.muted=true;el.loop=true;el.autoplay=true;el.playsInline=true;el.preload='metadata';el.setAttribute('aria-label',m.alt||m.caption||part.title);}
+        else{el=node('img','project-process-image');el.src=m.image;el.alt=m.alt||m.caption||part.title;el.loading='lazy';}
+        section.append(el);if(m.caption)section.append(node('p','visual-study-description project-media-caption',m.caption));
+      }
+      story.append(section);});
     article.append(story);
   }
   const notes=node('div','project-notes');

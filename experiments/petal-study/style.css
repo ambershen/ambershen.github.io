@@ -439,7 +439,7 @@ body.case-open{overflow:hidden}
 .dictionary-story { max-width: 860px; margin: 72px 0 24px; }
 .dictionary-chapter { padding: 36px 0; border-top: 1px solid #332c27; }
 .dictionary-chapter h4 { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 4vw, 46px); font-weight: 400; line-height: 1.12; margin: 16px 0 24px; }
-.dictionary-chapter > p:last-child { font-family: 'Newsreader', serif; font-size: clamp(20px, 2vw, 25px); line-height: 1.65; color: #a99b8f; }
+.dictionary-chapter > p:last-child, .dictionary-chapter > p.chapter-text { font-family: 'Newsreader', serif; font-size: clamp(20px, 2vw, 25px); line-height: 1.65; color: #a99b8f; }
 
 .sketch-filters{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 48px}
 .sketch-filters button{border:1px solid #332c27;border-radius:24px;background:transparent;color:#a99b8f;padding:12px 20px;font:13px 'Manrope',sans-serif;min-height:44px}

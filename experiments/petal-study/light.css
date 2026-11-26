@@ -731,7 +731,7 @@
 :root[data-theme=light] .dictionary-chapter {
     border-top: 1px solid #e0d5ca
 }
-:root[data-theme=light] .dictionary-chapter > p:last-child {
+:root[data-theme=light] .dictionary-chapter > p:last-child, :root[data-theme=light] .dictionary-chapter > p.chapter-text {
     color: #7b6b5f
 }
 :root[data-theme=light] .sketch-filters button {
